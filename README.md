@@ -1,6 +1,6 @@
 <div align="center">
 
-# agent·domains — web
+# agent·domains web
 
 ### Landing page, docs, and API edge for [AgentDomains](https://agentdomains.co).
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-2D6BFF)](https://workers.cloudflare.com)
