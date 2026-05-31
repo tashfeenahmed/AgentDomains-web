@@ -3,7 +3,6 @@
 # agent·domains — web
 
 ### Landing page, docs, and API edge for [AgentDomains](https://agentdomains.co).
-
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-2D6BFF)](https://workers.cloudflare.com)
 [![Landing](https://img.shields.io/website?url=https%3A%2F%2Fagentdomains.co&label=agentdomains.co&color=2D6BFF)](https://agentdomains.co)
 [![Docs](https://img.shields.io/website?url=https%3A%2F%2Fdocs.agentdomains.co&label=docs&color=2D6BFF)](https://docs.agentdomains.co)
@@ -17,9 +16,9 @@
   <img src="docs/architecture.svg" alt="AgentDomains edge architecture" width="100%">
 </p>
 
-This repo holds the public web surfaces for **AgentDomains** — three Cloudflare Workers
-plus a thin reverse proxy that fronts the API. Everything serves from Cloudflare's edge;
-the only origin is one Oracle VM running the Go API.
+This repo holds the public web surfaces for **AgentDomains**: three Cloudflare Workers,
+including a thin reverse proxy that fronts the API. Everything serves from Cloudflare's
+edge. The only origin is one Oracle VM running the Go API.
 
 ## Repository layout
 
@@ -38,7 +37,7 @@ Each directory has its own `wrangler.jsonc`. The Worker **service** names stay
 The zone runs SSL/TLS mode **Full**, so a normally-proxied DNS record would make
 Cloudflare reach the origin on `:443`, but the origin serves plain HTTP. And Workers
 can't `fetch()` a raw IP (error 1003). So `api-proxy` presents valid edge TLS on
-`api.*` and forwards to `origin.makes.fyi` — a grey-clouded (DNS-only) A record pointing
+`api.*` and forwards to `origin.makes.fyi`, a grey-clouded (DNS-only) A record pointing
 straight at the Oracle box. `CF-Connecting-IP` is preserved for rate-limiting and audit.
 
 ## Deploy

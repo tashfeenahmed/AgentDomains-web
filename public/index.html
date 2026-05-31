@@ -44,7 +44,8 @@
   }
 
   nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
-  .logo{font-size:1.8rem;font-weight:700;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--energy);text-underline-offset:6px}
+  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+  .logo .dot{color:var(--energy)}
   .nav-links{display:flex;gap:1.5rem;align-items:center}
   .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
   .nav-links a:hover{border-bottom:2px solid var(--energy);transform:rotate(-2deg)}
@@ -132,7 +133,7 @@
 <div class="dot-grid"></div>
 
 <nav>
-  <div class="logo">agent·domains</div>
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
     <a href="https://docs.agentdomains.co">Docs</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
