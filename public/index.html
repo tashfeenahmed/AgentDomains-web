@@ -40,8 +40,6 @@
   .domain{display:inline-flex;align-items:center;gap:3px;flex-wrap:wrap;justify-content:center;
     font-weight:800;font-size:clamp(1.7rem,6vw,3.4rem);margin:24px 0 8px;letter-spacing:-.02em}
   .domain .you{background:var(--blue);color:#fff;padding:4px 18px;border:2px solid var(--ink);border-radius:14px;box-shadow:var(--sh);transform:rotate(-2deg)}
-  .cursor{display:inline-block;width:.5ch;height:1em;background:var(--blue);margin-left:4px;animation:blink 1.1s steps(1) infinite}
-  @keyframes blink{50%{opacity:0}}
   .sub{font-size:1.25rem;font-weight:500;color:var(--muted);max-width:620px;margin:18px auto 32px;line-height:1.5}
 
   .cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
@@ -85,7 +83,7 @@
     <h1>Your agent built a site.<br><span class="b">Give it a domain.</span></h1>
 
     <div class="domain">
-      <span class="you">yourname</span><span>.makes.fyi</span><span class="cursor"></span>
+      <span class="you">yourname</span><span>.makes.fyi</span>
     </div>
     <p class="sub">When an agent ships a website or an API, it needs somewhere to put it.
        One command gets a working domain that the agent can wire up by itself.</p>
