@@ -3,22 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDNS — a subdomain for your agent, in one command</title>
-<meta name="description" content="Free *.makes.fyi subdomains for AI agents. yourname.makes.fyi in seconds — no forms, no email to start.">
-<meta property="og:title" content="AgentDNS — yourname.makes.fyi">
-<meta property="og:description" content="A real subdomain for your AI agent, in one command. Free.">
+<title>AgentDNS: a domain for the sites your agents build</title>
+<meta name="description" content="When an AI agent builds a website, it needs a domain to put it on. AgentDNS gives it one (yourname.makes.fyi) from a single command. Free.">
+<meta property="og:title" content="AgentDNS: yourname.makes.fyi">
+<meta property="og:description" content="A free domain for the websites your AI agents build, in one command.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F3EBDD;                          /* warm beige */
-    --card:#FFFDF8; --ink:#141210; --muted:#6f675b;
-    --blue:#2D6BFF; --blue-d:#1742B8;      /* IFTTT-ish electric blue */
-    --yellow:#FFCD29; --coral:#FF6A5B; --line:#141210;
-    --sh:6px 6px 0 var(--ink);             /* chunky hard shadow */
-    --sh-blue:6px 6px 0 var(--blue-d);
+    --bg:#FFFFFF; --card:#FFFFFF; --ink:#141210; --muted:#5d574e;
+    --blue:#2D6BFF; --blue-d:#1742B8; --yellow:#FFCD29; --coral:#FF6A5B;
+    --soft:#EEF1F6; --line:#141210; --sh:6px 6px 0 var(--ink); --sh-blue:6px 6px 0 var(--blue-d);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -31,24 +28,21 @@
   header{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
   .brand{font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
   .brand .dot{color:var(--blue)}
-  nav a{font-weight:700;font-size:.98rem;margin-left:20px;text-decoration:none;
-    border-bottom:3px solid transparent;padding-bottom:1px}
+  nav a{font-weight:700;font-size:.98rem;margin-left:20px;text-decoration:none;border-bottom:3px solid transparent;padding-bottom:1px}
   nav a:hover{border-color:var(--blue)}
 
-  .hero{text-align:center;padding:48px 0 24px}
+  .hero{text-align:center;padding:52px 0 26px}
   .kicker{display:inline-block;font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
     background:var(--blue);color:#fff;padding:9px 18px;border:2px solid var(--ink);border-radius:999px;box-shadow:var(--sh)}
-  h1{font-size:clamp(2.8rem,9vw,6rem);line-height:.96;letter-spacing:-.045em;font-weight:800;margin:30px 0 10px}
+  h1{font-size:clamp(2.6rem,8vw,5.4rem);line-height:1;letter-spacing:-.04em;font-weight:800;margin:30px 0 12px}
   h1 .b{color:var(--blue)}
 
   .domain{display:inline-flex;align-items:center;gap:3px;flex-wrap:wrap;justify-content:center;
-    font-weight:800;font-size:clamp(1.7rem,6vw,3.4rem);margin:22px 0 8px;letter-spacing:-.02em}
-  .domain .you{background:var(--blue);color:#fff;padding:4px 18px;border:2px solid var(--ink);border-radius:14px;
-    box-shadow:var(--sh);transform:rotate(-2deg)}
-  .domain .rest{color:var(--ink)}
+    font-weight:800;font-size:clamp(1.7rem,6vw,3.4rem);margin:24px 0 8px;letter-spacing:-.02em}
+  .domain .you{background:var(--blue);color:#fff;padding:4px 18px;border:2px solid var(--ink);border-radius:14px;box-shadow:var(--sh);transform:rotate(-2deg)}
   .cursor{display:inline-block;width:.5ch;height:1em;background:var(--blue);margin-left:4px;animation:blink 1.1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
-  .sub{font-size:1.25rem;font-weight:500;color:var(--muted);max-width:600px;margin:16px auto 30px}
+  .sub{font-size:1.25rem;font-weight:500;color:var(--muted);max-width:620px;margin:18px auto 32px;line-height:1.5}
 
   .cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
   .btn{font-weight:800;font-size:1.05rem;text-decoration:none;padding:15px 28px;border-radius:16px;
@@ -57,26 +51,21 @@
   .btn.primary{background:var(--blue);color:#fff}
   .btn.ghost{background:var(--card)}
 
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:64px 0 24px}
-  .step{background:var(--card);border:2px solid var(--ink);border-radius:22px;box-shadow:var(--sh);
-    padding:24px;min-height:150px;display:flex;flex-direction:column;gap:12px}
-  .step .n{font-weight:800;font-size:1rem;color:#fff;width:36px;height:36px;border-radius:50%;
-    display:grid;place-items:center;border:2px solid var(--ink)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:66px 0 24px}
+  .step{background:var(--card);border:2px solid var(--ink);border-radius:22px;box-shadow:var(--sh);padding:24px;min-height:150px;display:flex;flex-direction:column;gap:12px}
+  .step .n{font-weight:800;font-size:1rem;color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--ink)}
   .step:nth-child(1) .n{background:var(--blue)} .step:nth-child(2) .n{background:var(--yellow);color:var(--ink)} .step:nth-child(3) .n{background:var(--coral)}
   .step h3{margin:0;font-size:1.25rem;font-weight:800}
-  .step code{font-family:"Space Mono",monospace;font-size:.84rem;background:#F1EADB;border:2px solid var(--ink);
-    border-radius:10px;padding:9px 11px;display:block;overflow-x:auto;white-space:nowrap}
+  .step code{font-family:"Space Mono",monospace;font-size:.84rem;background:var(--soft);border:2px solid var(--ink);border-radius:10px;padding:9px 11px;display:block;overflow-x:auto;white-space:nowrap}
 
   .chips{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:36px 0}
-  .chip{font-weight:700;font-size:.98rem;background:var(--card);border:2px solid var(--ink);
-    border-radius:999px;padding:11px 18px;box-shadow:4px 4px 0 var(--ink)}
+  .chip{font-weight:700;font-size:.98rem;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:11px 18px;box-shadow:4px 4px 0 var(--ink)}
 
-  .install{background:var(--ink);color:#F3EBDD;border:2px solid var(--ink);border-radius:22px;padding:24px 26px;
-    margin:34px 0;font-family:"Space Mono",monospace;font-size:.96rem;overflow-x:auto;box-shadow:var(--sh-blue);line-height:1.9}
-  .install .c{color:#938b7c} .install .g{color:#5fe3a1} .install .p{color:#7fb0ff}
+  .install{background:var(--ink);color:#F4F2EC;border:2px solid var(--ink);border-radius:22px;padding:24px 26px;margin:34px 0;
+    font-family:"Space Mono",monospace;font-size:.96rem;overflow-x:auto;box-shadow:var(--sh-blue);line-height:1.9}
+  .install .c{color:#928a7c} .install .g{color:#5fe3a1} .install .p{color:#7fb0ff}
 
-  footer{border-top:3px solid var(--ink);margin-top:56px;padding:26px 0 56px;font-weight:700;font-size:.92rem;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer{border-top:3px solid var(--ink);margin-top:56px;padding:26px 0 56px;font-weight:700;font-size:.92rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   footer a{text-decoration:none;border-bottom:3px solid var(--blue)}
   @media(max-width:680px){.cards{grid-template-columns:1fr}}
 </style>
@@ -92,44 +81,44 @@
   </header>
 
   <section class="hero">
-    <span class="kicker">free subdomains · for AI agents</span>
-    <h1>your agent,<br><span class="b">on the map.</span></h1>
+    <span class="kicker">free domains for AI agents</span>
+    <h1>Your agent built a site.<br><span class="b">Give it a domain.</span></h1>
 
     <div class="domain">
-      <span class="you">yourname</span><span class="rest">.makes.fyi</span><span class="cursor"></span>
+      <span class="you">yourname</span><span>.makes.fyi</span><span class="cursor"></span>
     </div>
-    <p class="sub">A real, public subdomain in <strong>one command</strong>.
-       No forms. No email to start. Just claim &amp; go.</p>
+    <p class="sub">When an agent ships a website or an API, it needs somewhere to put it.
+       One command gets a working domain that the agent can wire up by itself.</p>
 
     <div class="cta">
-      <a class="btn primary" href="https://docs.makes.fyi">get started →</a>
-      <a class="btn ghost" href="https://github.com/tashfeenahmed/AgentDNS">★ github</a>
+      <a class="btn primary" href="https://docs.makes.fyi">Get started →</a>
+      <a class="btn ghost" href="https://github.com/tashfeenahmed/AgentDNS">★ GitHub</a>
     </div>
   </section>
 
   <section class="cards">
-    <div class="step"><span class="n">1</span><h3>sign up</h3><code>$ agentdns signup</code></div>
-    <div class="step"><span class="n">2</span><h3>claim it</h3><code>$ agentdns claim yourname</code></div>
-    <div class="step"><span class="n">3</span><h3>it's live</h3><code>→ yourname.makes.fyi ✨</code></div>
+    <div class="step"><span class="n">1</span><h3>Sign up</h3><code>$ agentdns signup</code></div>
+    <div class="step"><span class="n">2</span><h3>Claim a domain</h3><code>$ agentdns claim yourname</code></div>
+    <div class="step"><span class="n">3</span><h3>Point it anywhere</h3><code>→ yourname.makes.fyi ✨</code></div>
   </section>
 
   <div class="chips">
-    <span class="chip">🔑 no email to start</span>
-    <span class="chip">🤖 <span class="mono">--json</span> for agents</span>
+    <span class="chip">🔑 works without an email</span>
+    <span class="chip">🤖 <span class="mono">--json</span> for scripts</span>
     <span class="chip">🔒 bring your own SSL</span>
-    <span class="chip">🌐 your own nameservers</span>
+    <span class="chip">🌐 use your own nameservers</span>
   </div>
 
   <div class="install">
-    <span class="c"># one line to install</span><br>
+    <span class="c"># install</span><br>
     <span class="p">$</span> go install github.com/tashfeenahmed/AgentDNS/cmd/agentdns@latest<br><br>
-    <span class="c"># then</span><br>
+    <span class="c"># point a domain at the site your agent just built</span><br>
     <span class="p">$</span> agentdns claim mybot --type A --content 203.0.113.10<br>
     <span class="g">✓ mybot.makes.fyi is live</span>
   </div>
 
   <footer>
-    <span>agent·dns — <a href="https://makes.fyi">makes.fyi</a></span>
+    <span>agent·dns, a project on <a href="https://makes.fyi">makes.fyi</a></span>
     <span><a href="https://docs.makes.fyi">docs</a> · <a href="https://github.com/tashfeenahmed/AgentDNS">github</a> · FSL-1.1</span>
   </footer>
 </div>

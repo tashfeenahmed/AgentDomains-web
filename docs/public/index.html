@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AgentDNS Docs</title>
-<meta name="description" content="Documentation for AgentDNS — free *.makes.fyi subdomains for AI agents.">
+<meta name="description" content="Documentation for AgentDNS: free *.makes.fyi domains for the websites and APIs AI agents build.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F3EBDD; --card:#FFFDF8; --ink:#141210; --muted:#6f675b;
-    --blue:#2D6BFF; --blue-d:#1742B8; --line:#141210; --soft:#E7DFCF;
+    --bg:#FFFFFF; --card:#FFFFFF; --ink:#141210; --muted:#5d574e;
+    --blue:#2D6BFF; --blue-d:#1742B8; --line:#141210; --soft:#EEF1F6;
     --term:#141210; --sh:4px 4px 0 var(--ink);
   }
   *{box-sizing:border-box}
@@ -28,7 +28,7 @@
   aside a{display:block;color:var(--muted);padding:6px 0;font-size:.95rem;font-weight:700;text-decoration:none;
     border-left:3px solid transparent;padding-left:12px;margin-left:-12px}
   aside a:hover{color:var(--ink);border-color:var(--blue)}
-  aside .grp{margin-top:18px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#a59c8b;font-weight:800}
+  aside .grp{margin-top:18px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#9aa0ab;font-weight:800}
 
   main{padding:42px 0 90px;min-width:0}
   h1{font-size:2.6rem;letter-spacing:-.03em;font-weight:800;margin:.1em 0 .25em}
@@ -78,9 +78,10 @@
 
   <main>
     <h1 id="intro">AgentDNS</h1>
-    <p>AgentDNS gives any AI agent (or human) a free, real subdomain under
-    <code>makes.fyi</code> — claimable from a single CLI command. Point it at an IP,
-    a CNAME, delegate it to your own nameservers, or add TXT records for SSL.</p>
+    <p>When an AI agent builds a website or an API, it needs a domain to serve it on.
+    AgentDNS hands out free ones under <code>makes.fyi</code>, claimable from a single
+    CLI command. Point a domain at an IP or a CNAME, delegate it to your own
+    nameservers, or add TXT records to get HTTPS.</p>
     <p class="muted">API base: <code>https://api.makes.fyi</code> · CLI:
     <code>github.com/tashfeenahmed/AgentDNS</code> · source-available (FSL-1.1).</p>
 
@@ -96,16 +97,16 @@ agentdns --help</code></pre>
     <pre><code>agentdns signup                                   # instant account + API key
 agentdns claim myagent --type A --content 203.0.113.10
 dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pre>
-    <div class="note">No email is required to start. Your account is <strong>provisional</strong>
-    for 30 days — validate it (below) to keep it and raise your quota.</div>
+    <div class="note">No email is required to start. Your account stays <strong>provisional</strong>
+    for 30 days. Validate it (below) to keep it and raise your quota.</div>
 
     <h2 id="accounts">Accounts &amp; validation</h2>
     <p>Signup creates a <span class="pill">provisional</span> account with a quota of
-    <strong>1</strong> subdomain and a 30-day clock. To make it permanent and raise the
+    <strong>1</strong> domain and a 30-day clock. To make it permanent and raise the
     quota to <strong>3</strong>, a human attaches and confirms an email:</p>
     <pre><code>agentdns email you@example.com   # we send a link; a human clicks it
 agentdns whoami                  # state: verified once confirmed</code></pre>
-    <p>If an account is never validated within 30 days, it and its subdomains are
+    <p>If an account is never validated within 30 days, it and its domains are
     automatically removed and the names are released.</p>
 
     <h2 id="records">DNS records</h2>
@@ -122,9 +123,9 @@ agentdns get shop --json          # machine-readable</code></pre>
     </table>
 
     <h2 id="ssl">Getting HTTPS / SSL</h2>
-    <p>AgentDNS is a DNS provider — you bring your own certificate. Two easy paths:</p>
+    <p>AgentDNS handles DNS, so you bring your own certificate. Two paths:</p>
     <h3>HTTP-01 (simplest)</h3>
-    <p>Point your subdomain at your server, then let Let's Encrypt verify over HTTP:</p>
+    <p>Point your domain at your server, then let Let's Encrypt verify over HTTP:</p>
     <pre><code>agentdns claim mybot --type A --content "$(curl -s ifconfig.me)"
 sudo certbot certonly --standalone -d mybot.makes.fyi</code></pre>
     <h3>DNS-01 (no inbound server needed)</h3>
@@ -132,7 +133,7 @@ sudo certbot certonly --standalone -d mybot.makes.fyi</code></pre>
     <pre><code>agentdns txt mybot "&lt;token-from-acme-client&gt;" --host _acme-challenge</code></pre>
 
     <h2 id="delegation">Nameserver delegation</h2>
-    <p>Want full control of the subtree (your own records, MX, sub-subdomains)?
+    <p>Want full control of the subtree, with your own records, MX, and sub-domains?
     Delegate it to your nameservers:</p>
     <pre><code>agentdns ns mybot ns1.yourdns.com ns2.yourdns.com</code></pre>
     <p>From then on, <code>mybot.makes.fyi</code> and everything under it is served by your
@@ -143,7 +144,7 @@ sudo certbot certonly --standalone -d mybot.makes.fyi</code></pre>
     credentials from the environment so no interactive setup is needed:</p>
     <pre><code>export AGENTDNS_API_KEY=adns_...           # skip local config
 agentdns claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre>
-    <p>You can also call the HTTP API directly (below) — handy inside sandboxes.</p>
+    <p>You can also call the HTTP API directly (below), which is handy inside sandboxes.</p>
 
     <h2 id="commands">CLI commands</h2>
     <table>
@@ -152,12 +153,12 @@ agentdns claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre>
       <tr><td><code>agentdns whoami</code></td><td>Account state, quota, usage</td></tr>
       <tr><td><code>agentdns email &lt;addr&gt;</code></td><td>Attach an email for human validation</td></tr>
       <tr><td><code>agentdns claim &lt;label&gt;</code></td><td>Claim <code>&lt;label&gt;.makes.fyi</code> (+ optional <code>--type/--content/--host</code>)</td></tr>
-      <tr><td><code>agentdns list</code></td><td>List your subdomains</td></tr>
-      <tr><td><code>agentdns get &lt;label&gt;</code></td><td>Show one subdomain and its records</td></tr>
+      <tr><td><code>agentdns list</code></td><td>List your domains</td></tr>
+      <tr><td><code>agentdns get &lt;label&gt;</code></td><td>Show one domain and its records</td></tr>
       <tr><td><code>agentdns record &lt;label&gt;</code></td><td>Add a record: <code>--type --content [--host]</code></td></tr>
       <tr><td><code>agentdns ns &lt;label&gt; &lt;ns&gt;…</code></td><td>Delegate to your nameservers</td></tr>
       <tr><td><code>agentdns txt &lt;label&gt; &lt;value&gt;</code></td><td>Add a TXT record (<code>--host _acme-challenge</code>)</td></tr>
-      <tr><td><code>agentdns delete &lt;label&gt;</code></td><td>Delete a subdomain and its records</td></tr>
+      <tr><td><code>agentdns delete &lt;label&gt;</code></td><td>Delete a domain and its records</td></tr>
     </table>
     <p class="muted">Global flags: <code>--json</code>, <code>--api-url</code>. Env:
     <code>AGENTDNS_API_KEY</code>, <code>AGENTDNS_API_URL</code>.</p>
@@ -169,7 +170,7 @@ agentdns claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre>
       <tr><th>Method &amp; path</th><th>Description</th></tr>
       <tr><td><code>POST /v1/signup</code></td><td>Create a provisional account, returns <code>api_key</code></td></tr>
       <tr><td><code>GET /v1/whoami</code></td><td>Account info</td></tr>
-      <tr><td><code>POST /v1/account/email</code></td><td><code>{"email":"…"}</code> — send validation link</td></tr>
+      <tr><td><code>POST /v1/account/email</code></td><td><code>{"email":"…"}</code>, sends a validation link</td></tr>
       <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","type?","content?","host?"}</code></td></tr>
       <tr><td><code>GET /v1/subdomains</code></td><td>List</td></tr>
       <tr><td><code>GET /v1/subdomains/{label}</code></td><td>Show one</td></tr>
