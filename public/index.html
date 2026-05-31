@@ -1,125 +1,243 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDomains: a domain for the sites your agents build</title>
-<meta name="description" content="When an AI agent builds a website, it needs a domain to put it on. AgentDomains gives it one (yourname.makes.fyi) from a single command. Free.">
-<meta property="og:title" content="AgentDomains: yourname.makes.fyi">
-<meta property="og:description" content="A free domain for the websites your AI agents build, in one command.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDomains — free domains for the sites your agents build</title>
+<meta name="description" content="Your AI agent just built a site. Give it a real domain — makes.fyi or agentdomains.co — in one command. Free, no web forms, no email to start.">
+<meta property="og:title" content="AgentDomains — yourname.makes.fyi">
+<meta property="og:description" content="Free domains for the websites and APIs your AI agents build, in one command.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Rubik+Mono+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FFFFFF; --card:#FFFFFF; --ink:#141210; --muted:#5d574e;
-    --blue:#2D6BFF; --blue-d:#1742B8; --yellow:#FFCD29; --coral:#FF6A5B;
-    --soft:#EEF1F6; --line:#141210; --sh:6px 6px 0 var(--ink); --sh-blue:6px 6px 0 var(--blue-d);
+    --energy:#00CC74;   /* myenergi-style vivid green */
+    --lime:#C6F24E;     /* neon lime accent */
+    --ink:#0A0A0A;
+    --canvas:#FFFFFF;
+    --mint:#EFFCF5;
+    --energy-d:#00A85E;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  .mono{font-family:"Space Mono",ui-monospace,monospace}
+  body{
+    margin:0;background:var(--canvas);color:var(--ink);
+    font-family:'Gaegu',cursive;font-size:1.2rem;line-height:1.25;overflow-x:hidden;
+    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="%2300CC74" stroke-width="2.5"/></svg>') 11 11, auto;
+  }
   a{color:inherit}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{font-family:'Rubik Mono One',sans-serif;text-transform:uppercase;margin:0;line-height:.9}
+  input{cursor:text}
 
-  header{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
-  .brand{font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
-  .brand .dot{color:var(--blue)}
-  nav a{font-weight:700;font-size:.98rem;margin-left:20px;text-decoration:none;border-bottom:3px solid transparent;padding-bottom:1px}
-  nav a:hover{border-color:var(--blue)}
+  .checkerboard-bg{
+    background-image:
+      linear-gradient(45deg,var(--energy) 25%,transparent 25%),
+      linear-gradient(-45deg,var(--energy) 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,var(--energy) 75%),
+      linear-gradient(-45deg,transparent 75%,var(--energy) 75%);
+    background-size:42px 42px;background-position:0 0,0 21px,21px -21px,-21px 0;
+    opacity:.06;position:fixed;inset:0;z-index:-1;pointer-events:none;
+  }
 
-  .hero{text-align:center;padding:52px 0 26px}
-  .kicker{display:inline-block;font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;
-    background:var(--blue);color:#fff;padding:9px 18px;border:2px solid var(--ink);border-radius:999px;box-shadow:var(--sh)}
-  h1{font-size:clamp(2.6rem,8vw,5.4rem);line-height:1;letter-spacing:-.04em;font-weight:800;margin:30px 0 12px}
-  h1 .b{color:var(--blue)}
+  nav{display:flex;justify-content:space-between;padding:1.6rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
+  .logo{font-size:1.9rem;font-weight:700;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--energy);text-underline-offset:6px}
+  .nav-links{display:flex;gap:1.6rem;align-items:center}
+  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+  .nav-links a:hover{border-bottom:2px solid var(--energy);transform:rotate(-2deg)}
+  .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
+  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
 
-  .domain{display:inline-flex;align-items:center;gap:3px;flex-wrap:wrap;justify-content:center;
-    font-weight:800;font-size:clamp(1.7rem,6vw,3.4rem);margin:24px 0 8px;letter-spacing:-.02em}
-  .domain .you{background:var(--blue);color:#fff;padding:4px 18px;border:2px solid var(--ink);border-radius:14px;box-shadow:var(--sh);transform:rotate(-2deg)}
-  .sub{font-size:1.25rem;font-weight:500;color:var(--muted);max-width:620px;margin:18px auto 32px;line-height:1.5}
+  .hero{padding:3rem 2rem;display:grid;grid-template-columns:1.1fr .9fr;min-height:72vh;align-items:center;gap:2rem}
+  .hero-title{font-size:clamp(3rem,9vw,7rem);margin-bottom:1.2rem;letter-spacing:-2px}
+  .hero-title .g{color:var(--energy)}
+  .hero-subtitle{font-size:1.5rem;max-width:520px;padding:1rem 1.3rem;border:3px solid var(--ink);
+    border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block;transform:rotate(-1.5deg)}
+  .hero-subtitle b{color:var(--energy-d)}
 
-  .cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-  .btn{font-weight:800;font-size:1.05rem;text-decoration:none;padding:15px 28px;border-radius:16px;
-    border:2px solid var(--ink);box-shadow:var(--sh);transition:transform .08s,box-shadow .08s}
-  .btn:active{transform:translate(6px,6px);box-shadow:none}
-  .btn.primary{background:var(--blue);color:#fff}
-  .btn.ghost{background:var(--card)}
+  .domain-search{margin-top:2.4rem}
+  .metadata{font-family:'Space Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;opacity:.6}
+  .input-wrapper{display:flex;align-items:center;background:#fff;border:4px solid var(--ink);padding:.7rem .9rem;
+    border-radius:12px;box-shadow:8px 8px 0 var(--energy);max-width:680px;transition:transform .15s}
+  .input-wrapper input{border:none;outline:none;font-family:'Space Mono',monospace;font-size:clamp(1.3rem,4vw,2.1rem);width:100%;color:var(--ink);background:transparent}
+  .suffix{font-family:'Space Mono',monospace;font-size:clamp(1rem,3vw,1.5rem);background:var(--ink);color:#fff;
+    padding:.45rem .8rem;border-radius:6px;margin-left:.8rem;white-space:nowrap;border:2px solid var(--ink)}
+  .suffix:hover{background:var(--energy);color:var(--ink)}
+  .search-note{font-size:1.05rem;margin-top:.7rem;opacity:.75}
 
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:66px 0 24px}
-  .step{background:var(--card);border:2px solid var(--ink);border-radius:22px;box-shadow:var(--sh);padding:24px;min-height:150px;display:flex;flex-direction:column;gap:12px}
-  .step .n{font-weight:800;font-size:1rem;color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--ink)}
-  .step:nth-child(1) .n{background:var(--blue)} .step:nth-child(2) .n{background:var(--yellow);color:var(--ink)} .step:nth-child(3) .n{background:var(--coral)}
-  .step h3{margin:0;font-size:1.25rem;font-weight:800}
-  .step code{font-family:"Space Mono",monospace;font-size:.84rem;background:var(--soft);border:2px solid var(--ink);border-radius:10px;padding:9px 11px;display:block;overflow-x:auto;white-space:nowrap}
+  .btn{display:inline-block;padding:.9rem 1.8rem;background:var(--energy);color:var(--ink);text-decoration:none;
+    font-family:'Rubik Mono One',sans-serif;font-size:1rem;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    border-radius:8px;transition:.12s;margin-top:1.6rem}
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.ghost{background:#fff}
+  .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
 
-  .chips{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:36px 0}
-  .chip{font-weight:700;font-size:.98rem;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:11px 18px;box-shadow:4px 4px 0 var(--ink)}
+  .dragon-container{display:flex;justify-content:center;align-items:center}
+  .dragon-svg{width:115%;height:auto;transform:rotate(-5deg);filter:drop-shadow(10px 10px 0 rgba(0,204,116,.22))}
+  .scribble-path{fill:none;stroke:var(--energy);stroke-width:42;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:2000;stroke-dashoffset:2000;animation:draw 3s ease-out forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
 
-  .install{background:var(--ink);color:#F4F2EC;border:2px solid var(--ink);border-radius:22px;padding:24px 26px;margin:34px 0;
-    font-family:"Space Mono",monospace;font-size:.96rem;overflow-x:auto;box-shadow:var(--sh-blue);line-height:1.9}
-  .install .c{color:#928a7c} .install .g{color:#5fe3a1} .install .p{color:#7fb0ff}
+  /* terminal band */
+  .term{margin:1rem 2rem 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
+    box-shadow:10px 10px 0 var(--lime);padding:1.4rem 1.6rem;font-family:'Space Mono',monospace;font-size:1rem;overflow-x:auto;line-height:1.9}
+  .term .c{color:#8a8a8a}.term .g{color:var(--energy)}.term .p{color:var(--lime)}
 
-  footer{border-top:3px solid var(--ink);margin-top:56px;padding:26px 0 56px;font-weight:700;font-size:.92rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-  footer a{text-decoration:none;border-bottom:3px solid var(--blue)}
-  @media(max-width:680px){.cards{grid-template-columns:1fr}}
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:4rem 2rem 2rem}
+  .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
+  .feature-card:nth-child(1){border-radius:50px 10px 40px 20px;transform:rotate(-1deg)}
+  .feature-card:nth-child(2){border-radius:15px 55px 20px 45px;transform:rotate(1deg);background:var(--ink);color:#fff}
+  .feature-card:nth-child(3){border-radius:30px 20px 50px 15px;transform:rotate(-.5deg)}
+  .feature-card:nth-child(4){border-radius:20px 45px 15px 50px;transform:rotate(.8deg)}
+  .feature-card:hover{transform:scale(1.02) rotate(0);box-shadow:12px 12px 0 var(--energy)}
+  .feature-card h3{font-size:1.4rem;margin-bottom:.7rem;color:var(--energy-d)}
+  .feature-card:nth-child(2) h3{color:var(--lime)}
+  .feature-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .feature-card:nth-child(2) code{background:#1c1c1c;color:var(--lime);border-color:#333}
+
+  footer{padding:4rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:2rem}
+  footer h2{font-size:clamp(2rem,6vw,3.2rem)}
+  footer h2 .g{color:var(--energy)}
+  .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
+  .foot-links{display:flex;gap:1.2rem;margin-top:1rem}
+  .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+
+  @media(max-width:1024px){.hero{grid-template-columns:1fr}.dragon-container{display:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand">agent<span class="dot">·</span>domains</div>
-    <nav>
-      <a href="https://docs.agentdomains.co">docs</a>
-      <a href="https://github.com/tashfeenahmed/AgentDomains">github</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <span class="kicker">free domains for AI agents</span>
-    <h1>Your agent built a site.<br><span class="b">Give it a domain.</span></h1>
+<div class="checkerboard-bg"></div>
 
-    <div class="domain">
-      <span class="you">yourname</span><span>.makes.fyi</span>
-    </div>
-    <p class="sub">When an agent ships a website or an API, it needs somewhere to put it.
-       One command gets a working domain, under <strong>makes.fyi</strong> or
-       <strong>agentdomains.co</strong>, that the agent can wire up by itself.</p>
-
-    <div class="cta">
-      <a class="btn primary" href="https://docs.agentdomains.co">Get started →</a>
-      <a class="btn ghost" href="https://github.com/tashfeenahmed/AgentDomains">★ GitHub</a>
-    </div>
-  </section>
-
-  <section class="cards">
-    <div class="step"><span class="n">1</span><h3>Sign up</h3><code>$ agentdomains signup</code></div>
-    <div class="step"><span class="n">2</span><h3>Claim a domain</h3><code>$ agentdomains claim yourname</code></div>
-    <div class="step"><span class="n">3</span><h3>Point it anywhere</h3><code>→ yourname.makes.fyi ✨</code></div>
-  </section>
-
-  <div class="chips">
-    <span class="chip">🔑 works without an email</span>
-    <span class="chip">🤖 <span class="mono">--json</span> for scripts</span>
-    <span class="chip">🔒 bring your own SSL</span>
-    <span class="chip">🌐 use your own nameservers</span>
+<nav>
+  <div class="logo">agent·domains</div>
+  <div class="nav-links">
+    <a href="https://docs.agentdomains.co">Docs</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
   </div>
+</nav>
 
-  <div class="install">
-    <span class="c"># install</span><br>
+<main>
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="hero-title">FREE<br>DOMAINS<br><span class="g">FOR AGENTS.</span></h1>
+      <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain — <b>makes.fyi</b> or <b>agentdomains.co</b> — in one command.</p>
+
+      <div class="domain-search">
+        <div class="metadata">// claimed from the CLI in one command</div>
+        <div class="input-wrapper">
+          <input type="text" placeholder="my-agent" id="domain-input" aria-label="your domain name">
+          <span class="suffix" id="suffix" title="click to switch domain">.makes.fyi</span>
+        </div>
+        <p class="search-note">No web forms. No email to start. Point it anywhere. ✨</p>
+        <div class="btn-row">
+          <a href="https://docs.agentdomains.co" class="btn">GET STARTED →</a>
+          <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost">★ GITHUB</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dragon-container">
+      <svg viewBox="0 0 500 500" class="dragon-svg" aria-hidden="true">
+        <path class="scribble-path" d="M 50,400 C 50,100 150,50 250,250 C 350,450 450,150 450,50"></path>
+        <g stroke="var(--ink)" stroke-width="3" fill="none">
+          <path d="M 430,30 Q 450,10 470,30 L 480,60 Q 450,80 430,60 Z" fill="var(--energy)"></path>
+          <circle cx="455" cy="40" r="3" fill="var(--ink)"></circle>
+          <circle cx="465" cy="45" r="3" fill="var(--ink)"></circle>
+          <path d="M 450,20 L 440,0" stroke="var(--lime)" stroke-width="6"></path>
+          <path d="M 465,25 L 475,5" stroke="var(--lime)" stroke-width="6"></path>
+          <path d="M 100,300 Q 110,290 120,300"></path>
+          <path d="M 150,250 Q 160,240 170,250"></path>
+          <path d="M 300,350 Q 310,340 320,350"></path>
+        </g>
+        <g transform="translate(180,150) rotate(-10)">
+          <path d="M 0,0 Q 20,-100 40,0 L 40,120 Q 20,130 0,120 Z" fill="#fff" stroke="var(--ink)" stroke-width="3"></path>
+          <circle cx="15" cy="30" r="2" fill="var(--ink)"></circle>
+          <circle cx="25" cy="30" r="2" fill="var(--ink)"></circle>
+          <path d="M 10,40 Q 20,45 30,40" stroke="var(--ink)" fill="none"></path>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="term">
+    <span class="c"># install the CLI</span><br>
     <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
     <span class="c"># point a domain at the site your agent just built</span><br>
-    <span class="p">$</span> agentdomains claim mybot --type A --content 203.0.113.10<br>
-    <span class="g">✓ mybot.makes.fyi is live</span>
+    <span class="p">$</span> agentdomains claim myapp --type A --content 203.0.113.10<br>
+    <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
   </div>
 
+  <section class="features">
+    <div class="feature-card">
+      <div class="metadata">01 / CLI</div>
+      <h3>One command</h3>
+      <p><code>agentdomains claim myapp</code> and your domain resolves on the public internet in seconds. Add <code>--json</code> for clean machine output.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="metadata" style="color:var(--lime)">02 / SIGNUP</div>
+      <h3>No human needed</h3>
+      <p><code>signup</code> hands your agent an API key instantly — no email to start. A human validates later with one link to keep it.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="metadata">03 / HTTPS</div>
+      <h3>Bring your own SSL</h3>
+      <p>Point a domain at your server and Let's Encrypt HTTP-01 just works, or drop the ACME token in a TXT record for DNS-01.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="metadata">04 / CHOICE</div>
+      <h3>Two domains</h3>
+      <p>Claim under <code>makes.fyi</code> or <code>agentdomains.co</code> with <code>--domain</code>. The same name can live under each.</p>
+    </div>
+  </section>
+
   <footer>
-    <span>agent·domains, free domains for the sites agents build</span>
-    <span><a href="https://docs.agentdomains.co">docs</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">github</a> · FSL-1.1</span>
+    <div>
+      <h2>FREE DOMAINS<br>FOR THE SITES<br><span class="g">AGENTS BUILD.</span></h2>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
+    </div>
+    <div style="text-align:right">
+      <div class="metadata">Find us</div>
+      <div class="foot-links">
+        <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+      </div>
+    </div>
   </footer>
-</div>
+</main>
+
+<script>
+  // playful wobble on the search box as you type
+  const input = document.getElementById('domain-input');
+  const wrap = input.parentElement;
+  input.addEventListener('input', e => {
+    const n = e.target.value.length;
+    wrap.style.transform = n ? `rotate(${Math.sin(n) * 1.6}deg)` : 'rotate(0deg)';
+  });
+
+  // click the suffix to toggle between the two domains
+  const suffix = document.getElementById('suffix');
+  const domains = ['.makes.fyi', '.agentdomains.co'];
+  let di = 0;
+  suffix.addEventListener('click', () => {
+    di = (di + 1) % domains.length;
+    suffix.textContent = domains[di];
+  });
+
+  // subtle parallax on the scribble creature
+  const dragon = document.querySelector('.dragon-svg');
+  if (dragon) document.addEventListener('mousemove', e => {
+    const x = (window.innerWidth / 2 - e.pageX) / 55;
+    const y = (window.innerHeight / 2 - e.pageY) / 55;
+    dragon.style.transform = `rotate(-5deg) translate(${x}px, ${y}px)`;
+  });
+</script>
 </body>
 </html>
