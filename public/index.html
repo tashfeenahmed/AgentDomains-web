@@ -70,6 +70,13 @@
     padding:.4rem .75rem;border-radius:6px;margin-left:.7rem;white-space:nowrap;border:2px solid var(--ink)}
   .suffix:hover{background:var(--energy);color:var(--ink)}
   .search-note{font-size:1.02rem;margin-top:.6rem;opacity:.75}
+  .check{margin-top:.8rem;font-size:1.2rem;min-height:1.6rem;max-width:640px}
+  .check .ok{color:var(--energy-d);font-weight:700}
+  .check .no{color:#c0392b;font-weight:700}
+  .check .dim{opacity:.55}
+  .check .cmd{display:inline-block;font-family:'Space Mono',monospace;font-size:.92rem;background:var(--ink);color:var(--lime);
+    border:2px solid var(--ink);border-radius:8px;padding:.3rem .6rem;margin-top:.45rem;box-shadow:3px 3px 0 var(--energy)}
+  .check .cmd:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--energy)}
   .btn{display:inline-block;padding:.85rem 1.7rem;background:var(--energy);color:var(--ink);text-decoration:none;
     font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
     border-radius:8px;transition:.12s;margin-top:1.3rem}
@@ -149,6 +156,7 @@
           <input type="text" placeholder="my-agent" id="domain-input" aria-label="your domain name">
           <span class="suffix" id="suffix" title="click to switch domain">.makes.fyi</span>
         </div>
+        <div class="check" id="check" aria-live="polite"></div>
         <p class="search-note">No web forms. No email to start. Point it anywhere. ✨</p>
         <div class="btn-row">
           <a href="https://docs.agentdomains.co" class="btn">GET STARTED →</a>
@@ -231,7 +239,40 @@
   const suffix = document.getElementById('suffix');
   const domains = ['.makes.fyi', '.agentdomains.co'];
   let di = 0;
-  suffix.addEventListener('click', () => { di = (di + 1) % domains.length; suffix.textContent = domains[di]; });
+  suffix.addEventListener('click', () => { di = (di + 1) % domains.length; suffix.textContent = domains[di]; runCheck(); });
+
+  // live availability check against the public API
+  const API = 'https://api.agentdomains.co';
+  const checkEl = document.getElementById('check');
+  const curDomain = () => suffix.textContent.replace(/^\./, '');
+  let checkTimer;
+  function runCheck(){
+    const label = input.value.trim().toLowerCase();
+    const domain = curDomain();
+    if (!label) { checkEl.innerHTML = ''; return; }
+    checkEl.innerHTML = '<span class="dim">checking…</span>';
+    fetch(`${API}/v1/available?label=${encodeURIComponent(label)}&domain=${encodeURIComponent(domain)}`)
+      .then(r => r.json())
+      .then(d => {
+        if (input.value.trim().toLowerCase() !== label || curDomain() !== domain) return; // stale
+        if (d.reason === 'available') {
+          const cmd = 'agentdomains claim ' + label + (domain === 'makes.fyi' ? '' : ' --domain ' + domain);
+          checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy">${cmd}</code>`;
+          const c = checkEl.querySelector('.cmd');
+          c.addEventListener('click', () => {
+            (navigator.clipboard ? navigator.clipboard.writeText(cmd) : Promise.resolve()).finally(() => {
+              const orig = c.textContent; c.textContent = '✓ copied — paste to your agent'; setTimeout(() => c.textContent = orig, 1400);
+            });
+          });
+        } else if (d.reason === 'taken') {
+          checkEl.innerHTML = `<span class="no">😅 ${d.fqdn} is already taken</span> — try another.`;
+        } else {
+          checkEl.innerHTML = `<span class="no">✍️ ${d.detail || "that name won't work"}</span>`;
+        }
+      })
+      .catch(() => { checkEl.innerHTML = '<span class="dim">couldn\'t reach the registry — try again</span>'; });
+  }
+  input.addEventListener('input', () => { clearTimeout(checkTimer); checkTimer = setTimeout(runCheck, 350); });
 
   // draw-anywhere doodle layer. Canvas is pointer-events:none, so the UI stays
   // clickable; we listen on window and draw while the mouse button is held.
