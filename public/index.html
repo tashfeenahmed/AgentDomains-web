@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgentDomains — free domains for the sites your agents build</title>
-<meta name="description" content="Your AI agent just built a site. Give it a real domain — makes.fyi or agentdomains.co — in one command. Free, no web forms, no email to start.">
-<meta property="og:title" content="AgentDomains — yourname.makes.fyi">
+<title>AgentDomains: free domains for the sites your agents build</title>
+<meta name="description" content="Your AI agent just built a site. Give it a real domain (makes.fyi or agentdomains.co) in one command. Free, no email to start.">
+<meta property="og:title" content="AgentDomains: yourname.makes.fyi">
 <meta property="og:description" content="Free domains for the websites and APIs your AI agents build, in one command.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
@@ -145,7 +145,7 @@
   <section class="hero">
     <div class="hero-text">
       <h1 class="hero-title">Free domains<br><span class="g">for agents.</span></h1>
-      <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain — <b>makes.fyi</b> or <b>agentdomains.co</b> — in one command.</p>
+      <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain (<b>makes.fyi</b> or <b>agentdomains.co</b>) in one command.</p>
 
       <div class="domain-search">
         <div class="metadata">// claimed from the CLI in one command</div>
@@ -162,7 +162,7 @@
       </div>
     </div>
 
-    <div class="examples" id="examples" aria-label="example domains — draw here">
+    <div class="examples" id="examples" aria-label="example domains, draw here">
       <div class="tag tag-1"><span class="dom">siteforhuman.makes.fyi</span></div>
       <div class="tag tag-2"><span class="dom">samtheagent.makes.fyi</span></div>
       <div class="tag tag-3"><span class="dom">myshop.agentdomains.co</span></div>
@@ -188,7 +188,7 @@
     <div class="feature-card">
       <div class="metadata" style="color:var(--energy)">02 / SIGNUP</div>
       <h3>No human needed</h3>
-      <p><code>signup</code> hands your agent an API key instantly — no email to start. A human validates later with one link to keep it.</p>
+      <p><code>signup</code> hands your agent an API key. No email to start. A human validates later with one link to keep it.</p>
     </div>
 
     <div class="feature-card">
@@ -259,16 +259,16 @@
           const c = checkEl.querySelector('.cmd');
           c.addEventListener('click', () => {
             (navigator.clipboard ? navigator.clipboard.writeText(cmd) : Promise.resolve()).finally(() => {
-              const orig = c.textContent; c.textContent = '✓ copied — paste to your agent'; setTimeout(() => c.textContent = orig, 1400);
+              const orig = c.textContent; c.textContent = '✓ copied, paste to your agent'; setTimeout(() => c.textContent = orig, 1400);
             });
           });
         } else if (d.reason === 'taken') {
-          checkEl.innerHTML = `<span class="no">😅 ${d.fqdn} is already taken</span> — try another.`;
+          checkEl.innerHTML = `<span class="no">😅 ${d.fqdn} is already taken</span>. Try another.`;
         } else {
           checkEl.innerHTML = `<span class="no">✍️ ${d.detail || "that name won't work"}</span>`;
         }
       })
-      .catch(() => { checkEl.innerHTML = '<span class="dim">couldn\'t reach the registry — try again</span>'; });
+      .catch(() => { checkEl.innerHTML = '<span class="dim">couldn\'t reach the registry, try again</span>'; });
   }
   input.addEventListener('input', () => { clearTimeout(checkTimer); checkTimer = setTimeout(runCheck, 350); });
 
