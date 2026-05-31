@@ -31,8 +31,10 @@
   h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.92;letter-spacing:-1px}
   input{cursor:text}
 
-  /* full-screen doodle layer — never blocks clicks (pointer-events:none) */
-  #doodle{position:fixed;inset:0;z-index:60;pointer-events:none}
+  /* doodle layer — never blocks clicks (pointer-events:none). Explicit size:
+     a <canvas> is a replaced element, so inset:0 alone keeps its intrinsic
+     300x150 and the backing store maps wrong; 100vw/100vh fixes the offset. */
+  #doodle{position:fixed;inset:0;width:100vw;height:100vh;z-index:60;pointer-events:none}
 
   .checkerboard-bg{
     background-image:
@@ -75,20 +77,16 @@
   .btn.ghost{background:#fff}
   .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
 
-  /* right-side scribbled example domains */
-  .examples{position:relative;min-height:320px;display:flex;flex-direction:column;justify-content:center;gap:1.6rem;padding:1rem}
+  /* right-side scribbled example domains — also the draw zone (white pencil cursor) */
+  .examples{position:relative;align-self:stretch;min-height:48vh;display:flex;flex-direction:column;justify-content:center;gap:1.8rem;padding:1rem;
+    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M21 3 l6 6 -14 14 -6 0 0 -6 z" fill="white" stroke="%230A0A0A" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 17 l6 6 -6 0 z" fill="%230A0A0A"/><path d="M18 6 l6 6" stroke="%230A0A0A" stroke-width="1.6"/></svg>') 7 23, crosshair}
   .tag{font-family:'Gaegu',cursive;font-weight:700;font-size:clamp(1.4rem,3.2vw,2.2rem);color:var(--ink);
-    display:inline-flex;align-items:baseline;gap:.5rem;width:fit-content;transition:transform .2s}
+    display:inline-flex;align-items:baseline;width:fit-content;transition:transform .2s}
   .tag .dom{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--energy);text-underline-offset:5px}
-  .tag .live{font-size:.62em;color:var(--energy-d);font-weight:700}
   .tag-1{transform:rotate(-3deg);margin-left:1rem}
   .tag-2{transform:rotate(2deg);align-self:flex-end;margin-right:1rem}
   .tag-3{transform:rotate(-1.5deg);margin-left:2.5rem}
   .tag:hover{transform:rotate(0) scale(1.05)}
-  .doodle{position:absolute;pointer-events:none}
-  .d-arrow{top:30px;right:18%;width:120px}
-  .d-star{top:6px;left:6%;width:46px}
-  .d-squiggle{bottom:6px;left:14%;width:170px}
 
   /* terminal band */
   .term{margin:.5rem 2rem 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
@@ -114,12 +112,11 @@
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
 
-  /* doodle controls */
-  .doodle-ctl{position:fixed;bottom:14px;right:14px;z-index:70;display:flex;gap:.5rem;align-items:center;
-    font-family:'Space Mono',monospace;font-size:.8rem}
-  .doodle-ctl .hint{background:#fff;border:2px solid var(--ink);border-radius:20px;padding:.25rem .7rem;opacity:.85}
+  /* clear control — hidden until something is drawn */
+  .doodle-ctl{position:fixed;bottom:14px;right:14px;z-index:70;display:none}
+  .doodle-ctl.show{display:block}
   .doodle-ctl button{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--lime);border:2px solid var(--ink);
-    border-radius:20px;padding:.25rem .8rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+    border-radius:20px;padding:.3rem .9rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
   .doodle-ctl button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 
   @media(max-width:1024px){.hero{grid-template-columns:1fr}.examples{order:2;min-height:260px}}
@@ -160,23 +157,10 @@
       </div>
     </div>
 
-    <div class="examples" aria-label="example domains">
-      <div class="metadata">// claimed today</div>
-      <div class="tag tag-1"><span class="dom">siteforhuman.makes.fyi</span> <span class="live">✓ live</span></div>
-      <div class="tag tag-2"><span class="dom">samtheagent.makes.fyi</span> <span class="live">✓ live</span></div>
-      <div class="tag tag-3"><span class="dom">myshop.agentdomains.co</span> <span class="live">✓ live</span></div>
-
-      <!-- hand-drawn doodle accents -->
-      <svg class="doodle d-star" viewBox="0 0 40 40" fill="none" stroke="var(--lime)" stroke-width="3" stroke-linecap="round">
-        <path d="M20 4 L24 16 L37 16 L26 24 L30 36 L20 28 L10 36 L14 24 L3 16 L16 16 Z"/>
-      </svg>
-      <svg class="doodle d-arrow" viewBox="0 0 120 60" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 40 C 30 50, 70 50, 110 14"/>
-        <path d="M110 14 L96 18 M110 14 L104 30"/>
-      </svg>
-      <svg class="doodle d-squiggle" viewBox="0 0 170 24" fill="none" stroke="var(--energy)" stroke-width="4" stroke-linecap="round">
-        <path d="M4 12 Q 20 -2 36 12 T 68 12 T 100 12 T 132 12 T 164 12"/>
-      </svg>
+    <div class="examples" id="examples" aria-label="example domains — draw here">
+      <div class="tag tag-1"><span class="dom">siteforhuman.makes.fyi</span></div>
+      <div class="tag tag-2"><span class="dom">samtheagent.makes.fyi</span></div>
+      <div class="tag tag-3"><span class="dom">myshop.agentdomains.co</span></div>
     </div>
   </section>
 
@@ -230,9 +214,8 @@
   </footer>
 </main>
 
-<div class="doodle-ctl">
-  <span class="hint">✏️ drag anywhere to doodle</span>
-  <button id="clear-doodle" type="button">clear</button>
+<div class="doodle-ctl" id="doodle-ctl">
+  <button id="clear-doodle" type="button">🧹 clear</button>
 </div>
 
 <script>
@@ -264,26 +247,42 @@
   sizeCanvas();
   let resizeTimer; addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(sizeCanvas, 150); });
 
-  let drawing = false, lx = 0, ly = 0;
+  // drawing is allowed only inside the right-side domains zone
+  const zone = document.getElementById('examples');
+  const ctl = document.getElementById('doodle-ctl');
+  let hasDrawn = false;
+  const inZone = e => {
+    const r = zone.getBoundingClientRect();
+    return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+  };
+  function markDrawn(){ if (!hasDrawn){ hasDrawn = true; ctl.classList.add('show'); } }
+
+  let drawing = false, lx = null, ly = null;
   function down(e){
-    if (e.pointerType === 'touch') return;        // keep mobile scrolling clean
+    if (e.pointerType === 'touch' || !inZone(e)) return;  // right zone only; keep mobile scroll clean
     drawing = true; lx = e.clientX; ly = e.clientY;
     ctx.beginPath(); ctx.arc(lx, ly, ctx.lineWidth / 2, 0, Math.PI * 2);
-    ctx.fillStyle = ctx.strokeStyle; ctx.fill();   // a dot, so a click leaves a mark too
+    ctx.fillStyle = ctx.strokeStyle; ctx.fill();          // dot, so a tap leaves a mark
+    markDrawn();
   }
   function move(e){
     if (!drawing) return;
+    if (!inZone(e)) { lx = null; return; }                // pen lifts when you leave the zone
     const x = e.clientX, y = e.clientY;
+    if (lx === null) { lx = x; ly = y; return; }           // re-entered: no jump line
     ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke();
-    lx = x; ly = y;
+    lx = x; ly = y; markDrawn();
   }
-  function up(){ drawing = false; }
+  function up(){ drawing = false; lx = ly = null; }
   window.addEventListener('pointerdown', down);
   window.addEventListener('pointermove', move);
   window.addEventListener('pointerup', up);
   window.addEventListener('pointercancel', up);
   window.addEventListener('blur', up);
-  document.getElementById('clear-doodle').addEventListener('click', () => ctx.clearRect(0, 0, cv.width, cv.height));
+  document.getElementById('clear-doodle').addEventListener('click', () => {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    hasDrawn = false; ctl.classList.remove('show');
+  });
 </script>
 </body>
 </html>
