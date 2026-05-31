@@ -6,43 +6,59 @@
 <title>AgentDNS Docs</title>
 <meta name="description" content="Documentation for AgentDNS — free *.makes.fyi subdomains for AI agents.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0b0d12;--panel:#12151c;--line:#222936;--fg:#e7ecf3;--muted:#9aa6b8;
-    --accent:#5eead4;--accent2:#7c9cff;--code:#0e1117}
+  :root{
+    --bg:#F3EBDD; --card:#FFFDF8; --ink:#141210; --muted:#6f675b;
+    --blue:#2D6BFF; --blue-d:#1742B8; --line:#141210; --soft:#E7DFCF;
+    --term:#141210; --sh:4px 4px 0 var(--ink);
+  }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--fg);
-    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  a{color:var(--accent2);text-decoration:none} a:hover{text-decoration:underline}
-  .layout{display:grid;grid-template-columns:240px 1fr;max-width:1080px;margin:0 auto;gap:40px;padding:0 20px}
-  aside{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:26px 0;border-right:1px solid var(--line)}
-  aside .brand{font-weight:700;font-size:1.15rem;margin-bottom:18px}
-  aside .brand .dot{color:var(--accent)}
-  aside a{display:block;color:var(--muted);padding:5px 0;font-size:.93rem}
-  aside a:hover{color:var(--fg);text-decoration:none}
-  aside .grp{margin-top:16px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#5b6678}
-  main{padding:40px 0 80px;min-width:0}
-  h1{font-size:2rem;letter-spacing:-.02em;margin:.1em 0 .3em}
-  h2{font-size:1.4rem;margin:2.2em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
-  h3{font-size:1.08rem;margin:1.6em 0 .3em}
-  p,li{color:#cdd6e4} .muted{color:var(--muted)}
-  code{background:var(--code);border:1px solid var(--line);padding:1.5px 6px;border-radius:5px;font-size:.88em;
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto}
-  pre code{background:none;border:0;padding:0;font-size:.86rem;line-height:1.6;color:#cdd6e4}
-  table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.92rem}
-  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--muted);font-weight:600}
-  .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
-    border-radius:8px;padding:12px 16px;margin:1.2em 0}
-  .pill{display:inline-block;background:#0e1117;border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:.78rem;color:var(--accent)}
-  @media(max-width:780px){.layout{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  a{color:var(--blue)} a:hover{color:var(--blue-d)}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1100px;margin:0 auto;gap:44px;padding:0 22px}
+
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:28px 0}
+  aside .brand{font-weight:800;font-size:1.4rem;margin-bottom:18px;letter-spacing:-.02em}
+  aside .brand .dot{color:var(--blue)}
+  aside a{display:block;color:var(--muted);padding:6px 0;font-size:.95rem;font-weight:700;text-decoration:none;
+    border-left:3px solid transparent;padding-left:12px;margin-left:-12px}
+  aside a:hover{color:var(--ink);border-color:var(--blue)}
+  aside .grp{margin-top:18px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#a59c8b;font-weight:800}
+
+  main{padding:42px 0 90px;min-width:0}
+  h1{font-size:2.6rem;letter-spacing:-.03em;font-weight:800;margin:.1em 0 .25em}
+  h2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin:2.2em 0 .5em;padding-top:.5em;border-top:3px solid var(--ink)}
+  h3{font-size:1.2rem;font-weight:800;margin:1.6em 0 .3em}
+  p,li{color:#2c2820} .muted{color:var(--muted)}
+  strong{font-weight:800}
+
+  code{font-family:"Space Mono",monospace;background:var(--soft);border:1.5px solid var(--ink);
+    padding:1px 6px;border-radius:6px;font-size:.85em}
+  pre{background:var(--term);border:2px solid var(--ink);border-radius:14px;padding:18px 20px;overflow-x:auto;box-shadow:var(--sh)}
+  pre code{background:none;border:0;padding:0;font-size:.86rem;line-height:1.7;color:#ECE3D4}
+
+  table{width:100%;border-collapse:collapse;margin:1.1em 0;font-size:.95rem;
+    background:var(--card);border:2px solid var(--ink);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1.5px solid var(--soft);vertical-align:top}
+  th{background:var(--blue);color:#fff;font-weight:800} tr:last-child td{border-bottom:0}
+
+  .note{background:var(--card);border:2px solid var(--ink);border-left:8px solid var(--blue);
+    border-radius:12px;padding:14px 18px;margin:1.3em 0;box-shadow:var(--sh);font-weight:500}
+  .pill{display:inline-block;background:var(--blue);color:#fff;border:2px solid var(--ink);border-radius:8px;
+    padding:1px 9px;font-size:.78rem;font-weight:800}
+
+  @media(max-width:820px){.layout{grid-template-columns:1fr}aside{position:static;height:auto;border-bottom:3px solid var(--ink);padding-bottom:14px}}
 </style>
 </head>
 <body>
 <div class="layout">
   <aside>
-    <div class="brand">Agent<span class="dot">DNS</span> docs</div>
+    <div class="brand">agent<span class="dot">·</span>dns</div>
     <a href="#intro">Introduction</a>
     <a href="#install">Install</a>
     <a href="#quickstart">Quickstart</a>
@@ -167,7 +183,7 @@ curl -s -X POST https://api.makes.fyi/v1/subdomains \
   -H "Authorization: Bearer $KEY" \
   -d '{"label":"myagent","type":"A","content":"203.0.113.10"}'</code></pre>
 
-    <p class="muted" style="margin-top:3em">AgentDNS · <a href="https://makes.fyi">makes.fyi</a> · <a href="https://github.com/tashfeenahmed/AgentDNS">GitHub</a></p>
+    <p class="muted" style="margin-top:3em">agent·dns · <a href="https://makes.fyi">makes.fyi</a> · <a href="https://github.com/tashfeenahmed/AgentDNS">GitHub</a></p>
   </main>
 </div>
 </body>
