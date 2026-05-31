@@ -1,0 +1,11 @@
+{
+  "name": "agentdns-forward",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  // NO routes here. A wildcard route (*.makes.fyi/*) would shadow the api.* and
+  // docs.* custom-domain Workers and break them. Instead the API server creates
+  // a per-hostname Worker route (e.g. "shop.makes.fyi/*" -> this script) via the
+  // Cloudflare API each time a URL forward is created, and removes it on delete.
+  // So this Worker only ever runs for hostnames that are genuinely forwards.
+  "workers_dev": false
+}
