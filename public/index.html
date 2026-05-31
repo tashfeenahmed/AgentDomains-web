@@ -77,14 +77,14 @@
 
   /* right-side scribbled example domains */
   .examples{position:relative;min-height:320px;display:flex;flex-direction:column;justify-content:center;gap:1.6rem;padding:1rem}
-  .tag{font-family:'Space Mono',monospace;font-size:clamp(1rem,2.4vw,1.4rem);font-weight:700;background:#fff;
-    border:3px solid var(--ink);border-radius:14px 6px 18px 8px;padding:.7rem 1rem;display:inline-flex;align-items:center;
-    gap:.7rem;width:fit-content;transition:.2s}
-  .tag .live{font-family:'Gaegu',cursive;font-size:.95rem;background:var(--energy);color:var(--ink);border:2px solid var(--ink);border-radius:20px;padding:0 .55rem}
-  .tag-1{transform:rotate(-3deg);box-shadow:7px 7px 0 var(--energy);margin-left:1rem}
-  .tag-2{transform:rotate(2deg);box-shadow:7px 7px 0 var(--lime);align-self:flex-end;margin-right:1.5rem}
-  .tag-3{transform:rotate(-1.5deg);box-shadow:7px 7px 0 var(--ink);margin-left:2.5rem}
-  .tag:hover{transform:rotate(0) scale(1.04)}
+  .tag{font-family:'Gaegu',cursive;font-weight:700;font-size:clamp(1.4rem,3.2vw,2.2rem);color:var(--ink);
+    display:inline-flex;align-items:baseline;gap:.5rem;width:fit-content;transition:transform .2s}
+  .tag .dom{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--energy);text-underline-offset:5px}
+  .tag .live{font-size:.62em;color:var(--energy-d);font-weight:700}
+  .tag-1{transform:rotate(-3deg);margin-left:1rem}
+  .tag-2{transform:rotate(2deg);align-self:flex-end;margin-right:1rem}
+  .tag-3{transform:rotate(-1.5deg);margin-left:2.5rem}
+  .tag:hover{transform:rotate(0) scale(1.05)}
   .doodle{position:absolute;pointer-events:none}
   .d-arrow{top:30px;right:18%;width:120px}
   .d-star{top:6px;left:6%;width:46px}
@@ -162,9 +162,9 @@
 
     <div class="examples" aria-label="example domains">
       <div class="metadata">// claimed today</div>
-      <div class="tag tag-1">siteforhuman.makes.fyi <span class="live">✓ live</span></div>
-      <div class="tag tag-2">samtheagent.makes.fyi <span class="live">✓ live</span></div>
-      <div class="tag tag-3">myshop.agentdomains.co <span class="live">✓ live</span></div>
+      <div class="tag tag-1"><span class="dom">siteforhuman.makes.fyi</span> <span class="live">✓ live</span></div>
+      <div class="tag tag-2"><span class="dom">samtheagent.makes.fyi</span> <span class="live">✓ live</span></div>
+      <div class="tag tag-3"><span class="dom">myshop.agentdomains.co</span> <span class="live">✓ live</span></div>
 
       <!-- hand-drawn doodle accents -->
       <svg class="doodle d-star" viewBox="0 0 40 40" fill="none" stroke="var(--lime)" stroke-width="3" stroke-linecap="round">
@@ -264,16 +264,25 @@
   sizeCanvas();
   let resizeTimer; addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(sizeCanvas, 150); });
 
-  let drawing = false, last = null;
-  const point = e => ({ x: e.clientX, y: e.clientY });
-  addEventListener('mousedown', e => { drawing = true; last = point(e); });
-  addEventListener('mousemove', e => {
+  let drawing = false, lx = 0, ly = 0;
+  function down(e){
+    if (e.pointerType === 'touch') return;        // keep mobile scrolling clean
+    drawing = true; lx = e.clientX; ly = e.clientY;
+    ctx.beginPath(); ctx.arc(lx, ly, ctx.lineWidth / 2, 0, Math.PI * 2);
+    ctx.fillStyle = ctx.strokeStyle; ctx.fill();   // a dot, so a click leaves a mark too
+  }
+  function move(e){
     if (!drawing) return;
-    const p = point(e);
-    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
-    last = p;
-  });
-  addEventListener('mouseup', () => { drawing = false; });
+    const x = e.clientX, y = e.clientY;
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke();
+    lx = x; ly = y;
+  }
+  function up(){ drawing = false; }
+  window.addEventListener('pointerdown', down);
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', up);
+  window.addEventListener('pointercancel', up);
+  window.addEventListener('blur', up);
   document.getElementById('clear-doodle').addEventListener('click', () => ctx.clearRect(0, 0, cv.width, cv.height));
 </script>
 </body>
