@@ -32,10 +32,10 @@
   h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.92;letter-spacing:-1px}
   input{cursor:text}
 
-  /* doodle layer — never blocks clicks (pointer-events:none). Explicit size:
-     a <canvas> is a replaced element, so inset:0 alone keeps its intrinsic
-     300x150 and the backing store maps wrong; 100vw/100vh fixes the offset. */
-  #doodle{position:fixed;inset:0;width:100vw;height:100vh;z-index:60;pointer-events:none}
+  /* doodle layer lives INSIDE the domains zone, so scribbles scroll with the
+     page instead of floating over everything. pointer-events:none keeps the UI
+     clickable; explicit width/height keep the backing-store mapping 1:1. */
+  #doodle{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 
   .dot-grid{
     background-image:radial-gradient(rgba(10,10,10,.13) 1.6px, transparent 1.6px);
@@ -82,7 +82,7 @@
   .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
 
   /* right-side scribbled example domains — also the draw zone (white pencil cursor) */
-  .examples{position:relative;align-self:stretch;min-height:48vh;display:flex;flex-direction:column;justify-content:center;gap:1.8rem;padding:1rem;
+  .examples{position:relative;align-self:stretch;min-height:48vh;display:flex;flex-direction:column;justify-content:center;gap:1.8rem;padding:1rem;user-select:none;-webkit-user-select:none;
     cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M21 3 l6 6 -14 14 -6 0 0 -6 z" fill="white" stroke="%230A0A0A" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 17 l6 6 -6 0 z" fill="%230A0A0A"/><path d="M18 6 l6 6" stroke="%230A0A0A" stroke-width="1.6"/></svg>') 7 23, crosshair}
   .tag{font-family:'Gaegu',cursive;font-weight:700;font-size:clamp(1.4rem,3.2vw,2.2rem);color:var(--ink);
     display:inline-flex;align-items:baseline;width:fit-content;transition:transform .2s}
@@ -116,9 +116,10 @@
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
 
-  /* clear control — hidden until something is drawn */
-  .doodle-ctl{position:fixed;bottom:14px;right:14px;z-index:70;display:none}
-  .doodle-ctl.show{display:block}
+  /* clear control — drops in from the top-center once something is drawn */
+  .doodle-ctl{position:fixed;top:0;left:50%;z-index:70;transform:translate(-50%,-130%);
+    transition:transform .38s cubic-bezier(.18,.89,.32,1.28)}
+  .doodle-ctl.show{transform:translate(-50%,14px)}
   .doodle-ctl button{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--energy);border:2px solid var(--ink);
     border-radius:20px;padding:.3rem .9rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
   .doodle-ctl button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
@@ -129,7 +130,6 @@
 <body>
 
 <div class="dot-grid"></div>
-<canvas id="doodle"></canvas>
 
 <nav>
   <div class="logo">agent·domains</div>
@@ -166,6 +166,7 @@
       <div class="tag tag-1"><span class="dom">siteforhuman.makes.fyi</span></div>
       <div class="tag tag-2"><span class="dom">samtheagent.makes.fyi</span></div>
       <div class="tag tag-3"><span class="dom">myshop.agentdomains.co</span></div>
+      <canvas id="doodle"></canvas>
     </div>
   </section>
 
@@ -277,7 +278,7 @@
   const ctx = cv.getContext('2d');
   function sizeCanvas(){
     const r = window.devicePixelRatio || 1;
-    cv.width = innerWidth * r; cv.height = innerHeight * r;
+    cv.width = Math.max(1, Math.floor(cv.clientWidth * r)); cv.height = Math.max(1, Math.floor(cv.clientHeight * r));
     ctx.setTransform(r, 0, 0, r, 0, 0);
     ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 4;
     ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--energy').trim() || '#00CC74';
@@ -285,31 +286,30 @@
   sizeCanvas();
   let resizeTimer; addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(sizeCanvas, 150); });
 
-  // drawing is allowed only inside the right-side domains zone
-  const zone = document.getElementById('examples');
+  // coordinates relative to the (in-flow) canvas, so they map correctly at any
+  // scroll position; drawing is confined to the canvas (= the domains zone).
   const ctl = document.getElementById('doodle-ctl');
   let hasDrawn = false;
-  const inZone = e => {
-    const r = zone.getBoundingClientRect();
-    return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-  };
   function markDrawn(){ if (!hasDrawn){ hasDrawn = true; ctl.classList.add('show'); } }
+  const rel = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height }; };
+  const inside = p => p.x >= 0 && p.y >= 0 && p.x <= p.w && p.y <= p.h;
 
   let drawing = false, lx = null, ly = null;
   function down(e){
-    if (e.pointerType === 'touch' || !inZone(e)) return;  // right zone only; keep mobile scroll clean
-    drawing = true; lx = e.clientX; ly = e.clientY;
+    if (e.pointerType === 'touch') return;                 // keep mobile scrolling clean
+    const p = rel(e); if (!inside(p)) return;              // draw only inside the domains zone
+    drawing = true; lx = p.x; ly = p.y;
     ctx.beginPath(); ctx.arc(lx, ly, ctx.lineWidth / 2, 0, Math.PI * 2);
-    ctx.fillStyle = ctx.strokeStyle; ctx.fill();          // dot, so a tap leaves a mark
+    ctx.fillStyle = ctx.strokeStyle; ctx.fill();           // dot, so a tap leaves a mark
     markDrawn();
   }
   function move(e){
     if (!drawing) return;
-    if (!inZone(e)) { lx = null; return; }                // pen lifts when you leave the zone
-    const x = e.clientX, y = e.clientY;
-    if (lx === null) { lx = x; ly = y; return; }           // re-entered: no jump line
-    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke();
-    lx = x; ly = y; markDrawn();
+    const p = rel(e);
+    if (!inside(p)) { lx = null; return; }                 // pen lifts when you leave the zone
+    if (lx === null) { lx = p.x; ly = p.y; return; }       // re-entered: no jump line
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(p.x, p.y); ctx.stroke();
+    lx = p.x; ly = p.y; markDrawn();
   }
   function up(){ drawing = false; lx = ly = null; }
   window.addEventListener('pointerdown', down);
