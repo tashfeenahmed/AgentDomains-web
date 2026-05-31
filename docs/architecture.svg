@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="440" viewBox="0 0 980 440" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <style>
+      .t{font-weight:800;font-size:15px;fill:#141210;}
+      .d{font-size:12px;fill:#5d574e;}
+      .m{font-family:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;font-size:11px;fill:#2D6BFF;}
+      .lbl{font-weight:800;font-size:12px;letter-spacing:.08em;fill:#2D6BFF;}
+    </style>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2D6BFF"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="978" height="438" rx="22" fill="#FFFFFF" stroke="#E4E8F0" stroke-width="2"/>
+  <text x="40" y="46" font-weight="800" font-size="22" fill="#141210">agent<tspan fill="#2D6BFF">·</tspan>domains <tspan fill="#5d574e" font-weight="700" font-size="16">edge architecture</tspan></text>
+
+  <!-- actor -->
+  <rect x="30" y="190" width="160" height="80" rx="14" fill="#FFFFFF" stroke="#141210" stroke-width="2"/>
+  <text x="110" y="226" text-anchor="middle" class="t">Agents &amp;</text>
+  <text x="110" y="246" text-anchor="middle" class="t">browsers</text>
+  <line x1="190" y1="230" x2="232" y2="230" stroke="#2D6BFF" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- cloudflare edge container -->
+  <rect x="235" y="90" width="360" height="320" rx="16" fill="#F7F9FF" stroke="#2D6BFF" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="255" y="116" class="lbl">CLOUDFLARE EDGE · WORKERS</text>
+
+  <!-- web worker -->
+  <rect x="255" y="128" width="320" height="74" rx="12" fill="#FFFFFF" stroke="#141210" stroke-width="2"/>
+  <text x="271" y="152" class="t">agentdns-web</text>
+  <text x="271" y="172" class="m">agentdomains.co  ·  makes.fyi</text>
+  <text x="271" y="190" class="d">Static landing page</text>
+
+  <!-- docs worker -->
+  <rect x="255" y="214" width="320" height="74" rx="12" fill="#FFFFFF" stroke="#141210" stroke-width="2"/>
+  <text x="271" y="238" class="t">agentdns-docs</text>
+  <text x="271" y="258" class="m">docs.agentdomains.co  ·  docs.makes.fyi</text>
+  <text x="271" y="276" class="d">Static documentation</text>
+
+  <!-- api worker -->
+  <rect x="255" y="300" width="320" height="86" rx="12" fill="#FFFFFF" stroke="#141210" stroke-width="2"/>
+  <text x="271" y="324" class="t">agentdns-api</text>
+  <text x="271" y="344" class="m">api.agentdomains.co  ·  api.makes.fyi</text>
+  <text x="271" y="362" class="d">Reverse proxy → origin (edge TLS;</text>
+  <text x="271" y="378" class="d">origin speaks plain HTTP)</text>
+
+  <!-- api -> origin -->
+  <line x1="575" y1="343" x2="657" y2="343" stroke="#2D6BFF" stroke-width="3" marker-end="url(#a)"/>
+
+  <!-- Oracle VM origin -->
+  <rect x="660" y="300" width="290" height="86" rx="14" fill="#FFFFFF" stroke="#141210" stroke-width="2"/>
+  <text x="676" y="328" class="t">Oracle VM — Go API + SQLite</text>
+  <text x="676" y="348" class="m">origin.makes.fyi (DNS-only A record)</text>
+  <text x="676" y="368" class="d">Accounts, quotas, claims, reaper</text>
+
+  <!-- origin -> CF DNS API -->
+  <line x1="805" y1="300" x2="805" y2="190" stroke="#2D6BFF" stroke-width="3" marker-end="url(#a)"/>
+  <text x="815" y="248" class="d">writes</text>
+  <text x="815" y="264" class="d">DNS</text>
+
+  <!-- CF DNS API -->
+  <rect x="660" y="104" width="290" height="86" rx="14" fill="#FFFFFF" stroke="#2D6BFF" stroke-width="2"/>
+  <text x="676" y="132" class="t">Cloudflare DNS API</text>
+  <text x="676" y="152" class="m">*.makes.fyi  ·  *.agentdomains.co</text>
+  <text x="676" y="172" class="d">Creates each claimed record</text>
+</svg>
