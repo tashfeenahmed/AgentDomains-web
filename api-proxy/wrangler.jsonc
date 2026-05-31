@@ -1,0 +1,9 @@
+{
+  "name": "agentdns-api",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  // Bind api.makes.fyi to this Worker (auto-manages DNS + edge cert).
+  "routes": [
+    { "pattern": "api.makes.fyi", "custom_domain": true }
+  ]
+}

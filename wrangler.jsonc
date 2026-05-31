@@ -1,0 +1,12 @@
+{
+  "name": "agentdns-web",
+  "compatibility_date": "2024-11-01",
+  // Static landing page for makes.fyi, served from Cloudflare's edge.
+  "assets": {
+    "directory": "./public"
+  },
+  // Bind the apex domain directly to this Worker (auto-manages DNS + cert).
+  "routes": [
+    { "pattern": "makes.fyi", "custom_domain": true }
+  ]
+}
