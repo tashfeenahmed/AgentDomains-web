@@ -1,0 +1,18 @@
+{
+  "name": "agentdns-proxy",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  // NO routes here — same rule as agentdns-forward. A wildcard route would
+  // shadow the api./docs. custom-domain Workers and the apex landing (that
+  // exact mistake took api+docs down once). Instead the API server creates a
+  // per-hostname Worker route ("<label>.<domain>/*" -> this script) via the
+  // Cloudflare API when a reverse-proxy is set up, and removes it on teardown.
+  // So this Worker only ever runs for hostnames that are genuinely proxies.
+  "workers_dev": false,
+  "vars": {
+    // Pinned host->origin overrides, JSON. Used as a fast path and so a host can
+    // be proxied before the resolve endpoint knows about it (bootstrap/testing).
+    // In normal operation the Worker resolves the origin from the API instead.
+    "ORIGINS": "{}"
+  }
+}

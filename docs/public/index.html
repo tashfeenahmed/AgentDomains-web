@@ -68,6 +68,7 @@
     <a href="#records">DNS records</a>
     <a href="#ssl">Getting HTTPS / SSL</a>
     <a href="#forwarding">URL forwarding</a>
+    <a href="#proxy">Reverse proxy</a>
     <a href="#delegation">Nameserver delegation</a>
     <a href="#agents">Using it from agents</a>
     <div class="grp">Reference</div>
@@ -158,8 +159,28 @@ agentdomains unforward me                                   # remove the forward
     address records: a label can't hold both a forward and an A/AAAA/CNAME at once
     (TXT records still coexist).</p>
     <div class="note">Forwarding is an HTTP redirect, not hosting. The visitor's
-    browser ends up on the target URL. To serve your own content on the name instead,
-    point an <code>A</code>/<code>CNAME</code> record at your server.</div>
+    browser ends up on the target URL. To serve your own content while keeping your
+    name in the address bar, use <a href="#proxy">reverse proxy</a> below.</div>
+
+    <h2 id="proxy">Reverse proxy</h2>
+    <p>Point a name at a backend you run somewhere else and serve it over HTTPS at
+    your name, with <strong>our</strong> edge certificate — nothing to configure on
+    the backend. Unlike a forward, the address bar stays on your name and your backend's
+    own content is served. <code>proxy</code> claims the label first if you don't own
+    it yet:</p>
+    <pre><code>agentdomains proxy shop myapp.fly.dev
+# shop.makes.fyi -> serves https://myapp.fly.dev, over our cert, at shop.makes.fyi
+
+agentdomains unproxy shop                                   # remove the proxy</code></pre>
+    <p>We terminate HTTPS at the edge and fetch your backend <em>by its own hostname</em>,
+    so it accepts the request and you never need a certificate for your AgentDomains
+    name. A proxy replaces address records: a label can't hold both a proxy and an
+    A/AAAA/CNAME (or a forward) at once.</p>
+    <div class="note"><strong>Heads-up for login-gated apps.</strong> The proxy serves
+    your backend, but it can't rewrite hostnames your app hardcodes. Apps that bake their
+    own domain into OAuth/SSO redirects (e.g. a Keycloak login) may bounce users back to
+    the backend's native hostname mid-login until you add your AgentDomains name in the
+    app's own settings. Static sites and apps that use relative URLs work with no setup.</div>
 
     <h2 id="delegation">Nameserver delegation</h2>
     <p>Want full control of the subtree, with your own records, MX, and sub-domains?
@@ -187,6 +208,8 @@ agentdomains claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre
       <tr><td><code>agentdomains record &lt;label&gt;</code></td><td>Add a record: <code>--type --content [--host]</code></td></tr>
       <tr><td><code>agentdomains forward &lt;label&gt; &lt;url&gt;</code></td><td>Forward to a URL (<code>--permanent</code>, <code>--no-preserve-path</code>); claims the label if needed</td></tr>
       <tr><td><code>agentdomains unforward &lt;label&gt;</code></td><td>Remove a forward</td></tr>
+      <tr><td><code>agentdomains proxy &lt;label&gt; &lt;host&gt;</code></td><td>Serve a backend at the name over HTTPS (our cert); claims the label if needed</td></tr>
+      <tr><td><code>agentdomains unproxy &lt;label&gt;</code></td><td>Remove a reverse proxy</td></tr>
       <tr><td><code>agentdomains ns &lt;label&gt; &lt;ns&gt;…</code></td><td>Delegate to your nameservers</td></tr>
       <tr><td><code>agentdomains txt &lt;label&gt; &lt;value&gt;</code></td><td>Add a TXT record (<code>--host _acme-challenge</code>)</td></tr>
       <tr><td><code>agentdomains delete &lt;label&gt;</code></td><td>Delete a domain and its records</td></tr>
@@ -210,6 +233,8 @@ agentdomains claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre
       <tr><td><code>PUT /v1/subdomains/{label}/ns</code></td><td><code>{"nameservers":[…]}</code></td></tr>
       <tr><td><code>PUT /v1/subdomains/{label}/forward</code></td><td><code>{"target","permanent?","preserve_path?","cloak?"}</code></td></tr>
       <tr><td><code>DELETE /v1/subdomains/{label}/forward</code></td><td>Remove a forward</td></tr>
+      <tr><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td><code>{"origin","domain?"}</code> — reverse-proxy the name to a backend host</td></tr>
+      <tr><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Remove a reverse proxy</td></tr>
       <tr><td><code>DELETE /v1/subdomains/{label}</code></td><td>Delete</td></tr>
     </table>
     <pre><code># example: claim with curl
