@@ -18,14 +18,14 @@
 
 This repo holds the public web surfaces for **AgentDomains**: three Cloudflare Workers,
 including a thin reverse proxy that fronts the API. Everything serves from Cloudflare's
-edge. The only origin is one Oracle VM running the Go API.
+edge. The only origin is a single VM running the Go API.
 
 ## Repository layout
 
 ```text
 public/        # landing page (agentdomains.co + makes.fyi)        → Worker "agentdns-web"
 docs/          # documentation (docs.agentdomains.co + docs.makes.fyi) → Worker "agentdns-docs"
-api-proxy/     # reverse-proxy Worker (api.agentdomains.co + api.makes.fyi) → origin.makes.fyi
+api-proxy/     # reverse-proxy Worker (api.agentdomains.co + api.makes.fyi) → origin
 ```
 
 Each directory has its own `wrangler.jsonc`. The Worker **service** names stay
@@ -37,8 +37,9 @@ Each directory has its own `wrangler.jsonc`. The Worker **service** names stay
 The zone runs SSL/TLS mode **Full**, so a normally-proxied DNS record would make
 Cloudflare reach the origin on `:443`, but the origin serves plain HTTP. And Workers
 can't `fetch()` a raw IP (error 1003). So `api-proxy` presents valid edge TLS on
-`api.*` and forwards to `origin.makes.fyi`, a grey-clouded (DNS-only) A record pointing
-straight at the Oracle box. `CF-Connecting-IP` is preserved for rate-limiting and audit.
+`api.*` and forwards to the origin hostname, which is configured as the `ORIGIN`
+Worker secret (`wrangler secret put ORIGIN`) rather than committed here.
+`CF-Connecting-IP` is preserved for rate-limiting and audit.
 
 ## Deploy
 

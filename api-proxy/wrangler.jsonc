@@ -4,7 +4,8 @@
   "compatibility_date": "2024-11-01",
   // api.agentdomains.co is the primary API host; api.makes.fyi stays bound as a
   // fallback so existing CLIs/configs keep working through the transition. Both
-  // forward to the same origin (the Oracle box) regardless of incoming host.
+  // forward to the same origin regardless of incoming host. The origin URL is
+  // the ORIGIN Worker secret (wrangler secret put ORIGIN), never committed.
   "routes": [
     { "pattern": "api.agentdomains.co", "custom_domain": true },
     { "pattern": "api.makes.fyi", "custom_domain": true }

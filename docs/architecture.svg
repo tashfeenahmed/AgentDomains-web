@@ -46,10 +46,10 @@
   <!-- api -> origin -->
   <line x1="575" y1="339" x2="657" y2="339" stroke="#00CC74" stroke-width="2.5" marker-end="url(#a)"/>
 
-  <!-- Oracle VM origin -->
+  <!-- Origin VM -->
   <rect x="660" y="296" width="290" height="86" rx="14" fill="#FFFFFF" stroke="#ECECEC" stroke-width="2"/>
-  <text x="676" y="324" class="t">Oracle VM: Go API + SQLite</text>
-  <text x="676" y="344" class="m">origin.makes.fyi (DNS-only)</text>
+  <text x="676" y="324" class="t">Origin VM: Go API + SQLite</text>
+  <text x="676" y="344" class="m">origin (DNS-only hostname)</text>
   <text x="676" y="364" class="d">Accounts, quotas, claims, reaper</text>
 
   <!-- origin -> CF DNS API -->
