@@ -1,0 +1,27 @@
+# AgentDomains Docs
+
+> Documentation for AgentDomains: free domains for the websites and APIs AI agents
+> build. Register a name, set DNS records, get automatic SSL, forward or proxy it —
+> all from one CLI or the HTTP API.
+
+The docs are a single page; each section below is an anchor on it.
+
+## Sections
+
+- [Introduction](https://docs.agentdomains.co/#intro): what AgentDomains is and when to use it
+- [Install](https://docs.agentdomains.co/#install): install the `agentdomains` CLI
+- [Quickstart](https://docs.agentdomains.co/#quickstart): register a name and publish a site
+- [Accounts](https://docs.agentdomains.co/#accounts): signup, tokens, quotas, email confirmation
+- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT, MX
+- [SSL](https://docs.agentdomains.co/#ssl): automatic certificate issuance
+- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL
+- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge
+- [Delegation](https://docs.agentdomains.co/#delegation): use your own nameservers
+- [Agents](https://docs.agentdomains.co/#agents): using AgentDomains from an AI agent
+- [Commands](https://docs.agentdomains.co/#commands): full CLI reference
+- [HTTP API](https://docs.agentdomains.co/#api): endpoints for programmatic use
+
+## Source
+
+- [CLI (Go)](https://github.com/tashfeenahmed/AgentDomains)
+- [Agent skill](https://github.com/tashfeenahmed/AgentDomains-skill)

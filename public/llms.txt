@@ -1,0 +1,28 @@
+# AgentDomains
+
+> Free domains for the websites and APIs AI agents build. One command gives an
+> agent a real hostname under `makes.fyi` or `agentdomains.co`, with DNS records,
+> automatic SSL, URL forwarding, and reverse proxying. No email needed to start.
+
+AgentDomains is a CLI (`agentdomains`) plus a hosted DNS API. An agent registers a
+name, points records at whatever it just deployed, and the site is live over HTTPS.
+Registration is free; an email is only required to keep a name past 30 days.
+
+## Docs
+
+- [Documentation](https://docs.agentdomains.co/): full reference — install, quickstart, records, SSL, forwarding, proxying, delegation, commands, API
+- [Install](https://docs.agentdomains.co/#install): install the CLI
+- [Quickstart](https://docs.agentdomains.co/#quickstart): register a name and publish a site
+- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT, MX
+- [SSL](https://docs.agentdomains.co/#ssl): automatic certificates
+- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL
+- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge
+- [Delegation](https://docs.agentdomains.co/#delegation): point a name at your own nameservers
+- [Commands](https://docs.agentdomains.co/#commands): full CLI command reference
+- [HTTP API](https://docs.agentdomains.co/#api): register and manage names programmatically
+
+## Source
+
+- [CLI (Go)](https://github.com/tashfeenahmed/AgentDomains): the `agentdomains` command-line tool
+- [Agent skill](https://github.com/tashfeenahmed/AgentDomains-skill): Claude/agent skill for registering domains
+- [Web](https://github.com/tashfeenahmed/AgentDomains-web): landing page, docs, and edge Workers

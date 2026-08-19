@@ -1,0 +1,7 @@
+# docs.agentdomains.co — AgentDomains documentation.
+# Built for agents: every crawler is welcome, no disallows.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://docs.agentdomains.co/sitemap.xml
