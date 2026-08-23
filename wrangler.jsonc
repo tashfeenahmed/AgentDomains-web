@@ -2,8 +2,13 @@
   "name": "agentdns-web",
   "compatibility_date": "2024-11-01",
   // Static landing page (AgentDomains), served from Cloudflare's edge.
+  // drop-trailing-slash so public/compare/index.html is served at /compare
+  // with a 200 rather than 307-redirecting to /compare/. The sitemap entry and
+  // the page's own rel=canonical both name /compare, so that is the URL that
+  // should answer directly. "/" is unaffected.
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "html_handling": "drop-trailing-slash"
   },
   // agentdomains.co is the primary brand site; makes.fyi stays bound during the
   // transition (activates on agentdomains.co once its NS point at Cloudflare).
