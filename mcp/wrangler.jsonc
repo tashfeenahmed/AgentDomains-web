@@ -1,0 +1,18 @@
+{
+  "name": "agentdns-mcp",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  // Hosted MCP endpoint (Streamable HTTP) — the remote counterpart to the
+  // `npx -y @agentdomains/mcp` stdio server. It is a stateless JSON-RPC front
+  // end over the public API: the caller's Bearer key is passed through
+  // untouched and CF-Connecting-IP is forwarded so the origin's per-IP signup
+  // rate limit still sees the real client.
+  //
+  // API_BASE can override the upstream (defaults to https://api.agentdomains.co
+  // in the Worker); no secret is needed because this only ever talks to the
+  // public API host.
+  "routes": [
+    { "pattern": "mcp.agentdomains.co", "custom_domain": true },
+    { "pattern": "mcp.makes.fyi", "custom_domain": true }
+  ]
+}

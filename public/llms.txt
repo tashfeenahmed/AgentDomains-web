@@ -19,10 +19,19 @@ Registration is free; an email is only required to keep a name past 30 days.
 - [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge
 - [Delegation](https://docs.agentdomains.co/#delegation): point a name at your own nameservers
 - [Commands](https://docs.agentdomains.co/#commands): full CLI command reference
+- [MCP server](https://docs.agentdomains.co/#mcp): Model Context Protocol tools, stdio and hosted
 - [HTTP API](https://docs.agentdomains.co/#api): register and manage names programmatically
+
+## MCP
+
+- Local (stdio): `npx -y @agentdomains/mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
+- Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
+- 15 tools covering availability, signup, claiming, DNS records, ACME DNS-01 challenges, forwarding, proxying, and nameserver delegation
+- Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
 ## Source
 
 - [CLI (Go)](https://github.com/tashfeenahmed/AgentDomains): the `agentdomains` command-line tool
 - [Agent skill](https://github.com/tashfeenahmed/AgentDomains-skill): Claude/agent skill for registering domains
+- [MCP server](https://github.com/tashfeenahmed/AgentDomains-mcp): MCP tools for any agent framework
 - [Web](https://github.com/tashfeenahmed/AgentDomains-web): landing page, docs, and edge Workers
