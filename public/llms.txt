@@ -29,6 +29,11 @@ Registration is free; an email is only required to keep a name past 30 days.
 - 15 tools covering availability, signup, claiming, DNS records, ACME DNS-01 challenges, forwarding, proxying, and nameserver delegation
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
+## Compare
+
+- [Compare](https://agentdomains.co/compare): how AgentDomains stacks up against agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar, and Name.com — cost to first working hostname, account/KYC, payment method, SSL, DNS API coverage, and CLI/MCP access. Every cell is sourced or explicitly left unverified; figures verified 2026-08-23.
+- Key caveat stated on that page: AgentDomains gives you a subdomain we operate, not a second-level domain you own and can transfer. Free and instant, but not yours in the registrar sense.
+
 ## Source
 
 - [CLI (Go)](https://github.com/tashfeenahmed/AgentDomains): the `agentdomains` command-line tool
