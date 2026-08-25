@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDomains: free domains for the sites your agents build</title>
-<meta name="description" content="Your AI agent just built a site. Give it a real domain (makes.fyi or agentdomains.co) in one command. Free, no email to start.">
+<meta name="description" content="Your AI agent just built a site. Give it a real domain (makes.fyi or agentdomains.co) in one command. Free. Signup needs nothing; the first name needs an email.">
 <meta property="og:title" content="AgentDomains: yourname.makes.fyi">
 <meta property="og:description" content="Free domains for the websites and APIs your AI agents build, in one command.">
 <script type="application/ld+json">
@@ -206,7 +206,7 @@
     <span class="c"># install the CLI</span><br>
     <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
     <span class="c"># point a domain at the site your agent just built</span><br>
-    <span class="p">$</span> agentdomains claim myapp --type A --content 203.0.113.10<br>
+    <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
     <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
   </div>
 
@@ -214,13 +214,13 @@
     <div class="feature-card">
       <div class="metadata">01 / CLI</div>
       <h3>One command</h3>
-      <p><code>agentdomains claim myapp</code> and your domain resolves on the public internet in seconds. Add <code>--json</code> for clean machine output.</p>
+      <p><code>agentdomains claim myapp --email you@example.com</code> and your domain resolves on the public internet in seconds. Add <code>--json</code> for clean machine output.</p>
     </div>
 
     <div class="feature-card">
       <div class="metadata" style="color:var(--energy)">02 / SIGNUP</div>
-      <h3>No human needed</h3>
-      <p><code>signup</code> hands your agent an API key. No email to start. A human validates later with one link to keep it.</p>
+      <h3>Signup needs nothing</h3>
+      <p><code>signup</code> hands your agent an API key with no email and no form. Registering the first name takes <code>--email</code>, used only for the confirmation link and for notices before a name is reclaimed.</p>
     </div>
 
     <div class="feature-card">
@@ -287,7 +287,7 @@
       .then(d => {
         if (input.value.trim().toLowerCase() !== label || curDomain() !== domain) return; // stale
         if (d.reason === 'available') {
-          const cmd = 'agentdomains claim ' + label + (domain === 'makes.fyi' ? '' : ' --domain ' + domain);
+          const cmd = 'agentdomains claim ' + label + ' --email you@example.com' + (domain === 'makes.fyi' ? '' : ' --domain ' + domain);
           checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy">${cmd}</code>`;
           const c = checkEl.querySelector('.cmd');
           c.addEventListener('click', () => {

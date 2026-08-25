@@ -1,5 +1,10 @@
 # agentdomains.co — free domains for the sites and APIs AI agents build.
 # This site is built for agents, so every crawler is welcome: no disallows.
+#
+# One asset bundle answers on both agentdomains.co and makes.fyi, so makes.fyi
+# serves this same file and its agentdomains.co sitemap. That is deliberate:
+# agentdomains.co is the canonical brand host and the one we want indexed, and
+# makes.fyi stays bound only as a fallback through the rebrand.
 
 User-agent: *
 Allow: /

@@ -3,7 +3,7 @@
   "main": "worker.js",
   "compatibility_date": "2024-11-01",
   // Hosted MCP endpoint (Streamable HTTP) — the remote counterpart to the
-  // `npx -y @agentdomains/mcp` stdio server. It is a stateless JSON-RPC front
+  // `npx -y agentdomains-mcp` stdio server. It is a stateless JSON-RPC front
   // end over the public API: the caller's Bearer key is passed through
   // untouched and CF-Connecting-IP is forwarded so the origin's per-IP signup
   // rate limit still sees the real client.

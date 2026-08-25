@@ -1,5 +1,5 @@
 // MCP server for AgentDomains at mcp.agentdomains.co — the hosted counterpart
-// to the `npx -y @agentdomains/mcp` stdio server.
+// to the `npx -y agentdomains-mcp` stdio server.
 //
 // Implements MCP Streamable HTTP, stateless: every JSON-RPC request arrives as
 // a POST and is answered inline as JSON. No sessions, no SSE stream, so there
@@ -27,7 +27,7 @@ const CORS = {
   "Access-Control-Max-Age": "86400",
 };
 
-// ---------- tool definitions (kept in step with @agentdomains/mcp) ----------
+// ---------- tool definitions (kept in step with agentdomains-mcp) ----------
 
 const domainProp = {
   domain: {

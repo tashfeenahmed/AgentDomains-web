@@ -2,11 +2,20 @@
 
 > Free domains for the websites and APIs AI agents build. One command gives an
 > agent a real hostname under `makes.fyi` or `agentdomains.co`, with DNS records,
-> automatic SSL, URL forwarding, and reverse proxying. No email needed to start.
+> automatic SSL, URL forwarding, and reverse proxying. Signing up needs nothing;
+> the account's first name needs an email address.
 
 AgentDomains is a CLI (`agentdomains`) plus a hosted DNS API. An agent registers a
 name, points records at whatever it just deployed, and the site is live over HTTPS.
-Registration is free; an email is only required to keep a name past 30 days.
+
+Signup takes no email and no form: `POST /v1/signup` returns an API key immediately.
+The account's *first* registration does need an email — pass `--email you@example.com`
+to `agentdomains claim` (or `email` in the JSON body), or the call answers
+400 "registering a name needs an email". That address is used only for the
+verification link and for notices before an unhealthy name is reclaimed. Confirm it
+within 30 days or the account and its names are deleted. Later claims on the same
+account need no email. Labels are lowercased when claimed, so `MyApp` becomes
+`myapp.makes.fyi`.
 
 ## Docs
 
@@ -24,7 +33,7 @@ Registration is free; an email is only required to keep a name past 30 days.
 
 ## MCP
 
-- Local (stdio): `npx -y @agentdomains/mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
+- Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
 - 15 tools covering availability, signup, claiming, DNS records, ACME DNS-01 challenges, forwarding, proxying, and nameserver delegation
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI

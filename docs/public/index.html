@@ -100,7 +100,12 @@ go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest
 
 # verify
 agentdomains --help</code></pre>
-    <p class="muted">Prebuilt binaries for macOS/Linux/Windows are attached to GitHub Releases.</p>
+    <p class="muted">Or download a prebuilt binary — macOS, Linux and Windows, amd64 and arm64 —
+    from the <a href="https://github.com/tashfeenahmed/AgentDomains/releases/latest">latest release</a>.
+    Each archive carries the binary, README and LICENSE, and every release ships a
+    <code>SHA256SUMS</code> you can check with
+    <code>shasum -a 256 -c SHA256SUMS --ignore-missing</code>. Note the module path keeps its
+    capitals (<code>AgentDomains</code>) even though the command is lowercase.</p>
 
     <h2 id="quickstart">Quickstart</h2>
     <pre><code>agentdomains signup                                   # instant account + API key
@@ -128,7 +133,9 @@ dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pr
 agentdomains whoami                                  # state: verified once confirmed</code></pre>
     <p>You can also (re)send the link any time with <code>agentdomains email you@example.com</code>.
     If the account is never confirmed within 30 days, it and all its names are removed automatically
-    by a background job and the names are released. (There's no per-account name limit right now.)</p>
+    by a background job and the names are released. One account can hold up to ten names at once.</p>
+    <p class="muted">Labels are lowercased when you register them: claiming <code>MyApp</code> gives you
+    <code>myapp.makes.fyi</code>, and that is the label every later command expects.</p>
 
     <h2 id="records">DNS records</h2>
     <p>Claim a label, optionally with a record, then add more any time:</p>
@@ -202,11 +209,11 @@ agentdomains unproxy shop                                   # remove the proxy</
     <p>Every command accepts <code>--json</code> for clean machine output, and reads
     credentials from the environment so no interactive setup is needed:</p>
     <pre><code>export AGENTDOMAINS_API_KEY=adom_...           # skip local config
-agentdomains claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre>
+agentdomains claim $NAME --email you@example.com --type A --content $IP --json | jq -r .fqdn</code></pre>
     <p>You can also call the HTTP API directly (below), which is handy inside sandboxes.</p>
     <p>If your agent speaks <a href="#mcp">MCP</a>, skip the shell entirely: the
     <a href="#mcp">MCP server</a> exposes every operation as a typed tool, over stdio
-    (<code>npx -y @agentdomains/mcp</code>) or the hosted endpoint at
+    (<code>npx -y agentdomains-mcp</code>) or the hosted endpoint at
     <code>mcp.agentdomains.co</code>.</p>
 
     <h2 id="commands">CLI commands</h2>
@@ -226,6 +233,7 @@ agentdomains claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre
       <tr><td><code>agentdomains ns &lt;label&gt; &lt;ns&gt;…</code></td><td>Delegate to your nameservers</td></tr>
       <tr><td><code>agentdomains txt &lt;label&gt; &lt;value&gt;</code></td><td>Add a TXT record (<code>--host _acme-challenge</code>)</td></tr>
       <tr><td><code>agentdomains delete &lt;label&gt;</code></td><td>Delete a domain and its records</td></tr>
+      <tr><td><code>agentdomains version</code></td><td>Print the CLI version</td></tr>
     </table>
     <p class="muted">Global flags: <code>--json</code>, <code>--api-url</code>,
     <code>--domain</code>. Env: <code>AGENTDOMAINS_API_KEY</code>,
@@ -237,15 +245,15 @@ agentdomains claim $NAME --type A --content $IP --json | jq -r .fqdn</code></pre
     out. Run it locally over stdio, or point at the hosted endpoint — same tools either way.</p>
 
     <h3>Local (stdio)</h3>
-    <pre><code>AGENTDOMAINS_API_KEY=adom_… npx -y @agentdomains/mcp</code></pre>
+    <pre><code>AGENTDOMAINS_API_KEY=adom_… npx -y agentdomains-mcp</code></pre>
     <p>In Claude Code:</p>
-    <pre><code>claude mcp add agentdomains --env AGENTDOMAINS_API_KEY=adom_… -- npx -y @agentdomains/mcp</code></pre>
+    <pre><code>claude mcp add agentdomains --env AGENTDOMAINS_API_KEY=adom_… -- npx -y agentdomains-mcp</code></pre>
     <p>In Claude Desktop, add to <code>claude_desktop_config.json</code>:</p>
     <pre><code>{
   "mcpServers": {
     "agentdomains": {
       "command": "npx",
-      "args": ["-y", "@agentdomains/mcp"],
+      "args": ["-y", "agentdomains-mcp"],
       "env": { "AGENTDOMAINS_API_KEY": "adom_…" }
     }
   }

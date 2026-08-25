@@ -24,7 +24,7 @@ The docs are a single page; each section below is an anchor on it.
 
 ## MCP
 
-- Local (stdio): `npx -y @agentdomains/mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to `~/.agentdomains/config.json`)
+- Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
 - 15 tools: check_availability, signup, whoami, attach_email, claim_domain, list_domains, get_domain, delete_domain, add_dns_record, add_acme_challenge, set_forward, remove_forward, set_proxy, remove_proxy, delegate_nameservers
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
