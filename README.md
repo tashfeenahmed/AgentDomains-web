@@ -96,19 +96,23 @@ to bind a route to a script that is not there.
 (cd api-proxy && npx wrangler secret put ORIGIN)   # e.g. http://origin.example
 ```
 
-### Debugging a 5xx from api.agentdomains.co
+### Never answer with a bare 502 from the origin
 
-The API server answers a failed Cloudflare call with `502` and a JSON body naming the
-cause. Cloudflare replaces an origin `502` with its own branded HTML error page, so that
-JSON never reaches the caller — an agent sees a wall of HTML instead of the sentence that
-would tell it what to fix. To read the real error, ask the origin directly, bypassing the
-edge:
+Cloudflare replaces an origin `502` with its own branded HTML error page. The body the
+origin sent is discarded, so a caller gets a wall of HTML where a one-sentence JSON error
+used to be — and an agent has nothing to act on. This is not hypothetical: forwarding was
+broken for a while behind exactly that page, and the actual cause (a `403` on the Worker
+route call) was only visible by asking the origin directly, bypassing the edge:
 
 ```bash
 curl -X PUT http://<origin-host>/v1/subdomains/<label>/forward \
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \
   -H 'Content-Type: application/json' -d '{"target":"https://example.com"}'
 ```
+
+The API server now answers upstream failures with `503` and a JSON body
+(`{"error": …, "retry": true, "upstream": "cloudflare"}`), which passes through the edge
+untouched. Keep it that way: any status the origin returns is fine except `502`.
 
 The API server itself (the origin) lives in the private
 [AgentDomains-server](https://github.com/tashfeenahmed/AgentDomains-server) repo.
