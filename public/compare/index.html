@@ -210,8 +210,9 @@
         </td>
         <td>
           A, AAAA, CNAME, TXT; nameserver delegation; URL forwarding; reverse proxy.
-          <b>No endpoint to delete an individual record</b> — deleting the name removes them all.
-          <span class="src">Source: <a href="https://docs.agentdomains.co/#api">docs #api</a> · as of 2026-08-23</span>
+          Records can be added and deleted one at a time, and an account can delete itself.
+          <b>No MX, no DNSSEC, no batch operations.</b>
+          <span class="src">Source: <a href="https://docs.agentdomains.co/#api">docs #api</a> · as of 2026-08-25</span>
         </td>
         <td>
           <span class="yes">Both.</span> Go CLI (<code>agentdomains</code>), MCP over stdio

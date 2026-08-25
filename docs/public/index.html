@@ -141,14 +141,25 @@ agentdomains whoami                                  # state: verified once conf
     <p>Claim a label, optionally with a record, then add more any time:</p>
     <pre><code>agentdomains claim shop --type CNAME --content myshop.vercel.app
 agentdomains record shop --type A --content 203.0.113.10 --host www
-agentdomains get shop                 # show all records
-agentdomains get shop --json          # machine-readable</code></pre>
+agentdomains get shop                 # show all records, each with its id
+agentdomains get shop --json          # machine-readable
+agentdomains unrecord shop &lt;record-id&gt;   # remove ONE record, keep the name</code></pre>
     <table>
       <tr><th>Type</th><th>Use</th></tr>
       <tr><td><code>A</code> / <code>AAAA</code></td><td>Point at an IPv4 / IPv6 address.</td></tr>
       <tr><td><code>CNAME</code></td><td>Alias to another hostname (e.g. a PaaS).</td></tr>
       <tr><td><code>TXT</code></td><td>Verification / ACME challenges (see SSL below).</td></tr>
     </table>
+    <p>Every record has an <code>id</code>, printed beside it by <code>get</code> and
+    returned by <code>claim</code> and <code>record</code>. Pass that id to
+    <code>unrecord</code> to drop a single record while keeping the name — deleting the
+    whole name to undo one wrong IP is no longer the only option.</p>
+    <div class="note">A claim and its first record stand or fall together. If
+    <code>claim --type … --content …</code> is given a record the API can't create, the
+    label is <strong>not</strong> claimed: fix the record and run the same command again.
+    Re-claiming a name you already hold is not an error either — the CLI says "you already
+    own it" and exits 0, and the API answers <code>409</code> with
+    <code>"owned": true</code>.</div>
 
     <h2 id="ssl">Getting HTTPS / SSL</h2>
     <p>AgentDomains handles DNS, so you bring your own certificate. Two paths:</p>
@@ -171,9 +182,16 @@ agentdomains forward me https://dest.com --permanent        # 301 instead of 302
 agentdomains forward me https://dest.com --no-preserve-path # land on target root
 agentdomains unforward me                                   # remove the forward</code></pre>
     <p>The request path and query are preserved by default
-    (<code>me.makes.fyi/blog?x=1</code> → <code>…/blog?x=1</code>). A forward replaces
-    address records: a label can't hold both a forward and an A/AAAA/CNAME at once
-    (TXT records still coexist).</p>
+    (<code>me.makes.fyi/blog?x=1</code> → <code>…/blog?x=1</code>).</p>
+    <p><strong>A forward takes the hostname over.</strong> Any A/AAAA/CNAME sitting on the
+    label itself is deleted as part of the call — at the DNS provider and here — and handed
+    back as <code>replaced_records</code>, which the CLI prints. So claiming a name with a
+    record and then forwarding it is a perfectly good sequence; nothing has to be cleared
+    out of the way first. Records on a sub-label (<code>www.me.makes.fyi</code>) are separate
+    hostnames and survive, and TXT records are untouched. If the forward then fails to come
+    up, the replaced records are put back with new ids. Going the other way is still
+    refused: while a forward stands, adding an address record to the same label answers a
+    <code>409</code> telling you to <code>unforward</code> first.</p>
     <div class="note">Forwarding is an HTTP redirect, not hosting. The visitor's
     browser ends up on the target URL. To serve your own content while keeping your
     name in the address bar, use <a href="#proxy">reverse proxy</a> below.</div>
@@ -190,8 +208,9 @@ agentdomains unforward me                                   # remove the forward
 agentdomains unproxy shop                                   # remove the proxy</code></pre>
     <p>We terminate HTTPS at the edge and fetch your backend <em>by its own hostname</em>,
     so it accepts the request and you never need a certificate for your AgentDomains
-    name. A proxy replaces address records: a label can't hold both a proxy and an
-    A/AAAA/CNAME (or a forward) at once.</p>
+    name. Like a forward, a proxy <strong>replaces</strong> the label's own A/AAAA/CNAME
+    records, reporting them as <code>replaced_records</code>, and leaves sub-label and TXT
+    records alone. A proxy and a forward remain mutually exclusive on one label.</p>
     <div class="note"><strong>Heads-up for login-gated apps.</strong> The proxy serves
     your backend, but it can't rewrite hostnames your app hardcodes. Apps that bake their
     own domain into OAuth/SSO redirects (e.g. a Keycloak login) may bounce users back to
@@ -220,12 +239,13 @@ agentdomains claim $NAME --email you@example.com --type A --content $IP --json |
     <table>
       <tr><th>Command</th><th>Description</th></tr>
       <tr><td><code>agentdomains signup</code></td><td>Create an account; saves the key to <code>~/.agentdomains/config.json</code></td></tr>
-      <tr><td><code>agentdomains whoami</code></td><td>Account state, quota, usage</td></tr>
+      <tr><td><code>agentdomains whoami</code></td><td>Account state, usage, and the per-account cap on names held at once</td></tr>
       <tr><td><code>agentdomains email &lt;addr&gt;</code></td><td>Attach an email for human validation</td></tr>
       <tr><td><code>agentdomains claim &lt;label&gt;</code></td><td>Register <code>&lt;label&gt;.makes.fyi</code> (<code>--email</code> required on first use; <code>--domain agentdomains.co</code>; optional <code>--type/--content/--host</code>)</td></tr>
       <tr><td><code>agentdomains list</code></td><td>List your domains</td></tr>
       <tr><td><code>agentdomains get &lt;label&gt;</code></td><td>Show one domain and its records</td></tr>
-      <tr><td><code>agentdomains record &lt;label&gt;</code></td><td>Add a record: <code>--type --content [--host]</code></td></tr>
+      <tr><td><code>agentdomains record &lt;label&gt;</code></td><td>Add a record: <code>--type --content [--host]</code>; prints the new record's id</td></tr>
+      <tr><td><code>agentdomains unrecord &lt;label&gt; &lt;record-id&gt;</code></td><td>Remove one record, keeping the name (ids come from <code>get</code>)</td></tr>
       <tr><td><code>agentdomains forward &lt;label&gt; &lt;url&gt;</code></td><td>Forward to a URL (<code>--permanent</code>, <code>--no-preserve-path</code>); claims the label if needed</td></tr>
       <tr><td><code>agentdomains unforward &lt;label&gt;</code></td><td>Remove a forward</td></tr>
       <tr><td><code>agentdomains proxy &lt;label&gt; &lt;host&gt;</code></td><td>Serve a backend at the name over HTTPS (our cert); claims the label if needed</td></tr>
@@ -233,6 +253,7 @@ agentdomains claim $NAME --email you@example.com --type A --content $IP --json |
       <tr><td><code>agentdomains ns &lt;label&gt; &lt;ns&gt;…</code></td><td>Delegate to your nameservers</td></tr>
       <tr><td><code>agentdomains txt &lt;label&gt; &lt;value&gt;</code></td><td>Add a TXT record (<code>--host _acme-challenge</code>)</td></tr>
       <tr><td><code>agentdomains delete &lt;label&gt;</code></td><td>Delete a domain and its records</td></tr>
+      <tr><td><code>agentdomains account delete</code></td><td>Close the account and invalidate its key; <code>--force</code> deletes the names it still holds</td></tr>
       <tr><td><code>agentdomains version</code></td><td>Print the CLI version</td></tr>
     </table>
     <p class="muted">Global flags: <code>--json</code>, <code>--api-url</code>,
@@ -287,17 +308,18 @@ curl -s https://mcp.agentdomains.co \
       <tr><td><code>get_domain</code></td><td><code>GET /v1/subdomains/{label}</code></td><td>One name, its records and forward/proxy state</td></tr>
       <tr><td><code>delete_domain</code></td><td><code>DELETE /v1/subdomains/{label}</code></td><td><span class="pill">destructive</span> Delete a name and all its records</td></tr>
       <tr><td><code>add_dns_record</code></td><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add an A, AAAA, CNAME, or TXT record</td></tr>
+      <tr><td><code>delete_record</code></td><td><code>DELETE /v1/subdomains/{label}/records/{id}</code></td><td><span class="pill">destructive</span> Remove one record, keeping the name</td></tr>
       <tr><td><code>add_acme_challenge</code></td><td><code>POST /v1/subdomains/{label}/records</code></td><td>TXT at <code>_acme-challenge</code> for Let's Encrypt DNS-01</td></tr>
-      <tr><td><code>set_forward</code></td><td><code>PUT /v1/subdomains/{label}/forward</code></td><td>Redirect the name to a URL</td></tr>
+      <tr><td><code>set_forward</code></td><td><code>PUT /v1/subdomains/{label}/forward</code></td><td>Redirect the name to a URL; replaces the address records on it</td></tr>
       <tr><td><code>remove_forward</code></td><td><code>DELETE /v1/subdomains/{label}/forward</code></td><td>Stop forwarding</td></tr>
-      <tr><td><code>set_proxy</code></td><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td>Serve a backend through the edge, TLS terminated for you</td></tr>
+      <tr><td><code>set_proxy</code></td><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td>Serve a backend through the edge, TLS terminated for you; replaces the address records on it</td></tr>
       <tr><td><code>remove_proxy</code></td><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Stop proxying</td></tr>
       <tr><td><code>delegate_nameservers</code></td><td><code>PUT /v1/subdomains/{label}/ns</code></td><td>Delegate the name to your own nameservers</td></tr>
+      <tr><td><code>delete_account</code></td><td><code>DELETE /v1/account[?force=true]</code></td><td><span class="pill">destructive</span> Close the account and kill its key; refuses while names are held unless <code>force</code></td></tr>
     </table>
     </div>
     <p class="muted">Every label-scoped tool takes an optional <code>domain</code>
-    (<code>makes.fyi</code> or <code>agentdomains.co</code>). There is no endpoint for
-    deleting an individual DNS record.</p>
+    (<code>makes.fyi</code> or <code>agentdomains.co</code>). Seventeen tools in all.</p>
     <div class="note">There is no "give me SSL" tool, because that is not one operation.
     Either <code>set_proxy</code> (the edge terminates TLS with its own certificate — nothing
     to install on your origin), or <code>add_acme_challenge</code> (publishes the DNS-01
@@ -328,13 +350,22 @@ curl -s https://mcp.agentdomains.co \
       <tr><td><code>GET /v1/subdomains</code></td><td>List</td></tr>
       <tr><td><code>GET /v1/subdomains/{label}</code></td><td>Show one</td></tr>
       <tr><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add a record</td></tr>
+      <tr><td><code>DELETE /v1/subdomains/{label}/records/{id}</code></td><td>Remove one record, keeping the name</td></tr>
       <tr><td><code>PUT /v1/subdomains/{label}/ns</code></td><td><code>{"nameservers":[…]}</code></td></tr>
       <tr><td><code>PUT /v1/subdomains/{label}/forward</code></td><td><code>{"target","permanent?","preserve_path?","cloak?"}</code></td></tr>
       <tr><td><code>DELETE /v1/subdomains/{label}/forward</code></td><td>Remove a forward</td></tr>
       <tr><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td><code>{"origin","domain?"}</code> — reverse-proxy the name to a backend host</td></tr>
       <tr><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Remove a reverse proxy</td></tr>
       <tr><td><code>DELETE /v1/subdomains/{label}</code></td><td>Delete</td></tr>
+      <tr><td><code>DELETE /v1/account[?force=true]</code></td><td>Close the account; <code>409</code> listing held names unless <code>force=true</code></td></tr>
     </table>
+    <p>Errors are JSON too, and carry the field that tells them apart:
+    <code>409 {"owned":true}</code> means the name is already yours (carry on),
+    <code>400</code> means the request was wrong, and an upstream failure is
+    <code>503 {"upstream":"cloudflare","retry":…}</code> — <code>retry:true</code> for an
+    outage worth coming back to, <code>retry:false</code> for one that needs us to fix
+    something first. A <code>429</code> carries <code>Retry-After</code> and repeats it in
+    the body as <code>retry_after</code>.</p>
     <pre><code># example: claim with curl
 KEY=$(curl -s -X POST https://api.agentdomains.co/v1/signup | jq -r .api_key)
 curl -s -X POST https://api.agentdomains.co/v1/subdomains \

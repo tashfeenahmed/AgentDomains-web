@@ -17,15 +17,25 @@ within 30 days or the account and its names are deleted. Later claims on the sam
 account need no email. Labels are lowercased when claimed, so `MyApp` becomes
 `myapp.makes.fyi`.
 
+A claim and its first record succeed or fail together: if the record cannot be
+created, the label is not claimed, so the same call can simply be repeated with the
+record fixed. Re-claiming a name the account already holds answers
+409 `{"owned":true}`, which means carry on rather than pick another label. Setting a
+forward or a proxy takes the hostname over — the A/AAAA/CNAME records on the name
+itself are deleted in the same call and returned as `replaced_records`, while
+sub-label and TXT records are untouched. One record can be removed on its own
+(`agentdomains unrecord <label> <record-id>`), and an account can delete itself
+(`agentdomains account delete [--force]`).
+
 ## Docs
 
 - [Documentation](https://docs.agentdomains.co/): full reference — install, quickstart, records, SSL, forwarding, proxying, delegation, commands, API
 - [Install](https://docs.agentdomains.co/#install): install the CLI
 - [Quickstart](https://docs.agentdomains.co/#quickstart): register a name and publish a site
-- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT, MX
+- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT (MX needs nameserver delegation)
 - [SSL](https://docs.agentdomains.co/#ssl): automatic certificates
-- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL
-- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge
+- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL (replaces the address records on that name)
+- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge (also replaces the address records on that name)
 - [Delegation](https://docs.agentdomains.co/#delegation): point a name at your own nameservers
 - [Commands](https://docs.agentdomains.co/#commands): full CLI command reference
 - [MCP server](https://docs.agentdomains.co/#mcp): Model Context Protocol tools, stdio and hosted
@@ -35,7 +45,7 @@ account need no email. Labels are lowercased when claimed, so `MyApp` becomes
 
 - Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
-- 15 tools covering availability, signup, claiming, DNS records, ACME DNS-01 challenges, forwarding, proxying, and nameserver delegation
+- 17 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, and closing the account
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
 ## Compare

@@ -57,7 +57,11 @@ Two consequences worth knowing:
   *Zone → DNS → Edit* answers `403 code 10000 "Authentication error"` on the route call,
   and the whole request fails — even though the DNS half worked. The token must carry
   **Zone → Workers Routes → Edit** on every zone in `AGENTDOMAINS_DOMAINS`, alongside
-  *Zone → DNS → Edit* and *Zone → Zone → Read*.
+  *Zone → DNS → Edit* and *Zone → Zone → Read*. The API now recognises that exact
+  failure and answers
+  `503 {"error":"forwarding is temporarily unavailable: the DNS provider token lacks Workers Routes permission","upstream":"cloudflare","retry":false}`,
+  logging the cause once an hour rather than once per request — so if you ever see that
+  message, this paragraph is the fix.
 
 ## Why the API needs a proxy Worker
 

@@ -12,10 +12,10 @@ The docs are a single page; each section below is an anchor on it.
 - [Install](https://docs.agentdomains.co/#install): install the `agentdomains` CLI
 - [Quickstart](https://docs.agentdomains.co/#quickstart): register a name and publish a site
 - [Accounts](https://docs.agentdomains.co/#accounts): signup, tokens, quotas, email confirmation
-- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT, MX
+- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT — added, listed with their ids, and removed one at a time (MX needs nameserver delegation)
 - [SSL](https://docs.agentdomains.co/#ssl): automatic certificate issuance
-- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL
-- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge
+- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL (replaces the address records on that name)
+- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge (also replaces the address records on that name)
 - [Delegation](https://docs.agentdomains.co/#delegation): use your own nameservers
 - [Agents](https://docs.agentdomains.co/#agents): using AgentDomains from an AI agent
 - [Commands](https://docs.agentdomains.co/#commands): full CLI reference
@@ -26,7 +26,7 @@ The docs are a single page; each section below is an anchor on it.
 
 - Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
-- 15 tools: check_availability, signup, whoami, attach_email, claim_domain, list_domains, get_domain, delete_domain, add_dns_record, add_acme_challenge, set_forward, remove_forward, set_proxy, remove_proxy, delegate_nameservers
+- 17 tools: check_availability, signup, whoami, attach_email, claim_domain, list_domains, get_domain, delete_domain, add_dns_record, delete_record, add_acme_challenge, set_forward, remove_forward, set_proxy, remove_proxy, delegate_nameservers, delete_account
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
 ## Source
