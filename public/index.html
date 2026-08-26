@@ -128,6 +128,27 @@
     box-shadow:10px 10px 0 var(--energy);padding:1.3rem 1.5rem;font-family:'Space Mono',monospace;font-size:1rem;overflow-x:auto;line-height:1.9}
   .term .c{color:#8a8a8a}.term .g{color:var(--energy)}.term .p{color:var(--energy)}
 
+  /* MCP block — same ink-border-and-hard-shadow language as the terminal band,
+     lime shadow instead of green so it reads as a second beat, not a repeat. */
+  .mcp{margin:2.6rem 2rem 0;background:#fff;border:3px solid var(--ink);border-radius:14px;
+    box-shadow:10px 10px 0 var(--lime);padding:1.4rem 1.6rem}
+  .mcp h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
+  .mcp h2 .g{color:var(--energy)}
+  .mcp p{margin:.5rem 0;max-width:860px}
+  .mcp a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+  .mcp .endpoint{font-family:'Space Mono',monospace;font-size:.95rem;background:var(--ink);color:var(--energy);
+    border:2px solid var(--ink);border-radius:8px;padding:.2rem .6rem;display:inline-block;white-space:nowrap}
+  .mcp .inline{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .mcp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.1rem;margin-top:1rem}
+  /* pre-wrap, not overflow-x: at this column width the hosted `claude mcp add`
+     line is wider than the box, and a command you have to scroll to finish
+     reading is a command nobody copies correctly. Indentation survives. */
+  .mcp pre{margin:.3rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:10px;
+    padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.65;
+    white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto}
+
   .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:3.5rem 2rem 2rem}
   .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
   .feature-card:nth-child(1){border-radius:50px 10px 40px 20px;transform:rotate(-1deg)}
@@ -167,6 +188,7 @@
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
     <a href="https://docs.agentdomains.co">Docs</a>
+    <a href="/#mcp">MCP</a>
     <a href="/compare">Compare</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
@@ -178,7 +200,8 @@
   <section class="hero">
     <div class="hero-text">
       <h1 class="hero-title">Free domains<br><span class="g">for agents.</span></h1>
-      <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain in one command.</p>
+      <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain in one command.
+      No new TLD to wait for: a real hostname under <b>makes.fyi</b> or <b>agentdomains.co</b>, today.</p>
 
       <div class="domain-search">
         <div class="metadata">// type a name to check it</div>
@@ -209,6 +232,49 @@
     <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
     <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
   </div>
+
+  <section class="mcp" id="mcp">
+    <div class="metadata">// MCP</div>
+    <h2>Works over <span class="g">MCP</span></h2>
+    <p>Hosted Streamable HTTP endpoint at <span class="endpoint">https://mcp.agentdomains.co</span>,
+    or the same server locally over stdio. Nothing to install for the hosted one.</p>
+    <p><b>17 tools</b>: check availability, claim, list, records, forwards, proxies — same API key as the CLI.</p>
+
+    <div class="mcp-grid">
+      <div>
+        <div class="metadata">Hosted / one line</div>
+        <pre>claude mcp add --transport http agentdomains https://mcp.agentdomains.co \
+  --header "Authorization: Bearer adom_…"</pre>
+        <div class="metadata" style="margin-top:.9rem">Hosted / config file</div>
+        <pre>{
+  "mcpServers": {
+    "agentdomains": {
+      "type": "http",
+      "url": "https://mcp.agentdomains.co",
+      "headers": { "Authorization": "Bearer adom_…" }
+    }
+  }
+}</pre>
+      </div>
+      <div>
+        <div class="metadata">Local / stdio</div>
+        <pre>AGENTDOMAINS_API_KEY=adom_… npx -y agentdomains-mcp</pre>
+        <div class="metadata" style="margin-top:.9rem">Local / config file</div>
+        <pre>{
+  "mcpServers": {
+    "agentdomains": {
+      "command": "npx",
+      "args": ["-y", "agentdomains-mcp"],
+      "env": { "AGENTDOMAINS_API_KEY": "adom_…" }
+    }
+  }
+}</pre>
+      </div>
+    </div>
+
+    <p>Every tool, every client, and the full argument reference:
+    <a href="https://docs.agentdomains.co/#mcp">docs.agentdomains.co/#mcp</a>.</p>
+  </section>
 
   <section class="features">
     <div class="feature-card">
@@ -245,6 +311,7 @@
       <div class="metadata">Find us</div>
       <div class="foot-links">
         <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="/#mcp">MCP</a>
         <a href="/compare">Compare</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>

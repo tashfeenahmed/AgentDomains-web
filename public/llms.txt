@@ -48,6 +48,13 @@ sub-label and TXT records are untouched. One record can be removed on its own
 - 17 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, and closing the account
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
+## Pricing
+
+- [Pricing](https://agentdomains.co/pricing): $0. There is no paid tier, no card, and no trial. Free
+  covers a hostname, DNS records, forwarding, and a reverse proxy with edge HTTPS; the only cap is 10
+  names per account. Not offered at any price: registering or transferring a real second-level domain,
+  and WHOIS/RDAP records (a subdomain has none).
+
 ## Compare
 
 - [Compare](https://agentdomains.co/compare): how AgentDomains stacks up against agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar, and Name.com — cost to first working hostname, account/KYC, payment method, SSL, DNS API coverage, and CLI/MCP access. Every cell is sourced or explicitly left unverified; figures verified 2026-08-23.

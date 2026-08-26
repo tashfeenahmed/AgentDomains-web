@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing: $0, and here is what that does and doesn't buy</title>
+<meta name="description" content="AgentDomains costs nothing. Free forever for what we do today: a hostname, DNS records, a forward, a reverse proxy with HTTPS. No card, no tiers, no upsell. We do not register, transfer, or run WHOIS on real TLD domains.">
+<meta property="og:title" content="Pricing: $0">
+<meta property="og:description" content="Free forever for a hostname, DNS records, a forward, and a reverse proxy with HTTPS. No card, no tiers. Here is what we don't do.">
+<link rel="canonical" href="https://agentdomains.co/pricing">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --energy:#00CC74;
+    --lime:#C6F24E;
+    --ink:#0A0A0A;
+    --canvas:#FFFFFF;
+    --mint:#EFFCF5;
+    --energy-d:#00A85E;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--canvas);color:var(--ink);
+    font-family:'Gaegu',cursive;font-size:1.2rem;line-height:1.3;overflow-x:hidden;
+  }
+  a{color:inherit}
+  h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.95;letter-spacing:-1px}
+
+  .dot-grid{
+    background-image:radial-gradient(rgba(10,10,10,.13) 1.6px, transparent 1.6px);
+    background-size:38px 38px;background-position:-19px -19px;
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+  }
+
+  nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
+  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+  .logo .dot{color:var(--energy)}
+  .nav-links{display:flex;gap:1.5rem;align-items:center}
+  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+  .nav-links a:hover{border-bottom:2px solid var(--energy)}
+  .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
+  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+
+  main{padding:1rem 2rem 0;max-width:1100px;margin:0 auto}
+  .head{max-width:820px}
+  h1{font-size:clamp(2.4rem,8vw,5rem);font-weight:800;text-transform:uppercase;margin-bottom:.7rem}
+  h1 .g{color:var(--energy)}
+  .lede{font-size:1.3rem;max-width:760px;padding:.9rem 1.2rem;border:3px solid var(--ink);
+    border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block}
+  .metadata{font-family:'Space Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6;margin:.4rem 0}
+
+  h2{font-size:clamp(1.5rem,3.6vw,2.1rem);font-weight:800;text-transform:uppercase;margin:2.4rem 0 .8rem;
+    padding-top:.7rem;border-top:4px solid var(--ink)}
+  h2 .g{color:var(--energy)}
+  p{max-width:820px}
+
+  .rules{background:#fff;border:3px solid var(--ink);border-left:10px solid var(--energy);border-radius:12px;
+    padding:1rem 1.3rem;margin:1.6rem 0;max-width:900px;box-shadow:6px 6px 0 var(--ink)}
+  .rules b{color:var(--energy-d)}
+  .warn{border-left-color:var(--lime)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin:1.5rem 0}
+  .card{border:3px solid var(--ink);border-radius:14px;padding:1.3rem 1.5rem;background:#fff}
+  .card h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;color:var(--energy-d);margin-bottom:.5rem}
+  .card p{font-size:1.08rem;margin:.3rem 0}
+  .card.no h3{color:#c0392b}
+
+  ul{max-width:820px;padding-left:1.3rem}
+  li{margin:.3rem 0}
+
+  code{font-family:'Space Mono',monospace;font-size:.82rem;background:var(--mint);border:1.5px solid var(--ink);
+    border-radius:5px;padding:0 5px;word-break:break-word}
+  .term{margin:1.5rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
+    box-shadow:10px 10px 0 var(--energy);padding:1.2rem 1.4rem;font-family:'Space Mono',monospace;
+    font-size:.95rem;overflow-x:auto;line-height:1.9;max-width:900px}
+  .term .c{color:#8a8a8a}.term .g{color:var(--energy)}.term .p{color:var(--energy)}
+
+  .btn{display:inline-block;padding:.8rem 1.6rem;background:var(--energy);color:var(--ink);text-decoration:none;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);
+    box-shadow:6px 6px 0 var(--ink);border-radius:8px;transition:.12s;margin:1.2rem .8rem 0 0}
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.ghost{background:#fff}
+
+  footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
+    align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:3rem}
+  footer h2{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;border-top:0;padding-top:0;margin:0}
+  footer h2 .g{color:var(--energy)}
+  .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
+  .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
+  .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+</style>
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+
+<div class="dot-grid"></div>
+
+<nav>
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="https://docs.agentdomains.co">Docs</a>
+    <a href="/#mcp">MCP</a>
+    <a href="/compare">Compare</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
+  </div>
+</nav>
+
+<main>
+  <div class="head">
+    <h1><span class="g">$0.</span></h1>
+    <p class="lede">Free forever for the things we do today: a hostname, DNS records, a forward,
+    a reverse proxy with HTTPS. No card, no tiers, no upsell in the CLI.</p>
+    <p class="metadata">This page is the whole pricing model · as of 2026-08-26</p>
+  </div>
+
+  <div class="rules">
+    <b>There is no paid plan to compare this against.</b> Not a free tier with a paid one behind it,
+    not a trial, not credits that run out. One kind of account exists, it costs nothing, and the CLI
+    never asks you for a card. If that ever changes, names already registered keep working and this
+    page changes first.
+  </div>
+
+  <h2>What <span class="g">$0</span> gets you</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>A real hostname</h3>
+      <p>A name under <code>makes.fyi</code> or <code>agentdomains.co</code>, resolving on the public
+      internet in seconds. Up to <b>10 names per account</b> — the only cap we enforce.</p>
+    </div>
+    <div class="card">
+      <h3>DNS records</h3>
+      <p>A, AAAA, CNAME and TXT, added and removed one at a time, plus nameserver delegation if you
+      would rather run the zone yourself. No per-record or per-query charge.</p>
+    </div>
+    <div class="card">
+      <h3>Forwarding</h3>
+      <p>Point the name at any URL and the edge redirects it. No metering, no bandwidth bill.</p>
+    </div>
+    <div class="card">
+      <h3>A reverse proxy with HTTPS</h3>
+      <p>Serve your backend at the name with TLS terminated at our edge, on our certificate. Nothing
+      to install on your origin, and nothing to pay for the certificate.</p>
+    </div>
+  </div>
+
+  <p class="metadata">No request quota, no rate card, no overage. The signup endpoint is rate-limited
+  per IP to keep it from being farmed, and that is the extent of it.</p>
+
+  <h2>What we <span class="g">don't</span> do</h2>
+  <div class="cards">
+    <div class="card no">
+      <h3>Register real domains</h3>
+      <p>We are not a registrar. We cannot sell you <code>example.com</code>, or any second-level
+      domain under a public TLD, at any price.</p>
+    </div>
+    <div class="card no">
+      <h3>Transfers</h3>
+      <p>A name here is a subdomain we operate. There is no auth code, no transfer out, and no way to
+      take it to another provider. It exists as long as we keep running.</p>
+    </div>
+    <div class="card no">
+      <h3>WHOIS / RDAP</h3>
+      <p>Subdomains have no registration record to publish, so there is nothing to look up, nothing to
+      privacy-protect, and no registrant contact to keep current.</p>
+    </div>
+  </div>
+
+  <div class="rules warn">
+    <b>Read this before you build on it.</b> Free and instant is the right trade for scaffolding an
+    agent just produced. It is the wrong trade for a name that has to matter in two years, carry a
+    brand, or hold an email address. For those, buy a domain you own — the
+    <a href="/compare">comparison table</a> lists who to buy it from and what they charge.
+  </div>
+
+  <h2>Start <span class="g">now</span></h2>
+  <div class="term">
+    <span class="c"># nothing to pay, nothing to configure</span><br>
+    <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
+    <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
+  </div>
+
+  <a href="https://docs.agentdomains.co" class="btn">GET STARTED →</a>
+  <a href="/compare" class="btn ghost">COMPARE THE ALTERNATIVES</a>
+
+  <footer>
+    <div>
+      <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
+    </div>
+    <div style="text-align:right">
+      <div class="metadata">Find us</div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="/compare">Compare</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+</body>
+</html>

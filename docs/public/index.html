@@ -294,6 +294,16 @@ curl -s https://mcp.agentdomains.co \
   -H "Authorization: Bearer adom_…" \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'</code></pre>
+    <p>Or as a config-file entry, for clients that take one:</p>
+    <pre><code>{
+  "mcpServers": {
+    "agentdomains": {
+      "type": "http",
+      "url": "https://mcp.agentdomains.co",
+      "headers": { "Authorization": "Bearer adom_…" }
+    }
+  }
+}</code></pre>
 
     <h3>Tools</h3>
     <div class="tablewrap">
