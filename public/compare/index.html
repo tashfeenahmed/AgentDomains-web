@@ -40,7 +40,7 @@
   nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
   .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
   .logo .dot{color:var(--energy)}
-  .nav-links{display:flex;gap:1.5rem;align-items:center}
+  .nav-links{display:flex;flex-wrap:wrap;gap:.9rem 1.5rem;align-items:center;justify-content:flex-end}
   .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
   .nav-links a:hover{border-bottom:2px solid var(--energy)}
   .nav-links a[aria-current]{border-bottom:2px solid var(--energy)}
@@ -125,6 +125,7 @@
     nav{padding:1rem}
     th.who,td.who{min-width:150px}
   }
+  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
 </head>
