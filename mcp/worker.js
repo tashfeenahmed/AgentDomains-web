@@ -20,6 +20,11 @@ const DEFAULT_API_BASE = "https://api.agentdomains.co";
 const PROTOCOL_VERSION = "2024-11-05";
 const SERVER_INFO = { name: "agentdomains", version: "0.1.1" };
 
+// What the origin sees in User-Agent for every call this Worker makes on a
+// caller's behalf, so audit rows can tell hosted-MCP traffic apart from the CLI
+// and from the stdio server. Derived from SERVER_INFO so the two never drift.
+const HOSTED_USER_AGENT = `agentdomains-mcp-hosted/${SERVER_INFO.version}`;
+
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -402,13 +407,22 @@ const TOOL_BY_NAME = new Map(TOOLS.map((t) => [t.name, t]));
  * Call the AgentDomains API on the caller's behalf. The inbound Authorization
  * header goes straight through; CF-Connecting-IP is copied explicitly so the
  * origin's per-IP signup rate limiter sees the real client, not the Worker.
+ * User-Agent names this Worker, with the caller's own string kept in
+ * X-Forwarded-User-Agent.
  */
 async function callApi(env, request, { method, path, body }) {
   const base = (env.API_BASE || DEFAULT_API_BASE).replace(/\/+$/, "");
-  const headers = { "Content-Type": "application/json" };
+  const headers = { "Content-Type": "application/json", "User-Agent": HOSTED_USER_AGENT };
 
   const auth = request.headers.get("Authorization");
   if (auth) headers["Authorization"] = auth;
+
+  // The origin's audit log keeps one User-Agent per row, and the useful answer
+  // to "what called this?" is "the hosted MCP server", not whichever client is
+  // on the far side of it. So we name ourselves in User-Agent and preserve the
+  // caller's own string beside it rather than dropping it.
+  const clientUA = request.headers.get("User-Agent");
+  if (clientUA) headers["X-Forwarded-User-Agent"] = clientUA;
 
   const ip = request.headers.get("CF-Connecting-IP");
   if (ip) {

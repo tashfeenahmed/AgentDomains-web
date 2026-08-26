@@ -9,8 +9,12 @@
 // so the repo never names the origin host. It must be a hostname, NOT a raw IP:
 // Workers refuse direct-IP fetches (Cloudflare error 1003).
 //
-// Headers are forwarded verbatim, so the origin still sees CF-Connecting-IP
-// (added at the edge) for rate-limiting and audit.
+// Headers are forwarded verbatim, and that is load-bearing rather than lazy.
+// The origin's clientIP() reads CF-Connecting-IP first and falls back to
+// X-Forwarded-For, and its audit rows keep the caller's User-Agent, so both
+// have to survive the hop. Building a fresh Headers object here and copying
+// only what looked necessary is how those quietly become "the Worker" in every
+// audit row and every per-IP rate-limit bucket. Don't.
 
 export default {
   async fetch(request, env) {
