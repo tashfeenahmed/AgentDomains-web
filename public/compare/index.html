@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --energy:#00CC74;
@@ -68,13 +68,14 @@
   /* --- the table scrolls inside itself; the page never moves sideways --- */
   .tablewrap{overflow-x:auto;border:4px solid var(--ink);border-radius:14px;box-shadow:10px 10px 0 var(--energy);
     margin:1.5rem 0 .6rem;background:#fff;-webkit-overflow-scrolling:touch}
-  table{border-collapse:collapse;width:100%;min-width:1180px;font-size:.98rem;font-family:'Gaegu',cursive}
-  th,td{text-align:left;padding:12px 14px;border-bottom:2px solid rgba(10,10,10,.12);
-    border-right:2px solid rgba(10,10,10,.12);vertical-align:top;line-height:1.25}
+  table{border-collapse:collapse;width:100%;min-width:1040px;font-size:1rem;line-height:1.5;
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif}
+  th,td{text-align:left;padding:14px 16px;border-bottom:1px solid rgba(10,10,10,.22);
+    border-right:1px solid rgba(10,10,10,.22);vertical-align:top;line-height:1.5}
   tr:last-child td{border-bottom:0}
   th:last-child,td:last-child{border-right:0}
   thead th{background:var(--ink);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
-    text-transform:uppercase;font-size:.82rem;letter-spacing:.02em;position:sticky;top:0;z-index:3}
+    text-transform:uppercase;font-size:.86rem;letter-spacing:.02em;position:sticky;top:0;z-index:3}
   /* provider column stays put while the rest scrolls */
   th.who,td.who{position:sticky;left:0;background:var(--mint);z-index:2;min-width:186px;
     border-right:3px solid var(--ink);font-weight:700}
@@ -83,21 +84,22 @@
   tbody tr:nth-child(even) td.who{background:#E6F7EE}
   tr.us td{background:var(--mint)!important;box-shadow:inset 0 0 0 9999px rgba(0,204,116,.07)}
   tr.us td.who{background:var(--lime)!important}
-  .who b{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.02rem;display:block;letter-spacing:-.02em}
-  .who .host{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.65;display:block;margin-top:2px;word-break:break-all}
+  .who b{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.05rem;display:block;letter-spacing:-.02em}
+  .who .host{font-family:'Space Mono',monospace;font-size:.85rem;opacity:.75;display:block;margin-top:3px;word-break:break-all}
 
-  code{font-family:'Space Mono',monospace;font-size:.78rem;background:var(--mint);border:1.5px solid var(--ink);
+  code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);
     border-radius:5px;padding:0 4px;word-break:break-word}
-  .price{font-family:'Space Mono',monospace;font-weight:700;font-size:.95rem}
+  .price{font-family:'Space Mono',monospace;font-weight:700;font-size:1rem}
   .yes{color:var(--energy-d);font-weight:700}
   .no{color:#c0392b;font-weight:700}
-  .src{display:block;margin-top:5px;font-family:'Space Mono',monospace;font-size:.66rem;opacity:.62;line-height:1.35}
-  .src a{text-decoration:underline;text-decoration-color:var(--energy)}
-  .blank{font-family:'Space Mono',monospace;font-size:.76rem;opacity:.45;font-style:normal}
+  .blank{font-family:'Space Mono',monospace;font-size:.9rem;opacity:.7;font-style:normal}
   .flag{display:inline-block;background:var(--lime);border:1.5px solid var(--ink);border-radius:5px;
-    padding:0 5px;font-family:'Space Mono',monospace;font-size:.66rem;margin-top:5px}
+    padding:1px 6px;font-family:'Space Mono',monospace;font-size:.85rem;margin-top:6px}
 
-  .scrollhint{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.55;margin:0 0 2rem}
+  .scrollhint{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.55;margin:0 0 .5rem}
+  .sources{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-size:.9rem;
+    line-height:1.6;opacity:.78;max-width:1040px;margin:0 0 2rem}
+  .sources a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:2px}
 
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin:1.5rem 0}
   .card{border:3px solid var(--ink);border-radius:14px;padding:1.3rem 1.5rem;background:#fff}
@@ -136,6 +138,7 @@
     <a href="https://docs.agentdomains.co">Docs</a>
     <a href="/#mcp">MCP</a>
     <a href="/compare" aria-current="page">Compare</a>
+    <a href="/pricing">Pricing</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
     <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
@@ -156,11 +159,12 @@
   What that does and does not buy is set out on <a href="/pricing">pricing</a>.</p>
 
   <div class="rules">
-    <b>How to read this table.</b> Every cell is either sourced with a link to the page or API
-    response it came from, or it is left blank and marked <span class="blank">unverified</span>.
-    Nothing here is filled in from memory or from a plausible guess. Prices move and products
-    change — all figures are as of <b>2026-08-23</b>, and several came from live API calls made
-    that day. Check the source before you rely on a number.
+    <b>How to read this table.</b> Every figure comes from the provider's own public pricing or
+    documentation pages — listed with links directly below the table — or from a live API call to
+    that provider. Anything we could not verify is left blank and marked
+    <span class="blank">unverified</span> rather than filled in from memory or a plausible guess.
+    Prices move and products change: everything here was verified on <b>23 August 2026</b>.
+    Check the sources before you rely on a number.
   </div>
 
   <div class="rules warn">
@@ -195,35 +199,29 @@
         <td>
           <span class="price yes">$0</span> — free subdomain of
           <code>makes.fyi</code> or <code>agentdomains.co</code>. Nothing to pay, ever.
-          <span class="src">Source: <a href="https://docs.agentdomains.co/">docs.agentdomains.co</a> · as of 2026-08-23</span>
         </td>
         <td>
           No account, no KYC: one unauthenticated <code>POST /v1/signup</code> returns an API key.
           <b>But an email is required the first time you register a name</b>, and a human must
           click the link we send within 30 days or the name and the account are deleted.
-          <span class="src">Source: <a href="https://docs.agentdomains.co/#accounts">docs #accounts</a> · as of 2026-08-23</span>
         </td>
         <td>
           None. No card, no wallet, no balance to top up.
-          <span class="src">Source: <a href="https://docs.agentdomains.co/">docs.agentdomains.co</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>No certificate issuance.</b> Two honest paths instead: reverse-proxy mode terminates
           TLS at our edge with our certificate, or we publish the ACME DNS-01 TXT record so your
           own client issues a Let's Encrypt cert. A plain public server can just use HTTP-01.
-          <span class="src">Source: <a href="https://docs.agentdomains.co/#ssl">docs #ssl</a> · as of 2026-08-23</span>
         </td>
         <td>
           A, AAAA, CNAME, TXT; nameserver delegation; URL forwarding; reverse proxy.
           Records can be added and deleted one at a time, and an account can delete itself.
           <b>No MX, no DNSSEC, no batch operations.</b>
-          <span class="src">Source: <a href="https://docs.agentdomains.co/#api">docs #api</a> · as of 2026-08-25</span>
         </td>
         <td>
           <span class="yes">Both.</span> Go CLI (<code>agentdomains</code>), MCP over stdio
           (<code>npx -y agentdomains-mcp</code>) and hosted at
           <code>mcp.agentdomains.co</code>, plus a Claude Code skill.
-          <span class="src">Source: <a href="https://docs.agentdomains.co/#mcp">docs #mcp</a> · as of 2026-08-23</span>
         </td>
       </tr>
 
@@ -235,32 +233,26 @@
           2026-08-23: $10.18 domain + $3.90 platform fee + $0.25 optional basename. Cheapest TLD
           seen was <code>.xyz</code> at $2.06 + the $3.90 fee. Optional premium plans from
           $59/yr.
-          <span class="src">Source: live <code>/api/v1/agents/quote</code> + <a href="https://agentdomain.app/">agentdomain.app/#pricing</a> · as of 2026-08-23</span>
         </td>
         <td>
           None claimed: <i>"No accounts, no KYC."</i> You do need a Base-mainnet wallet holding
           USDC. Discovery, availability and quotes need no auth at all.
-          <span class="src">Source: <a href="https://agentdomain.app/">agentdomain.app</a>, <code>GET /api/v1</code> · as of 2026-08-23</span>
         </td>
         <td>
           <b>USDC over x402 on Base only.</b> EIP-3009 signed locally, Coinbase CDP facilitator.
           No card or fiat path documented.
-          <span class="src">Source: <code>GET /api/v1</code> discovery JSON · as of 2026-08-23</span>
         </td>
         <td>
           <span class="yes">Included, $0.</span> Cloudflare for SaaS certificates on apex domains;
           quote API returns <code>sslIncluded: true</code>.
-          <span class="src">Source: <a href="https://agentdomain.app/">agentdomain.app</a> + live quote API · as of 2026-08-23</span>
         </td>
         <td>
           Deepest of the six: full CRUD, batch merge/replace with dry-run, BIND zone import and
           export, 13 record types, plus a programmable email API.
-          <span class="src">Source: <a href="https://agentdomain.app/docs">agentdomain.app/docs</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>MCP only.</b> <code>npx @agentdomain/mcp-server</code>, v0.7.0 published
           2026-08-23. No CLI.
-          <span class="src">Source: <a href="https://agentdomain.app/integrations/mcp">/integrations/mcp</a>, npm registry · as of 2026-08-23</span>
           <span class="flag">⚠ repo: personal account, 0 stars, 16 commits</span>
         </td>
       </tr>
@@ -272,33 +264,27 @@
           <span class="price">$15.52/yr</span> for a <code>.com</code>, from their public search
           page. No per-TLD price table is published, so
           <span class="blank">every other TLD: unverified</span>.
-          <span class="src">Source: <a href="https://domainforagents.io/">domainforagents.io</a> search results · as of 2026-08-23</span>
         </td>
         <td>
           None: <i>"No email required."</i> One unauthenticated POST returns an API key plus a
           <code>claim_code</code> a human can use to adopt the account later. No KYC.
-          <span class="src">Source: <a href="https://domainforagents.io/docs">domainforagents.io/docs</a> · as of 2026-08-23</span>
         </td>
         <td>
           Four routes: prepaid Stripe balance, card submitted by the agent at purchase,
           <b>USDC on Solana</b>, or a Stripe payment link for a human to settle later.
-          <span class="src">Source: <a href="https://domainforagents.io/">domainforagents.io</a> · as of 2026-08-23</span>
         </td>
         <td>
           <span class="blank">Not documented.</span> No SSL or certificate endpoint appears
           anywhere in their API reference. Absence in the docs is not the same as a stated "no",
           so this stays blank rather than becoming a claim.
-          <span class="src">Checked: <a href="https://domainforagents.io/docs">/docs</a> full API reference · as of 2026-08-23</span>
         </td>
         <td>
           Full CRUD plus replace-all, custom nameservers, 8 record types, webhooks, and an
           OpenAPI 3.1 spec for auto-discovery.
-          <span class="src">Source: <a href="https://domainforagents.io/docs">domainforagents.io/docs</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>MCP only.</b> <code>npx @domainforagents/mcp</code>, 16 tools. npm shows v1.2.1 last
           published 2026-04-13. No CLI.
-          <span class="src">Source: <a href="https://domainforagents.io/docs">/docs</a>, npm registry · as of 2026-08-23</span>
         </td>
       </tr>
 
@@ -309,36 +295,30 @@
           <span class="price">$10.88/yr</span> for a <code>.com</code> (register and renew the
           same), from their open availability API. <code>.xyz</code> $1.99 first year, $13.17
           renewal.
-          <span class="src">Source: live <code>api.namefi.io/v-next/search/availability</code> · as of 2026-08-23</span>
         </td>
         <td>
           Either an API key / OAuth 2.1 account, or <b>no account at all</b> via the x402 wallet
           path. Availability search needs no auth.
           <span class="blank">KYC policy: unverified</span> — not mentioned on any page loaded.
-          <span class="src">Source: <a href="https://namefi.io/llms.txt">namefi.io/llms.txt</a> · as of 2026-08-23</span>
         </td>
         <td>
           Namefi Service Credits (NFSC), topped up in the dashboard, plus stablecoin rails (USDC
           via x402 / MPP on Ethereum and Base).
           <span class="blank">Card &amp; fiat rails: unverified</span> — hinted at in their docs
           but never specified.
-          <span class="src">Source: <a href="https://namefi.io/llms.txt">namefi.io/llms.txt</a>, docs.namefi.io · as of 2026-08-23</span>
         </td>
         <td>
           <span class="blank">Not offered / not documented.</span> No certificate issuance appears
           in their docs; the product is DNS + DNSSEC + ENS.
-          <span class="src">Checked: <a href="https://namefi.io/llms.txt">namefi.io/llms.txt</a> · as of 2026-08-23</span>
         </td>
         <td>
           Full CRUD plus batch, 17 record types, DNSSEC, nameservers, auto-renew, and ENS
           integration. Registration is async with order polling.
-          <span class="src">Source: <a href="https://namefi.io/llms.txt">namefi.io/llms.txt</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>MCP only, and it is their preferred interface.</b> Streamable HTTP at
           <code>api.namefi.io/mcp</code>, discoverable via
           <code>/.well-known/mcp/servers.json</code>. No CLI found.
-          <span class="src">Source: <a href="https://namefi.io/.well-known/mcp/servers.json">/.well-known/mcp/servers.json</a> · as of 2026-08-23</span>
           <span class="flag">domains are minted as NFTs</span>
         </td>
       </tr>
@@ -351,36 +331,30 @@
           markup."</i> <span class="blank">Exact .com figure: unverified</span> — the pricing page
           Cloudflare's own FAQ points to sits behind a JS challenge and could not be loaded, and
           we will not print a third-party number as if it were theirs.
-          <span class="src">Source: <a href="https://www.cloudflare.com/products/registrar/">cloudflare.com/products/registrar</a>, <a href="https://developers.cloudflare.com/registrar/faq/">registrar FAQ</a> · as of 2026-08-23</span>
         </td>
         <td>
           Cloudflare account with a verified email address. ICANN registrant-email verification
           after registering or the domain goes on hold. For API use: an API token plus a billing
           profile with a valid default payment method. No document KYC documented.
-          <span class="src">Source: <a href="https://developers.cloudflare.com/registrar/get-started/register-domain/">registrar get-started</a> · as of 2026-08-23</span>
         </td>
         <td>
           Cards (Visa, Mastercard, Amex, Discover, UnionPay), PayPal, Apple Pay, Google Pay, Link,
           and instant bank payments. <b>No crypto.</b>
-          <span class="src">Source: <a href="https://developers.cloudflare.com/billing/get-started/update-billing-info/">Cloudflare billing docs</a> · as of 2026-08-23</span>
         </td>
         <td>
           <span class="yes">Free SSL included</span>, along with free DNS, CDN, WHOIS redaction
           and one-click DNSSEC.
-          <span class="src">Source: <a href="https://www.cloudflare.com/products/registrar/">cloudflare.com/products/registrar</a> · as of 2026-08-23</span>
         </td>
         <td>
           Full CRUD via the Cloudflare API v4, the most battle-tested DNS API here. Caveat:
           <i>"all domains on Cloudflare Registrar use Cloudflare nameservers"</i> — third-party
           nameservers are not permitted.
-          <span class="src">Source: <a href="https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/">DNS docs</a>, <a href="https://developers.cloudflare.com/registrar/faq/">registrar FAQ</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>Official MCP</b> at <code>mcp.cloudflare.com</code> (OAuth), and the Registrar API is
           reachable through it as part of the general Cloudflare API surface. Registration API is
           <b>in beta since 2026-04-15</b>: renewals, transfers and contact updates are
           <i>not yet available through the API</i>. No registrar CLI found.
-          <span class="src">Source: <a href="https://blog.cloudflare.com/registrar-api-beta/">Registrar API beta announcement</a>, <a href="https://github.com/cloudflare/mcp-server-cloudflare">cloudflare/mcp-server-cloudflare</a> · as of 2026-08-23</span>
         </td>
       </tr>
 
@@ -392,36 +366,30 @@
           for us, but it geo-detected EUR and could not be forced to USD, and it never labels
           which figure is registration and which is renewal.
           <span class="blank">USD price and the register/renew split: unverified</span>.
-          <span class="src">Source: <a href="https://www.name.com/pricing">name.com/pricing</a> · as of 2026-08-23</span>
         </td>
         <td>
           A <b>reseller account</b> with HTTP Basic auth — a shared, company-wide username rather
           than an email login. Separate sandbox and production tokens. No document KYC documented.
-          <span class="src">Source: <a href="https://docs.name.com/guides/quickstart">docs.name.com quickstart</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>Pre-funded account credit only</b>, topped up by wire transfer or ACH (US only).
           Default purchase limit $2,500. A credit card is <b>not</b> listed as an API funding
           method — the least agent-friendly payment story here.
-          <span class="src">Source: <a href="https://docs.name.com/guides/funding-your-namecom-account">funding docs</a> · as of 2026-08-23</span>
         </td>
         <td>
           <span class="no">Not included</span> with a bare registration, and there are no SSL or
           certificate endpoints anywhere in the Core API. SSL is a separate paid product.
           <span class="blank">Bundling with hosting plans: unverified.</span>
-          <span class="src">Source: <a href="https://docs.name.com/">docs.name.com</a> API index · as of 2026-08-23</span>
         </td>
         <td>
           Full CRUD on records, DNSSEC, nameservers and URL forwarding. Official SDKs for
           TypeScript, Go and PHP. Note updates are a full overwrite, not a patch.
-          <span class="src">Source: <a href="https://docs.name.com/">docs.name.com</a> · as of 2026-08-23</span>
         </td>
         <td>
           <b>Two official MCP servers</b>: <code>npx namecom-mcp</code> / hosted at
           <code>mcp.name.com</code>, plus a read-only docs server. npm shows the package at v1.1.0
           last published 2025-10-03. A CLI exists but is a <b>third-party personal project</b>
           (<code>patramsey/namecom-cli</code>, 3 stars), not an official one.
-          <span class="src">Source: <a href="https://docs.name.com/integrations/mcp/namecom-mcp">docs.name.com MCP</a>, npm registry, <a href="https://www.name.dev/">name.dev</a> · as of 2026-08-23</span>
         </td>
       </tr>
 
@@ -429,6 +397,15 @@
   </table>
   </div>
   <p class="scrollhint">← scroll the table sideways for all six columns →</p>
+  <p class="sources">Sources:
+    <a href="https://docs.agentdomains.co/">AgentDomains</a>,
+    <a href="https://agentdomain.app/">agentdomain.app</a>,
+    <a href="https://domainforagents.io/docs">DomainForAgents</a>,
+    <a href="https://namefi.io/llms.txt">Namefi</a>,
+    <a href="https://www.cloudflare.com/products/registrar/">Cloudflare Registrar</a>,
+    <a href="https://docs.name.com/">Name.com</a>
+    — public pricing and documentation pages, plus live API calls to each provider,
+    verified 23 August 2026.</p>
 
   <h2>What we <span class="g">left blank</span></h2>
   <p>Blank cells are the point of this page, not a gap in it. Each one below is something we
@@ -489,6 +466,7 @@
       <div class="metadata">Find us</div>
       <div class="foot-links">
         <a href="/">Home</a>
+        <a href="/pricing">Pricing</a>
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
