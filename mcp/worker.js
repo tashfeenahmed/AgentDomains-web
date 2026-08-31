@@ -18,7 +18,7 @@
 
 const DEFAULT_API_BASE = "https://api.agentdomains.co";
 const PROTOCOL_VERSION = "2024-11-05";
-const SERVER_INFO = { name: "agentdomains", version: "0.1.1" };
+const SERVER_INFO = { name: "agentdomains", version: "0.1.2" };
 
 // What the origin sees in User-Agent for every call this Worker makes on a
 // caller's behalf, so audit rows can tell hosted-MCP traffic apart from the CLI
