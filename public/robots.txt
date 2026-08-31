@@ -1,10 +1,12 @@
 # agentdomains.co — free domains for the sites and APIs AI agents build.
 # This site is built for agents, so every crawler is welcome: no disallows.
 #
-# One asset bundle answers on both agentdomains.co and makes.fyi, so makes.fyi
-# serves this same file and its agentdomains.co sitemap. That is deliberate:
-# agentdomains.co is the canonical brand host and the one we want indexed, and
-# makes.fyi stays bound only as a fallback through the rebrand.
+# makes.fyi no longer serves this site: the apex Worker answers it with a 301 to
+# the same path on agentdomains.co, which is the canonical brand host and the one
+# we want indexed. (Claimed *.makes.fyi subdomains are unaffected — they are
+# served by the forward/proxy Workers and keep working.) A crawler that asks
+# makes.fyi for this file is redirected here, so there is one robots.txt and one
+# sitemap, both naming agentdomains.co.
 
 User-agent: *
 Allow: /

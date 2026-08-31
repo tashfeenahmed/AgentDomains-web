@@ -1,17 +1,36 @@
 {
   "name": "agentdns-web",
+  "main": "worker.js",
   "compatibility_date": "2024-11-01",
+  // No workers.dev URL: the site answers on its two custom domains only, so
+  // there is no third address for a crawler to find. Same rule as the forward
+  // and proxy Workers.
+  "workers_dev": false,
   // Static landing page (AgentDomains), served from Cloudflare's edge.
   // drop-trailing-slash so public/compare/index.html is served at /compare
   // with a 200 rather than 307-redirecting to /compare/. The sitemap entry and
   // the page's own rel=canonical both name /compare, so that is the URL that
   // should answer directly. "/" is unaffected.
+  //
+  // run_worker_first: the makes.fyi -> agentdomains.co redirect in worker.js has
+  // to see "/" and "/pricing", and a matching asset would otherwise be served
+  // before the script ever ran. Requests reach the assets through env.ASSETS,
+  // which still applies html_handling — so agentdomains.co behaves exactly as
+  // it did. It must stay `true` (host-level decision); the array form of this
+  // key matches on path, which cannot express "only this hostname".
   "assets": {
     "directory": "./public",
-    "html_handling": "drop-trailing-slash"
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": true
   },
-  // agentdomains.co is the primary brand site; makes.fyi stays bound during the
-  // transition (activates on agentdomains.co once its NS point at Cloudflare).
+  // agentdomains.co is the primary brand site. makes.fyi stays bound so the old
+  // address keeps answering — but it answers with a 301 to agentdomains.co now,
+  // not with a copy of the site. Claimed *.makes.fyi subdomains are untouched:
+  // they never route here, they route to the forward/proxy Workers.
+  //
+  // These are custom domains, one hostname each. Never add a wildcard route on
+  // this zone — *.makes.fyi/* once shadowed api. and docs. and took them down.
   "routes": [
     { "pattern": "agentdomains.co", "custom_domain": true },
     { "pattern": "makes.fyi", "custom_domain": true }
