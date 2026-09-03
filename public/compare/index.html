@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Compare: ways for an AI agent to get a working hostname</title>
-<meta name="description" content="AgentDomains vs agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar and Name.com — cost, KYC, payment, SSL, DNS API and MCP access. Every claim sourced, verified 2026-08-23.">
+<meta name="description" content="Two tables: AgentDomains vs the registrars (agentdomain.app, DomainForAgents, Namefi, Cloudflare, Name.com) and vs the free subdomains (vercel.app, netlify.app, github.io, DuckDNS, nip.io) — on whether the name can point at a server you actually run. Every claim sourced.">
 <meta property="og:title" content="Compare: how agents get a hostname">
-<meta property="og:description" content="Six ways an AI agent can get a working hostname, compared on cost, KYC, payment, SSL, DNS API and MCP access. Every cell sourced or left blank.">
+<meta property="og:description" content="Eleven ways an AI agent can get a working hostname — registrars and free subdomains alike — compared on cost, control and whether the name can point at your own server. Every cell sourced or left blank.">
 <link rel="canonical" href="https://agentdomains.co/compare">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://agentdomains.co/compare">
@@ -105,6 +105,12 @@
   .flag{display:inline-block;background:var(--lime);border:1.5px solid var(--ink);border-radius:5px;
     padding:1px 6px;font-family:'Space Mono',monospace;font-size:.85rem;margin-top:6px}
 
+  /* The hosting table has six columns to the registrar table's seven, and its
+     cells are short verdicts rather than paragraphs, so it needs less room
+     before it starts scrolling. */
+  .tablewrap.hosting table{min-width:880px}
+  .tablewrap.hosting td{font-size:.95rem}
+
   .scrollhint{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.55;margin:0 0 .5rem}
   .sources{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-size:.9rem;
     line-height:1.6;opacity:.78;max-width:1040px;margin:0 0 2rem}
@@ -158,10 +164,13 @@
 <main>
   <div class="head">
     <h1>How agents get a<br><span class="g">hostname.</span></h1>
-    <p class="lede">Six ways an AI agent can go from "I built a thing" to "it has a URL" —
+    <p class="lede">Eleven ways an AI agent can go from "I built a thing" to "it has a URL" —
     compared on what they actually cost, what they demand of you, and whether an agent can
-    drive them unattended.</p>
-    <p class="metadata">Verified 2026-08-23 · we run one of these, read accordingly</p>
+    drive them unattended. Two tables, because there are two different questions:
+    <a href="#registrars">buy a domain you own</a>, or
+    <a href="#hosting">get a free subdomain pointed at what you built</a>.</p>
+    <p class="metadata">Registrars verified 2026-08-23 · free subdomains verified 2026-09-03 ·
+    we run one of these, read accordingly</p>
   </div>
 
   <p><b>$0 — here's why.</b> Our row costs nothing because a subdomain of a domain we already
@@ -186,7 +195,7 @@
     nothing. If it is going to matter in two years, pay for a real domain.
   </div>
 
-  <h2>The <span class="g">table</span></h2>
+  <h2 id="registrars">The <span class="g">table</span></h2>
 
   <div class="tablewrap" tabindex="0" role="region" aria-label="Comparison of domain providers for AI agents, scrollable">
   <table>
@@ -417,6 +426,192 @@
     — public pricing and documentation pages, plus live API calls to each provider,
     verified 23 August 2026.</p>
 
+  <h2 id="hosting">The other <span class="g">question</span></h2>
+  <p>Everything above sells you a second-level domain. But most agents asking "where do I put the
+  thing I just built" are not offered a registrar at all — they are offered
+  <code>vercel.app</code>, <code>netlify.app</code> or <code>github.io</code>. Those are free
+  subdomains too, so they belong on this page. They answer a different question, and the
+  difference is worth stating plainly.</p>
+
+  <div class="rules warn">
+    <b>What the hosting platforms give you that we do not.</b> Vercel, Netlify and GitHub Pages
+    <b>host your site</b>. We do not host anything — we give you a hostname and you point it
+    wherever your thing already runs. If you have nothing running yet and you want a static site
+    online in one command, deploy to one of them; that is what they are for. The table below is
+    about what happens when the thing you built <b>does not live on their platform</b>.
+  </div>
+
+  <div class="tablewrap hosting" tabindex="0" role="region" aria-label="Comparison of free subdomain providers for pointing a hostname at your own server, scrollable">
+  <table>
+    <thead>
+      <tr>
+        <th class="who">Free subdomain</th>
+        <th>Can it point at a server you run?</th>
+        <th>Needs a deploy on their platform?</th>
+        <th>DNS records you can write</th>
+        <th>ACME DNS-01 for your own certs</th>
+        <th>CLI / MCP</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ============ AgentDomains (us) ============ -->
+      <tr class="us">
+        <td class="who"><b>AgentDomains</b><span class="host">*.makes.fyi<br>*.agentdomains.co</span></td>
+        <td>
+          <span class="yes">Yes — anywhere.</span> A/AAAA at any IP, CNAME at any hostname.
+          A VPS, a Railway app, a Pi on your desk, someone else's platform.
+        </td>
+        <td>
+          <span class="yes">No.</span> We host nothing. The name is the whole product, which is
+          why it can point at anything.
+        </td>
+        <td>
+          <b>A, AAAA, CNAME, TXT</b>, added and deleted one at a time over the HTTP API.
+          Nameserver delegation if you would rather run the zone yourself.
+        </td>
+        <td>
+          <span class="yes">Yes.</span> TXT records are writable, so an agent can complete a
+          DNS-01 challenge for a cert on its own name.
+          <span class="flag">edge HTTPS included</span>
+        </td>
+        <td>
+          <b>Go CLI</b> (<code>agentdomains claim</code>), <b>stdio MCP</b>
+          (<code>npx agentdomains-mcp</code>) and a <b>hosted MCP</b> at
+          <code>mcp.agentdomains.co</code> — 17 tools.
+        </td>
+      </tr>
+
+      <!-- ============ Vercel ============ -->
+      <tr>
+        <td class="who"><b>Vercel</b><span class="host">*.vercel.app</span></td>
+        <td>
+          <span class="no">No.</span> The URL is generated <i>from</i> a deployment
+          (<code>&lt;project&gt;-&lt;scope&gt;.vercel.app</code>) and serves that deployment.
+          There is no way to aim it elsewhere.
+        </td>
+        <td>
+          <span class="no">Yes.</span> No deployment, no hostname.
+        </td>
+        <td>
+          <span class="blank">none</span> — the name has no zone of yours under it. A live check
+          for a TXT record beneath a <code>.vercel.app</code> name returns nothing.
+        </td>
+        <td>
+          <span class="no">No.</span> Vercel provisions the certificate for its own deployment.
+        </td>
+        <td>
+          <code>vercel</code> CLI — but it deploys projects, it does not hand you a hostname you
+          can take away.
+        </td>
+      </tr>
+
+      <!-- ============ Netlify ============ -->
+      <tr>
+        <td class="who"><b>Netlify</b><span class="host">*.netlify.app</span></td>
+        <td>
+          <span class="no">No.</span> The subdomain is your Netlify site's name and serves that
+          site. Renaming the site renames the URL; it does not repoint it.
+        </td>
+        <td>
+          <span class="no">Yes.</span> The subdomain exists because the site does.
+        </td>
+        <td>
+          <span class="blank">none</span> — Netlify DNS manages domains you bring to it, not the
+          <code>netlify.app</code> name itself.
+        </td>
+        <td>
+          <span class="no">No.</span>
+        </td>
+        <td>
+          <code>netlify</code> CLI — again a deploy tool, not a naming one.
+        </td>
+      </tr>
+
+      <!-- ============ GitHub Pages ============ -->
+      <tr>
+        <td class="who"><b>GitHub Pages</b><span class="host">&lt;owner&gt;.github.io</span></td>
+        <td>
+          <span class="no">No.</span> It serves HTML, CSS and JavaScript straight from a repository
+          named <code>&lt;owner&gt;.github.io</code>. Static files only — no origin, no API behind it.
+        </td>
+        <td>
+          <span class="no">Yes</span>, and only one such site per account.
+          <span class="flag">1 per account</span>
+        </td>
+        <td>
+          <span class="blank">none</span> — custom domains point <i>at</i> Pages; Pages does not
+          point at you.
+        </td>
+        <td>
+          <span class="no">No.</span>
+        </td>
+        <td>
+          <code>gh</code> pushes the repo. Nothing claims a name.
+        </td>
+      </tr>
+
+      <!-- ============ DuckDNS — the honest rival ============ -->
+      <tr>
+        <td class="who"><b>DuckDNS</b><span class="host">*.duckdns.org</span></td>
+        <td>
+          <span class="yes">Yes, by IP.</span> You supply any IPv4 or IPv6 and the name resolves
+          there. This is the closest thing on the page to what we do.
+        </td>
+        <td>
+          <span class="yes">No.</span> It is a naming service, like us.
+        </td>
+        <td>
+          <b>A, AAAA and TXT</b> over a token URL — <b>but no CNAME</b>. So it cannot point at a
+          platform hostname like <code>yourapp.up.railway.app</code>, which is how most managed
+          origins are addressed.
+        </td>
+        <td>
+          <span class="yes">Yes.</span> The TXT API is documented for proving ownership to
+          Let's Encrypt.
+        </td>
+        <td>
+          No official CLI or MCP server; the update endpoint is a URL any script can call.
+        </td>
+      </tr>
+
+      <!-- ============ nip.io / wildcard DNS ============ -->
+      <tr>
+        <td class="who"><b>nip.io</b><span class="host">&lt;ip&gt;.nip.io<br>and sslip.io</span></td>
+        <td>
+          <span class="yes">Yes, by IP only.</span> The hostname <i>encodes</i> the address:
+          <code>10-0-0-1.nip.io</code> resolves to <code>10.0.0.1</code>. We checked — it does.
+        </td>
+        <td>
+          <span class="yes">No</span>, but there is nothing to register either.
+        </td>
+        <td>
+          <span class="blank">none</span> — the answer is computed from the name, so there are no
+          records to write and <b>no name that is yours</b>. Anyone can use the name for your IP.
+        </td>
+        <td>
+          <span class="no">No.</span> No TXT means no DNS-01, so certificates have to come from
+          HTTP-01 against the same IP.
+        </td>
+        <td>
+          Nothing to drive. It is a resolver trick, not a service.
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+  <p class="scrollhint">← scroll the table sideways for all five columns →</p>
+  <p class="sources">Sources:
+    <a href="https://vercel.com/docs/deployments/generated-urls">Vercel generated URLs</a>,
+    <a href="https://docs.netlify.com/manage/domains/domains-fundamentals/understand-domains/">Netlify domains</a>,
+    <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">GitHub Pages</a>,
+    <a href="https://www.duckdns.org/spec.jsp">DuckDNS API spec</a>,
+    <a href="https://nip.io/">nip.io</a>
+    — provider documentation, plus live <code>dig</code> queries against
+    <code>nip.io</code> and a <code>.vercel.app</code> name,
+    verified 3 September 2026.</p>
+
   <h2>What we <span class="g">left blank</span></h2>
   <p>Blank cells are the point of this page, not a gap in it. Each one below is something we
   tried to verify on 2026-08-23 and could not, so we printed nothing rather than something
@@ -433,6 +628,10 @@
     not a statement, so it stays blank.</li>
     <li><b>Every DomainForAgents TLD except <code>.com</code>.</b> They publish no price table;
     the $15.52 came from an actual search result.</li>
+    <li><b>Whether Vercel and Netlify ship MCP servers.</b> Both have one, but we did not verify
+    what their tools do on 2026-09-03, so the second table's last column says only what their
+    CLIs do — which is deploy projects. Neither CLI hands you a hostname you can point elsewhere,
+    and that is the column's actual point.</li>
   </ul>
   <p>We also corrected three things we had believed going in: Cloudflare Registrar
   <b>does</b> now have a public registration API (beta, announced 2026-04-15),
@@ -446,6 +645,24 @@
       <h3>Throwaway agent output</h3>
       <p>A demo, a preview, a webhook receiver, a site an agent generated ten minutes ago.
       <b>Use us.</b> It is free and instant, and if it turns out to matter you can move it later.</p>
+    </div>
+    <div class="card">
+      <h3>A static site and nothing else</h3>
+      <p>Plain HTML with no server behind it and no origin of your own. <b>Vercel, Netlify or
+      GitHub Pages</b> — they host it <i>and</i> name it in one step, which we cannot do because
+      we host nothing.</p>
+    </div>
+    <div class="card">
+      <h3>Something already running somewhere</h3>
+      <p>A VPS, a Railway app, a container, a Pi. <b>Use us.</b> A <code>*.vercel.app</code> or
+      <code>*.netlify.app</code> name cannot be aimed at it; a <code>makes.fyi</code> name is a
+      real hostname with A, AAAA, CNAME and TXT records you write.</p>
+    </div>
+    <div class="card">
+      <h3>Home IP, no CNAME needed</h3>
+      <p>A box on a dynamic address with nothing in front of it. <b>DuckDNS</b> is a genuinely
+      good fit and has been doing it for years. Come to us when you need a CNAME, a reverse
+      proxy, or an agent-driven CLI and MCP.</p>
     </div>
     <div class="card">
       <h3>A name you must own</h3>

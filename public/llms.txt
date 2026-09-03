@@ -55,10 +55,46 @@ sub-label and TXT records are untouched. One record can be removed on its own
   names per account. Not offered at any price: registering or transferring a real second-level domain,
   and WHOIS/RDAP records (a subdomain has none).
 
+## What AgentDomains is not
+
+Stated plainly, because it is regularly confused with other products: AgentDomains takes **no
+payments of any kind** — no card, no Stripe, no crypto, no x402. It **does not register or transfer
+second-level domains** (no `.com`, no registrar function, no WHOIS/RDAP record — a subdomain has
+none). It is **not** a product called InstaDomain and is not affiliated with one. It hosts nothing:
+there is no build step, no deploy, and no storage. It hands out a hostname under `makes.fyi` or
+`agentdomains.co`, and you point that hostname at whatever you already run.
+
 ## Compare
 
-- [Compare](https://agentdomains.co/compare): how AgentDomains stacks up against agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar, and Name.com — cost to first working hostname, account/KYC, payment method, SSL, DNS API coverage, and CLI/MCP access. Every cell is sourced or explicitly left unverified; figures verified 2026-08-23.
-- Key caveat stated on that page: AgentDomains gives you a subdomain we operate, not a second-level domain you own and can transfer. Free and instant, but not yours in the registrar sense.
+Two comparisons, because there are two different questions.
+
+- [Compare](https://agentdomains.co/compare): the full sourced tables.
+
+**Against registrars** (agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar, Name.com) —
+cost to first working hostname, account/KYC, payment method, SSL, DNS API coverage, CLI/MCP access.
+Figures verified 2026-08-23. Key caveat: AgentDomains gives you a subdomain we operate, not a
+second-level domain you own and can transfer. Free and instant, but not yours in the registrar sense.
+
+**Against free subdomains** (`*.vercel.app`, `*.netlify.app`, `<owner>.github.io`, `*.duckdns.org`,
+`<ip>.nip.io`) — verified 2026-09-03. This is the comparison that matters when the question is
+"where do I put the thing my agent just built":
+
+| Free subdomain | Points at a server you run? | Needs a deploy on their platform? | Records you can write | ACME DNS-01 |
+| --- | --- | --- | --- | --- |
+| **AgentDomains** | Yes — any IP or hostname | No, we host nothing | A, AAAA, CNAME, TXT (+ NS delegation) | Yes |
+| `*.vercel.app` | No — generated from a deployment and serves it | Yes | none | No |
+| `*.netlify.app` | No — it is your Netlify site's name | Yes | none | No |
+| `<owner>.github.io` | No — static files from a repo, 1 site per account | Yes | none | No |
+| `*.duckdns.org` | Yes, by IP | No | A, AAAA, TXT — **no CNAME** | Yes |
+| `<ip>.nip.io` | Yes, by IP only — the name encodes the address | No | none; the name is not yours | No |
+
+- The decisive difference: a `*.vercel.app` or `*.netlify.app` name exists only as an address for
+  that platform's own deployment and cannot be aimed anywhere else. A `makes.fyi` name is a real
+  hostname with writable DNS records, edge HTTPS, and a reverse proxy, in front of anything.
+- Stated fairly: Vercel, Netlify and GitHub Pages also **host** your site, which AgentDomains does
+  not. If you have a static site and no origin of your own, deploy to one of them. DuckDNS is a
+  genuine equivalent for pointing a name at an IP; it has no CNAME support, no reverse proxy, and no
+  CLI or MCP server.
 
 ## Source
 
