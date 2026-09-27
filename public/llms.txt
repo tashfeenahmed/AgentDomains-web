@@ -45,20 +45,31 @@ sub-label and TXT records are untouched. One record can be removed on its own
 
 - Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
-- 17 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, and closing the account
+- 19 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, closing the account, and getting a Pro checkout or billing-portal link
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
 ## Pricing
 
-- [Pricing](https://agentdomains.co/pricing): $0. There is no paid tier, no card, and no trial. Free
-  covers a hostname, DNS records, forwarding, and a reverse proxy with edge HTTPS; the only cap is 10
-  names per account. Not offered at any price: registering or transferring a real second-level domain,
-  and WHOIS/RDAP records (a subdomain has none).
+- [Pricing](https://agentdomains.co/pricing): two plans.
+  - **Free, $0, no card.** A hostname, DNS records (A, AAAA, CNAME, TXT, NS delegation), forwarding,
+    and a reverse proxy with edge HTTPS, for up to 10 names per account. A name whose origin stays
+    unreachable is emailed about at 30 days and may be released at 45.
+  - **Pro, $5/month or $48/year.** Up to 100 names, names are never released for being unreachable,
+    and priority email support. Every Free feature is included unchanged.
+  - Names already registered keep working; adding Pro removed nothing from Free. Cancelling Pro never
+    deletes a name: the account keeps what it holds and cannot add past 10.
+  - To upgrade: `agentdomains upgrade` (or `--yearly`), the MCP tool `upgrade_to_pro`, or
+    `POST /v1/billing/checkout`. Each returns a Stripe Checkout link that a human opens and pays; an
+    agent cannot complete the payment. `agentdomains billing` / `manage_billing` /
+    `POST /v1/billing/portal` manage or cancel it. A free account at its limit gets a 403 that says so.
+  - Not offered at any price: registering or transferring a real second-level domain, and WHOIS/RDAP
+    records (a subdomain has none).
 
 ## What AgentDomains is not
 
 Stated plainly, because it is regularly confused with other products: AgentDomains takes **no
-payments of any kind** — no card, no Stripe, no crypto, no x402. It **does not register or transfer
+payment to get started**. The free plan needs no card. The only payment is the optional Pro plan,
+by card through Stripe Checkout, which a human completes. There is no crypto and no x402. It **does not register or transfer
 second-level domains** (no `.com`, no registrar function, no WHOIS/RDAP record — a subdomain has
 none). It is **not** a product called InstaDomain and is not affiliated with one. It hosts nothing:
 there is no build step, no deploy, and no storage. It hands out a hostname under `makes.fyi` or
