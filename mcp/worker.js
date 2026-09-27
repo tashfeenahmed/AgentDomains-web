@@ -131,7 +131,9 @@ const TOOLS = [
     description:
       "Show the current account: id, state, attached email and whether it is verified, domains used, and which " +
       "domains are available to claim under. When quotas are disabled the response omits 'quota' and says " +
-      "unlimited:true; 'max_subdomains' is the separate hard cap on how many names one account may hold at once.",
+      "unlimited:true; 'max_subdomains' is the separate hard cap on how many names one account may hold at once " +
+      "(10 on the free plan, 100 on Pro). 'plan' is 'free' or 'pro'; when Pro is on sale a free account also " +
+      "gets an 'upgrade' hint (see upgrade_to_pro).",
     inputSchema: { type: "object", properties: {} },
     plan: () => ({ method: "GET", path: "/v1/whoami" }),
   },
@@ -440,6 +442,37 @@ const TOOLS = [
       },
     },
     plan: (a) => ({ method: "DELETE", path: a.force ? "/v1/account?force=true" : "/v1/account" }),
+  },
+  {
+    name: "upgrade_to_pro",
+    description:
+      "Get a Stripe checkout link for AgentDomains Pro: 100 names instead of the free 10, names never released " +
+      "for being unreachable, and priority email support, for $5/month (or $48/year with interval 'year'). " +
+      "Use this when a claim is refused because the account is at its name limit and the user wants more. " +
+      "It only returns a link and never charges anything: a human must open the URL and pay. Show them the url " +
+      "and say what Pro costs; do not open it or pay on their behalf. If the account is already Pro the answer " +
+      "has kind:'portal' and a link to manage the subscription instead. Answers 404 'billing is not enabled' on " +
+      "a server that does not sell Pro.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        interval: {
+          type: "string",
+          enum: ["month", "year"],
+          description: "Billing interval: 'month' ($5, the default) or 'year' ($48).",
+        },
+      },
+    },
+    plan: (a) => ({ method: "POST", path: "/v1/billing/checkout", body: { interval: a.interval ?? "month" } }),
+  },
+  {
+    name: "manage_billing",
+    description:
+      "Get a Stripe billing-portal link for a Pro account: update the card, see invoices, switch between monthly " +
+      "and yearly, or cancel. A human must open it. Cancelling keeps Pro to the end of the paid period and never " +
+      "deletes a name. Answers 409 if the account has never subscribed (use upgrade_to_pro).",
+    inputSchema: { type: "object", properties: {} },
+    plan: () => ({ method: "POST", path: "/v1/billing/portal" }),
   },
 ];
 
