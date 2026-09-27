@@ -4,7 +4,8 @@
 // Implements MCP Streamable HTTP, stateless: every JSON-RPC request arrives as
 // a POST and is answered inline as JSON. No sessions, no SSE stream, so there
 // is nothing to keep warm between calls and any client that speaks plain
-// Streamable HTTP works. GET is answered 405 (we never open a server stream).
+// Streamable HTTP works. A GET that asks for the server stream is answered 405
+// (we never open one); a GET from a browser or crawler gets a noindex page.
 //
 // Dependency-free on purpose. The MCP SDK pulls in Node built-ins that do not
 // belong in a Worker, and the wire protocol we need here is small enough that
@@ -31,6 +32,49 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, MCP-Protocol-Version, Mcp-Session-Id",
   "Access-Control-Max-Age": "86400",
 };
+
+// Shown to anything that opens this host in a browser, and to crawlers that
+// follow one of the MCP directory listings pointing here. It is deliberately
+// noindex: this is an API endpoint, not a page anyone should find in search.
+const LANDING_HTML = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>AgentDomains MCP endpoint</title>
+<style>
+:root { color-scheme: light dark; }
+body { margin: 0; padding: 3rem 1.25rem; font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 34rem; margin: 0 auto; }
+h1 { font-size: 1.35rem; margin: 0 0 .75rem; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .875rem; }
+pre { padding: .9rem 1rem; border-radius: .5rem; overflow-x: auto; background: #f4f4f5; }
+@media (prefers-color-scheme: dark) { pre { background: #1c1c1f; } }
+a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+<h1>AgentDomains MCP endpoint</h1>
+<p>This host is the hosted <a href="https://modelcontextprotocol.io">Model Context Protocol</a>
+server for <a href="https://agentdomains.co">AgentDomains</a>, speaking Streamable HTTP.
+It answers JSON-RPC over <code>POST</code>, so there is nothing to read here in a browser.</p>
+<p>Point an MCP client at this URL and authenticate with your API key:</p>
+<pre>{
+  "mcpServers": {
+    "agentdomains": {
+      "url": "https://mcp.agentdomains.co",
+      "headers": { "Authorization": "Bearer adom_…" }
+    }
+  }
+}</pre>
+<p>Full tool reference and how to get a key:
+<a href="https://docs.agentdomains.co/#mcp">docs.agentdomains.co</a>.</p>
+</main>
+</body>
+</html>
+`;
 
 // ---------- tool definitions (kept in step with agentdomains-mcp) ----------
 
@@ -533,16 +577,51 @@ export default {
       return new Response(null, { status: 204, headers: CORS });
     }
 
-    // No server-initiated stream in this stateless implementation. The spec
-    // wants 405 so clients fall back to POST-only rather than hanging on SSE.
     if (request.method === "GET" || request.method === "HEAD") {
       const url = new URL(request.url);
       if (url.pathname === "/health") return json({ ok: true, server: SERVER_INFO });
-      return new Response(
-        "AgentDomains MCP server (Streamable HTTP). POST JSON-RPC here; " +
-          "authenticate with `Authorization: Bearer adom_…`. Docs: https://docs.agentdomains.co/#mcp\n",
-        { status: 405, headers: { "Content-Type": "text/plain", Allow: "POST, OPTIONS", ...CORS } },
-      );
+
+      // An MCP client opening the optional server-initiated stream always asks
+      // for it by Accept, per Streamable HTTP. We never open one, and the spec
+      // wants 405 there so the client falls back to POST-only instead of
+      // hanging on an SSE connection that will never produce an event. Session
+      // and protocol headers mark an MCP client too, so honour those the same
+      // way rather than handing a client an HTML page it cannot parse.
+      const accept = request.headers.get("Accept") || "";
+      const isMcpClient =
+        accept.includes("text/event-stream") ||
+        request.headers.has("Mcp-Session-Id") ||
+        request.headers.has("MCP-Protocol-Version");
+      if (isMcpClient) {
+        return new Response(
+          "AgentDomains MCP server (Streamable HTTP). POST JSON-RPC here; " +
+            "authenticate with `Authorization: Bearer adom_…`. Docs: https://docs.agentdomains.co/#mcp\n",
+          { status: 405, headers: { "Content-Type": "text/plain", Allow: "POST, OPTIONS", ...CORS } },
+        );
+      }
+
+      // Everyone else is a browser or a crawler. Answering those 405 too made
+      // Search Console file the host under "Blocked due to other 4xx issue",
+      // because an MCP directory links here and Googlebot only ever sends GET.
+      // Serve a real page instead, and keep the host out of the index with a
+      // noindex that robots.txt deliberately leaves crawlable — a Disallow
+      // would hide the noindex and leave the URL stuck in the report.
+      if (url.pathname === "/robots.txt") {
+        return new Response("User-agent: *\nAllow: /\n", {
+          status: 200,
+          headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+        });
+      }
+      return new Response(LANDING_HTML, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "X-Robots-Tag": "noindex",
+          "Cache-Control": "public, max-age=3600",
+          Allow: "POST, OPTIONS",
+          ...CORS,
+        },
+      });
     }
 
     if (request.method !== "POST") {
