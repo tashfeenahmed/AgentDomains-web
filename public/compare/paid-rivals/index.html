@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDomains vs the paid rivals: agentdomain.app and MCPDomain</title>
+<meta name="description" content="AgentDomains ($0, free subdomain) vs agentdomain.app (USDC 25.00 on Base example checkout, $3.90/yr platform fee, plans $59–$240/yr) and MCPDomain (Stripe checkout, wholesale + flat margin). Every price read off their own pages 29 September 2026.">
+<meta property="og:title" content="Free vs paid: AgentDomains against agentdomain.app and MCPDomain">
+<meta property="og:description" content="Two paid rivals now show live pricing surfaces — agentdomain.app's x402 USDC checkout and MCPDomain's Stripe checkout — against AgentDomains' $0. Every figure sourced, everything unverified left blank.">
+<link rel="canonical" href="https://agentdomains.co/compare/paid-rivals">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agentdomains.co/compare/paid-rivals">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --energy:#00CC74;
+    --lime:#C6F24E;
+    --ink:#0A0A0A;
+    --canvas:#FFFFFF;
+    --mint:#EFFCF5;
+    --energy-d:#00A85E;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--canvas);color:var(--ink);
+    font-family:'Gaegu',cursive;font-size:1.2rem;line-height:1.3;overflow-x:hidden;
+  }
+  a{color:inherit}
+  h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.95;letter-spacing:-1px}
+
+  .dot-grid{
+    background-image:radial-gradient(rgba(10,10,10,.13) 1.6px, transparent 1.6px);
+    background-size:38px 38px;background-position:-19px -19px;
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+  }
+
+  nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
+  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+  .logo .dot{color:var(--energy)}
+  .nav-links{display:flex;flex-wrap:wrap;gap:.9rem 1.5rem;align-items:center;justify-content:flex-end}
+  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+  .nav-links a:hover{border-bottom:2px solid var(--energy)}
+  .nav-links a[aria-current]{border-bottom:2px solid var(--energy)}
+  .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
+  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+
+  main{padding:1rem 2rem 0;max-width:1500px;margin:0 auto}
+  .head{max-width:820px}
+  h1{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:800;text-transform:uppercase;margin-bottom:.7rem}
+  h1 .g{color:var(--energy)}
+  .lede{font-size:1.3rem;max-width:760px;padding:.9rem 1.2rem;border:3px solid var(--ink);
+    border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block}
+  .metadata{font-family:'Space Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6;margin:.4rem 0}
+
+  h2{font-size:clamp(1.5rem,3.6vw,2.1rem);font-weight:800;text-transform:uppercase;margin:2.4rem 0 .8rem;
+    padding-top:.7rem;border-top:4px solid var(--ink)}
+  h2 .g{color:var(--energy)}
+  p{max-width:880px}
+
+  .rules{background:#fff;border:3px solid var(--ink);border-left:10px solid var(--energy);border-radius:12px;
+    padding:1rem 1.3rem;margin:1.6rem 0;max-width:900px;box-shadow:6px 6px 0 var(--ink)}
+  .rules b{color:var(--energy-d)}
+  .warn{border-left-color:var(--lime)}
+
+  /* --- the table scrolls inside itself; the page never moves sideways --- */
+  .tablewrap{overflow-x:auto;border:4px solid var(--ink);border-radius:14px;box-shadow:10px 10px 0 var(--energy);
+    margin:1.5rem 0 .6rem;background:#fff;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;width:100%;min-width:1160px;font-size:1rem;line-height:1.5;
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif}
+  th,td{text-align:left;padding:14px 16px;border-bottom:1px solid rgba(10,10,10,.22);
+    border-right:1px solid rgba(10,10,10,.22);vertical-align:top;line-height:1.5}
+  tr:last-child td{border-bottom:0}
+  th:last-child,td:last-child{border-right:0}
+  thead th{background:var(--ink);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    text-transform:uppercase;font-size:.86rem;letter-spacing:.02em;position:sticky;top:0;z-index:3}
+  /* provider column stays put while the rest scrolls */
+  th.who,td.who{position:sticky;left:0;background:var(--mint);z-index:2;min-width:186px;
+    border-right:3px solid var(--ink);font-weight:700}
+  thead th.who{background:var(--ink);z-index:4}
+  tbody tr:nth-child(even) td{background:#FAFAFA}
+  tbody tr:nth-child(even) td.who{background:#E6F7EE}
+  tr.us td{background:var(--mint)!important;box-shadow:inset 0 0 0 9999px rgba(0,204,116,.07)}
+  tr.us td.who{background:var(--lime)!important}
+  .who b{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.05rem;display:block;letter-spacing:-.02em}
+  .who .host{font-family:'Space Mono',monospace;font-size:.85rem;opacity:.75;display:block;margin-top:3px;word-break:break-all}
+
+  code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);
+    border-radius:5px;padding:0 4px;word-break:break-word}
+  .price{font-family:'Space Mono',monospace;font-weight:700;font-size:1rem}
+  .yes{color:var(--energy-d);font-weight:700}
+  .no{color:#c0392b;font-weight:700}
+  .blank{font-family:'Space Mono',monospace;font-size:.9rem;opacity:.7;font-style:normal}
+  .flag{display:inline-block;background:var(--lime);border:1.5px solid var(--ink);border-radius:5px;
+    padding:1px 6px;font-family:'Space Mono',monospace;font-size:.85rem;margin-top:6px}
+
+  .scrollhint{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.55;margin:0 0 .5rem}
+  .sources{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-size:.9rem;
+    line-height:1.6;opacity:.78;max-width:1040px;margin:0 0 2rem}
+  .sources a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:2px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin:1.5rem 0}
+  .card{border:3px solid var(--ink);border-radius:14px;padding:1.3rem 1.5rem;background:#fff}
+  .card h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;color:var(--energy-d);margin-bottom:.5rem}
+  .card p{font-size:1.08rem;margin:.3rem 0}
+
+  .btn{display:inline-block;padding:.8rem 1.6rem;background:var(--energy);color:var(--ink);text-decoration:none;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);
+    box-shadow:6px 6px 0 var(--ink);border-radius:8px;transition:.12s;margin:1.2rem .8rem 0 0}
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.ghost{background:#fff}
+
+  ul{max-width:880px}
+  li{margin:.35rem 0}
+
+  footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
+    align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:3rem}
+  footer h2{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;border-top:0;padding-top:0;margin:0}
+  footer h2 .g{color:var(--energy)}
+  .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
+  .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
+  .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+
+  @media(max-width:700px){
+    main{padding:1rem 1rem 0}
+    nav{padding:1rem}
+    th.who,td.who{min-width:150px}
+  }
+  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
+</style>
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+
+<div class="dot-grid"></div>
+
+<nav>
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="https://docs.agentdomains.co">Docs</a>
+    <a href="/#mcp">MCP</a>
+    <a href="/compare" aria-current="page">Compare</a>
+    <a href="/pricing">Pricing</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
+  </div>
+</nav>
+
+<main>
+  <div class="head">
+    <h1>Free vs the <span class="g">paid rivals.</span></h1>
+    <p class="lede">Two products sell AI agents a domain for money:
+    <b>agentdomain.app</b> — a full identity stack bought with USDC over x402, example quote
+    <code>USDC 25.00 on Base</code>, Enterprise plan <code>$240/year</code> — and
+    <b>MCPDomain</b> — real registrations through a Stripe checkout at <i>wholesale + a small flat
+    margin</i>, with free availability checks. AgentDomains costs $0. This page says exactly what
+    the money buys, and when it buys something we do not.</p>
+    <p class="metadata">Both rivals' pricing surfaces re-read 2026-09-29 ·
+    we run the free one, read accordingly</p>
+  </div>
+
+  <div class="rules">
+    <b>How to read this table.</b> Every figure was taken from the provider's own public pages on
+    <b>29 September 2026</b> — linked directly below the table — or left
+    <span class="blank">unverified</span>. agentdomain.app publishes its plan ladder on its
+    homepage (there is no <code>/pricing</code> page); MCPDomain publishes no price table at all,
+    only a margin formula, so its TLD prices stay blank here. Prices move: check the sources
+    before you rely on a number. The wider comparison against every registrar and every free
+    subdomain lives on <a href="/compare">the main compare page</a>.
+  </div>
+
+  <div class="rules warn">
+    <b>The honest headline: we are not the same product.</b> Both rivals register a
+    <b>real second-level domain you own</b> — <code>yourname.com</code>, transferable to any
+    registrar, with email on it. We give you a <b>subdomain</b> — <code>yourname.makes.fyi</code>
+    — that we operate. If you need to own the name, one of the two paid products is the right
+    call and we will happily take your traffic anyway. If the name is the address for something
+    an agent just built and you want it live on HTTPS in one command, the $0 row wins on price
+    and on time-to-first-byte.
+  </div>
+
+  <h2 id="table">The <span class="g">table</span></h2>
+
+  <div class="tablewrap" tabindex="0" role="region" aria-label="Comparison of AgentDomains, agentdomain.app and MCPDomain, scrollable">
+  <table>
+    <thead>
+      <tr>
+        <th class="who">Product</th>
+        <th>What you get</th>
+        <th>Cost to first hostname</th>
+        <th>Payment method</th>
+        <th>Account required</th>
+        <th>Email on the name</th>
+        <th>SSL / HTTPS</th>
+        <th>Agent interface</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ============ AgentDomains (us) ============ -->
+      <tr class="us">
+        <td class="who"><b>AgentDomains</b><span class="host">agentdomains.co</span></td>
+        <td>
+          A <b>subdomain</b> of <code>makes.fyi</code> or <code>agentdomains.co</code> that we
+          operate — not a second-level domain, not transferable.
+        </td>
+        <td>
+          <span class="price yes">$0</span>. Free covers 10 names with every feature; an optional
+          Pro plan ($5/month, 100 names) takes nothing away from free. No card in the flow.
+        </td>
+        <td>
+          None to start. <b>No crypto, no x402</b>, no wallet, no balance. Pro is a card via
+          Stripe Checkout that a human completes.
+        </td>
+        <td>
+          No signup form: one unauthenticated <code>POST /v1/signup</code> returns an API key.
+          <b>An email is required the first time you claim a name</b> and the link must be clicked
+          within 30 days, or the names and account go.
+        </td>
+        <td>
+          <span class="no">No mailboxes.</span> No MX on a plain name — email needs you to
+          delegate the name to your own nameservers first.
+        </td>
+        <td>
+          Reverse-proxy mode terminates TLS at our edge with our certificate; or we publish the
+          ACME DNS-01 TXT record so your own client issues its cert; or plain HTTP-01 works
+          because the name resolves to you.
+        </td>
+        <td>
+          <span class="yes">CLI + MCP.</span> Go CLI (<code>agentdomains</code>), stdio MCP
+          (<code>npx -y agentdomains-mcp</code>), hosted MCP at <code>mcp.agentdomains.co</code>
+          (19 tools), Claude Code skill.
+        </td>
+      </tr>
+
+      <!-- ============ agentdomain.app ============ -->
+      <tr>
+        <td class="who"><b>agentdomain.app</b><span class="host">agentdomain.app</span></td>
+        <td>
+          The deepest bundle: a <b>registered second-level domain</b> (.com, .ai, .xyz) plus a
+          Basename on Base, optional ENS, an AgentID NFT (ERC-721), email, DNS and managed SSL —
+          all in one x402 checkout.
+        </td>
+        <td>
+          <span class="price">USDC 25.00 on Base</span> in the example checkout flow on their
+          homepage (the real total is live-priced from registrar data, Basename availability, ENS
+          rent and gas). On top: <b>$3.90 platform fee per agent per year</b>, and Premium Plans
+          shown 2026-09-29: <b>Starter $59/yr, Pro $120/yr, Enterprise $240/yr</b> ($20/month
+          equivalent; 25 API keys, 200 DNS records, 20 email aliases). No free tier.
+        </td>
+        <td>
+          <b>USDC over x402 on Base only.</b> EIP-3009 signed locally, Coinbase CDP facilitator.
+          Their own copy: <i>"no human required."</i> You need a Base-mainnet wallet holding
+          USDC; no card or fiat path is documented.
+        </td>
+        <td>
+          <span class="yes">None.</span> <i>"No accounts, no KYC."</i> Registration is one
+          <code>POST /agents/register</code> that answers 402 with the payment challenge.
+        </td>
+        <td>
+          <span class="yes">Yes — send and receive.</span> <code>agent@yourdomain.com</code> with
+          DKIM/SPF/DMARC pre-configured, 3,000 combined emails/month included, 30-day retention,
+          programmable via API keys.
+        </td>
+        <td>
+          <span class="yes">Included, $0.</span> Managed certificates on apex domains; autonomous
+          renewals via a pre-funded USDC vault and keeper bots.
+        </td>
+        <td>
+          <b>MCP + SDKs.</b> TypeScript SDK, MCP server (<code>npx @agentdomain/mcp-server</code>),
+          Coinbase AgentKit and ElizaOS plugins. No standalone CLI.
+        </td>
+      </tr>
+
+      <!-- ============ MCPDomain ============ -->
+      <tr>
+        <td class="who"><b>MCPDomain</b><span class="host">mcpdomain.ai</span></td>
+        <td>
+          A <b>real second-level domain</b> registered through OpenSRS/Tucows (ICANN-accredited,
+          700+ TLDs) in your name — portable, renewable, transferable — plus their MCP server as
+          the storefront.
+        </td>
+        <td>
+          <span class="blank">TLD prices: unverified.</span> They publish no price table; the
+          homepage example quotes <code>$12.99/yr</code> for a .com but that is a scripted demo.
+          Their stated formula: <i>"wholesale + a small flat margin, no 'first year free' bait, no
+          auto-renew price hikes."</i> Availability checks
+          (<code>check_domain_availability</code>, <code>suggest_available_domains</code>) are
+          <span class="yes">free, no auth</span>.
+        </td>
+        <td>
+          <b>Stripe checkout.</b> <code>register_new_domain</code> returns a
+          <code>checkout_url</code>; a human pays by card. Normal rails, no wallet to fund —
+          but also no path for an agent to pay unattended.
+        </td>
+        <td>
+          A <b>free MCPDomain account</b> is required to register and configure. No KYC documented.
+        </td>
+        <td>
+          <span class="yes">Free email forwarding.</span> Catch-all or per-alias forwarding to any
+          inbox. Forwarding only — no sending, no mailboxes.
+        </td>
+        <td>
+          <span class="blank">Not documented.</span> No certificate-issuance feature appears on
+          their site or in the server's tool list; their docs assume you point the domain at a
+          host (Vercel, Netlify, GitHub Pages presets) that terminates TLS itself.
+        </td>
+        <td>
+          <b>MCP only, 7 tools</b>, hosted at <code>mcpdomain.ai/mcp</code> or
+          <code>npx -y mcpdomain</code>. MIT-licensed server on GitHub. No CLI.
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+  <p class="scrollhint">← scroll the table sideways for all seven columns →</p>
+  <p class="sources">Sources:
+    <a href="https://agentdomains.co/pricing">AgentDomains pricing</a>,
+    <a href="https://agentdomain.app/">agentdomain.app homepage</a> (plan ladder, fee and example
+    x402 quote — read 2026-09-29),
+    <a href="https://mcpdomain.ai/">MCPDomain homepage</a> (tool list, free checks — read
+    2026-09-29),
+    <a href="https://github.com/danboabes/mcpdomain">MCPDomain server README</a> (pricing formula,
+    OpenSRS backend — read 2026-09-29).
+    Every figure verified 29 September 2026.</p>
+
+  <h2 id="what-money-buys">What the money actually <span class="g">buys</span></h2>
+  <p>The honest version: neither row above is a worse product than us, they are different
+  products, and each charges for something real.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>agentdomain.app charges for the bundle</h3>
+      <p>A real domain <i>plus</i> Basename, ENS, an on-chain identity NFT, a sending mailbox and
+      managed SSL in one API call, paid from a wallet with no human. If your agent operates
+      autonomously and needs to own an identity — not just host a site — nothing else on this page
+      does that. The costs: USDC on Base is the only rail, and the platform fee and plans stack on
+      top of the live registrar price.</p>
+    </div>
+    <div class="card">
+      <h3>MCPDomain charges for the handoff</h3>
+      <p>It turns "is this name free?" from a tab switch into a tool call, then sells the
+      registration at wholesale plus a flat margin through Stripe, with free email forwarding
+      thrown in. Sensible rails, an open-source server. The costs: a human still pays the checkout
+      link, no price table is published, and it stops at the domain — no proxy, no edge HTTPS.</p>
+    </div>
+    <div class="card">
+      <h3>We charge $0 because a subdomain costs $0</h3>
+      <p><code>yourname.makes.fyi</code> has no registry fee behind it, so free can be honest
+      rather than promotional: 10 names, every feature, A/AAAA/CNAME/TXT records, forwarding, a
+      reverse proxy with edge HTTPS, DNS-01 for your own certs. What it is not is <i>yours</i> in
+      the registrar sense — see the warning box above.</p>
+    </div>
+  </div>
+
+  <h2 id="which">So which <span class="g">one</span>?</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>The site your agent built ten minutes ago</h3>
+      <p><b>AgentDomains.</b> One command, $0, HTTPS at the edge, records you can rewrite. If it
+      turns out to matter, register a real name later and move — the name was scaffolding, price
+      it like scaffolding.</p>
+    </div>
+    <div class="card">
+      <h3>An autonomous agent that must own an identity</h3>
+      <p><b>agentdomain.app.</b> If the wallet is already funded and the agent transacts
+      unattended, the bundle — domain + email + NFT + renewals by keeper — is genuinely
+      unmatched. Budget the $3.90 fee and a plan, not just the quote.</p>
+    </div>
+    <div class="card">
+      <h3>A human who wants a real .com, paid by card</h3>
+      <p><b>MCPDomain</b> (or any registrar). If a person will click the checkout link anyway,
+      wholesale-plus-margin with free email forwarding is a fine deal and the name is yours to
+      transfer.</p>
+    </div>
+    <div class="card">
+      <h3>Email on the name, sent from code</h3>
+      <p><b>agentdomain.app.</b> We have no mail story on a plain name; MCPDomain forwards but
+      cannot send. If the agent needs <code>agent@</code> to send, that is a paid feature
+      somewhere — own it.</p>
+    </div>
+  </div>
+
+  <h2>What we <span class="g">left blank</span></h2>
+  <p>The same rule as <a href="/compare">the main comparison</a>: unverified stays blank instead of
+  becoming a plausible number.</p>
+  <ul>
+    <li><b>MCPDomain's per-TLD prices.</b> Their README points to "current TLD prices on
+    mcpdomain.ai"; no table appeared on the pages we read on 2026-09-29, and the <code>$12.99</code>
+    figure lives inside a scripted chat example, not a price list. So it is quoted as an example,
+    not as a price.</li>
+    <li><b>MCPDomain's SSL story.</b> No certificate feature appears in their site copy or in the
+    seven tools. Their DNS docs assume a host that does TLS itself. A documentation absence is not
+    a stated "no", so the cell stays blank.</li>
+    <li><b>agentdomain.app's live quote for a specific domain.</b> The checkout computes it at
+    request time from registrar data, Basename rent and gas. The <code>USDC 25.00 on Base</code>
+    figure is the example printed on their homepage — the one number they will happily quote you
+    is the one their own register button will re-price.</li>
+    <li><b>KYC at both.</b> Neither provider documents a KYC policy on the pages we read;
+    "not mentioned" is not "no".</li>
+  </ul>
+
+  <a href="https://docs.agentdomains.co" class="btn">GET A FREE ONE →</a>
+  <a href="/compare" class="btn ghost">FULL COMPARISON TABLES</a>
+  <a href="/pricing" class="btn ghost">PRICING</a>
+
+  <footer>
+    <div>
+      <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
+    </div>
+    <div style="text-align:right">
+      <div class="metadata">Find us</div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/compare">Compare</a>
+        <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+</body>
+</html>

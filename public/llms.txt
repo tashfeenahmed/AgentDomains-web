@@ -80,6 +80,12 @@ there is no build step, no deploy, and no storage. It hands out a hostname under
 Two comparisons, because there are two different questions.
 
 - [Compare](https://agentdomains.co/compare): the full sourced tables.
+- [Free vs the paid rivals](https://agentdomains.co/compare/paid-rivals): a head-to-head against
+  the two paid products with live pricing surfaces — agentdomain.app (example x402 checkout
+  `USDC 25.00 on Base`, $3.90/yr platform fee, Starter $59 / Pro $120 / Enterprise $240 per year,
+  USDC on Base only) and MCPDomain (Stripe checkout via `register_new_domain`, "wholesale + a small
+  flat margin", free availability checks, TLD price table unpublished). AgentDomains is $0: a free
+  subdomain has no registry fee behind it. Rivals' pricing read 2026-09-29.
 
 **Against registrars** (agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar, Name.com) —
 cost to first working hostname, account/KYC, payment method, SSL, DNS API coverage, CLI/MCP access.
