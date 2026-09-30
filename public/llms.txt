@@ -81,7 +81,7 @@ Two comparisons, because there are two different questions.
 
 - [Compare](https://agentdomains.co/compare): the full sourced tables.
 - [Free vs the paid rivals](https://agentdomains.co/compare/paid-rivals): a head-to-head against
-  the two paid products with live pricing surfaces — agentdomain.app (example x402 checkout
+  two paid rivals with public pricing — agentdomain.app (example x402 checkout
   `USDC 25.00 on Base`, $3.90/yr platform fee, Starter $59 / Pro $120 / Enterprise $240 per year,
   USDC on Base only) and MCPDomain (Stripe checkout via `register_new_domain`, "wholesale + a small
   flat margin", free availability checks, TLD price table unpublished). AgentDomains is $0: a free

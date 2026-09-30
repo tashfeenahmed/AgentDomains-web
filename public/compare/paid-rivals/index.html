@@ -161,7 +161,7 @@
 <main>
   <div class="head">
     <h1>Free vs the <span class="g">paid rivals.</span></h1>
-    <p class="lede">Two products sell AI agents a domain for money:
+    <p class="lede">Two paid rivals with public pricing sell AI agents a domain:
     <b>agentdomain.app</b> — a full identity stack bought with USDC over x402, example quote
     <code>USDC 25.00 on Base</code>, Enterprise plan <code>$240/year</code> — and
     <b>MCPDomain</b> — real registrations through a Stripe checkout at <i>wholesale + a small flat
@@ -185,7 +185,7 @@
     <b>The honest headline: we are not the same product.</b> Both rivals register a
     <b>real second-level domain you own</b> — <code>yourname.com</code>, transferable to any
     registrar, with email on it. We give you a <b>subdomain</b> — <code>yourname.makes.fyi</code>
-    — that we operate. If you need to own the name, one of the two paid products is the right
+    — that we operate. If you need to own the name, one of the two paid products (or any registrar) is the right
     call and we will happily take your traffic anyway. If the name is the address for something
     an agent just built and you want it live on HTTPS in one command, the $0 row wins on price
     and on time-to-first-byte.
@@ -263,7 +263,7 @@
         <td>
           <b>USDC over x402 on Base only.</b> EIP-3009 signed locally, Coinbase CDP facilitator.
           Their own copy: <i>"no human required."</i> You need a Base-mainnet wallet holding
-          USDC; no card or fiat path is documented.
+          USDC; no card or fiat path is documented on the pages we read.
         </td>
         <td>
           <span class="yes">None.</span> <i>"No accounts, no KYC."</i> Registration is one
@@ -275,12 +275,12 @@
           programmable via API keys.
         </td>
         <td>
-          <span class="yes">Included, $0.</span> Managed certificates on apex domains; autonomous
-          renewals via a pre-funded USDC vault and keeper bots.
+          <span class="yes">Included in the bundle.</span> Managed certificates on apex domains; autonomous
+          renewals via a pre-funded USDC vault and keeper bots. No separate SSL price is published.
         </td>
         <td>
           <b>MCP + SDKs.</b> TypeScript SDK, MCP server (<code>npx @agentdomain/mcp-server</code>),
-          Coinbase AgentKit and ElizaOS plugins. No standalone CLI.
+          Coinbase AgentKit and ElizaOS plugins. Standalone CLI: not documented.
         </td>
       </tr>
 
@@ -302,15 +302,15 @@
         </td>
         <td>
           <b>Stripe checkout.</b> <code>register_new_domain</code> returns a
-          <code>checkout_url</code>; a human pays by card. Normal rails, no wallet to fund —
-          but also no path for an agent to pay unattended.
+          <code>checkout_url</code>; a human pays by card. Normal rails, no wallet to fund.
+          An unattended agent payment path is not documented.
         </td>
         <td>
-          A <b>free MCPDomain account</b> is required to register and configure. No KYC documented.
+          A <b>free MCPDomain account</b> is required to register and configure. KYC policy: not documented.
         </td>
         <td>
           <span class="yes">Free email forwarding.</span> Catch-all or per-alias forwarding to any
-          inbox. Forwarding only — no sending, no mailboxes.
+          inbox. Sending and mailboxes: not documented.
         </td>
         <td>
           <span class="blank">Not documented.</span> No certificate-issuance feature appears on
@@ -319,7 +319,7 @@
         </td>
         <td>
           <b>MCP only, 7 tools</b>, hosted at <code>mcpdomain.ai/mcp</code> or
-          <code>npx -y mcpdomain</code>. MIT-licensed server on GitHub. No CLI.
+          <code>npx -y mcpdomain</code>. MIT-licensed server on GitHub. CLI: not documented.
         </td>
       </tr>
 
@@ -354,7 +354,8 @@
       <p>It turns "is this name free?" from a tab switch into a tool call, then sells the
       registration at wholesale plus a flat margin through Stripe, with free email forwarding
       thrown in. Sensible rails, an open-source server. The costs: a human still pays the checkout
-      link, no price table is published, and it stops at the domain — no proxy, no edge HTTPS.</p>
+      link, no price table is published, and it documents nothing past the domain, email forwarding
+      and DNS — no proxy or edge HTTPS feature appears on its pages.</p>
     </div>
     <div class="card">
       <h3>We charge $0 because a subdomain costs $0</h3>
@@ -387,8 +388,8 @@
     </div>
     <div class="card">
       <h3>Email on the name, sent from code</h3>
-      <p><b>agentdomain.app.</b> We have no mail story on a plain name; MCPDomain forwards but
-      cannot send. If the agent needs <code>agent@</code> to send, that is a paid feature
+      <p><b>agentdomain.app.</b> We have no mail story on a plain name; MCPDomain documents
+      forwarding, not sending. If the agent needs <code>agent@</code> to send, that is a paid feature
       somewhere — own it.</p>
     </div>
   </div>
@@ -403,13 +404,15 @@
     not as a price.</li>
     <li><b>MCPDomain's SSL story.</b> No certificate feature appears in their site copy or in the
     seven tools. Their DNS docs assume a host that does TLS itself. A documentation absence is not
-    a stated "no", so the cell stays blank.</li>
+    a stated "no", so the cell says "not documented" rather than "no".</li>
     <li><b>agentdomain.app's live quote for a specific domain.</b> The checkout computes it at
     request time from registrar data, Basename rent and gas. The <code>USDC 25.00 on Base</code>
-    figure is the example printed on their homepage — the one number they will happily quote you
-    is the one their own register button will re-price.</li>
-    <li><b>KYC at both.</b> Neither provider documents a KYC policy on the pages we read;
-    "not mentioned" is not "no".</li>
+    figure is the example printed on their homepage; the price for any given name is computed at
+    checkout, so treat the example as an illustration rather than a quote.</li>
+    <li><b>MCPDomain's KYC policy</b>, and anything else either provider does not mention
+    (sending mail at MCPDomain, a CLI at either). agentdomain.app does state
+    <i>"No accounts, no KYC"</i>, which is why its cell says so; for everything else,
+    "not mentioned" is not "no", so those cells say "not documented".</li>
   </ul>
 
   <a href="https://docs.agentdomains.co" class="btn">GET A FREE ONE →</a>
