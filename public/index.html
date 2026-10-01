@@ -159,7 +159,16 @@
     padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.65;
     white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto}
 
-  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:3.5rem 2rem 2rem}
+  /* shared section-head language: same uppercase Bricolage beat as .mcp h2, so
+     the new headings read as part of the page, not as bolted-on SEO furniture. */
+  .section-head{padding:2.6rem 2rem 0;scroll-margin-top:1rem}
+  .section-head h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
+  .section-head h2 .g{color:var(--energy)}
+  .section-head .lede{max-width:860px;margin:.5rem 0 0}
+  .quickstart .term{margin:.8rem 0 0}
+
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:1.4rem 2rem 2rem}
   .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
   .feature-card:nth-child(1){border-radius:50px 10px 40px 20px;transform:rotate(-1deg)}
   .feature-card:nth-child(2){border-radius:15px 55px 20px 45px;transform:rotate(1deg);background:var(--ink);color:#fff}
@@ -170,6 +179,15 @@
   .feature-card:nth-child(2) h3{color:var(--energy)}
   .feature-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .feature-card:nth-child(2) code{background:#1c1c1c;color:var(--energy);border-color:#333}
+
+  /* record grid — same hard-border doodle language as .mcp-grid, plain columns. */
+  .records{padding:0 2rem 1rem}
+  .records-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem;margin-top:1.2rem}
+  .record-card{border:3px solid var(--ink);border-radius:12px;padding:1.2rem 1.3rem;background:#fff}
+  .record-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:1.1rem;margin-bottom:.5rem;color:var(--energy-d)}
+  .record-card p{margin:.4rem 0;font-size:1.08rem}
+  .record-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
 
   footer{padding:3.5rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:2rem}
   footer h2{font-size:clamp(1.9rem,5.5vw,3rem);font-weight:800;text-transform:uppercase}
@@ -237,13 +255,22 @@
     </div>
   </section>
 
-  <div class="term">
-    <span class="c"># install the CLI</span><br>
-    <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
-    <span class="c"># point a domain at the site your agent just built</span><br>
-    <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
-    <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
-  </div>
+  <section class="quickstart" id="quickstart">
+    <div class="section-head">
+      <div class="metadata">// quickstart</div>
+      <h2>Two commands to a <span class="g">live domain</span></h2>
+      <p class="lede">Install the CLI once, then your agent claims names whenever it ships something.
+      The claim writes the record and the hostname resolves on the public internet in seconds — no
+      registrar, no dashboard, no waiting on a human.</p>
+    </div>
+    <div class="term">
+      <span class="c"># install the CLI</span><br>
+      <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
+      <span class="c"># point a domain at the site your agent just built</span><br>
+      <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
+      <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
+    </div>
+  </section>
 
   <section class="mcp" id="mcp">
     <div class="metadata">// MCP</div>
@@ -288,6 +315,14 @@
     <a href="https://docs.agentdomains.co/#mcp">docs.agentdomains.co/#mcp</a>.</p>
   </section>
 
+  <section class="section-head" id="features">
+    <div class="metadata">// why agentdomains</div>
+    <h2>Built for agents,<br>not <span class="g">dashboards</span></h2>
+    <p class="lede">Every part of this is an API call or a CLI flag: the signup, the claim, the
+    records, the certificates. A human could drive it from the docs, but it was written for
+    something that reads JSON.</p>
+  </section>
+
   <section class="features">
     <div class="feature-card">
       <div class="metadata">01 / CLI</div>
@@ -311,6 +346,42 @@
       <div class="metadata">04 / CHOICE</div>
       <h3>Two domains</h3>
       <p>Claim under <code>makes.fyi</code> or <code>agentdomains.co</code> with <code>--domain</code>. The same name can live under each.</p>
+    </div>
+  </section>
+
+  <section class="records" id="records">
+    <div class="section-head" style="padding-left:0;padding-right:0">
+      <div class="metadata">// dns</div>
+      <h2>A real zone, <span class="g">not a redirect</span></h2>
+      <p class="lede">Each claimed name is a live DNS record you control — the same primitives a
+      zone file gives you, minus the registrar. Update records with <code style="font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px">agentdomains record</code>
+      or the <a href="/#mcp" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">MCP tools</a>.</p>
+    </div>
+
+    <div class="records-grid">
+      <div class="record-card">
+        <div class="metadata">01 / RECORDS</div>
+        <h3>Five record types</h3>
+        <p>Point a name at a server with <code>A</code> or <code>AAAA</code>, at another host with
+        <code>CNAME</code>, and prove ownership or publish config with <code>TXT</code> — including
+        ACME tokens for DNS-01 certificates. <code>NS</code> delegates sub-zones when you outgrow it.</p>
+      </div>
+
+      <div class="record-card">
+        <div class="metadata">02 / FORWARD</div>
+        <h3>URL forwarding</h3>
+        <p>No server yet? Forward the name to any URL and the edge follows your agent's deploys —
+        handy while output lives on a preview host. One API call to set, one to change, and the
+        old target stops answering immediately.</p>
+      </div>
+
+      <div class="record-card">
+        <div class="metadata">03 / PROXY</div>
+        <h3>Reverse proxy with HTTPS</h3>
+        <p>Serving from a home IP or an internal port? The edge reverse-proxies to your origin with
+        automatic HTTPS on the public hostname. The origin keeps its own port; agents and visitors
+        only ever see <code>https://</code>.</p>
+      </div>
     </div>
   </section>
 
