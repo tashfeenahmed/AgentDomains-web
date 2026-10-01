@@ -43,6 +43,39 @@
       "url": "https://agentdomains.co/",
       "name": "AgentDomains",
       "publisher": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://agentdomains.co/img/how-it-works.svg#image",
+      "url": "https://agentdomains.co/",
+      "contentUrl": "https://agentdomains.co/img/how-it-works.svg",
+      "width": 1080,
+      "height": 675,
+      "caption": "How AgentDomains works: build on localhost, run agentdomains claim, go live at myapp.makes.fyi with HTTPS.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://agentdomains.co/img/dns-records.svg#image",
+      "url": "https://agentdomains.co/",
+      "contentUrl": "https://agentdomains.co/img/dns-records.svg",
+      "width": 1080,
+      "height": 675,
+      "caption": "DNS records an agent can set on its AgentDomains subdomain: A, CNAME, TXT, and NS, plus automatic HTTPS proxy and URL forwarding.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://agentdomains.co/img/cli-or-mcp.svg#image",
+      "url": "https://agentdomains.co/",
+      "contentUrl": "https://agentdomains.co/img/cli-or-mcp.svg",
+      "width": 1080,
+      "height": 675,
+      "caption": "An AI agent reaches AgentDomains over the CLI or the hosted MCP server at mcp.agentdomains.co; both issue the same free subdomain.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://agentdomains.co/#organization" }
     }
   ]
 }
@@ -158,6 +191,18 @@
   .mcp pre{margin:.3rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:10px;
     padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.65;
     white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto}
+
+  /* homepage image gallery — hand-drawn SVG illustrations in the same
+     ink-border + hard-shadow language as the cards. */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;padding:1.5rem 2rem 1rem}
+  .shot{margin:0;border:3px solid var(--ink);background:#fff;padding:1rem;transition:.25s}
+  .shot:nth-child(1){border-radius:40px 14px 30px 18px;transform:rotate(-.7deg)}
+  .shot:nth-child(2){border-radius:14px 44px 18px 34px;transform:rotate(.6deg);background:var(--mint)}
+  .shot:nth-child(3){border-radius:26px 18px 44px 14px;transform:rotate(-.4deg)}
+  .shot:hover{transform:scale(1.02) rotate(0);box-shadow:12px 12px 0 var(--energy)}
+  .shot img{display:block;width:100%;height:auto;border:2px solid var(--ink);border-radius:10px;background:#fff}
+  .shot figcaption{font-family:'Space Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-top:.7rem;opacity:.7}
+  .shot .metadata{margin-bottom:.6rem}
 
   .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:3.5rem 2rem 2rem}
   .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
@@ -311,6 +356,28 @@
       <div class="metadata">04 / CHOICE</div>
       <h3>Two domains</h3>
       <p>Claim under <code>makes.fyi</code> or <code>agentdomains.co</code> with <code>--domain</code>. The same name can live under each.</p>
+    </div>
+  </section>
+
+  <section class="gallery-wrap" aria-labelledby="gallery-title">
+    <div class="metadata" style="padding:2.5rem 2rem 0">// what it looks like</div>
+    <h2 id="gallery-title" style="font-size:clamp(1.4rem,3.4vw,2rem);text-transform:uppercase;padding:0 2rem">From localhost to live, in <span style="color:var(--energy)">three steps</span></h2>
+    <div class="gallery">
+      <figure class="shot">
+        <img src="/img/how-it-works.svg" width="1080" height="675" loading="lazy" decoding="async"
+          alt="Diagram of the three AgentDomains steps: an agent builds a site on localhost, runs the agentdomains claim command, and the site goes live at myapp.makes.fyi with HTTPS.">
+        <figcaption>Build → claim → live</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/img/dns-records.svg" width="1080" height="675" loading="lazy" decoding="async"
+          alt="Panel of DNS records for the subdomain myshop.makes.fyi: A record pointing at 203.0.113.10, CNAME for www, TXT record for an ACME DNS-01 challenge, and an NS delegation, plus automatic HTTPS proxy and URL forwarding.">
+        <figcaption>Every record, over API or MCP</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/img/cli-or-mcp.svg" width="1080" height="675" loading="lazy" decoding="async"
+          alt="An AI agent connected to AgentDomains two ways: the agentdomains CLI binary on one side and the hosted MCP server at mcp.agentdomains.co with 19 tools on the other, both issuing one free subdomain such as myshop.makes.fyi or myshop.agentdomains.co.">
+        <figcaption>Two doors, one subdomain</figcaption>
+      </figure>
     </div>
   </section>
 

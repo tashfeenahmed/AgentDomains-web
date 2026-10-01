@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 675" role="img" aria-labelledby="t d" font-family="'Space Mono','Courier New',monospace">
+  <title id="t">Your agent connects over CLI or MCP</title>
+  <desc id="d">An AI agent in the middle connects to AgentDomains two ways: the agentdomains CLI on the left, and the hosted MCP server at mcp.agentdomains.co on the right, with a free subdomain such as myshop.makes.fyi or myshop.agentdomains.co as the result.</desc>
+
+  <rect width="1080" height="675" fill="#FFFFFF"/>
+  <pattern id="dots" width="38" height="38" patternUnits="userSpaceOnUse" x="-19" y="-19">
+    <circle cx="19" cy="19" r="1.6" fill="#0A0A0A" opacity="0.13"/>
+  </pattern>
+  <rect width="1080" height="675" fill="url(#dots)"/>
+
+  <!-- agent node (center) -->
+  <g transform="rotate(-1 540 300)">
+    <rect x="412" y="212" width="256" height="150" rx="40" fill="#C6F24E"/>
+    <rect x="400" y="200" width="256" height="150" rx="40" fill="#0A0A0A"/>
+    <text x="528" y="268" font-size="34" fill="#00CC74" text-anchor="middle" font-weight="bold">AI AGENT</text>
+    <text x="528" y="312" font-size="19" fill="#ECECEC" text-anchor="middle">Claude · Codex · any</text>
+    <circle cx="400" cy="275" r="12" fill="#0A0A0A"/>
+    <circle cx="656" cy="275" r="12" fill="#0A0A0A"/>
+    <path d="M 480 200 q 48 -46 96 0" fill="none" stroke="#00CC74" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- wires to the two clients -->
+  <g stroke="#0A0A0A" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M 390 285 C 300 285 260 330 246 388"/>
+    <path d="M 666 285 C 756 285 796 330 810 388"/>
+  </g>
+
+  <!-- left card: CLI -->
+  <g transform="rotate(1 210 480)">
+    <rect x="72" y="396" width="340" height="200" rx="16" fill="#0A0A0A" transform="translate(12 12)"/>
+    <rect x="72" y="396" width="340" height="200" rx="16" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="6"/>
+    <text x="100" y="446" font-size="23" font-weight="bold" fill="#00A85E" letter-spacing="2">CLI / one binary</text>
+    <rect x="96" y="466" width="292" height="102" rx="10" fill="#0A0A0A"/>
+    <text x="112" y="500" font-size="16" fill="#00CC74">$ go install …</text>
+    <text x="112" y="528" font-size="16" fill="#00CC74">$ agentdomains claim</text>
+    <text x="112" y="554" font-size="16" fill="#8a8a8a">  myshop</text>
+  </g>
+
+  <!-- right card: MCP -->
+  <g transform="rotate(-1 840 480)">
+    <rect x="684" y="396" width="356" height="200" rx="16" fill="#0A0A0A" transform="translate(12 12)"/>
+    <rect x="684" y="396" width="356" height="200" rx="16" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="6"/>
+    <text x="712" y="446" font-size="23" font-weight="bold" fill="#00A85E" letter-spacing="2">MCP / 19 tools</text>
+    <rect x="708" y="466" width="308" height="102" rx="10" fill="#0A0A0A"/>
+    <text x="724" y="500" font-size="16" fill="#00CC74">claude mcp add</text>
+    <text x="724" y="528" font-size="16" fill="#00CC74">  --transport http</text>
+    <text x="724" y="554" font-size="16" fill="#C6F24E">  mcp.agentdomains.co</text>
+  </g>
+
+  <!-- result strip -->
+  <text x="540" y="120" text-anchor="middle" font-size="27" fill="#0A0A0A" font-family="'Bricolage Grotesque',system-ui,sans-serif" font-weight="800" letter-spacing="-0.5">TWO DOORS, ONE FREE SUBDOMAIN</text>
+  <path d="M 285 140 q 255 24 510 0" fill="none" stroke="#00CC74" stroke-width="6" stroke-linecap="round"/>
+  <text x="540" y="184" text-anchor="middle" font-size="21" fill="#0A0A0A">myshop.makes.fyi · myshop.agentdomains.co</text>
+</svg>
