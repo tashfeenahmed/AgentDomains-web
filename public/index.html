@@ -43,6 +43,32 @@
       "url": "https://agentdomains.co/",
       "name": "AgentDomains",
       "publisher": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is AgentDomains really free, or is there a catch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Free covers up to 10 names under makes.fyi or agentdomains.co with every feature — DNS records, forwarding, reverse proxy with HTTPS — and no card in the flow. An optional Pro plan at $5 a month raises the ceiling to 100 names and never releases a name for being unreachable. The honest catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I own the domain I claim?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. A name here is a subdomain of makes.fyi or agentdomains.co, which we operate. There is no auth code, no transfer out, and no registration record — the name exists as long as we keep running. If the name has to carry a brand or survive for years, buy a real second-level domain from a registrar instead." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI agent run the whole thing without a human?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 19 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying if you ever choose Pro." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there request quotas or bandwidth bills?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No request quota, no rate card, no overage on either plan. Signup and availability checks are rate-limited per IP to keep the free pool from being farmed, and that is the extent of it." }
+        }
+      ]
     }
   ]
 }
@@ -161,6 +187,43 @@
 
   .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:3.5rem 2rem 2rem}
   .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
+
+  /* section-head used by the use-cases and FAQ bands: same uppercase Bricolage
+     beat as .mcp h2, so new copy reads as part of the page. */
+  .section-head{padding:1rem 2rem 0;scroll-margin-top:1rem}
+  .section-head h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
+  .section-head h2 .g{color:var(--energy)}
+  .section-head .lede{max-width:860px;margin:.5rem 0 0}
+  .section-head code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .section-head a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+
+  .usecases{padding:0 2rem 1rem}
+  .usecases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem;margin-top:1.4rem}
+  .usecase-card{border:3px solid var(--ink);padding:1.5rem 1.6rem;background:#fff;transition:.25s}
+  .usecase-card:nth-child(1){border-radius:40px 12px 30px 18px;transform:rotate(-.7deg)}
+  .usecase-card:nth-child(2){border-radius:14px 45px 18px 36px;transform:rotate(.7deg);background:var(--mint)}
+  .usecase-card:nth-child(3){border-radius:24px 18px 42px 14px;transform:rotate(-.4deg)}
+  .usecase-card:nth-child(4){border-radius:18px 30px 16px 44px;transform:rotate(.5deg)}
+  .usecase-card:hover{transform:scale(1.02) rotate(0);box-shadow:10px 10px 0 var(--lime)}
+  .usecase-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:1.2rem;margin-bottom:.6rem;color:var(--energy-d)}
+  .usecase-card p{margin:.4rem 0;font-size:1.08rem}
+  .usecase-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .usecase-card:nth-child(2) code{background:#fff}
+
+  .faq{padding:0 2rem 1rem}
+  .faq-list{max-width:900px;margin-top:1.2rem}
+  .faq-item{border:3px solid var(--ink);border-radius:14px;background:#fff;padding:1.1rem 1.4rem;margin-top:1.1rem}
+  .faq-item h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.15rem;
+    text-transform:none;letter-spacing:-.5px;margin-bottom:.4rem}
+  .faq-item p{margin:.3rem 0;font-size:1.08rem}
+  .faq-item code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .faq-item a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+
   .feature-card:nth-child(1){border-radius:50px 10px 40px 20px;transform:rotate(-1deg)}
   .feature-card:nth-child(2){border-radius:15px 55px 20px 45px;transform:rotate(1deg);background:var(--ink);color:#fff}
   .feature-card:nth-child(3){border-radius:30px 20px 50px 15px;transform:rotate(-.5deg)}
@@ -311,6 +374,81 @@
       <div class="metadata">04 / CHOICE</div>
       <h3>Two domains</h3>
       <p>Claim under <code>makes.fyi</code> or <code>agentdomains.co</code> with <code>--domain</code>. The same name can live under each.</p>
+    </div>
+  </section>
+
+  <section class="section-head" id="use-cases">
+    <div class="metadata">// use cases</div>
+    <h2>What agents <span class="g">actually point these at</span></h2>
+    <p class="lede">Four patterns cover most claims — the same CLI, the same
+    <a href="/#mcp">19 MCP tools</a>, the same <a href="https://docs.agentdomains.co#api">HTTP API</a>.</p>
+  </section>
+  <section class="usecases">
+    <div class="usecases-grid">
+      <div class="usecase-card">
+        <div class="metadata">01 / DEMOS</div>
+        <h3>Ship a demo with a real URL</h3>
+        <p>Your agent builds a prototype and hands it over as <code>localhost:3000</code>.
+        <code>agentdomains claim demo --type A --content 203.0.113.10</code> turns it into a link
+        you can share, live on the public internet in seconds.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="metadata">02 / APIs</div>
+        <h3>Give an API a front door</h3>
+        <p>Agent-built APIs need real hostnames for webhooks, CORS origins, and OAuth callbacks.
+        Reverse-proxy the name at your backend and TLS terminates on our certificate:
+        <code>https://api-widget.makes.fyi</code>, nothing to install or renew.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="metadata">03 / PREVIEW HOSTS</div>
+        <h3>Forward while it moves</h3>
+        <p>Output lives on a preview host today and a VPS tomorrow. URL-forward the name to wherever
+        the build lives; when the agent moves, one call moves the name.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="metadata">04 / PROVING GROUNDS</div>
+        <h3>Certificates and ownership</h3>
+        <p>Point a name at your own server and Let's Encrypt HTTP-01 just works, or publish the ACME
+        token as a TXT record for DNS-01. The same TXT primitive answers domain-verification
+        challenges.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-head" id="faq">
+    <div class="metadata">// FAQ</div>
+    <h2>Questions, answered <span class="g">straight</span></h2>
+    <p class="lede">Straight answers, no asterisks. Full policy: <a href="/pricing">pricing</a> and the
+    <a href="https://docs.agentdomains.co">docs</a>.</p>
+  </section>
+  <section class="faq">
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Is it really free, or is there a catch?</h3>
+        <p>Free covers up to 10 names under <code>makes.fyi</code> or <code>agentdomains.co</code>
+        with every feature — DNS records, forwarding, reverse proxy with HTTPS — and no card in the
+        flow. Pro ($5/month) raises the ceiling to 100 names and never releases a name for being
+        unreachable. The honest catch is the next question, on the
+        <a href="/compare">compare page</a> in full.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do I own the domain I claim?</h3>
+        <p>No. A name here is a subdomain of a zone we operate — no auth code, no transfer out, no
+        registration record. The right trade for scaffolding an agent just produced; for a name
+        that must carry a brand in two years, buy a real domain and keep this for experiments.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can an agent run the whole thing without a human?</h3>
+        <p>Almost, deliberately: <code>signup</code> is an unauthenticated API call that returns a
+        key instantly, the CLI prints JSON with <code>--json</code>, and the MCP server exposes 19
+        tools. A human shows up twice — clicking the email confirmation link on the first name
+        (within 30 days), and paying if you ever pick Pro. Agents can't accidentally charge you.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Any request quotas or bandwidth bills?</h3>
+        <p>None on either plan: no request quota, no rate card, no overage. Signup and availability
+        checks are rate-limited per IP to keep the free pool from being farmed.</p>
+      </div>
     </div>
   </section>
 
