@@ -161,6 +161,22 @@
 
   .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:3.5rem 2rem 2rem}
   .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
+
+  /* limits band — same card language as .features, but one beat of its own so
+     the quota/expiry answers are on the homepage, not only in the README. */
+  .limits{padding:1.5rem 2rem 1rem;scroll-margin-top:1rem}
+  .limits h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
+  .limits h2 .g{color:var(--energy)}
+  .limits .lede{max-width:860px;margin:.5rem 0 0}
+  .limits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem;margin-top:1.4rem}
+  .limit-card{border:3px solid var(--ink);padding:1.5rem 1.6rem;background:#fff;transition:.25s}
+  .limit-card:nth-child(1){border-radius:40px 12px 30px 18px;transform:rotate(-.7deg)}
+  .limit-card:nth-child(2){border-radius:14px 45px 18px 36px;transform:rotate(.7deg);background:var(--mint)}
+  .limit-card:nth-child(3){border-radius:24px 18px 42px 14px;transform:rotate(-.4deg)}
+  .limit-card:hover{transform:scale(1.02) rotate(0);box-shadow:10px 10px 0 var(--lime)}
+  .limit-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;font-size:1.2rem;margin-bottom:.6rem;color:var(--energy-d)}
+  .limit-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .feature-card:nth-child(1){border-radius:50px 10px 40px 20px;transform:rotate(-1deg)}
   .feature-card:nth-child(2){border-radius:15px 55px 20px 45px;transform:rotate(1deg);background:var(--ink);color:#fff}
   .feature-card:nth-child(3){border-radius:30px 20px 50px 15px;transform:rotate(-.5deg)}
@@ -202,6 +218,7 @@
     <a href="/#mcp">MCP</a>
     <a href="/compare">Compare</a>
     <a href="/pricing">Pricing</a>
+    <a href="/#limits">Limits</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
     <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
@@ -314,6 +331,50 @@
     </div>
   </section>
 
+  <section class="limits" id="limits">
+    <div class="metadata">// the fine print, up front</div>
+    <h2>Quotas and <span class="g">expiry</span>: the whole policy</h2>
+    <p class="lede">Every free-subdomain service has limits; most hide theirs. Here is the entire
+    quota and expiry policy of AgentDomains, on the page you are already reading — no README
+    archaeology required.</p>
+
+    <div class="limits-grid">
+      <div class="limit-card">
+        <div class="metadata">01 / NAMES</div>
+        <h3>10 names free</h3>
+        <p>An account holds up to <b>10 names</b> under <code>makes.fyi</code> and
+        <code>agentdomains.co</code> combined, with every feature on each one. No paid tier is
+        needed to hold the tenth. <b>Pro</b> ($5/month or $48/year) raises the ceiling to
+        <b>100</b>. <code>agentdomains whoami</code> shows your usage against the cap.</p>
+      </div>
+
+      <div class="limit-card">
+        <div class="metadata">02 / CONFIRM</div>
+        <h3>30 days to confirm</h3>
+        <p><code>signup</code> is instant and anonymous, and starts a <b>30-day clock</b>. Your
+        first <code>claim</code> takes <code>--email</code> and we send a confirmation link:
+        confirm within 30 days and the account and every name on it become permanent. Never
+        confirm, and a background job deletes the account and releases its names — that is the
+        anti-squat tax, and it is the only one.</p>
+      </div>
+
+      <div class="limit-card">
+        <div class="metadata">03 / KEEPING IT</div>
+        <h3>Live origin, kept live</h3>
+        <p>A name whose origin stops answering gets you an <b>email at 30 days</b> and may be
+        released back to the pool at <b>45</b>, so abandoned names come back around. A name that
+        answers — any answer counts — is never touched. On Pro, names are never released for
+        being dark. There is no request quota and no bandwidth bill on either plan.</p>
+      </div>
+    </div>
+
+    <p style="max-width:860px;margin-top:1.2rem">That is all of it. Signup and availability
+    checks are rate-limited per IP to keep the pool from being farmed, and the cap counts
+    confirmed mailboxes, not throwaway accounts. Full text:
+    <a href="/pricing" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">/pricing</a>
+    and <a href="https://docs.agentdomains.co#accounts" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">docs · Accounts &amp; confirmation</a>.</p>
+  </section>
+
   <footer>
     <div>
       <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
@@ -324,6 +385,7 @@
       <div class="foot-links">
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="/#mcp">MCP</a>
+        <a href="/#limits">Limits</a>
         <a href="/compare">Compare</a>
         <a href="/pricing">Pricing</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
