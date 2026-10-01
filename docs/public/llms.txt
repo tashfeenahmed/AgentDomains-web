@@ -1,31 +1,33 @@
 # AgentDomains Docs
 
 > Documentation for AgentDomains: free domains for the websites and APIs AI agents
-> build. Register a name, set DNS records, get automatic SSL, forward or proxy it —
-> all from one CLI or the HTTP API.
+> build. Register a name, set DNS records, get HTTPS by proxy or ACME, forward or
+> proxy it — all from one CLI, the HTTP API, or MCP.
 
-The docs are a single page; each section below is an anchor on it.
+The docs are split by topic: one page each for the topics below, plus sections on
+the introduction page.
 
-## Sections
+## Pages
 
-- [Introduction](https://docs.agentdomains.co/#intro): what AgentDomains is and when to use it
-- [Install](https://docs.agentdomains.co/#install): install the `agentdomains` CLI
-- [Quickstart](https://docs.agentdomains.co/#quickstart): register a name and publish a site
+- [Introduction](https://docs.agentdomains.co/): what AgentDomains is, accounts, DNS records, SSL, forwarding, delegation, using it from agents, full CLI reference
+- [Install](https://docs.agentdomains.co/install): install the `agentdomains` CLI
+- [Quickstart](https://docs.agentdomains.co/quickstart): register a name and publish a site
+- [Proxy](https://docs.agentdomains.co/proxy): serve an origin through the edge (replaces the address records on that name)
+- [MCP server](https://docs.agentdomains.co/mcp): Model Context Protocol tools, stdio and hosted
+- [HTTP API](https://docs.agentdomains.co/api): endpoints for programmatic use
+
+## Sections on the introduction page
+
 - [Accounts](https://docs.agentdomains.co/#accounts): signup, tokens, quotas, email confirmation
 - [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT — added, listed with their ids, and removed one at a time (MX needs nameserver delegation)
-- [SSL](https://docs.agentdomains.co/#ssl): automatic certificate issuance
+- [SSL](https://docs.agentdomains.co/#ssl): HTTP-01 or DNS-01 with your own ACME client
 - [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL (replaces the address records on that name)
-- [Proxying](https://docs.agentdomains.co/#proxy): serve an origin through the edge (also replaces the address records on that name)
 - [Delegation](https://docs.agentdomains.co/#delegation): use your own nameservers
-- [Agents](https://docs.agentdomains.co/#agents): using AgentDomains from an AI agent
-- [Commands](https://docs.agentdomains.co/#commands): full CLI reference
-- [MCP server](https://docs.agentdomains.co/#mcp): Model Context Protocol tools, stdio and hosted
-- [HTTP API](https://docs.agentdomains.co/#api): endpoints for programmatic use
 
 ## MCP
 
 - Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to `~/.agentdomains/config.json`)
-- Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
+- Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…
 - 19 tools: check_availability, signup, whoami, attach_email, claim_domain, list_domains, get_domain, delete_domain, add_dns_record, delete_record, add_acme_challenge, set_forward, remove_forward, set_proxy, remove_proxy, delegate_nameservers, delete_account, upgrade_to_pro, manage_billing
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quickstart — claim a free domain | AgentDomains Docs</title>
+<meta name="description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm. Includes picking makes.fyi vs agentdomains.co.">
+<link rel="canonical" href="https://docs.agentdomains.co/quickstart">
+<meta property="og:title" content="Quickstart — claim a free domain | AgentDomains Docs">
+<meta property="og:description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm. Includes picking makes.fyi vs agentdomains.co.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://docs.agentdomains.co/quickstart">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --card:#FFFFFF; --ink:#141210; --muted:#5d574e;
+    --energy:#00CC74; --energy-d:#00A85E; --line:#141210; --soft:#EEF1F6;
+    --term:#141210; --sh:4px 4px 0 var(--ink);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  a{color:var(--energy)} a:hover{color:var(--energy-d)}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1100px;margin:0 auto;gap:44px;padding:0 22px}
+
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:28px 0}
+  aside .brand{display:block;font-weight:800;font-size:1.4rem;margin-bottom:18px;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+  aside .brand .dot{color:var(--energy)}
+  aside .brand:hover{color:var(--ink)}
+  aside a{display:block;color:var(--muted);padding:6px 0;font-size:.95rem;font-weight:700;text-decoration:none;
+    border-left:3px solid transparent;padding-left:12px;margin-left:-12px}
+  aside a:hover{color:var(--ink);border-color:var(--energy)}
+  aside .grp{margin-top:18px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#9aa0ab;font-weight:800}
+
+  main{padding:42px 0 90px;min-width:0}
+  h1{font-size:2.6rem;letter-spacing:-.03em;font-weight:800;margin:.1em 0 .25em}
+  h2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin:2.2em 0 .5em;padding-top:.5em;border-top:3px solid var(--ink)}
+  h3{font-size:1.2rem;font-weight:800;margin:1.6em 0 .3em}
+  p,li{color:#2c2820} .muted{color:var(--muted)}
+  strong{font-weight:800}
+
+  code{font-family:"Space Mono",monospace;background:var(--soft);border:1.5px solid var(--ink);
+    padding:1px 6px;border-radius:6px;font-size:.85em}
+  pre{background:var(--term);border:2px solid var(--ink);border-radius:14px;padding:18px 20px;overflow-x:auto;box-shadow:var(--sh)}
+  pre code{background:none;border:0;padding:0;font-size:.86rem;line-height:1.7;color:#ECE3D4}
+
+  table{width:100%;border-collapse:collapse;margin:1.1em 0;font-size:.95rem;
+    background:var(--card);border:2px solid var(--ink);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1.5px solid var(--soft);vertical-align:top}
+  th{background:var(--energy);color:var(--ink);font-weight:800} tr:last-child td{border-bottom:0}
+
+  /* wrap wide tables so they scroll themselves instead of the page */
+  .tablewrap{overflow-x:auto;margin:1.1em 0}
+  .tablewrap table{margin:0;min-width:640px}
+
+  .note{background:var(--card);border:2px solid var(--ink);border-left:8px solid var(--energy);
+    border-radius:12px;padding:14px 18px;margin:1.3em 0;box-shadow:var(--sh);font-weight:500}
+  .pill{display:inline-block;background:var(--energy);color:var(--ink);border:2px solid var(--ink);border-radius:8px;
+    padding:1px 9px;font-size:.78rem;font-weight:800}
+
+  @media(max-width:820px){.layout{grid-template-columns:1fr}aside{position:static;height:auto;border-bottom:3px solid var(--ink);padding-bottom:14px}}
+  aside a.cur{color:var(--ink);border-color:var(--energy)}
+  .startgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:1.3em 0}
+  .startgrid a{display:block;border:2px solid var(--ink);border-radius:12px;padding:14px 16px;
+    box-shadow:var(--sh);text-decoration:none;color:var(--ink);background:var(--card)}
+  .startgrid a:hover{border-color:var(--energy)}
+  .startgrid .t{font-weight:800;display:block}
+  .startgrid .d{color:var(--muted);font-size:.88rem;font-weight:500}
+</style>
+  <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="docs.agentdomains.co,docs.makes.fyi"></script>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <a class="brand" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="grp">Docs</div>
+    <a href="/">Introduction</a>
+    <a href="/install">Install</a>
+    <a class="cur" href="/quickstart">Quickstart</a>
+    <div class="grp">Guides</div>
+    <a href="/#accounts">Accounts &amp; validation</a>
+    <a href="/#records">DNS records</a>
+    <a href="/#ssl">Getting HTTPS / SSL</a>
+    <a href="/#forwarding">URL forwarding</a>
+    <a href="/proxy">Reverse proxy</a>
+    <a href="/#delegation">Nameserver delegation</a>
+    <a href="/#agents">Using it from agents</a>
+    <div class="grp">Reference</div>
+    <a href="/#commands">CLI commands</a>
+    <a href="/mcp">MCP server</a>
+    <a href="/api">HTTP API</a>
+    <div class="grp">More</div>
+    <a href="https://agentdomains.co">← Main site</a>
+    <a href="https://agentdomains.co/pricing">Pricing</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+  </aside>
+
+  <main>
+    <h1 id="quickstart">Quickstart</h1>
+    <pre><code>agentdomains signup                                   # instant account + API key
+agentdomains claim myagent --email you@example.com --type A --content 203.0.113.10
+dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pre>
+    <div class="note">Your <strong>first</strong> registration needs <code>--email</code> — we send a
+    confirmation link and start a 30-day clock. Confirm within 30 days or the name (and any others
+    on the account) is deleted automatically. After the first time, the email is remembered on the
+    account, so later <code>claim</code>/<code>forward</code>/<code>proxy</code> calls don't repeat it.</div>
+
+    <h3>Choosing a domain</h3>
+    <p>Names are claimed under <code>makes.fyi</code> by default. Pass
+    <code>--domain agentdomains.co</code> (CLI) or a <code>"domain"</code> field
+    (API) to claim under the other one. The same label can exist under each domain
+    independently; scope <code>get</code>/<code>delete</code> with
+    <code>--domain</code> when a label is claimed under both.</p>
+    <pre><code>agentdomains claim myagent --domain agentdomains.co   # myagent.agentdomains.co</code></pre>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+  </main>
+</div>
+<script>
+// The docs were split into per-topic pages; old single-page anchors move over.
+(function(){
+  var m={install:"/install",quickstart:"/quickstart",proxy:"/proxy",mcp:"/mcp",api:"/api"};
+  var h=location.hash.slice(1);
+  if(m[h])location.replace(m[h]);
+})();
+</script>
+</body>
+</html>
