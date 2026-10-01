@@ -17,6 +17,25 @@ within 30 days or the account and its names are deleted. Later claims on the sam
 account need no email. Labels are lowercased when claimed, so `MyApp` becomes
 `myapp.makes.fyi`.
 
+## Quotas and expiry (the whole policy)
+
+Stated up front, because every free-subdomain rival states its limits and shoppers compare them:
+
+- **Names per account:** 10 on Free (every feature on every name), 100 on Pro ($5/month or
+  $48/year). The cap counts confirmed mailboxes, so throwaway accounts don't multiply it.
+  `whoami` reports usage against the cap.
+- **Account expiry:** signup starts a provisional account on a 30-day clock. Confirm the email
+  sent on the first claim within 30 days and the account and its names are permanent; never
+  confirm and both are deleted automatically.
+- **Name health:** a name whose origin stops answering gets an email at 30 days and may be
+  released at 45 (Pro names are never released). Any HTTP/TCP answer counts as alive.
+- **No request quota, no bandwidth bill, no rate card** on either plan. Signup, claims and
+  verification emails are rate-limited per IP to keep the pool from being farmed.
+
+Also on the homepage at `https://agentdomains.co/#limits`, in writing at
+`https://agentdomains.co/pricing`, and in the docs at
+`https://docs.agentdomains.co/#accounts`.
+
 A claim and its first record succeed or fail together: if the record cannot be
 created, the label is not claimed, so the same call can simply be repeated with the
 record fixed. Re-claiming a name the account already holds answers
