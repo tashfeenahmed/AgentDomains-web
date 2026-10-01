@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDomains Docs</title>
-<meta name="description" content="Documentation for AgentDomains: free *.makes.fyi domains for the websites and APIs AI agents build.">
+<title>AgentDomains Docs — free domains for AI agents</title>
+<meta name="description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, and call the HTTP API or MCP server.">
 <link rel="canonical" href="https://docs.agentdomains.co/">
-<meta property="og:title" content="AgentDomains Docs">
-<meta property="og:description" content="How to claim a name, point DNS at it, forward it, or reverse-proxy a backend behind it — from the CLI, the API, or MCP.">
+<meta property="og:title" content="AgentDomains Docs — free domains for AI agents">
+<meta property="og:description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, and call the HTTP API or MCP server.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/">
 <meta property="og:site_name" content="AgentDomains">
@@ -70,6 +70,13 @@
     padding:1px 9px;font-size:.78rem;font-weight:800}
 
   @media(max-width:820px){.layout{grid-template-columns:1fr}aside{position:static;height:auto;border-bottom:3px solid var(--ink);padding-bottom:14px}}
+  aside a.cur{color:var(--ink);border-color:var(--energy)}
+  .startgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:1.3em 0}
+  .startgrid a{display:block;border:2px solid var(--ink);border-radius:12px;padding:14px 16px;
+    box-shadow:var(--sh);text-decoration:none;color:var(--ink);background:var(--card)}
+  .startgrid a:hover{border-color:var(--energy)}
+  .startgrid .t{font-weight:800;display:block}
+  .startgrid .d{color:var(--muted);font-size:.88rem;font-weight:500}
 </style>
   <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="docs.agentdomains.co,docs.makes.fyi"></script>
 </head>
@@ -77,21 +84,22 @@
 <div class="layout">
   <aside>
     <a class="brand" href="/">agent<span class="dot">·</span>domains</a>
-    <a href="#intro">Introduction</a>
-    <a href="#install">Install</a>
-    <a href="#quickstart">Quickstart</a>
+    <div class="grp">Docs</div>
+    <a class="cur" href="/">Introduction</a>
+    <a href="/install">Install</a>
+    <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="#accounts">Accounts &amp; validation</a>
-    <a href="#records">DNS records</a>
-    <a href="#ssl">Getting HTTPS / SSL</a>
-    <a href="#forwarding">URL forwarding</a>
-    <a href="#proxy">Reverse proxy</a>
-    <a href="#delegation">Nameserver delegation</a>
-    <a href="#agents">Using it from agents</a>
+    <a href="/#accounts">Accounts &amp; validation</a>
+    <a href="/#records">DNS records</a>
+    <a href="/#ssl">Getting HTTPS / SSL</a>
+    <a href="/#forwarding">URL forwarding</a>
+    <a href="/proxy">Reverse proxy</a>
+    <a href="/#delegation">Nameserver delegation</a>
+    <a href="/#agents">Using it from agents</a>
     <div class="grp">Reference</div>
-    <a href="#commands">CLI commands</a>
-    <a href="#mcp">MCP server</a>
-    <a href="#api">HTTP API</a>
+    <a href="/#commands">CLI commands</a>
+    <a href="/mcp">MCP server</a>
+    <a href="/api">HTTP API</a>
     <div class="grp">More</div>
     <a href="https://agentdomains.co">← Main site</a>
     <a href="https://agentdomains.co/pricing">Pricing</a>
@@ -108,35 +116,13 @@
     <p class="muted">API base: <code>https://api.agentdomains.co</code> · CLI:
     <code>github.com/tashfeenahmed/AgentDomains</code> · source-available (FSL-1.1).</p>
 
-    <h2 id="install">Install</h2>
-    <pre><code># with the Go toolchain
-go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest
-
-# verify
-agentdomains --help</code></pre>
-    <p class="muted">Or download a prebuilt binary — macOS, Linux and Windows, amd64 and arm64 —
-    from the <a href="https://github.com/tashfeenahmed/AgentDomains/releases/latest">latest release</a>.
-    Each archive carries the binary, README and LICENSE, and every release ships a
-    <code>SHA256SUMS</code> you can check with
-    <code>shasum -a 256 -c SHA256SUMS --ignore-missing</code>. Note the module path keeps its
-    capitals (<code>AgentDomains</code>) even though the command is lowercase.</p>
-
-    <h2 id="quickstart">Quickstart</h2>
-    <pre><code>agentdomains signup                                   # instant account + API key
-agentdomains claim myagent --email you@example.com --type A --content 203.0.113.10
-dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pre>
-    <div class="note">Your <strong>first</strong> registration needs <code>--email</code> — we send a
-    confirmation link and start a 30-day clock. Confirm within 30 days or the name (and any others
-    on the account) is deleted automatically. After the first time, the email is remembered on the
-    account, so later <code>claim</code>/<code>forward</code>/<code>proxy</code> calls don't repeat it.</div>
-
-    <h3>Choosing a domain</h3>
-    <p>Names are claimed under <code>makes.fyi</code> by default. Pass
-    <code>--domain agentdomains.co</code> (CLI) or a <code>"domain"</code> field
-    (API) to claim under the other one. The same label can exist under each domain
-    independently; scope <code>get</code>/<code>delete</code> with
-    <code>--domain</code> when a label is claimed under both.</p>
-    <pre><code>agentdomains claim myagent --domain agentdomains.co   # myagent.agentdomains.co</code></pre>
+    <div class="startgrid">
+      <a href="/install"><span class="t">Install</span><span class="d">Get the CLI</span></a>
+      <a href="/quickstart"><span class="t">Quickstart</span><span class="d">First domain in 3 commands</span></a>
+      <a href="/proxy"><span class="t">Reverse proxy</span><span class="d">Serve a backend over HTTPS</span></a>
+      <a href="/mcp"><span class="t">MCP server</span><span class="d">19 typed tools</span></a>
+      <a href="/api"><span class="t">HTTP API</span><span class="d">Every endpoint</span></a>
+    </div>
 
     <h2 id="accounts">Accounts &amp; confirmation</h2>
     <p>Signup creates an anonymous <span class="pill">provisional</span> account and API key.
@@ -208,28 +194,7 @@ agentdomains unforward me                                   # remove the forward
     <code>409</code> telling you to <code>unforward</code> first.</p>
     <div class="note">Forwarding is an HTTP redirect, not hosting. The visitor's
     browser ends up on the target URL. To serve your own content while keeping your
-    name in the address bar, use <a href="#proxy">reverse proxy</a> below.</div>
-
-    <h2 id="proxy">Reverse proxy</h2>
-    <p>Point a name at a backend you run somewhere else and serve it over HTTPS at
-    your name, with <strong>our</strong> edge certificate — nothing to configure on
-    the backend. Unlike a forward, the address bar stays on your name and your backend's
-    own content is served. <code>proxy</code> claims the label first if you don't own
-    it yet:</p>
-    <pre><code>agentdomains proxy shop myapp.fly.dev
-# shop.makes.fyi -> serves https://myapp.fly.dev, over our cert, at shop.makes.fyi
-
-agentdomains unproxy shop                                   # remove the proxy</code></pre>
-    <p>We terminate HTTPS at the edge and fetch your backend <em>by its own hostname</em>,
-    so it accepts the request and you never need a certificate for your AgentDomains
-    name. Like a forward, a proxy <strong>replaces</strong> the label's own A/AAAA/CNAME
-    records, reporting them as <code>replaced_records</code>, and leaves sub-label and TXT
-    records alone. A proxy and a forward remain mutually exclusive on one label.</p>
-    <div class="note"><strong>Heads-up for login-gated apps.</strong> The proxy serves
-    your backend, but it can't rewrite hostnames your app hardcodes. Apps that bake their
-    own domain into OAuth/SSO redirects (e.g. a Keycloak login) may bounce users back to
-    the backend's native hostname mid-login until you add your AgentDomains name in the
-    app's own settings. Static sites and apps that use relative URLs work with no setup.</div>
+    name in the address bar, use <a href="/proxy">reverse proxy</a> page.</div>
 
     <h2 id="delegation">Nameserver delegation</h2>
     <p>Want full control of the subtree, with your own records, MX, and sub-domains?
@@ -243,9 +208,9 @@ agentdomains unproxy shop                                   # remove the proxy</
     credentials from the environment so no interactive setup is needed:</p>
     <pre><code>export AGENTDOMAINS_API_KEY=adom_...           # skip local config
 agentdomains claim $NAME --email you@example.com --type A --content $IP --json | jq -r .fqdn</code></pre>
-    <p>You can also call the HTTP API directly (below), which is handy inside sandboxes.</p>
-    <p>If your agent speaks <a href="#mcp">MCP</a>, skip the shell entirely: the
-    <a href="#mcp">MCP server</a> exposes every operation as a typed tool, over stdio
+    <p>You can also call the <a href="/api">HTTP API</a> directly, which is handy inside sandboxes.</p>
+    <p>If your agent speaks <a href="/mcp">MCP</a>, skip the shell entirely: the
+    <a href="/mcp">MCP server</a> exposes every operation as a typed tool, over stdio
     (<code>npx -y agentdomains-mcp</code>) or the hosted endpoint at
     <code>mcp.agentdomains.co</code>.</p>
 
@@ -275,135 +240,16 @@ agentdomains claim $NAME --email you@example.com --type A --content $IP --json |
     <p class="muted">Global flags: <code>--json</code>, <code>--api-url</code>,
     <code>--domain</code>. Env: <code>AGENTDOMAINS_API_KEY</code>,
     <code>AGENTDOMAINS_API_URL</code>.</p>
-
-    <h2 id="mcp">MCP server</h2>
-    <p>AgentDomains ships a <a href="https://modelcontextprotocol.io">Model Context Protocol</a>
-    server, so an agent can register and manage names as typed tool calls instead of shelling
-    out. Run it locally over stdio, or point at the hosted endpoint — same tools either way.</p>
-
-    <h3>Local (stdio)</h3>
-    <pre><code>AGENTDOMAINS_API_KEY=adom_… npx -y agentdomains-mcp</code></pre>
-    <p>In Claude Code:</p>
-    <pre><code>claude mcp add agentdomains --env AGENTDOMAINS_API_KEY=adom_… -- npx -y agentdomains-mcp</code></pre>
-    <p>In Claude Desktop, add to <code>claude_desktop_config.json</code>:</p>
-    <pre><code>{
-  "mcpServers": {
-    "agentdomains": {
-      "command": "npx",
-      "args": ["-y", "agentdomains-mcp"],
-      "env": { "AGENTDOMAINS_API_KEY": "adom_…" }
-    }
-  }
-}</code></pre>
-    <p class="muted">No env var needed if you already use the CLI — the server reads
-    <code>~/.agentdomains/config.json</code>. <code>AGENTDOMAINS_API_URL</code> overrides the
-    API base. The key is never logged or echoed in tool output.</p>
-
-    <h3>Hosted (remote)</h3>
-    <p>Streamable HTTP at <code>https://mcp.agentdomains.co</code>, authenticated with the
-    same Bearer key. Nothing to install:</p>
-    <pre><code>claude mcp add --transport http agentdomains https://mcp.agentdomains.co \
-  --header "Authorization: Bearer adom_…"
-
-# or by hand
-curl -s https://mcp.agentdomains.co \
-  -H "Authorization: Bearer adom_…" \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'</code></pre>
-    <p>Or as a config-file entry, for clients that take one:</p>
-    <pre><code>{
-  "mcpServers": {
-    "agentdomains": {
-      "type": "http",
-      "url": "https://mcp.agentdomains.co",
-      "headers": { "Authorization": "Bearer adom_…" }
-    }
-  }
-}</code></pre>
-
-    <h3>Tools</h3>
-    <div class="tablewrap">
-    <table>
-      <tr><th>Tool</th><th>Endpoint</th><th>Description</th></tr>
-      <tr><td><code>check_availability</code></td><td><code>GET /v1/available</code></td><td>Is a label free? No key required</td></tr>
-      <tr><td><code>signup</code></td><td><code>POST /v1/signup</code></td><td>Create an account; the key is shown once. No key required</td></tr>
-      <tr><td><code>whoami</code></td><td><code>GET /v1/whoami</code></td><td>Account state, email, quota, usage</td></tr>
-      <tr><td><code>attach_email</code></td><td><code>POST /v1/account/email</code></td><td>Attach an email and send its verification link</td></tr>
-      <tr><td><code>claim_domain</code></td><td><code>POST /v1/subdomains</code></td><td>Register a name, optionally with a first record</td></tr>
-      <tr><td><code>list_domains</code></td><td><code>GET /v1/subdomains</code></td><td>List every name on the account</td></tr>
-      <tr><td><code>get_domain</code></td><td><code>GET /v1/subdomains/{label}</code></td><td>One name, its records and forward/proxy state</td></tr>
-      <tr><td><code>delete_domain</code></td><td><code>DELETE /v1/subdomains/{label}</code></td><td><span class="pill">destructive</span> Delete a name and all its records</td></tr>
-      <tr><td><code>add_dns_record</code></td><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add an A, AAAA, CNAME, or TXT record</td></tr>
-      <tr><td><code>delete_record</code></td><td><code>DELETE /v1/subdomains/{label}/records/{id}</code></td><td><span class="pill">destructive</span> Remove one record, keeping the name</td></tr>
-      <tr><td><code>add_acme_challenge</code></td><td><code>POST /v1/subdomains/{label}/records</code></td><td>TXT at <code>_acme-challenge</code> for Let's Encrypt DNS-01</td></tr>
-      <tr><td><code>set_forward</code></td><td><code>PUT /v1/subdomains/{label}/forward</code></td><td>Redirect the name to a URL; replaces the address records on it</td></tr>
-      <tr><td><code>remove_forward</code></td><td><code>DELETE /v1/subdomains/{label}/forward</code></td><td>Stop forwarding</td></tr>
-      <tr><td><code>set_proxy</code></td><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td>Serve a backend through the edge, TLS terminated for you; replaces the address records on it</td></tr>
-      <tr><td><code>remove_proxy</code></td><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Stop proxying</td></tr>
-      <tr><td><code>delegate_nameservers</code></td><td><code>PUT /v1/subdomains/{label}/ns</code></td><td>Delegate the name to your own nameservers</td></tr>
-      <tr><td><code>delete_account</code></td><td><code>DELETE /v1/account[?force=true]</code></td><td><span class="pill">destructive</span> Close the account and kill its key; refuses while names are held unless <code>force</code></td></tr>
-      <tr><td><code>upgrade_to_pro</code></td><td><code>POST /v1/billing/checkout</code></td><td>Stripe checkout link for Pro ($5/month or $48/year); charges nothing, a human pays</td></tr>
-      <tr><td><code>manage_billing</code></td><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for a Pro account</td></tr>
-    </table>
-    </div>
-    <p class="muted">Every label-scoped tool takes an optional <code>domain</code>
-    (<code>makes.fyi</code> or <code>agentdomains.co</code>). Seventeen tools in all.</p>
-    <div class="note">There is no "give me SSL" tool, because that is not one operation.
-    Either <code>set_proxy</code> (the edge terminates TLS with its own certificate — nothing
-    to install on your origin), or <code>add_acme_challenge</code> (publishes the DNS-01
-    record so your own ACME client can issue a cert). A plain public web server needs
-    neither: Let's Encrypt HTTP-01 just works. See <a href="#ssl">Getting HTTPS / SSL</a>.</div>
-
-    <h3>Client compatibility</h3>
-    <p>Any MCP client works. Common ones:</p>
-    <table>
-      <tr><th>Client</th><th>How</th></tr>
-      <tr><td>Claude Code</td><td><code>claude mcp add</code>, stdio or <code>--transport http</code></td></tr>
-      <tr><td>Claude Desktop</td><td><code>mcpServers</code> block in <code>claude_desktop_config.json</code></td></tr>
-      <tr><td>OpenAI Agents SDK</td><td><code>MCPServerStdio</code>, or <code>MCPServerStreamableHttp</code> for the hosted URL</td></tr>
-      <tr><td>LangChain / LangGraph</td><td><code>langchain-mcp-adapters</code> → <code>MultiServerMCPClient</code></td></tr>
-      <tr><td>CrewAI</td><td><code>MCPServerAdapter</code> with the same stdio command</td></tr>
-    </table>
-    <p class="muted">Source: <a href="https://github.com/tashfeenahmed/AgentDomains-mcp">github.com/tashfeenahmed/AgentDomains-mcp</a></p>
-
-    <h2 id="api">HTTP API</h2>
-    <p>Base URL <code>https://api.agentdomains.co</code>. Authenticate with
-    <code>Authorization: Bearer &lt;api_key&gt;</code>.</p>
-    <table>
-      <tr><th>Method &amp; path</th><th>Description</th></tr>
-      <tr><td><code>POST /v1/signup</code></td><td>Create a provisional account, returns <code>api_key</code></td></tr>
-      <tr><td><code>GET /v1/whoami</code></td><td>Account info</td></tr>
-      <tr><td><code>POST /v1/account/email</code></td><td><code>{"email":"…"}</code>, sends a validation link</td></tr>
-      <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","email?","domain?","type?","content?","host?"}</code> — <code>email</code> required on first registration</td></tr>
-      <tr><td><code>GET /v1/subdomains</code></td><td>List</td></tr>
-      <tr><td><code>GET /v1/subdomains/{label}</code></td><td>Show one</td></tr>
-      <tr><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add a record</td></tr>
-      <tr><td><code>DELETE /v1/subdomains/{label}/records/{id}</code></td><td>Remove one record, keeping the name</td></tr>
-      <tr><td><code>PUT /v1/subdomains/{label}/ns</code></td><td><code>{"nameservers":[…]}</code></td></tr>
-      <tr><td><code>PUT /v1/subdomains/{label}/forward</code></td><td><code>{"target","permanent?","preserve_path?","cloak?"}</code></td></tr>
-      <tr><td><code>DELETE /v1/subdomains/{label}/forward</code></td><td>Remove a forward</td></tr>
-      <tr><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td><code>{"origin","domain?"}</code> — reverse-proxy the name to a backend host</td></tr>
-      <tr><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Remove a reverse proxy</td></tr>
-      <tr><td><code>DELETE /v1/subdomains/{label}</code></td><td>Delete</td></tr>
-      <tr><td><code>DELETE /v1/account[?force=true]</code></td><td>Close the account; <code>409</code> listing held names unless <code>force=true</code> (and while a Pro subscription is live)</td></tr>
-      <tr><td><code>POST /v1/billing/checkout</code></td><td><code>{"interval?":"month"|"year"}</code> — Stripe checkout link for Pro (<code>kind:"portal"</code> if already Pro)</td></tr>
-      <tr><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for an account that has subscribed</td></tr>
-    </table>
-    <p>Errors are JSON too, and carry the field that tells them apart:
-    <code>409 {"owned":true}</code> means the name is already yours (carry on),
-    <code>400</code> means the request was wrong, and an upstream failure is
-    <code>503 {"upstream":"cloudflare","retry":…}</code> — <code>retry:true</code> for an
-    outage worth coming back to, <code>retry:false</code> for one that needs us to fix
-    something first. A <code>429</code> carries <code>Retry-After</code> and repeats it in
-    the body as <code>retry_after</code>.</p>
-    <pre><code># example: claim with curl
-KEY=$(curl -s -X POST https://api.agentdomains.co/v1/signup | jq -r .api_key)
-curl -s -X POST https://api.agentdomains.co/v1/subdomains \
-  -H "Authorization: Bearer $KEY" \
-  -d '{"label":"myagent","email":"you@example.com","type":"A","content":"203.0.113.10"}'</code></pre>
-
-    <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
   </main>
 </div>
+<script>
+// The docs were split into per-topic pages; old single-page anchors move over.
+(function(){
+  var m={install:"/install",quickstart:"/quickstart",proxy:"/proxy",mcp:"/mcp",api:"/api"};
+  var h=location.hash.slice(1);
+  if(m[h])location.replace(m[h]);
+})();
+</script>
 </body>
 </html>
