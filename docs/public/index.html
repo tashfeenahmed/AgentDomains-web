@@ -374,7 +374,7 @@ curl -s https://mcp.agentdomains.co \
       <tr><td><code>POST /v1/signup</code></td><td>Create a provisional account, returns <code>api_key</code></td></tr>
       <tr><td><code>GET /v1/whoami</code></td><td>Account info</td></tr>
       <tr><td><code>POST /v1/account/email</code></td><td><code>{"email":"…"}</code>, sends a validation link</td></tr>
-      <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","email?","domain?","type?","content?","host?"}</code> — <code>email</code> required on first registration</td></tr>
+      <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","email?","domain?","type?","content?","host?"}</code> — <code>email</code> required on first registration. The response says <code>serving</code>: a claimed name with no record, forward, proxy, or delegation answers nothing, so when it's <code>false</code> the response also carries a <code>next_step</code> naming the command that points it at something. <code>GET</code> list and single-name views carry the same <code>serving</code> flag.</td></tr>
       <tr><td><code>GET /v1/subdomains</code></td><td>List</td></tr>
       <tr><td><code>GET /v1/subdomains/{label}</code></td><td>Show one</td></tr>
       <tr><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add a record</td></tr>
