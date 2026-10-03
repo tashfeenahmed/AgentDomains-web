@@ -1,0 +1,24 @@
+{
+  "name": "agentdns-fallback",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  // The makes.fyi zone fallback: one zone-wide wildcard route, deliberately
+  // the broadest pattern on the zone, so every MORE specific route keeps
+  // answering exactly as before — the per-hostname forward/proxy routes the API
+  // server binds, and (by Custom-Domain precedence) the apex hostnames. What
+  // is left over is every name with nothing configured for it, claimed or not,
+  // and this Worker answers those with a clean 404 instead of a dead
+  // connection. See worker.js for why the api./docs./mcp. passes make the
+  // wildcard safe, and README.md ("The fallback Worker") for the wildcard DNS
+  // record this route needs alongside it and the order to do all of it in.
+  //
+  // Unlike forward/ and proxy/ (which have no routes at all), this Worker's
+  // route is STATIC — declared here, deployed by wrangler, never created or
+  // deleted by the API server. Nothing about a claim or a teardown touches it.
+  "routes": [
+    { "pattern": "*.makes.fyi/*", "zone_name": "makes.fyi" }
+  ],
+  // No workers.dev URL: same rule as every other Worker in this repo — no
+  // third address for a crawler to find.
+  "workers_dev": false
+}

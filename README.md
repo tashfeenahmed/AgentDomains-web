@@ -16,7 +16,7 @@
   <img src="docs/architecture.svg" alt="AgentDomains edge architecture" width="100%">
 </p>
 
-This repo holds the public web surfaces for **AgentDomains**: six Cloudflare Workers,
+This repo holds the public web surfaces for **AgentDomains**: seven Cloudflare Workers,
 including a thin reverse proxy that fronts the API. Everything serves from Cloudflare's
 edge. The only origin is a single VM running the Go API.
 
@@ -29,6 +29,7 @@ api-proxy/     # reverse-proxy Worker (api.agentdomains.co + api.makes.fyi) → 
 mcp/           # hosted MCP endpoint (mcp.agentdomains.co + mcp.makes.fyi)
 forward/       # URL-forwarding Worker — no routes of its own (see below)
 proxy/         # reverse-proxy Worker for customer names — no routes of its own
+fallback/      # makes.fyi zone fallback: unclaimed names answer 404, not dead (see below)
 ```
 
 Each directory has its own `wrangler.jsonc`. The Worker **service** names stay
@@ -72,12 +73,66 @@ can't `fetch()` a raw IP (error 1003). So `api-proxy` presents valid edge TLS on
 Worker secret (`wrangler secret put ORIGIN`) rather than committed here.
 `CF-Connecting-IP` is preserved for rate-limiting and audit.
 
+## The fallback Worker (`fallback/`) — and the wildcard it needs
+
+An unclaimed name like `nope.makes.fyi` used to answer nothing: no DNS record,
+NXDOMAIN, `curl` exit code 6 — HTTP 000. A probe could not tell "this name is
+free" from "the zone is broken", and the zone's 4xx analytics were noise. The
+fallback Worker ends that: every makes.fyi name with nothing configured for it
+now answers a clean `404` — free names with the claim command attached (JSON for
+an `Accept: application/json` caller), claimed-but-dark names identified as
+claimed, reserved names never advertised.
+
+It is the one Worker in this repo that **does** hold a wildcard route
+(`*.makes.fyi/*`), and that is only allowed because it hands every hostname
+that predates the wildcard back to its owner before answering anything itself
+(`makes.fyi`, `api.`, `docs.`, `mcp.` are fetched through to their Custom
+Domains; `www.` redirects like the apex Worker does). Read the top of
+`fallback/worker.js` before touching it, and deploy it in this order:
+
+1. **Deploy the Worker first** — the script and its wildcard route go live in
+   one command, and the Worker answers correctly the instant it exists (every
+   request that can reach it already has no record of its own, so it cannot be
+   shadowing anything that was answering before):
+   `(cd fallback && npx wrangler deploy)`
+2. **Add the wildcard DNS record** in the makes.fyi zone — this is the half
+   that lives at Cloudflare, not in this repo:
+   `* AAAA 100::`, **proxied (orange)**. `100::` is the documented Cloudflare
+   placeholder that makes a hostname resolve to the edge so the Worker can run
+   — the same trick the API server uses for forward placeholders. Do it via
+   the dashboard or `npx wrangler dns record` style API calls with the zone
+   token; there is intentionally no `[[dns_records]]` in wrangler.toml here,
+   because the API server owns exact records in this zone and a wrangler-managed
+   record set would fight it on every deploy.
+3. **Verify**, in this order, each answer coming back as expected:
+   - `dig +short nope.makes.fyi AAAA` → the Cloudflare edge addresses (the
+     wildcard answers);
+   - `curl -s -o /dev/null -w '%{http_code}' https://nope.makes.fyi/` → `404`;
+   - `curl -s -H 'Accept: application/json' https://nope.makes.fyi/` → JSON with
+     `"available":true` and the claim command;
+   - `dig +short <claimed-label>.makes.fyi` still returns the owner's own record
+     (an exact record beats the wildcard record);
+   - a claimed **forward** still redirects (its exact route beats the wildcard
+     route on specificity);
+   - `curl -sI https://makes.fyi/` → still the 301 to agentdomains.co,
+     `https://api.agentdomains.co/health` → 200,
+     `https://docs.makes.fyi/` → its docs page,
+     `https://www.makes.fyi/` → 301 to agentdomains.co,
+     `https://mcp.agentdomains.co/` → the MCP landing page.
+   If any of the last five changed behaviour, the wildcard is wrong: delete the
+   `*` record (and the route) first, it is the only new thing.
+
+Rollback is those two Cloudflare artefacts only (the wildcard record, and the
+route that ships with the Worker): every name with an exact record or an exact
+route is untouched by this change, which is exactly what the verification list
+above checks.
+
 ## Deploy
 
 Requires the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI,
 authenticated to the Cloudflare account that owns the zones.
 
-Deploy all six from the repo root:
+Deploy all seven from the repo root:
 
 ```bash
 npx wrangler deploy                    # landing  → agentdomains.co + makes.fyi
@@ -86,6 +141,7 @@ npx wrangler deploy                    # landing  → agentdomains.co + makes.fy
 (cd mcp       && npx wrangler deploy)  # mcp      → mcp.agentdomains.co + mcp.makes.fyi
 (cd forward   && npx wrangler deploy)  # forwards → no routes; the API server binds them
 (cd proxy     && npx wrangler deploy)  # proxies  → no routes; the API server binds them
+(cd fallback  && npx wrangler deploy)  # fallback → *.makes.fyi/* (see above before deploying)
 ```
 
 `forward` and `proxy` print **"No targets deployed"**. That is expected and correct —
