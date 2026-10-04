@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDomains Docs — free domains for AI agents</title>
-<meta name="description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
-<link rel="canonical" href="https://docs.agentdomains.co/">
-<meta property="og:title" content="AgentDomains Docs — free domains for AI agents">
-<meta property="og:description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
+<title>HTTP API reference — AgentDomains Docs</title>
+<meta name="description" content="The AgentDomains HTTP API at api.agentdomains.co: signup, names, records, forwards, proxies, delegation and billing behind Bearer keys, with curl examples.">
+<link rel="canonical" href="https://docs.agentdomains.co/api">
+<meta property="og:title" content="HTTP API reference — AgentDomains Docs">
+<meta property="og:description" content="The AgentDomains HTTP API at api.agentdomains.co: signup, names, records, forwards, proxies, delegation and billing behind Bearer keys, with curl examples.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://docs.agentdomains.co/">
+<meta property="og:url" content="https://docs.agentdomains.co/api">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
@@ -85,7 +85,7 @@
   <aside>
     <a class="brand" href="/">agent<span class="dot">·</span>domains</a>
     <div class="grp">Docs</div>
-    <a class="cur" href="/">Introduction</a>
+    <a href="/">Introduction</a>
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
@@ -99,7 +99,7 @@
     <div class="grp">Reference</div>
     <a href="/commands">CLI commands</a>
     <a href="/mcp">MCP server</a>
-    <a href="/api">HTTP API</a>
+    <a class="cur" href="/api">HTTP API</a>
     <div class="grp">More</div>
     <a href="https://agentdomains.co">← Main site</a>
     <a href="https://agentdomains.co/pricing">Pricing</a>
@@ -107,29 +107,42 @@
   </aside>
 
   <main>
-    <h1 id="intro">AgentDomains</h1>
-    <p>When an AI agent builds a website or an API, it needs a domain to serve it on.
-    AgentDomains hands out free ones under <code>makes.fyi</code> (the default) and
-    <code>agentdomains.co</code>, claimable from a single CLI command. Point a domain
-    at an IP or a CNAME, delegate it to your own nameservers, or add TXT records to
-    get HTTPS.</p>
-    <p class="muted">API base: <code>https://api.agentdomains.co</code> · CLI:
-    <code>github.com/tashfeenahmed/AgentDomains</code> · source-available (FSL-1.1).</p>
-
-    <div class="startgrid">
-      <a href="/install"><span class="t">Install</span><span class="d">Get the CLI</span></a>
-      <a href="/quickstart"><span class="t">Quickstart</span><span class="d">First domain in 3 commands</span></a>
-      <a href="/proxy"><span class="t">Reverse proxy</span><span class="d">Serve a backend over HTTPS</span></a>
-      <a href="/mcp"><span class="t">MCP server</span><span class="d">19 typed tools</span></a>
-      <a href="/api"><span class="t">HTTP API</span><span class="d">Every endpoint</span></a>
-      <a href="/records"><span class="t">DNS records</span><span class="d">A, AAAA, CNAME, TXT</span></a>
-      <a href="/ssl"><span class="t">HTTPS / SSL</span><span class="d">Let's Encrypt, two ways</span></a>
-      <a href="/forwarding"><span class="t">URL forwarding</span><span class="d">Redirect to any URL</span></a>
-      <a href="/accounts"><span class="t">Accounts</span><span class="d">Email confirmation</span></a>
-      <a href="/commands"><span class="t">CLI commands</span><span class="d">Full reference</span></a>
-    </div>
-
-<p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+    <h1 id="api">HTTP API</h1>
+    <p>Base URL <code>https://api.agentdomains.co</code>. Authenticate with
+    <code>Authorization: Bearer &lt;api_key&gt;</code>.</p>
+    <table>
+      <tr><th>Method &amp; path</th><th>Description</th></tr>
+      <tr><td><code>POST /v1/signup</code></td><td>Create a provisional account, returns <code>api_key</code></td></tr>
+      <tr><td><code>GET /v1/whoami</code></td><td>Account info</td></tr>
+      <tr><td><code>POST /v1/account/email</code></td><td><code>{"email":"…"}</code>, sends a validation link</td></tr>
+      <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","email?","domain?","type?","content?","host?"}</code> — <code>email</code> required on first registration</td></tr>
+      <tr><td><code>GET /v1/subdomains</code></td><td>List</td></tr>
+      <tr><td><code>GET /v1/subdomains/{label}</code></td><td>Show one</td></tr>
+      <tr><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add a record</td></tr>
+      <tr><td><code>DELETE /v1/subdomains/{label}/records/{id}</code></td><td>Remove one record, keeping the name</td></tr>
+      <tr><td><code>PUT /v1/subdomains/{label}/ns</code></td><td><code>{"nameservers":[…]}</code></td></tr>
+      <tr><td><code>PUT /v1/subdomains/{label}/forward</code></td><td><code>{"target","permanent?","preserve_path?","cloak?"}</code></td></tr>
+      <tr><td><code>DELETE /v1/subdomains/{label}/forward</code></td><td>Remove a forward</td></tr>
+      <tr><td><code>PUT /v1/subdomains/{label}/proxy</code></td><td><code>{"origin","domain?"}</code> — reverse-proxy the name to a backend host</td></tr>
+      <tr><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Remove a reverse proxy</td></tr>
+      <tr><td><code>DELETE /v1/subdomains/{label}</code></td><td>Delete</td></tr>
+      <tr><td><code>DELETE /v1/account[?force=true]</code></td><td>Close the account; <code>409</code> listing held names unless <code>force=true</code> (and while a Pro subscription is live)</td></tr>
+      <tr><td><code>POST /v1/billing/checkout</code></td><td><code>{"interval?":"month"|"year"}</code> — Stripe checkout link for Pro (<code>kind:"portal"</code> if already Pro)</td></tr>
+      <tr><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for an account that has subscribed</td></tr>
+    </table>
+    <p>Errors are JSON too, and carry the field that tells them apart:
+    <code>409 {"owned":true}</code> means the name is already yours (carry on),
+    <code>400</code> means the request was wrong, and an upstream failure is
+    <code>503 {"upstream":"cloudflare","retry":…}</code> — <code>retry:true</code> for an
+    outage worth coming back to, <code>retry:false</code> for one that needs us to fix
+    something first. A <code>429</code> carries <code>Retry-After</code> and repeats it in
+    the body as <code>retry_after</code>.</p>
+    <pre><code># example: claim with curl
+KEY=$(curl -s -X POST https://api.agentdomains.co/v1/signup | jq -r .api_key)
+curl -s -X POST https://api.agentdomains.co/v1/subdomains \
+  -H "Authorization: Bearer $KEY" \
+  -d '{"label":"myagent","email":"you@example.com","type":"A","content":"203.0.113.10"}'</code></pre>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
   </main>
 </div>
 <script>

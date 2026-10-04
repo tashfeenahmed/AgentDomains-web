@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDomains Docs — free domains for AI agents</title>
-<meta name="description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
-<link rel="canonical" href="https://docs.agentdomains.co/">
-<meta property="og:title" content="AgentDomains Docs — free domains for AI agents">
-<meta property="og:description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
+<title>Quickstart — claim a free domain | AgentDomains Docs</title>
+<meta name="description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
+<link rel="canonical" href="https://docs.agentdomains.co/quickstart">
+<meta property="og:title" content="Quickstart — claim a free domain | AgentDomains Docs">
+<meta property="og:description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://docs.agentdomains.co/">
+<meta property="og:url" content="https://docs.agentdomains.co/quickstart">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
@@ -85,9 +85,9 @@
   <aside>
     <a class="brand" href="/">agent<span class="dot">·</span>domains</a>
     <div class="grp">Docs</div>
-    <a class="cur" href="/">Introduction</a>
+    <a href="/">Introduction</a>
     <a href="/install">Install</a>
-    <a href="/quickstart">Quickstart</a>
+    <a class="cur" href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
     <a href="/accounts">Accounts &amp; confirmation</a>
     <a href="/records">DNS records</a>
@@ -107,29 +107,23 @@
   </aside>
 
   <main>
-    <h1 id="intro">AgentDomains</h1>
-    <p>When an AI agent builds a website or an API, it needs a domain to serve it on.
-    AgentDomains hands out free ones under <code>makes.fyi</code> (the default) and
-    <code>agentdomains.co</code>, claimable from a single CLI command. Point a domain
-    at an IP or a CNAME, delegate it to your own nameservers, or add TXT records to
-    get HTTPS.</p>
-    <p class="muted">API base: <code>https://api.agentdomains.co</code> · CLI:
-    <code>github.com/tashfeenahmed/AgentDomains</code> · source-available (FSL-1.1).</p>
+    <h1 id="quickstart">Quickstart</h1>
+    <pre><code>agentdomains signup                                   # instant account + API key
+agentdomains claim myagent --email you@example.com --type A --content 203.0.113.10
+dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pre>
+    <div class="note">Your <strong>first</strong> registration needs <code>--email</code> — we send a
+    confirmation link and start a 30-day clock. Confirm within 30 days or the name (and any others
+    on the account) is deleted automatically. After the first time, the email is remembered on the
+    account, so later <code>claim</code>/<code>forward</code>/<code>proxy</code> calls don't repeat it.</div>
 
-    <div class="startgrid">
-      <a href="/install"><span class="t">Install</span><span class="d">Get the CLI</span></a>
-      <a href="/quickstart"><span class="t">Quickstart</span><span class="d">First domain in 3 commands</span></a>
-      <a href="/proxy"><span class="t">Reverse proxy</span><span class="d">Serve a backend over HTTPS</span></a>
-      <a href="/mcp"><span class="t">MCP server</span><span class="d">19 typed tools</span></a>
-      <a href="/api"><span class="t">HTTP API</span><span class="d">Every endpoint</span></a>
-      <a href="/records"><span class="t">DNS records</span><span class="d">A, AAAA, CNAME, TXT</span></a>
-      <a href="/ssl"><span class="t">HTTPS / SSL</span><span class="d">Let's Encrypt, two ways</span></a>
-      <a href="/forwarding"><span class="t">URL forwarding</span><span class="d">Redirect to any URL</span></a>
-      <a href="/accounts"><span class="t">Accounts</span><span class="d">Email confirmation</span></a>
-      <a href="/commands"><span class="t">CLI commands</span><span class="d">Full reference</span></a>
-    </div>
-
-<p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+    <h3>Choosing a domain</h3>
+    <p>Names are claimed under <code>makes.fyi</code> by default. Pass
+    <code>--domain agentdomains.co</code> (CLI) or a <code>"domain"</code> field
+    (API) to claim under the other one. The same label can exist under each domain
+    independently; scope <code>get</code>/<code>delete</code> with
+    <code>--domain</code> when a label is claimed under both.</p>
+    <pre><code>agentdomains claim myagent --domain agentdomains.co   # myagent.agentdomains.co</code></pre>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
   </main>
 </div>
 <script>

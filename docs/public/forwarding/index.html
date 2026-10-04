@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDomains Docs — free domains for AI agents</title>
-<meta name="description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
-<link rel="canonical" href="https://docs.agentdomains.co/">
-<meta property="og:title" content="AgentDomains Docs — free domains for AI agents">
-<meta property="og:description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
+<title>URL forwarding — AgentDomains Docs</title>
+<meta name="description" content="Forward an AgentDomains name to any URL with a real HTTP redirect at the edge, on valid HTTPS. Path preservation, 301 vs 302, and record replacement.">
+<link rel="canonical" href="https://docs.agentdomains.co/forwarding">
+<meta property="og:title" content="URL forwarding — AgentDomains Docs">
+<meta property="og:description" content="Forward an AgentDomains name to any URL with a real HTTP redirect at the edge, on valid HTTPS. Path preservation, 301 vs 302, and record replacement.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://docs.agentdomains.co/">
+<meta property="og:url" content="https://docs.agentdomains.co/forwarding">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
@@ -85,14 +85,14 @@
   <aside>
     <a class="brand" href="/">agent<span class="dot">·</span>domains</a>
     <div class="grp">Docs</div>
-    <a class="cur" href="/">Introduction</a>
+    <a href="/">Introduction</a>
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
     <a href="/accounts">Accounts &amp; confirmation</a>
     <a href="/records">DNS records</a>
     <a href="/ssl">Getting HTTPS / SSL</a>
-    <a href="/forwarding">URL forwarding</a>
+    <a class="cur" href="/forwarding">URL forwarding</a>
     <a href="/proxy">Reverse proxy</a>
     <a href="/delegation">Nameserver delegation</a>
     <a href="/agents">Using it from agents</a>
@@ -105,31 +105,32 @@
     <a href="https://agentdomains.co/pricing">Pricing</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
   </aside>
-
   <main>
-    <h1 id="intro">AgentDomains</h1>
-    <p>When an AI agent builds a website or an API, it needs a domain to serve it on.
-    AgentDomains hands out free ones under <code>makes.fyi</code> (the default) and
-    <code>agentdomains.co</code>, claimable from a single CLI command. Point a domain
-    at an IP or a CNAME, delegate it to your own nameservers, or add TXT records to
-    get HTTPS.</p>
-    <p class="muted">API base: <code>https://api.agentdomains.co</code> · CLI:
-    <code>github.com/tashfeenahmed/AgentDomains</code> · source-available (FSL-1.1).</p>
+    <h1 id="forwarding">URL forwarding</h1>
+    <p>Forward a name to any URL with a real HTTP redirect, served at the edge with
+    valid HTTPS. <code>forward</code> claims the label first if you don't own it yet,
+    so it's a single step:</p>
+    <pre><code>agentdomains forward me https://my-portfolio.example.com
+# me.makes.fyi -> 302 redirect to https://my-portfolio.example.com
 
-    <div class="startgrid">
-      <a href="/install"><span class="t">Install</span><span class="d">Get the CLI</span></a>
-      <a href="/quickstart"><span class="t">Quickstart</span><span class="d">First domain in 3 commands</span></a>
-      <a href="/proxy"><span class="t">Reverse proxy</span><span class="d">Serve a backend over HTTPS</span></a>
-      <a href="/mcp"><span class="t">MCP server</span><span class="d">19 typed tools</span></a>
-      <a href="/api"><span class="t">HTTP API</span><span class="d">Every endpoint</span></a>
-      <a href="/records"><span class="t">DNS records</span><span class="d">A, AAAA, CNAME, TXT</span></a>
-      <a href="/ssl"><span class="t">HTTPS / SSL</span><span class="d">Let's Encrypt, two ways</span></a>
-      <a href="/forwarding"><span class="t">URL forwarding</span><span class="d">Redirect to any URL</span></a>
-      <a href="/accounts"><span class="t">Accounts</span><span class="d">Email confirmation</span></a>
-      <a href="/commands"><span class="t">CLI commands</span><span class="d">Full reference</span></a>
-    </div>
-
-<p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+agentdomains forward me https://dest.com --permanent        # 301 instead of 302
+agentdomains forward me https://dest.com --no-preserve-path # land on target root
+agentdomains unforward me                                   # remove the forward</code></pre>
+    <p>The request path and query are preserved by default
+    (<code>me.makes.fyi/blog?x=1</code> → <code>…/blog?x=1</code>).</p>
+    <p><strong>A forward takes the hostname over.</strong> Any A/AAAA/CNAME sitting on the
+    label itself is deleted as part of the call — at the DNS provider and here — and handed
+    back as <code>replaced_records</code>, which the CLI prints. So claiming a name with a
+    record and then forwarding it is a perfectly good sequence; nothing has to be cleared
+    out of the way first. Records on a sub-label (<code>www.me.makes.fyi</code>) are separate
+    hostnames and survive, and TXT records are untouched. If the forward then fails to come
+    up, the replaced records are put back with new ids. Going the other way is still
+    refused: while a forward stands, adding an address record to the same label answers a
+    <code>409</code> telling you to <code>unforward</code> first.</p>
+    <div class="note">Forwarding is an HTTP redirect, not hosting. The visitor's
+    browser ends up on the target URL. To serve your own content while keeping your
+    name in the address bar, use <a href="/proxy">reverse proxy</a> instead.</div>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
   </main>
 </div>
 <script>

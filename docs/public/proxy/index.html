@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentDomains Docs — free domains for AI agents</title>
-<meta name="description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
-<link rel="canonical" href="https://docs.agentdomains.co/">
-<meta property="og:title" content="AgentDomains Docs — free domains for AI agents">
-<meta property="og:description" content="Official docs: install the CLI, claim a free makes.fyi or agentdomains.co subdomain, set DNS records, get HTTPS, forward, reverse-proxy, or call the API.">
+<title>Reverse proxy over HTTPS — AgentDomains Docs</title>
+<meta name="description" content="agentdomains proxy serves a backend you host elsewhere at your name over HTTPS with our edge certificate. Record replacement rules and login-app caveats.">
+<link rel="canonical" href="https://docs.agentdomains.co/proxy">
+<meta property="og:title" content="Reverse proxy over HTTPS — AgentDomains Docs">
+<meta property="og:description" content="agentdomains proxy serves a backend you host elsewhere at your name over HTTPS with our edge certificate. Record replacement rules and login-app caveats.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://docs.agentdomains.co/">
+<meta property="og:url" content="https://docs.agentdomains.co/proxy">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
@@ -85,7 +85,7 @@
   <aside>
     <a class="brand" href="/">agent<span class="dot">·</span>domains</a>
     <div class="grp">Docs</div>
-    <a class="cur" href="/">Introduction</a>
+    <a href="/">Introduction</a>
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
@@ -93,7 +93,7 @@
     <a href="/records">DNS records</a>
     <a href="/ssl">Getting HTTPS / SSL</a>
     <a href="/forwarding">URL forwarding</a>
-    <a href="/proxy">Reverse proxy</a>
+    <a class="cur" href="/proxy">Reverse proxy</a>
     <a href="/delegation">Nameserver delegation</a>
     <a href="/agents">Using it from agents</a>
     <div class="grp">Reference</div>
@@ -107,29 +107,27 @@
   </aside>
 
   <main>
-    <h1 id="intro">AgentDomains</h1>
-    <p>When an AI agent builds a website or an API, it needs a domain to serve it on.
-    AgentDomains hands out free ones under <code>makes.fyi</code> (the default) and
-    <code>agentdomains.co</code>, claimable from a single CLI command. Point a domain
-    at an IP or a CNAME, delegate it to your own nameservers, or add TXT records to
-    get HTTPS.</p>
-    <p class="muted">API base: <code>https://api.agentdomains.co</code> · CLI:
-    <code>github.com/tashfeenahmed/AgentDomains</code> · source-available (FSL-1.1).</p>
+    <h1 id="proxy">Reverse proxy</h1>
+    <p>Point a name at a backend you run somewhere else and serve it over HTTPS at
+    your name, with <strong>our</strong> edge certificate — nothing to configure on
+    the backend. Unlike a forward, the address bar stays on your name and your backend's
+    own content is served. <code>proxy</code> claims the label first if you don't own
+    it yet:</p>
+    <pre><code>agentdomains proxy shop myapp.fly.dev
+# shop.makes.fyi -> serves https://myapp.fly.dev, over our cert, at shop.makes.fyi
 
-    <div class="startgrid">
-      <a href="/install"><span class="t">Install</span><span class="d">Get the CLI</span></a>
-      <a href="/quickstart"><span class="t">Quickstart</span><span class="d">First domain in 3 commands</span></a>
-      <a href="/proxy"><span class="t">Reverse proxy</span><span class="d">Serve a backend over HTTPS</span></a>
-      <a href="/mcp"><span class="t">MCP server</span><span class="d">19 typed tools</span></a>
-      <a href="/api"><span class="t">HTTP API</span><span class="d">Every endpoint</span></a>
-      <a href="/records"><span class="t">DNS records</span><span class="d">A, AAAA, CNAME, TXT</span></a>
-      <a href="/ssl"><span class="t">HTTPS / SSL</span><span class="d">Let's Encrypt, two ways</span></a>
-      <a href="/forwarding"><span class="t">URL forwarding</span><span class="d">Redirect to any URL</span></a>
-      <a href="/accounts"><span class="t">Accounts</span><span class="d">Email confirmation</span></a>
-      <a href="/commands"><span class="t">CLI commands</span><span class="d">Full reference</span></a>
-    </div>
-
-<p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+agentdomains unproxy shop                                   # remove the proxy</code></pre>
+    <p>We terminate HTTPS at the edge and fetch your backend <em>by its own hostname</em>,
+    so it accepts the request and you never need a certificate for your AgentDomains
+    name. Like a forward, a proxy <strong>replaces</strong> the label's own A/AAAA/CNAME
+    records, reporting them as <code>replaced_records</code>, and leaves sub-label and TXT
+    records alone. A proxy and a forward remain mutually exclusive on one label.</p>
+    <div class="note"><strong>Heads-up for login-gated apps.</strong> The proxy serves
+    your backend, but it can't rewrite hostnames your app hardcodes. Apps that bake their
+    own domain into OAuth/SSO redirects (e.g. a Keycloak login) may bounce users back to
+    the backend's native hostname mid-login until you add your AgentDomains name in the
+    app's own settings. Static sites and apps that use relative URLs work with no setup.</div>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
   </main>
 </div>
 <script>
