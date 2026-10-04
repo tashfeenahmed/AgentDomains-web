@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reverse proxy over HTTPS — AgentDomains Docs</title>
-<meta name="description" content="Run agentdomains proxy to serve a backend you host elsewhere at your AgentDomains name over HTTPS with our edge certificate. Record replacement rules and login-gated-app caveats.">
+<meta name="description" content="agentdomains proxy serves a backend you host elsewhere at your name over HTTPS with our edge certificate. Record replacement rules and login-app caveats.">
 <link rel="canonical" href="https://docs.agentdomains.co/proxy">
 <meta property="og:title" content="Reverse proxy over HTTPS — AgentDomains Docs">
-<meta property="og:description" content="Run agentdomains proxy to serve a backend you host elsewhere at your AgentDomains name over HTTPS with our edge certificate. Record replacement rules and login-gated-app caveats.">
+<meta property="og:description" content="agentdomains proxy serves a backend you host elsewhere at your name over HTTPS with our edge certificate. Record replacement rules and login-app caveats.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/proxy">
 <meta property="og:site_name" content="AgentDomains">
@@ -89,15 +89,15 @@
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/#accounts">Accounts &amp; validation</a>
-    <a href="/#records">DNS records</a>
-    <a href="/#ssl">Getting HTTPS / SSL</a>
-    <a href="/#forwarding">URL forwarding</a>
+    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/records">DNS records</a>
+    <a href="/ssl">Getting HTTPS / SSL</a>
+    <a href="/forwarding">URL forwarding</a>
     <a class="cur" href="/proxy">Reverse proxy</a>
-    <a href="/#delegation">Nameserver delegation</a>
-    <a href="/#agents">Using it from agents</a>
+    <a href="/delegation">Nameserver delegation</a>
+    <a href="/agents">Using it from agents</a>
     <div class="grp">Reference</div>
-    <a href="/#commands">CLI commands</a>
+    <a href="/commands">CLI commands</a>
     <a href="/mcp">MCP server</a>
     <a href="/api">HTTP API</a>
     <div class="grp">More</div>
@@ -133,7 +133,7 @@ agentdomains unproxy shop                                   # remove the proxy</
 <script>
 // The docs were split into per-topic pages; old single-page anchors move over.
 (function(){
-  var m={install:"/install",quickstart:"/quickstart",proxy:"/proxy",mcp:"/mcp",api:"/api"};
+  var m={install:"/install",quickstart:"/quickstart",accounts:"/accounts",records:"/records",ssl:"/ssl",forwarding:"/forwarding",proxy:"/proxy",delegation:"/delegation",agents:"/agents",commands:"/commands",mcp:"/mcp",api:"/api"};
   var h=location.hash.slice(1);
   if(m[h])location.replace(m[h]);
 })();

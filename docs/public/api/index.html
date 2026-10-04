@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HTTP API reference — AgentDomains Docs</title>
-<meta name="description" content="The AgentDomains HTTP API at api.agentdomains.co: signup, names, DNS records, forwards, proxies, delegation and billing behind Bearer keys, with error semantics and curl examples.">
+<meta name="description" content="The AgentDomains HTTP API at api.agentdomains.co: signup, names, records, forwards, proxies, delegation and billing behind Bearer keys, with curl examples.">
 <link rel="canonical" href="https://docs.agentdomains.co/api">
 <meta property="og:title" content="HTTP API reference — AgentDomains Docs">
-<meta property="og:description" content="The AgentDomains HTTP API at api.agentdomains.co: signup, names, DNS records, forwards, proxies, delegation and billing behind Bearer keys, with error semantics and curl examples.">
+<meta property="og:description" content="The AgentDomains HTTP API at api.agentdomains.co: signup, names, records, forwards, proxies, delegation and billing behind Bearer keys, with curl examples.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/api">
 <meta property="og:site_name" content="AgentDomains">
@@ -89,15 +89,15 @@
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/#accounts">Accounts &amp; validation</a>
-    <a href="/#records">DNS records</a>
-    <a href="/#ssl">Getting HTTPS / SSL</a>
-    <a href="/#forwarding">URL forwarding</a>
+    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/records">DNS records</a>
+    <a href="/ssl">Getting HTTPS / SSL</a>
+    <a href="/forwarding">URL forwarding</a>
     <a href="/proxy">Reverse proxy</a>
-    <a href="/#delegation">Nameserver delegation</a>
-    <a href="/#agents">Using it from agents</a>
+    <a href="/delegation">Nameserver delegation</a>
+    <a href="/agents">Using it from agents</a>
     <div class="grp">Reference</div>
-    <a href="/#commands">CLI commands</a>
+    <a href="/commands">CLI commands</a>
     <a href="/mcp">MCP server</a>
     <a class="cur" href="/api">HTTP API</a>
     <div class="grp">More</div>
@@ -148,7 +148,7 @@ curl -s -X POST https://api.agentdomains.co/v1/subdomains \
 <script>
 // The docs were split into per-topic pages; old single-page anchors move over.
 (function(){
-  var m={install:"/install",quickstart:"/quickstart",proxy:"/proxy",mcp:"/mcp",api:"/api"};
+  var m={install:"/install",quickstart:"/quickstart",accounts:"/accounts",records:"/records",ssl:"/ssl",forwarding:"/forwarding",proxy:"/proxy",delegation:"/delegation",agents:"/agents",commands:"/commands",mcp:"/mcp",api:"/api"};
   var h=location.hash.slice(1);
   if(m[h])location.replace(m[h]);
 })();

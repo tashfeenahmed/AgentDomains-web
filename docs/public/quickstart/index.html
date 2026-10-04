@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quickstart — claim a free domain | AgentDomains Docs</title>
-<meta name="description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm. Includes picking makes.fyi vs agentdomains.co.">
+<meta name="description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
 <link rel="canonical" href="https://docs.agentdomains.co/quickstart">
 <meta property="og:title" content="Quickstart — claim a free domain | AgentDomains Docs">
-<meta property="og:description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm. Includes picking makes.fyi vs agentdomains.co.">
+<meta property="og:description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/quickstart">
 <meta property="og:site_name" content="AgentDomains">
@@ -89,15 +89,15 @@
     <a href="/install">Install</a>
     <a class="cur" href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/#accounts">Accounts &amp; validation</a>
-    <a href="/#records">DNS records</a>
-    <a href="/#ssl">Getting HTTPS / SSL</a>
-    <a href="/#forwarding">URL forwarding</a>
+    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/records">DNS records</a>
+    <a href="/ssl">Getting HTTPS / SSL</a>
+    <a href="/forwarding">URL forwarding</a>
     <a href="/proxy">Reverse proxy</a>
-    <a href="/#delegation">Nameserver delegation</a>
-    <a href="/#agents">Using it from agents</a>
+    <a href="/delegation">Nameserver delegation</a>
+    <a href="/agents">Using it from agents</a>
     <div class="grp">Reference</div>
-    <a href="/#commands">CLI commands</a>
+    <a href="/commands">CLI commands</a>
     <a href="/mcp">MCP server</a>
     <a href="/api">HTTP API</a>
     <div class="grp">More</div>
@@ -129,7 +129,7 @@ dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pr
 <script>
 // The docs were split into per-topic pages; old single-page anchors move over.
 (function(){
-  var m={install:"/install",quickstart:"/quickstart",proxy:"/proxy",mcp:"/mcp",api:"/api"};
+  var m={install:"/install",quickstart:"/quickstart",accounts:"/accounts",records:"/records",ssl:"/ssl",forwarding:"/forwarding",proxy:"/proxy",delegation:"/delegation",agents:"/agents",commands:"/commands",mcp:"/mcp",api:"/api"};
   var h=location.hash.slice(1);
   if(m[h])location.replace(m[h]);
 })();

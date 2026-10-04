@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MCP server — 19 tools for AI agents | AgentDomains Docs</title>
-<meta name="description" content="The AgentDomains MCP server: 19 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp locally or use the hosted mcp.agentdomains.co endpoint.">
+<meta name="description" content="The AgentDomains MCP server: 19 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <link rel="canonical" href="https://docs.agentdomains.co/mcp">
 <meta property="og:title" content="MCP server — 19 tools for AI agents | AgentDomains Docs">
-<meta property="og:description" content="The AgentDomains MCP server: 19 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp locally or use the hosted mcp.agentdomains.co endpoint.">
+<meta property="og:description" content="The AgentDomains MCP server: 19 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/mcp">
 <meta property="og:site_name" content="AgentDomains">
@@ -89,15 +89,15 @@
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/#accounts">Accounts &amp; validation</a>
-    <a href="/#records">DNS records</a>
-    <a href="/#ssl">Getting HTTPS / SSL</a>
-    <a href="/#forwarding">URL forwarding</a>
+    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/records">DNS records</a>
+    <a href="/ssl">Getting HTTPS / SSL</a>
+    <a href="/forwarding">URL forwarding</a>
     <a href="/proxy">Reverse proxy</a>
-    <a href="/#delegation">Nameserver delegation</a>
-    <a href="/#agents">Using it from agents</a>
+    <a href="/delegation">Nameserver delegation</a>
+    <a href="/agents">Using it from agents</a>
     <div class="grp">Reference</div>
-    <a href="/#commands">CLI commands</a>
+    <a href="/commands">CLI commands</a>
     <a class="cur" href="/mcp">MCP server</a>
     <a href="/api">HTTP API</a>
     <div class="grp">More</div>
@@ -183,7 +183,7 @@ curl -s https://mcp.agentdomains.co \
     Either <code>set_proxy</code> (the edge terminates TLS with its own certificate — nothing
     to install on your origin), or <code>add_acme_challenge</code> (publishes the DNS-01
     record so your own ACME client can issue a cert). A plain public web server needs
-    neither: Let's Encrypt HTTP-01 just works. See <a href="/#ssl">Getting HTTPS / SSL</a>.</div>
+    neither: Let's Encrypt HTTP-01 just works. See <a href="/ssl">Getting HTTPS / SSL</a>.</div>
 
     <h3>Client compatibility</h3>
     <p>Any MCP client works. Common ones:</p>
@@ -202,7 +202,7 @@ curl -s https://mcp.agentdomains.co \
 <script>
 // The docs were split into per-topic pages; old single-page anchors move over.
 (function(){
-  var m={install:"/install",quickstart:"/quickstart",proxy:"/proxy",mcp:"/mcp",api:"/api"};
+  var m={install:"/install",quickstart:"/quickstart",accounts:"/accounts",records:"/records",ssl:"/ssl",forwarding:"/forwarding",proxy:"/proxy",delegation:"/delegation",agents:"/agents",commands:"/commands",mcp:"/mcp",api:"/api"};
   var h=location.hash.slice(1);
   if(m[h])location.replace(m[h]);
 })();

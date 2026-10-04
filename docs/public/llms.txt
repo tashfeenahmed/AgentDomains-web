@@ -4,25 +4,23 @@
 > build. Register a name, set DNS records, get HTTPS by proxy or ACME, forward or
 > proxy it — all from one CLI, the HTTP API, or MCP.
 
-The docs are split by topic: one page each for the topics below, plus sections on
-the introduction page.
+The docs are split by topic: one page per topic, each at its own URL.
 
 ## Pages
 
-- [Introduction](https://docs.agentdomains.co/): what AgentDomains is, accounts, DNS records, SSL, forwarding, delegation, using it from agents, full CLI reference
+- [Introduction](https://docs.agentdomains.co/): what AgentDomains is and when to use it
 - [Install](https://docs.agentdomains.co/install): install the `agentdomains` CLI
 - [Quickstart](https://docs.agentdomains.co/quickstart): register a name and publish a site
+- [Accounts](https://docs.agentdomains.co/accounts): signup, tokens, quotas, email confirmation
+- [DNS records](https://docs.agentdomains.co/records): A, AAAA, CNAME, TXT — added, listed with their ids, and removed one at a time (MX needs nameserver delegation)
+- [SSL](https://docs.agentdomains.co/ssl): HTTP-01 or DNS-01 with your own ACME client
+- [Forwarding](https://docs.agentdomains.co/forwarding): redirect a name to another URL (replaces the address records on that name)
 - [Proxy](https://docs.agentdomains.co/proxy): serve an origin through the edge (replaces the address records on that name)
+- [Delegation](https://docs.agentdomains.co/delegation): use your own nameservers
+- [Agents](https://docs.agentdomains.co/agents): using AgentDomains from an AI agent
+- [Commands](https://docs.agentdomains.co/commands): full CLI reference
 - [MCP server](https://docs.agentdomains.co/mcp): Model Context Protocol tools, stdio and hosted
 - [HTTP API](https://docs.agentdomains.co/api): endpoints for programmatic use
-
-## Sections on the introduction page
-
-- [Accounts](https://docs.agentdomains.co/#accounts): signup, tokens, quotas, email confirmation
-- [DNS records](https://docs.agentdomains.co/#records): A, AAAA, CNAME, TXT — added, listed with their ids, and removed one at a time (MX needs nameserver delegation)
-- [SSL](https://docs.agentdomains.co/#ssl): HTTP-01 or DNS-01 with your own ACME client
-- [Forwarding](https://docs.agentdomains.co/#forwarding): redirect a name to another URL (replaces the address records on that name)
-- [Delegation](https://docs.agentdomains.co/#delegation): use your own nameservers
 
 ## MCP
 
