@@ -111,6 +111,29 @@
   .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+
+  /* upgrade with your key: same ink border + hard shadow language as the plans */
+  .upgrade{border:3px solid var(--ink);border-radius:14px;padding:1.1rem 1.4rem;background:#fff;box-shadow:6px 6px 0 var(--energy);
+    max-width:900px;margin:1.5rem 0 0}
+  .upgrade h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;margin-bottom:.4rem}
+  .upgrade h3 .g{color:var(--energy-d)}
+  .upgrade-row{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;margin-top:.5rem}
+  .upgrade-row input[type=password]{flex:1 1 260px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
+    border:3px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink);outline:none}
+  .upgrade-row input[type=password]:focus{box-shadow:3px 3px 0 var(--energy)}
+  .interval{display:inline-flex;border:3px solid var(--ink);border-radius:8px;overflow:hidden}
+  .interval label{font-family:'Space Mono',monospace;font-size:.85rem;padding:.55rem .8rem;cursor:pointer;background:#fff}
+  .interval label + label{border-left:3px solid var(--ink)}
+  .interval input{position:absolute;opacity:0;pointer-events:none}
+  .interval label:has(input:checked){background:var(--energy);font-weight:700}
+  .interval label:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:-5px}
+  .up-btn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;padding:.6rem 1.3rem;cursor:pointer;
+    background:var(--energy);color:var(--ink);border:3px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--ink);transition:.12s;white-space:nowrap}
+  .up-btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+  .up-btn:disabled{opacity:.6;cursor:wait}
+  .up-err{color:#c0392b;font-weight:700;margin-top:.5rem}
+  .up-err:empty{display:none}
+  .up-fine{font-size:1rem;opacity:.75;margin:.55rem 0 0}
   @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
@@ -177,6 +200,23 @@
       </ul>
     </div>
   </div>
+
+  <form class="upgrade" id="upgrade" novalidate>
+    <h3>Upgrade <span class="g">with your API key</span></h3>
+    <p style="margin:0">Paste the key your agent (or the CLI) uses, pick a plan, and we send you to Stripe to pay.</p>
+    <div class="upgrade-row">
+      <input type="password" id="up-key" placeholder="adom_…" autocomplete="off" spellcheck="false" aria-label="your AgentDomains API key" required>
+      <div class="interval" role="radiogroup" aria-label="billing interval">
+        <label><input type="radio" name="interval" value="month" checked>$5 / month</label>
+        <label><input type="radio" name="interval" value="year">$48 / year</label>
+      </div>
+      <button class="up-btn" type="submit" data-umami-event="pricing_cta" data-umami-event-location="pricing-upgrade">UPGRADE →</button>
+    </div>
+    <div class="up-err" id="up-err" role="alert"></div>
+    <p class="up-fine">Your key never leaves this browser except to <code>api.agentdomains.co</code>, and it is not stored.
+    Already on Pro? The same button opens your billing portal. Lost the key?
+    <code>agentdomains recover-key you@example.com</code></p>
+  </form>
 
   <div class="term">
     <span class="c"># from the CLI: prints a Stripe checkout link, opens it on a terminal</span><br>
@@ -269,6 +309,52 @@
     </div>
   </footer>
 </main>
+
+<script>
+  // Upgrade with an API key: POST /v1/billing/checkout and go to the URL it
+  // returns. kind "checkout" is a Stripe Checkout page; kind "portal" (already
+  // Pro) is the billing portal. Either way the browser just follows it. The key
+  // is read from the field, sent once in the Authorization header, and dropped.
+  (function(){
+    const API = 'https://api.agentdomains.co';
+    const form = document.getElementById('upgrade');
+    const keyIn = document.getElementById('up-key');
+    const err = document.getElementById('up-err');
+    const btn = form.querySelector('button');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      err.textContent = '';
+      const key = keyIn.value.trim();
+      const interval = (form.querySelector('input[name=interval]:checked') || {}).value || 'month';
+      if (!key) { err.textContent = 'paste your API key first'; keyIn.focus(); return; }
+      btn.disabled = true; btn.textContent = 'OPENING STRIPE…';
+      try {
+        let r;
+        try {
+          r = await fetch(API + '/v1/billing/checkout', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ interval })
+          });
+        } catch (ex) { throw new Error("couldn't reach api.agentdomains.co, check your connection and try again"); }
+        let d = {};
+        try { d = await r.json(); } catch (ex) {}
+        if (!r.ok || !d.url) throw new Error(d.error || ('request failed (' + r.status + ')'));
+        // give the event a moment to leave before the page unloads (capped, so a slow analytics host never holds up checkout)
+        try {
+          if (window.umami && typeof umami.track === 'function') {
+            await Promise.race([Promise.resolve(umami.track('upgrade_checkout_opened', { interval, kind: d.kind || 'checkout' })), new Promise(res => setTimeout(res, 400))]);
+          }
+        } catch (ex) {}
+        keyIn.value = '';
+        window.location.href = d.url;
+      } catch (ex) {
+        err.textContent = ex.message;
+        btn.disabled = false; btn.textContent = 'UPGRADE →';
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
