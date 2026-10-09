@@ -201,10 +201,10 @@
     <a href="https://docs.agentdomains.co">Docs</a>
     <a href="/#mcp">MCP</a>
     <a href="/compare">Compare</a>
-    <a href="/pricing">Pricing</a>
+    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>
 
@@ -223,7 +223,7 @@
         </div>
         <div class="check" id="check" aria-live="polite"></div>
         <div class="btn-row">
-          <a href="https://docs.agentdomains.co" class="btn">GET STARTED →</a>
+          <a href="https://docs.agentdomains.co" class="btn" data-umami-event="signup_click" data-umami-event-location="hero">GET STARTED →</a>
           <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost">★ GITHUB</a>
         </div>
       </div>
@@ -325,7 +325,7 @@
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="/#mcp">MCP</a>
         <a href="/compare">Compare</a>
-        <a href="/pricing">Pricing</a>
+        <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
       </div>
@@ -368,7 +368,7 @@
         if (input.value.trim().toLowerCase() !== label || curDomain() !== domain) return; // stale
         if (d.reason === 'available') {
           const cmd = 'agentdomains claim ' + label + ' --email you@example.com' + (domain === 'makes.fyi' ? '' : ' --domain ' + domain);
-          checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy">${cmd}</code>`;
+          checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy" data-umami-event="signup_click" data-umami-event-location="name-check-copy">${cmd}</code>`;
           const c = checkEl.querySelector('.cmd');
           c.addEventListener('click', () => {
             (navigator.clipboard ? navigator.clipboard.writeText(cmd) : Promise.resolve()).finally(() => {
