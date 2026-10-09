@@ -115,6 +115,41 @@
   .check .cmd{display:inline-block;font-family:'Space Mono',monospace;font-size:.92rem;background:var(--ink);color:var(--energy);
     border:2px solid var(--ink);border-radius:8px;padding:.3rem .6rem;margin-top:.45rem;box-shadow:3px 3px 0 var(--energy)}
   .check .cmd:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--energy)}
+
+  /* claim-in-the-browser: the same ink border + hard shadow as the search box,
+     a size down, so it reads as the next step of the checker, not a new widget */
+  .claim-form{margin-top:.9rem;padding:.8rem .9rem;background:var(--mint);border:3px solid var(--ink);border-radius:12px;
+    box-shadow:5px 5px 0 var(--ink);max-width:640px}
+  .claim-form .metadata{margin-bottom:.4rem;opacity:.75}
+  .claim-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:stretch}
+  .claim-row input{flex:1 1 220px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
+    border:3px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink);outline:none}
+  .claim-row input:focus{box-shadow:3px 3px 0 var(--energy)}
+  .mini-btn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.95rem;padding:.55rem 1.1rem;cursor:pointer;
+    background:var(--energy);color:var(--ink);border:3px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--ink);transition:.12s;white-space:nowrap}
+  .mini-btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+  .mini-btn:disabled{opacity:.6;cursor:wait}
+  .mini-btn.ghost{background:#fff}
+  .fine{font-size:1rem;margin:.45rem 0 0;opacity:.75}
+  .claim-err{color:#c0392b;font-weight:700;margin-top:.45rem;font-size:1.05rem}
+  .claim-err:empty{display:none}
+
+  .claimed{margin-top:1rem;padding:1rem 1.1rem;background:#fff;border:3px solid var(--ink);border-radius:12px;
+    box-shadow:8px 8px 0 var(--energy);max-width:640px}
+  .claimed h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1.45rem;font-weight:800;margin:.1rem 0 .5rem;line-height:1.05;overflow-wrap:anywhere}
+  .claimed h3 .g{color:var(--energy-d)}
+  .claimed .step{margin:.85rem 0 0}
+  .claimed .step b{color:var(--energy-d)}
+  .keybox{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.35rem}
+  .keybox code{flex:1 1 260px;min-width:0;font-family:'Space Mono',monospace;font-size:.85rem;background:var(--ink);color:var(--energy);
+    border:2px solid var(--ink);border-radius:8px;padding:.45rem .6rem;overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
+  .warnbox{margin-top:.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-left:8px solid var(--lime);border-radius:8px;background:#FBFFF0;font-size:1.05rem}
+  .claimed pre{margin:.4rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:10px;
+    padding:.75rem .9rem;font-family:'Space Mono',monospace;font-size:.76rem;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+  .claimed pre .c{color:#8a8a8a}
+  .claimed .ok{color:var(--energy-d);font-weight:700}
+  .warnbox code{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:5px;padding:0 5px;overflow-wrap:anywhere}
+  .claimed a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
   .btn{display:inline-block;padding:.85rem 1.7rem;background:var(--energy);color:var(--ink);text-decoration:none;
     font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
     border-radius:8px;transition:.12s;margin-top:1.3rem}
@@ -222,6 +257,7 @@
           <span class="suffix" id="suffix" title="click to switch domain">.makes.fyi</span>
         </div>
         <div class="check" id="check" aria-live="polite"></div>
+        <div id="claimed" aria-live="polite"></div>
         <div class="btn-row">
           <a href="https://docs.agentdomains.co" class="btn" data-umami-event="signup_click" data-umami-event-location="hero">GET STARTED →</a>
           <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost">★ GITHUB</a>
@@ -375,6 +411,7 @@
               const orig = c.textContent; c.textContent = '✓ copied, paste to your agent'; setTimeout(() => c.textContent = orig, 1400);
             });
           });
+          if (!claimedEl.innerHTML) renderClaimForm(label, domain);
         } else if (d.reason === 'taken') {
           checkEl.innerHTML = `<span class="no">😅 ${d.fqdn} is already taken</span>. Try another.`;
         } else {
@@ -384,6 +421,151 @@
       .catch(() => { checkEl.innerHTML = '<span class="dim">couldn\'t reach the registry, try again</span>'; });
   }
   input.addEventListener('input', () => { clearTimeout(checkTimer); checkTimer = setTimeout(runCheck, 350); });
+
+  // claim it right here: signup -> claim (with the email) -> show the key once.
+  //
+  // Two calls, not three. The first claim on an account carries the email, and
+  // the server attaches it and sends the one "registered, confirm within N days"
+  // message itself; a separate POST /v1/account/email would mail a second link.
+  // The key lives in this closure only: never in storage, never in a URL, and it
+  // goes nowhere except api.agentdomains.co.
+  const claimedEl = document.getElementById('claimed');
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const track = (ev, data) => { try { if (window.umami && typeof umami.track === 'function') umami.track(ev, data); } catch (e) {} };
+  let pendingKey = null; // a provisional key from a signup whose claim failed: reuse it on retry instead of signing up again
+
+  async function api(method, path, key, body){
+    const headers = {};
+    if (key) headers['Authorization'] = 'Bearer ' + key;
+    if (body !== undefined) headers['Content-Type'] = 'application/json';
+    let r;
+    try {
+      r = await fetch(API + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+    } catch (e) {
+      throw new Error("couldn't reach api.agentdomains.co, check your connection and try again");
+    }
+    let d = {};
+    try { d = await r.json(); } catch (e) {}
+    if (!r.ok) {
+      let msg = d.error || ('request failed (' + r.status + ')');
+      if (r.status === 429 && d.retry_after) msg += ' (try again in ' + Math.ceil(d.retry_after / 60) + ' min)';
+      throw new Error(msg);
+    }
+    return d;
+  }
+
+  function renderClaimForm(label, domain){
+    const div = document.createElement('div');
+    div.innerHTML = `<form class="claim-form" novalidate>
+        <div class="metadata">// or claim it right here, no install</div>
+        <div class="claim-row">
+          <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="your email">
+          <button class="mini-btn" type="submit" data-umami-event="signup_click" data-umami-event-location="browser-claim">CLAIM IT HERE →</button>
+        </div>
+        <p class="fine">We email you a confirm link. Confirm it within 30 days to keep the name.</p>
+        <div class="claim-err" role="alert"></div>
+      </form>`;
+    const form = div.firstElementChild;
+    checkEl.appendChild(form);
+    const emailIn = form.querySelector('input'), btn = form.querySelector('button'), err = form.querySelector('.claim-err');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = emailIn.value.trim();
+      err.textContent = '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'that email doesn\'t look right'; emailIn.focus(); return; }
+      btn.disabled = true; emailIn.disabled = true;
+      try {
+        let key = pendingKey;
+        if (!key) {
+          btn.textContent = 'MAKING AN ACCOUNT…';
+          const s = await api('POST', '/v1/signup');
+          key = pendingKey = s.api_key;
+        }
+        btn.textContent = 'CLAIMING…';
+        const c = await api('POST', '/v1/subdomains', key, { label, domain, email });
+        pendingKey = null;
+        track('browser_claim_done', { domain });
+        showClaimed(c, key, email, domain);
+      } catch (ex) {
+        err.textContent = ex.message;
+        btn.disabled = false; emailIn.disabled = false; btn.textContent = 'TRY AGAIN →';
+      }
+    });
+  }
+
+  function showClaimed(c, key, email, domain){
+    const label = c.label, fqdn = c.fqdn;
+    const days = c.confirm_within_days || 30;
+    const dflag = domain === 'makes.fyi' ? '' : ' --domain ' + domain;
+    checkEl.innerHTML = '';
+    claimedEl.innerHTML = `<div class="claimed">
+        <div class="metadata">// claimed</div>
+        <h3>🎉 <span class="g">${esc(fqdn)}</span> is yours</h3>
+
+        <div class="step"><b>1. Save your API key.</b> It's shown once, right here, and never again.
+          <div class="keybox"><code id="api-key">${esc(key)}</code><button class="mini-btn" type="button" id="copy-key">COPY KEY</button></div>
+          <div class="warnbox">Put it in a password manager or your agent's secrets. Anyone with this key can change or delete your names.
+          Lost it? Once your email is confirmed, <code>agentdomains recover-key ${esc(email)}</code> mails you a fresh one.</div>
+        </div>
+
+        <div class="step"><b>2. Check your inbox.</b> We sent a link to <b>${esc(email)}</b>. Confirm it within
+          <b>${esc(days)} days</b> to make it permanent, or ${esc(fqdn)} (and the account) is deleted automatically.</div>
+
+        <div class="step"><b>3. Point it somewhere.</b>
+          <form class="claim-row" id="fwd-form" novalidate style="margin-top:.4rem">
+            <input type="url" name="target" placeholder="https://your-site.example.com" aria-label="forward to this URL" required>
+            <button class="mini-btn ghost" type="submit">FORWARD IT →</button>
+          </form>
+          <div class="claim-err" id="fwd-err" role="alert"></div>
+          <div id="fwd-ok"></div>
+          <p class="fine">Or use the CLI for a server, a forward or a reverse proxy:</p>
+<pre><span class="c"># install (Go 1.22+), or grab a binary from github.com/tashfeenahmed/AgentDomains/releases</span>
+go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest
+export AGENTDOMAINS_API_KEY=${esc(key)}
+
+<span class="c"># point it at a server (A record)</span>
+agentdomains record ${esc(label)} --type A --content 203.0.113.10${esc(dflag)}
+<span class="c"># …or forward it to a URL</span>
+agentdomains forward ${esc(label)} https://example.com${esc(dflag)}
+<span class="c"># …or serve a backend at it over HTTPS (our cert, your origin)</span>
+agentdomains proxy ${esc(label)} myapp.fly.dev${esc(dflag)}</pre>
+          <p class="fine">Prefer MCP? The same key works on <a href="#mcp">the hosted MCP server</a>. Full reference in <a href="https://docs.agentdomains.co">the docs</a>.</p>
+        </div>
+      </div>`;
+
+    // until the key has been copied, leaving the page asks first: it is the only copy
+    let copied = false;
+    const guard = e => { if (!copied) { e.preventDefault(); e.returnValue = ''; } };
+    window.addEventListener('beforeunload', guard);
+    const copyBtn = document.getElementById('copy-key');
+    copyBtn.addEventListener('click', () => {
+      const done = () => { copied = true; window.removeEventListener('beforeunload', guard); copyBtn.textContent = '✓ COPIED'; setTimeout(() => copyBtn.textContent = 'COPY KEY', 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(key).then(done, () => { copyBtn.textContent = 'SELECT + COPY'; });
+      else copyBtn.textContent = 'SELECT + COPY';
+    });
+
+    const fwd = document.getElementById('fwd-form'), fwdErr = document.getElementById('fwd-err'), fwdOk = document.getElementById('fwd-ok');
+    fwd.addEventListener('submit', async e => {
+      e.preventDefault();
+      const tIn = fwd.querySelector('input'), b = fwd.querySelector('button');
+      let target = tIn.value.trim();
+      fwdErr.textContent = ''; fwdOk.innerHTML = '';
+      if (!target) { fwdErr.textContent = 'paste the URL to send visitors to'; return; }
+      if (!/^https?:\/\//i.test(target)) target = 'https://' + target;
+      b.disabled = true; b.textContent = 'FORWARDING…';
+      try {
+        const f = await api('PUT', '/v1/subdomains/' + encodeURIComponent(label) + '/forward', key, { target, domain });
+        const to = (f.forward && f.forward.target) || target;
+        fwdOk.innerHTML = `<p class="fine"><span class="ok">✓ <a href="https://${esc(fqdn)}" target="_blank" rel="noopener">${esc(fqdn)}</a> now forwards to ${esc(to)}</span>. Give it a minute for the edge to pick it up.</p>`;
+        b.textContent = 'UPDATE →';
+      } catch (ex) {
+        fwdErr.textContent = ex.message;
+        b.textContent = 'FORWARD IT →';
+      }
+      b.disabled = false;
+    });
+    claimedEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 
   // draw-anywhere doodle layer. Canvas is pointer-events:none, so the UI stays
   // clickable; we listen on window and draw while the mouse button is held.
