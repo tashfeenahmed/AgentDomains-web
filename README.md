@@ -80,7 +80,7 @@ authenticated to the Cloudflare account that owns the zones.
 Deploy all six from the repo root:
 
 ```bash
-npx wrangler deploy                    # landing  → agentdomains.co + makes.fyi
+npx wrangler deploy                    # landing  → agentdomains.co (+ makes.fyi, www 301s)
 (cd docs      && npx wrangler deploy)  # docs     → docs.agentdomains.co + docs.makes.fyi
 (cd api-proxy && npx wrangler deploy)  # api      → api.agentdomains.co + api.makes.fyi
 (cd mcp       && npx wrangler deploy)  # mcp      → mcp.agentdomains.co + mcp.makes.fyi
