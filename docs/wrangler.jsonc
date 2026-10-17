@@ -7,9 +7,14 @@
   // docs.makes.fyi with a 301; without it index.html would be served first and
   // the redirect would never run. docs.agentdomains.co falls through to the
   // assets through env.ASSETS, unchanged.
+  //
+  // drop-trailing-slash so /api/index.html answers /api with a 200, matching
+  // each page's canonical and the sitemap, instead of a 307 to /api/. Same
+  // setting as the apex Worker.
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
     "run_worker_first": true
   },
   // Custom domains, one hostname each — never a wildcard on the makes.fyi zone.
