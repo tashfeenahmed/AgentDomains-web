@@ -70,7 +70,7 @@ It answers JSON-RPC over <code>POST</code>, so there is nothing to read here in 
   }
 }</pre>
 <p>Full tool reference and how to get a key:
-<a href="https://docs.agentdomains.co/#mcp">docs.agentdomains.co</a>.</p>
+<a href="https://docs.agentdomains.co/mcp">docs.agentdomains.co/mcp</a>.</p>
 </main>
 </body>
 </html>
@@ -628,7 +628,7 @@ export default {
       if (isMcpClient) {
         return new Response(
           "AgentDomains MCP server (Streamable HTTP). POST JSON-RPC here; " +
-            "authenticate with `Authorization: Bearer adom_…`. Docs: https://docs.agentdomains.co/#mcp\n",
+            "authenticate with `Authorization: Bearer adom_…`. Docs: https://docs.agentdomains.co/mcp\n",
           { status: 405, headers: { "Content-Type": "text/plain", Allow: "POST, OPTIONS", ...CORS } },
         );
       }
