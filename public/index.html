@@ -397,10 +397,11 @@
     <div class="records-grid">
       <div class="record-card">
         <div class="metadata">01 / RECORDS</div>
-        <h3>Five record types</h3>
+        <h3>Four record types</h3>
         <p>Point a name at a server with <code>A</code> or <code>AAAA</code>, at another host with
         <code>CNAME</code>, and prove ownership or publish config with <code>TXT</code> — including
-        ACME tokens for DNS-01 certificates. <code>NS</code> delegates sub-zones when you outgrow it.</p>
+        ACME tokens for DNS-01 certificates. When you outgrow it, delegate the name to your own
+        nameservers.</p>
       </div>
 
       <div class="record-card">
@@ -408,15 +409,15 @@
         <h3>URL forwarding</h3>
         <p>No server yet? Forward the name to any URL and the edge follows your agent's deploys —
         handy while output lives on a preview host. One API call to set, one to change, and the
-        old target stops answering immediately.</p>
+        edge follows the new target within a minute.</p>
       </div>
 
       <div class="record-card">
         <div class="metadata">03 / PROXY</div>
         <h3>Reverse proxy with HTTPS</h3>
-        <p>Serving from a home IP or an internal port? The edge reverse-proxies to your origin with
-        automatic HTTPS on the public hostname. The origin keeps its own port; agents and visitors
-        only ever see <code>https://</code>.</p>
+        <p>App already running on a host like <code>myapp.fly.dev</code>? The edge reverse-proxies
+        the name to it over HTTPS on our certificate, so visitors see your hostname in the address
+        bar, never the origin's.</p>
       </div>
     </div>
   </section>
