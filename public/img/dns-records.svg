@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 675" role="img" aria-labelledby="t d" font-family="'Space Mono','Courier New',monospace">
+  <title id="t">DNS records for your agent's domain</title>
+  <desc id="d">A dashboard-style panel listing the DNS records an agent can set on its AgentDomains subdomain: A, AAAA, CNAME, TXT, and NS records, plus HTTPS forwarding and reverse proxy.</desc>
+
+  <rect width="1080" height="675" fill="#FFFFFF"/>
+  <pattern id="dots" width="38" height="38" patternUnits="userSpaceOnUse" x="-19" y="-19">
+    <circle cx="19" cy="19" r="1.6" fill="#0A0A0A" opacity="0.13"/>
+  </pattern>
+  <rect width="1080" height="675" fill="url(#dots)"/>
+
+  <g transform="rotate(-0.7 540 350)">
+    <!-- hard shadow -->
+    <rect x="92" y="112" width="880" height="440" rx="22" fill="#C6F24E"/>
+    <!-- panel -->
+    <rect x="80" y="100" width="880" height="440" rx="22" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="6"/>
+    <!-- title bar -->
+    <path d="M 80 122 a 22 22 0 0 1 22 -22 h 836 a 22 22 0 0 1 22 22 v 44 h -880 z" fill="#0A0A0A"/>
+    <circle cx="118" cy="133" r="10" fill="#00CC74"/>
+    <circle cx="152" cy="133" r="10" fill="#C6F24E"/>
+    <circle cx="186" cy="133" r="10" fill="#5a5a5a"/>
+    <text x="232" y="142" font-size="21" fill="#ECECEC">myshop.makes.fyi — records</text>
+
+    <!-- header row -->
+    <text x="122" y="222" font-size="18" fill="#0A0A0A" opacity="0.55" letter-spacing="2">TYPE</text>
+    <text x="242" y="222" font-size="18" fill="#0A0A0A" opacity="0.55" letter-spacing="2">NAME</text>
+    <text x="562" y="222" font-size="18" fill="#0A0A0A" opacity="0.55" letter-spacing="2">VALUE</text>
+
+    <!-- A -->
+    <rect x="118" y="244" width="64" height="40" rx="8" fill="#00CC74" stroke="#0A0A0A" stroke-width="3"/>
+    <text x="150" y="272" font-size="21" font-weight="bold" fill="#0A0A0A" text-anchor="middle">A</text>
+    <text x="242" y="272" font-size="21" fill="#0A0A0A">@</text>
+    <text x="562" y="272" font-size="21" fill="#0A0A0A">203.0.113.10</text>
+
+    <!-- CNAME -->
+    <rect x="118" y="306" width="118" height="40" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <text x="177" y="334" font-size="21" font-weight="bold" fill="#0A0A0A" text-anchor="middle">CNAME</text>
+    <text x="242" y="334" font-size="21" fill="#0A0A0A">www</text>
+    <text x="562" y="334" font-size="21" fill="#0A0A0A">myshop.makes.fyi</text>
+
+    <!-- TXT -->
+    <rect x="118" y="368" width="86" height="40" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <text x="161" y="396" font-size="21" font-weight="bold" fill="#0A0A0A" text-anchor="middle">TXT</text>
+    <text x="242" y="396" font-size="21" fill="#0A0A0A">_acme-challenge</text>
+    <text x="562" y="396" font-size="21" fill="#0A0A0A">"dns-01 token…"</text>
+
+    <!-- NS -->
+    <rect x="118" y="430" width="78" height="40" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <text x="157" y="458" font-size="21" font-weight="bold" fill="#0A0A0A" text-anchor="middle">NS</text>
+    <text x="242" y="458" font-size="21" fill="#0A0A0A">sub</text>
+    <text x="562" y="458" font-size="21" fill="#0A0A0A">ns1.your-dns.net</text>
+
+    <!-- footer band -->
+    <rect x="80" y="492" width="880" height="48" fill="#0A0A0A"/>
+    <text x="122" y="525" font-size="20" fill="#00CC74">+ auto HTTPS proxy &amp; URL forwarding, no cloudflare account needed</text>
+  </g>
+
+  <!-- caption -->
+  <text x="540" y="618" text-anchor="middle" font-size="27" fill="#0A0A0A" font-family="'Bricolage Grotesque',system-ui,sans-serif" font-weight="800" letter-spacing="-0.5">EVERY RECORD YOUR AGENT NEEDS, OVER API OR MCP</text>
+  <path d="M 240 636 q 300 24 600 0" fill="none" stroke="#C6F24E" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -13,7 +13,9 @@
 // first and reaches the assets through env.ASSETS.fetch() — which still applies
 // the html_handling: drop-trailing-slash rule, so /compare answers 200 as it did.
 
-const REDIRECT_HOSTS = new Set(["makes.fyi", "www.makes.fyi"]);
+// www.agentdomains.co had no DNS record until 2026-10-15 and failed to connect;
+// it is now a custom domain on this Worker and 301s to the apex like makes.fyi.
+const REDIRECT_HOSTS = new Set(["makes.fyi", "www.makes.fyi", "www.agentdomains.co"]);
 const CANONICAL_HOST = "agentdomains.co";
 
 export default {

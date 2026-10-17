@@ -43,6 +43,65 @@
       "url": "https://agentdomains.co/",
       "name": "AgentDomains",
       "publisher": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is AgentDomains really free, or is there a catch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Free covers up to 10 names under makes.fyi or agentdomains.co with every feature — DNS records, forwarding, reverse proxy with HTTPS — and no card in the flow. An optional Pro plan at $5 a month raises the ceiling to 100 names and never releases a name for being unreachable. The honest catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I own the domain I claim?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. A name here is a subdomain of makes.fyi or agentdomains.co, which we operate. There is no auth code, no transfer out, and no registration record — the name exists as long as we keep running. If the name has to carry a brand or survive for years, buy a real second-level domain from a registrar instead." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI agent run the whole thing without a human?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 19 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying if you ever choose Pro." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there request quotas or bandwidth bills?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No request quota, no rate card, no overage on either plan. Signup and availability checks are rate-limited per IP to keep the free pool from being farmed, and that is the extent of it." }
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://agentdomains.co/img/how-it-works.svg#image",
+      "url": "https://agentdomains.co/",
+      "contentUrl": "https://agentdomains.co/img/how-it-works.svg",
+      "width": 1080,
+      "height": 675,
+      "caption": "How AgentDomains works: build on localhost, run agentdomains claim, go live at myapp.makes.fyi with HTTPS.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://agentdomains.co/img/dns-records.svg#image",
+      "url": "https://agentdomains.co/",
+      "contentUrl": "https://agentdomains.co/img/dns-records.svg",
+      "width": 1080,
+      "height": 675,
+      "caption": "DNS records an agent can set on its AgentDomains subdomain: A, CNAME, TXT, and NS, plus automatic HTTPS proxy and URL forwarding.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://agentdomains.co/img/cli-or-mcp.svg#image",
+      "url": "https://agentdomains.co/",
+      "contentUrl": "https://agentdomains.co/img/cli-or-mcp.svg",
+      "width": 1080,
+      "height": 675,
+      "caption": "An AI agent reaches AgentDomains over the CLI or the hosted MCP server at mcp.agentdomains.co; both issue the same free subdomain.",
+      "inLanguage": "en",
+      "creator": { "@id": "https://agentdomains.co/#organization" }
     }
   ]
 }
@@ -115,6 +174,41 @@
   .check .cmd{display:inline-block;font-family:'Space Mono',monospace;font-size:.92rem;background:var(--ink);color:var(--energy);
     border:2px solid var(--ink);border-radius:8px;padding:.3rem .6rem;margin-top:.45rem;box-shadow:3px 3px 0 var(--energy)}
   .check .cmd:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--energy)}
+
+  /* claim-in-the-browser: the same ink border + hard shadow as the search box,
+     a size down, so it reads as the next step of the checker, not a new widget */
+  .claim-form{margin-top:.9rem;padding:.8rem .9rem;background:var(--mint);border:3px solid var(--ink);border-radius:12px;
+    box-shadow:5px 5px 0 var(--ink);max-width:640px}
+  .claim-form .metadata{margin-bottom:.4rem;opacity:.75}
+  .claim-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:stretch}
+  .claim-row input{flex:1 1 220px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
+    border:3px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink);outline:none}
+  .claim-row input:focus{box-shadow:3px 3px 0 var(--energy)}
+  .mini-btn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.95rem;padding:.55rem 1.1rem;cursor:pointer;
+    background:var(--energy);color:var(--ink);border:3px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--ink);transition:.12s;white-space:nowrap}
+  .mini-btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+  .mini-btn:disabled{opacity:.6;cursor:wait}
+  .mini-btn.ghost{background:#fff}
+  .fine{font-size:1rem;margin:.45rem 0 0;opacity:.75}
+  .claim-err{color:#c0392b;font-weight:700;margin-top:.45rem;font-size:1.05rem}
+  .claim-err:empty{display:none}
+
+  .claimed{margin-top:1rem;padding:1rem 1.1rem;background:#fff;border:3px solid var(--ink);border-radius:12px;
+    box-shadow:8px 8px 0 var(--energy);max-width:640px}
+  .claimed h3{font-family:'Bricolage Grotesque',sans-serif;font-size:1.45rem;font-weight:800;margin:.1rem 0 .5rem;line-height:1.05;overflow-wrap:anywhere}
+  .claimed h3 .g{color:var(--energy-d)}
+  .claimed .step{margin:.85rem 0 0}
+  .claimed .step b{color:var(--energy-d)}
+  .keybox{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.35rem}
+  .keybox code{flex:1 1 260px;min-width:0;font-family:'Space Mono',monospace;font-size:.85rem;background:var(--ink);color:var(--energy);
+    border:2px solid var(--ink);border-radius:8px;padding:.45rem .6rem;overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
+  .warnbox{margin-top:.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-left:8px solid var(--lime);border-radius:8px;background:#FBFFF0;font-size:1.05rem}
+  .claimed pre{margin:.4rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:10px;
+    padding:.75rem .9rem;font-family:'Space Mono',monospace;font-size:.76rem;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+  .claimed pre .c{color:#8a8a8a}
+  .claimed .ok{color:var(--energy-d);font-weight:700}
+  .warnbox code{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:5px;padding:0 5px;overflow-wrap:anywhere}
+  .claimed a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
   .btn{display:inline-block;padding:.85rem 1.7rem;background:var(--energy);color:var(--ink);text-decoration:none;
     font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
     border-radius:8px;transition:.12s;margin-top:1.3rem}
@@ -159,8 +253,75 @@
     padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.65;
     white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto}
 
-  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:3.5rem 2rem 2rem}
+  /* shared section-head language: same uppercase Bricolage beat as .mcp h2, so
+     the new headings read as part of the page, not as bolted-on SEO furniture. */
+  .section-head{padding:2.6rem 2rem 0;scroll-margin-top:1rem}
+  .section-head h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
+  .section-head h2 .g{color:var(--energy)}
+  .section-head .lede{max-width:860px;margin:.5rem 0 0}
+  .quickstart .term{margin:.8rem 0 0}
+
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:1.4rem 2rem 2rem}
+  /* homepage image gallery — hand-drawn SVG illustrations in the same
+     ink-border + hard-shadow language as the cards. */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;padding:1.5rem 2rem 1rem}
+  .shot{margin:0;border:3px solid var(--ink);background:#fff;padding:1rem;transition:.25s}
+  .shot:nth-child(1){border-radius:40px 14px 30px 18px;transform:rotate(-.7deg)}
+  .shot:nth-child(2){border-radius:14px 44px 18px 34px;transform:rotate(.6deg);background:var(--mint)}
+  .shot:nth-child(3){border-radius:26px 18px 44px 14px;transform:rotate(-.4deg)}
+  .shot:hover{transform:scale(1.02) rotate(0);box-shadow:12px 12px 0 var(--energy)}
+  .shot img{display:block;width:100%;height:auto;border:2px solid var(--ink);border-radius:10px;background:#fff}
+  .shot figcaption{font-family:'Space Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-top:.7rem;opacity:.7}
+  .shot .metadata{margin-bottom:.6rem}
+
   .feature-card{border:3px solid var(--ink);padding:1.8rem;background:#fff;transition:.25s;position:relative}
+
+  /* extra section-head rules for the use-cases and FAQ bands */
+  .section-head code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .section-head a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+
+  .usecases{padding:0 2rem 1rem}
+  .usecases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem;margin-top:1.4rem}
+  .usecase-card{border:3px solid var(--ink);padding:1.5rem 1.6rem;background:#fff;transition:.25s}
+  .usecase-card:nth-child(1){border-radius:40px 12px 30px 18px;transform:rotate(-.7deg)}
+  .usecase-card:nth-child(2){border-radius:14px 45px 18px 36px;transform:rotate(.7deg);background:var(--mint)}
+  .usecase-card:nth-child(3){border-radius:24px 18px 42px 14px;transform:rotate(-.4deg)}
+  .usecase-card:nth-child(4){border-radius:18px 30px 16px 44px;transform:rotate(.5deg)}
+  .usecase-card:hover{transform:scale(1.02) rotate(0);box-shadow:10px 10px 0 var(--lime)}
+  .usecase-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:1.2rem;margin-bottom:.6rem;color:var(--energy-d)}
+  .usecase-card p{margin:.4rem 0;font-size:1.08rem}
+  .usecase-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .usecase-card:nth-child(2) code{background:#fff}
+
+  .faq{padding:0 2rem 1rem}
+  .faq-list{max-width:900px;margin-top:1.2rem}
+  .faq-item{border:3px solid var(--ink);border-radius:14px;background:#fff;padding:1.1rem 1.4rem;margin-top:1.1rem}
+  .faq-item h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.15rem;
+    text-transform:none;letter-spacing:-.5px;margin-bottom:.4rem}
+  .faq-item p{margin:.3rem 0;font-size:1.08rem}
+  .faq-item code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+    border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
+  .faq-item a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+
+  /* limits band — same card language as .features, but one beat of its own so
+     the quota/expiry answers are on the homepage, not only in the README. */
+  .limits{padding:1.5rem 2rem 1rem;scroll-margin-top:1rem}
+  .limits h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
+  .limits h2 .g{color:var(--energy)}
+  .limits .lede{max-width:860px;margin:.5rem 0 0}
+  .limits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem;margin-top:1.4rem}
+  .limit-card{border:3px solid var(--ink);padding:1.5rem 1.6rem;background:#fff;transition:.25s}
+  .limit-card:nth-child(1){border-radius:40px 12px 30px 18px;transform:rotate(-.7deg)}
+  .limit-card:nth-child(2){border-radius:14px 45px 18px 36px;transform:rotate(.7deg);background:var(--mint)}
+  .limit-card:nth-child(3){border-radius:24px 18px 42px 14px;transform:rotate(-.4deg)}
+  .limit-card:hover{transform:scale(1.02) rotate(0);box-shadow:10px 10px 0 var(--lime)}
+  .limit-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;font-size:1.2rem;margin-bottom:.6rem;color:var(--energy-d)}
+  .limit-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .feature-card:nth-child(1){border-radius:50px 10px 40px 20px;transform:rotate(-1deg)}
   .feature-card:nth-child(2){border-radius:15px 55px 20px 45px;transform:rotate(1deg);background:var(--ink);color:#fff}
   .feature-card:nth-child(3){border-radius:30px 20px 50px 15px;transform:rotate(-.5deg)}
@@ -170,6 +331,15 @@
   .feature-card:nth-child(2) h3{color:var(--energy)}
   .feature-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .feature-card:nth-child(2) code{background:#1c1c1c;color:var(--energy);border-color:#333}
+
+  /* record grid — same hard-border doodle language as .mcp-grid, plain columns. */
+  .records{padding:0 2rem 1rem}
+  .records-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem;margin-top:1.2rem}
+  .record-card{border:3px solid var(--ink);border-radius:12px;padding:1.2rem 1.3rem;background:#fff}
+  .record-card h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
+    font-size:1.1rem;margin-bottom:.5rem;color:var(--energy-d)}
+  .record-card p{margin:.4rem 0;font-size:1.08rem}
+  .record-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
 
   footer{padding:3.5rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:2rem}
   footer h2{font-size:clamp(1.9rem,5.5vw,3rem);font-weight:800;text-transform:uppercase}
@@ -201,10 +371,11 @@
     <a href="https://docs.agentdomains.co">Docs</a>
     <a href="/#mcp">MCP</a>
     <a href="/compare">Compare</a>
-    <a href="/pricing">Pricing</a>
+    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a href="/#limits">Limits</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>
 
@@ -222,8 +393,9 @@
           <span class="suffix" id="suffix" title="click to switch domain">.makes.fyi</span>
         </div>
         <div class="check" id="check" aria-live="polite"></div>
+        <div id="claimed" aria-live="polite"></div>
         <div class="btn-row">
-          <a href="https://docs.agentdomains.co" class="btn">GET STARTED →</a>
+          <a href="https://docs.agentdomains.co" class="btn" data-umami-event="signup_click" data-umami-event-location="hero">GET STARTED →</a>
           <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost">★ GITHUB</a>
         </div>
       </div>
@@ -237,13 +409,22 @@
     </div>
   </section>
 
-  <div class="term">
-    <span class="c"># install the CLI</span><br>
-    <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
-    <span class="c"># point a domain at the site your agent just built</span><br>
-    <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
-    <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
-  </div>
+  <section class="quickstart" id="quickstart">
+    <div class="section-head">
+      <div class="metadata">// quickstart</div>
+      <h2>Two commands to a <span class="g">live domain</span></h2>
+      <p class="lede">Install the CLI once, then your agent claims names whenever it ships something.
+      The claim writes the record and the hostname resolves on the public internet in seconds — no
+      registrar, no dashboard, no waiting on a human.</p>
+    </div>
+    <div class="term">
+      <span class="c"># install the CLI</span><br>
+      <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
+      <span class="c"># point a domain at the site your agent just built</span><br>
+      <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
+      <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
+    </div>
+  </section>
 
   <section class="mcp" id="mcp">
     <div class="metadata">// MCP</div>
@@ -288,6 +469,14 @@
     <a href="https://docs.agentdomains.co/mcp">docs.agentdomains.co/mcp</a>.</p>
   </section>
 
+  <section class="section-head" id="features">
+    <div class="metadata">// why agentdomains</div>
+    <h2>Built for agents,<br>not <span class="g">dashboards</span></h2>
+    <p class="lede">Every part of this is an API call or a CLI flag: the signup, the claim, the
+    records, the certificates. A human could drive it from the docs, but it was written for
+    something that reads JSON.</p>
+  </section>
+
   <section class="features">
     <div class="feature-card">
       <div class="metadata">01 / CLI</div>
@@ -314,6 +503,185 @@
     </div>
   </section>
 
+  <section class="records" id="records">
+    <div class="section-head" style="padding-left:0;padding-right:0">
+      <div class="metadata">// dns</div>
+      <h2>A real zone, <span class="g">not a redirect</span></h2>
+      <p class="lede">Each claimed name is a live DNS record you control — the same primitives a
+      zone file gives you, minus the registrar. Update records with <code style="font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px">agentdomains record</code>
+      or the <a href="/#mcp" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">MCP tools</a>.</p>
+    </div>
+
+    <div class="records-grid">
+      <div class="record-card">
+        <div class="metadata">01 / RECORDS</div>
+        <h3>Four record types</h3>
+        <p>Point a name at a server with <code>A</code> or <code>AAAA</code>, at another host with
+        <code>CNAME</code>, and prove ownership or publish config with <code>TXT</code> — including
+        ACME tokens for DNS-01 certificates. When you outgrow it, delegate the name to your own
+        nameservers.</p>
+      </div>
+
+      <div class="record-card">
+        <div class="metadata">02 / FORWARD</div>
+        <h3>URL forwarding</h3>
+        <p>No server yet? Forward the name to any URL and the edge follows your agent's deploys —
+        handy while output lives on a preview host. One API call to set, one to change, and the
+        edge follows the new target within a minute.</p>
+      </div>
+
+      <div class="record-card">
+        <div class="metadata">03 / PROXY</div>
+        <h3>Reverse proxy with HTTPS</h3>
+        <p>App already running on a host like <code>myapp.fly.dev</code>? The edge reverse-proxies
+        the name to it over HTTPS on our certificate, so visitors see your hostname in the address
+        bar, never the origin's.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-head" id="use-cases">
+    <div class="metadata">// use cases</div>
+    <h2>What agents <span class="g">actually point these at</span></h2>
+    <p class="lede">Four patterns cover most claims — the same CLI, the same
+    <a href="/#mcp">19 MCP tools</a>, the same <a href="https://docs.agentdomains.co/api">HTTP API</a>.</p>
+  </section>
+  <section class="usecases">
+    <div class="usecases-grid">
+      <div class="usecase-card">
+        <div class="metadata">01 / DEMOS</div>
+        <h3>Ship a demo with a real URL</h3>
+        <p>Your agent deploys a prototype to a server and hands it over as a bare IP.
+        <code>agentdomains claim demo --type A --content 203.0.113.10</code> turns it into a link
+        you can share, live on the public internet in seconds.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="metadata">02 / APIs</div>
+        <h3>Give an API a front door</h3>
+        <p>Agent-built APIs need real hostnames for webhooks, CORS origins, and OAuth callbacks.
+        Reverse-proxy the name at your backend and TLS terminates on our certificate:
+        <code>https://api-widget.makes.fyi</code>, nothing to install or renew.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="metadata">03 / PREVIEW HOSTS</div>
+        <h3>Forward while it moves</h3>
+        <p>Output lives on a preview host today and a VPS tomorrow. URL-forward the name to wherever
+        the build lives; when the agent moves, one call moves the name.</p>
+      </div>
+      <div class="usecase-card">
+        <div class="metadata">04 / PROVING GROUNDS</div>
+        <h3>Certificates and ownership</h3>
+        <p>Point a name at your own server and Let's Encrypt HTTP-01 just works, or publish the ACME
+        token as a TXT record for DNS-01. The same TXT primitive answers domain-verification
+        challenges.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-head" id="faq">
+    <div class="metadata">// FAQ</div>
+    <h2>Questions, answered <span class="g">straight</span></h2>
+    <p class="lede">Straight answers, no asterisks. Full policy: <a href="/pricing">pricing</a> and the
+    <a href="https://docs.agentdomains.co">docs</a>.</p>
+  </section>
+  <section class="faq">
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Is it really free, or is there a catch?</h3>
+        <p>Free covers up to 10 names under <code>makes.fyi</code> or <code>agentdomains.co</code>
+        with every feature — DNS records, forwarding, reverse proxy with HTTPS — and no card in the
+        flow. Pro ($5/month) raises the ceiling to 100 names and never releases a name for being
+        unreachable. The honest catch is the next question, on the
+        <a href="/compare">compare page</a> in full.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do I own the domain I claim?</h3>
+        <p>No. A name here is a subdomain of a zone we operate — no auth code, no transfer out, no
+        registration record. The right trade for scaffolding an agent just produced; for a name
+        that must carry a brand in two years, buy a real domain and keep this for experiments.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can an agent run the whole thing without a human?</h3>
+        <p>Almost, deliberately: <code>signup</code> is an unauthenticated API call that returns a
+        key instantly, the CLI prints JSON with <code>--json</code>, and the MCP server exposes 19
+        tools. A human shows up twice — clicking the email confirmation link on the first name
+        (within 30 days), and paying if you ever pick Pro. Agents can't accidentally charge you.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Any request quotas or bandwidth bills?</h3>
+        <p>None on either plan: no request quota, no rate card, no overage. Signup and availability
+        checks are rate-limited per IP to keep the free pool from being farmed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-wrap" aria-labelledby="gallery-title">
+    <div class="metadata" style="padding:2.5rem 2rem 0">// what it looks like</div>
+    <h2 id="gallery-title" style="font-size:clamp(1.4rem,3.4vw,2rem);text-transform:uppercase;padding:0 2rem">From localhost to live, in <span style="color:var(--energy)">three steps</span></h2>
+    <div class="gallery">
+      <figure class="shot">
+        <img src="/img/how-it-works.svg" width="1080" height="675" loading="lazy" decoding="async"
+          alt="Diagram of the three AgentDomains steps: an agent builds a site on localhost, runs the agentdomains claim command, and the site goes live at myapp.makes.fyi with HTTPS.">
+        <figcaption>Build → claim → live</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/img/dns-records.svg" width="1080" height="675" loading="lazy" decoding="async"
+          alt="Panel of DNS records for the subdomain myshop.makes.fyi: A record pointing at 203.0.113.10, CNAME for www, TXT record for an ACME DNS-01 challenge, and an NS delegation, plus automatic HTTPS proxy and URL forwarding.">
+        <figcaption>Every record, over API or MCP</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/img/cli-or-mcp.svg" width="1080" height="675" loading="lazy" decoding="async"
+          alt="An AI agent connected to AgentDomains two ways: the agentdomains CLI binary on one side and the hosted MCP server at mcp.agentdomains.co with 19 tools on the other, both issuing one free subdomain such as myshop.makes.fyi or myshop.agentdomains.co.">
+        <figcaption>Two doors, one subdomain</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="limits" id="limits">
+    <div class="metadata">// the fine print, up front</div>
+    <h2>Quotas and <span class="g">expiry</span>: the whole policy</h2>
+    <p class="lede">Every free-subdomain service has limits; most hide theirs. Here is the entire
+    quota and expiry policy of AgentDomains, on the page you are already reading — no README
+    archaeology required.</p>
+
+    <div class="limits-grid">
+      <div class="limit-card">
+        <div class="metadata">01 / NAMES</div>
+        <h3>10 names free</h3>
+        <p>An account holds up to <b>10 names</b> under <code>makes.fyi</code> and
+        <code>agentdomains.co</code> combined, with every feature on each one. No paid tier is
+        needed to hold the tenth. <b>Pro</b> ($5/month or $48/year) raises the ceiling to
+        <b>100</b>. <code>agentdomains whoami</code> shows your usage against the cap.</p>
+      </div>
+
+      <div class="limit-card">
+        <div class="metadata">02 / CONFIRM</div>
+        <h3>30 days to confirm</h3>
+        <p><code>signup</code> is instant and anonymous, and starts a <b>30-day clock</b>. Your
+        first <code>claim</code> takes <code>--email</code> and we send a confirmation link:
+        confirm within 30 days and the account and every name on it become permanent. Never
+        confirm, and a background job deletes the account and releases its names — that is the
+        anti-squat tax, and it is the only one.</p>
+      </div>
+
+      <div class="limit-card">
+        <div class="metadata">03 / KEEPING IT</div>
+        <h3>Live origin, kept live</h3>
+        <p>A name whose origin stops answering gets you an <b>email at 30 days</b> and may be
+        released back to the pool at <b>45</b>, so abandoned names come back around. A name that
+        answers over HTTPS (or plain HTTP when it has no HTTPS) with any status below 500 is never
+        touched; a 5xx or a failed TLS handshake counts as down. On Pro, names are never released for
+        being dark. There is no request quota and no bandwidth bill on either plan.</p>
+      </div>
+    </div>
+
+    <p style="max-width:860px;margin-top:1.2rem">That is all of it. Signup and availability
+    checks are rate-limited per IP to keep the pool from being farmed, and the cap counts
+    confirmed mailboxes, not throwaway accounts. Full text:
+    <a href="/pricing" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">/pricing</a>
+    and <a href="https://docs.agentdomains.co/accounts" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">docs · Accounts &amp; confirmation</a>.</p>
+  </section>
+
   <footer>
     <div>
       <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
@@ -324,8 +692,9 @@
       <div class="foot-links">
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="/#mcp">MCP</a>
+        <a href="/#limits">Limits</a>
         <a href="/compare">Compare</a>
-        <a href="/pricing">Pricing</a>
+        <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
       </div>
@@ -368,13 +737,14 @@
         if (input.value.trim().toLowerCase() !== label || curDomain() !== domain) return; // stale
         if (d.reason === 'available') {
           const cmd = 'agentdomains claim ' + label + ' --email you@example.com' + (domain === 'makes.fyi' ? '' : ' --domain ' + domain);
-          checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy">${cmd}</code>`;
+          checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy" data-umami-event="signup_click" data-umami-event-location="name-check-copy">${cmd}</code>`;
           const c = checkEl.querySelector('.cmd');
           c.addEventListener('click', () => {
             (navigator.clipboard ? navigator.clipboard.writeText(cmd) : Promise.resolve()).finally(() => {
               const orig = c.textContent; c.textContent = '✓ copied, paste to your agent'; setTimeout(() => c.textContent = orig, 1400);
             });
           });
+          if (!claimedEl.innerHTML) renderClaimForm(label, domain);
         } else if (d.reason === 'taken') {
           checkEl.innerHTML = `<span class="no">😅 ${d.fqdn} is already taken</span>. Try another.`;
         } else {
@@ -384,6 +754,151 @@
       .catch(() => { checkEl.innerHTML = '<span class="dim">couldn\'t reach the registry, try again</span>'; });
   }
   input.addEventListener('input', () => { clearTimeout(checkTimer); checkTimer = setTimeout(runCheck, 350); });
+
+  // claim it right here: signup -> claim (with the email) -> show the key once.
+  //
+  // Two calls, not three. The first claim on an account carries the email, and
+  // the server attaches it and sends the one "registered, confirm within N days"
+  // message itself; a separate POST /v1/account/email would mail a second link.
+  // The key lives in this closure only: never in storage, never in a URL, and it
+  // goes nowhere except api.agentdomains.co.
+  const claimedEl = document.getElementById('claimed');
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const track = (ev, data) => { try { if (window.umami && typeof umami.track === 'function') umami.track(ev, data); } catch (e) {} };
+  let pendingKey = null; // a provisional key from a signup whose claim failed: reuse it on retry instead of signing up again
+
+  async function api(method, path, key, body){
+    const headers = {};
+    if (key) headers['Authorization'] = 'Bearer ' + key;
+    if (body !== undefined) headers['Content-Type'] = 'application/json';
+    let r;
+    try {
+      r = await fetch(API + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+    } catch (e) {
+      throw new Error("couldn't reach api.agentdomains.co, check your connection and try again");
+    }
+    let d = {};
+    try { d = await r.json(); } catch (e) {}
+    if (!r.ok) {
+      let msg = d.error || ('request failed (' + r.status + ')');
+      if (r.status === 429 && d.retry_after) msg += ' (try again in ' + Math.ceil(d.retry_after / 60) + ' min)';
+      throw new Error(msg);
+    }
+    return d;
+  }
+
+  function renderClaimForm(label, domain){
+    const div = document.createElement('div');
+    div.innerHTML = `<form class="claim-form" novalidate>
+        <div class="metadata">// or claim it right here, no install</div>
+        <div class="claim-row">
+          <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="your email">
+          <button class="mini-btn" type="submit" data-umami-event="signup_click" data-umami-event-location="browser-claim">CLAIM IT HERE →</button>
+        </div>
+        <p class="fine">We email you a confirm link. Confirm it within 30 days to keep the name.</p>
+        <div class="claim-err" role="alert"></div>
+      </form>`;
+    const form = div.firstElementChild;
+    checkEl.appendChild(form);
+    const emailIn = form.querySelector('input'), btn = form.querySelector('button'), err = form.querySelector('.claim-err');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = emailIn.value.trim();
+      err.textContent = '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'that email doesn\'t look right'; emailIn.focus(); return; }
+      btn.disabled = true; emailIn.disabled = true;
+      try {
+        let key = pendingKey;
+        if (!key) {
+          btn.textContent = 'MAKING AN ACCOUNT…';
+          const s = await api('POST', '/v1/signup');
+          key = pendingKey = s.api_key;
+        }
+        btn.textContent = 'CLAIMING…';
+        const c = await api('POST', '/v1/subdomains', key, { label, domain, email });
+        pendingKey = null;
+        track('browser_claim_done', { domain });
+        showClaimed(c, key, email, domain);
+      } catch (ex) {
+        err.textContent = ex.message;
+        btn.disabled = false; emailIn.disabled = false; btn.textContent = 'TRY AGAIN →';
+      }
+    });
+  }
+
+  function showClaimed(c, key, email, domain){
+    const label = c.label, fqdn = c.fqdn;
+    const days = c.confirm_within_days || 30;
+    const dflag = domain === 'makes.fyi' ? '' : ' --domain ' + domain;
+    checkEl.innerHTML = '';
+    claimedEl.innerHTML = `<div class="claimed">
+        <div class="metadata">// claimed</div>
+        <h3>🎉 <span class="g">${esc(fqdn)}</span> is yours</h3>
+
+        <div class="step"><b>1. Save your API key.</b> It's shown once, right here, and never again.
+          <div class="keybox"><code id="api-key">${esc(key)}</code><button class="mini-btn" type="button" id="copy-key">COPY KEY</button></div>
+          <div class="warnbox">Put it in a password manager or your agent's secrets. Anyone with this key can change or delete your names.
+          Lost it? Once your email is confirmed, <code>agentdomains recover-key ${esc(email)}</code> mails you a fresh one.</div>
+        </div>
+
+        <div class="step"><b>2. Check your inbox.</b> We sent a link to <b>${esc(email)}</b>. Confirm it within
+          <b>${esc(days)} days</b> to make it permanent, or ${esc(fqdn)} (and the account) is deleted automatically.</div>
+
+        <div class="step"><b>3. Point it somewhere.</b>
+          <form class="claim-row" id="fwd-form" novalidate style="margin-top:.4rem">
+            <input type="url" name="target" placeholder="https://your-site.example.com" aria-label="forward to this URL" required>
+            <button class="mini-btn ghost" type="submit">FORWARD IT →</button>
+          </form>
+          <div class="claim-err" id="fwd-err" role="alert"></div>
+          <div id="fwd-ok"></div>
+          <p class="fine">Or use the CLI for a server, a forward or a reverse proxy:</p>
+<pre><span class="c"># install (Go 1.22+), or grab a binary from github.com/tashfeenahmed/AgentDomains/releases</span>
+go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest
+export AGENTDOMAINS_API_KEY=${esc(key)}
+
+<span class="c"># point it at a server (A record)</span>
+agentdomains record ${esc(label)} --type A --content 203.0.113.10${esc(dflag)}
+<span class="c"># …or forward it to a URL</span>
+agentdomains forward ${esc(label)} https://example.com${esc(dflag)}
+<span class="c"># …or serve a backend at it over HTTPS (our cert, your origin)</span>
+agentdomains proxy ${esc(label)} myapp.fly.dev${esc(dflag)}</pre>
+          <p class="fine">Prefer MCP? The same key works on <a href="#mcp">the hosted MCP server</a>. Full reference in <a href="https://docs.agentdomains.co">the docs</a>.</p>
+        </div>
+      </div>`;
+
+    // until the key has been copied, leaving the page asks first: it is the only copy
+    let copied = false;
+    const guard = e => { if (!copied) { e.preventDefault(); e.returnValue = ''; } };
+    window.addEventListener('beforeunload', guard);
+    const copyBtn = document.getElementById('copy-key');
+    copyBtn.addEventListener('click', () => {
+      const done = () => { copied = true; window.removeEventListener('beforeunload', guard); copyBtn.textContent = '✓ COPIED'; setTimeout(() => copyBtn.textContent = 'COPY KEY', 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(key).then(done, () => { copyBtn.textContent = 'SELECT + COPY'; });
+      else copyBtn.textContent = 'SELECT + COPY';
+    });
+
+    const fwd = document.getElementById('fwd-form'), fwdErr = document.getElementById('fwd-err'), fwdOk = document.getElementById('fwd-ok');
+    fwd.addEventListener('submit', async e => {
+      e.preventDefault();
+      const tIn = fwd.querySelector('input'), b = fwd.querySelector('button');
+      let target = tIn.value.trim();
+      fwdErr.textContent = ''; fwdOk.innerHTML = '';
+      if (!target) { fwdErr.textContent = 'paste the URL to send visitors to'; return; }
+      if (!/^https?:\/\//i.test(target)) target = 'https://' + target;
+      b.disabled = true; b.textContent = 'FORWARDING…';
+      try {
+        const f = await api('PUT', '/v1/subdomains/' + encodeURIComponent(label) + '/forward', key, { target, domain });
+        const to = (f.forward && f.forward.target) || target;
+        fwdOk.innerHTML = `<p class="fine"><span class="ok">✓ <a href="https://${esc(fqdn)}" target="_blank" rel="noopener">${esc(fqdn)}</a> now forwards to ${esc(to)}</span>. Give it a minute for the edge to pick it up.</p>`;
+        b.textContent = 'UPDATE →';
+      } catch (ex) {
+        fwdErr.textContent = ex.message;
+        b.textContent = 'FORWARD IT →';
+      }
+      b.disabled = false;
+    });
+    claimedEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 
   // draw-anywhere doodle layer. Canvas is pointer-events:none, so the UI stays
   // clickable; we listen on window and draw while the mouse button is held.

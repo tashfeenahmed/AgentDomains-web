@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 675" role="img" aria-labelledby="t d" font-family="'Space Mono','Courier New',monospace">
+  <title id="t">How AgentDomains works</title>
+  <desc id="d">Three steps: an AI agent builds a site on localhost, runs "agentdomains claim myapp", and the site goes live at myapp.makes.fyi with HTTPS.</desc>
+
+  <rect width="1080" height="675" fill="#FFFFFF"/>
+  <pattern id="dots" width="38" height="38" patternUnits="userSpaceOnUse" x="-19" y="-19">
+    <circle cx="19" cy="19" r="1.6" fill="#0A0A0A" opacity="0.13"/>
+  </pattern>
+  <rect width="1080" height="675" fill="url(#dots)"/>
+
+  <!-- step 1: build -->
+  <g transform="rotate(-1 186 341)">
+    <rect x="48" y="188" width="300" height="330" rx="46" fill="#0A0A0A"/>
+    <rect x="36" y="176" width="300" height="330" rx="46" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="6"/>
+    <text x="68" y="238" font-size="24" font-weight="bold" fill="#00A85E" letter-spacing="2">01 / BUILD</text>
+    <text x="68" y="290" font-size="21" fill="#0A0A0A">your agent</text>
+    <text x="68" y="320" font-size="21" fill="#0A0A0A">ships a site:</text>
+    <rect x="64" y="348" width="244" height="112" rx="12" fill="#0A0A0A"/>
+    <text x="80" y="388" font-size="19" fill="#00CC74">$ pnpm build</text>
+    <text x="80" y="422" font-size="19" fill="#ECECEC">→ localhost</text>
+    <path d="M 106 152 q 24 -34 52 -10 q 30 24 58 -6" fill="none" stroke="#C6F24E" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <!-- arrow 1 -->
+  <g stroke="#0A0A0A" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 350 336 q 36 -20 70 4"/>
+    <path d="M 406 324 l 18 18 l -20 14"/>
+  </g>
+
+  <!-- step 2: claim -->
+  <g transform="rotate(1.2 546 341)">
+    <rect x="408" y="188" width="300" height="330" rx="20" fill="#0A0A0A"/>
+    <rect x="396" y="176" width="300" height="330" rx="20" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="6"/>
+    <text x="428" y="238" font-size="24" font-weight="bold" fill="#00A85E" letter-spacing="2">02 / CLAIM</text>
+    <text x="428" y="290" font-size="21" fill="#0A0A0A">one command,</text>
+    <text x="428" y="320" font-size="21" fill="#0A0A0A">from the CLI:</text>
+    <rect x="424" y="348" width="244" height="112" rx="12" fill="#0A0A0A"/>
+    <text x="440" y="384" font-size="16" fill="#00CC74">$ agentdomains</text>
+    <text x="440" y="412" font-size="16" fill="#00CC74">  claim myapp</text>
+    <text x="440" y="440" font-size="16" fill="#8a8a8a">  --email a@b.c</text>
+  </g>
+
+  <!-- arrow 2 -->
+  <g stroke="#0A0A0A" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 710 336 q 36 20 70 -4"/>
+    <path d="M 764 312 l 20 20 l -22 14"/>
+  </g>
+
+  <!-- step 3: live -->
+  <g transform="rotate(-0.8 896 341)">
+    <rect x="768" y="188" width="300" height="330" rx="60" fill="#0A0A0A"/>
+    <rect x="756" y="176" width="300" height="330" rx="60" fill="#00CC74" stroke="#0A0A0A" stroke-width="6"/>
+    <text x="788" y="238" font-size="24" font-weight="bold" fill="#0A0A0A" letter-spacing="2">03 / LIVE</text>
+    <rect x="784" y="264" width="244" height="88" rx="12" fill="#0A0A0A"/>
+    <text x="800" y="300" font-size="17" fill="#C6F24E">✓ myapp.makes</text>
+    <text x="800" y="328" font-size="17" fill="#C6F24E">  .fyi is live</text>
+    <!-- padlock -->
+    <g stroke="#0A0A0A" stroke-width="6" fill="none" stroke-linecap="round">
+      <path d="M 872 400 v -18 a 26 26 0 0 1 52 0 v 18"/>
+      <rect x="852" y="400" width="92" height="66" rx="14" fill="#0A0A0A" stroke="none"/>
+    </g>
+    <circle cx="898" cy="428" r="7" fill="#00CC74"/>
+    <path d="M 898 432 v 16" stroke="#00CC74" stroke-width="6" stroke-linecap="round"/>
+    <text x="788" y="490" font-size="19" fill="#0A0A0A">HTTPS, seconds</text>
+  </g>
+
+  <!-- caption strip -->
+  <text x="540" y="602" text-anchor="middle" font-size="27" fill="#0A0A0A" font-family="'Bricolage Grotesque',system-ui,sans-serif" font-weight="800" letter-spacing="-0.5">FROM LOCALHOST TO A REAL DOMAIN, ONE COMMAND</text>
+  <path d="M 250 622 q 290 26 580 0" fill="none" stroke="#00CC74" stroke-width="6" stroke-linecap="round"/>
+</svg>

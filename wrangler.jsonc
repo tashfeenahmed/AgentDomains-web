@@ -33,6 +33,10 @@
   // this zone — *.makes.fyi/* once shadowed api. and docs. and took them down.
   "routes": [
     { "pattern": "agentdomains.co", "custom_domain": true },
-    { "pattern": "makes.fyi", "custom_domain": true }
+    { "pattern": "makes.fyi", "custom_domain": true },
+    // Bound only so it can 301 to the apex (worker.js). Custom domains create
+    // their own proxied DNS record; "www" is a reserved label, so no claim can
+    // collide with it.
+    { "pattern": "www.agentdomains.co", "custom_domain": true }
   ]
 }
