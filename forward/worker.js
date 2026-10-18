@@ -17,6 +17,11 @@
 const API = "https://api.agentdomains.co";
 const RESOLVE_TTL = 60; // seconds to cache a host's forward config at the edge
 
+// Sentinel for "we could not ask the API" (network error / non-404 failure).
+// Distinct from a null result, which is a CONFIRMED 404 from the API. Never
+// cached, so the next request asks again immediately.
+const UNRESOLVED = Symbol("unresolved");
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -24,9 +29,18 @@ export default {
 
     const fwd = await resolveForward(host, ctx);
     if (!fwd) {
-      // Proxied host with no forward configured (e.g. a just-deleted forward
-      // whose placeholder lingers). Show a friendly 404 rather than a CF error.
+      // Two very different "no": the origin said this host has NO forward
+      // (404 — a genuinely dead name), versus the origin was unreachable or
+      // 5xx'd and we could not tell. Answering a transient API blip with a 404
+      // "Nothing here yet" told browsers and crawlers that a live forward's
+      // destination was gone (a 404 that search engines index and proxies may
+      // cache), and hid the outage from the owner. A confirmed miss stays a
+      // 404; an unknown answer is now a retryable 502, matching what the proxy
+      // Worker already does (badGateway).
       return notFound(host);
+    }
+    if (fwd === UNRESOLVED) {
+      return upstreamUnavailable(host);
     }
 
     // Build the destination.
@@ -66,10 +80,18 @@ async function resolveForward(host, ctx) {
     return body.__miss ? null : body;
   }
 
-  const resp = await fetch(
-    `${API}/v1/forward/resolve?host=${encodeURIComponent(host)}`,
-    { headers: { Accept: "application/json" } }
-  );
+  let resp;
+  try {
+    resp = await fetch(
+      `${API}/v1/forward/resolve?host=${encodeURIComponent(host)}`,
+      { headers: { Accept: "application/json" } }
+    );
+  } catch {
+    // Origin unreachable (timeout, DNS, TLS): we do not know whether this host
+    // forwards anywhere. Say so instead of guessing "no forward" (a cached-
+    // forever-looking 404 that crawlers index). Not cached; next request asks.
+    return UNRESOLVED;
+  }
 
   if (resp.status === 404) {
     // Cache the negative result briefly too, so unknown hosts don't hammer origin.
@@ -86,7 +108,7 @@ async function resolveForward(host, ctx) {
     );
     return null;
   }
-  if (!resp.ok) return null; // transient origin error: fail open to 404 page
+  if (!resp.ok) return UNRESOLVED; // transient origin error: NOT a missing forward
 
   const fwd = await resp.json();
   ctx.waitUntil(
@@ -125,6 +147,19 @@ function notFound(host) {
     status: 404,
     headers: { "Content-Type": "text/html; charset=utf-8" },
   });
+}
+
+// A 502, not a 404: the forward may well exist — we just couldn't ask. Keep it
+// explicitly no-store so no intermediary remembers the failure, and say
+// "temporarily" so nobody treats the name as dead.
+function upstreamUnavailable(host) {
+  return new Response(
+    page("Check unavailable", `We couldn't reach the forwarding service to look up <code>${esc(host)}</code>. This is temporary — try again in a moment.`),
+    {
+      status: 502,
+      headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" },
+    }
+  );
 }
 
 // cloakPage keeps the AgentDomains host in the address bar and frames the target.
