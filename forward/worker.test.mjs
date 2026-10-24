@@ -17,8 +17,6 @@ class MemCache {
   async put(req, res) { this.entries.set(req.url, res.clone()); }
 }
 globalThis.caches = { default: new MemCache() };
-globalThis.Request = globalThis.Request || (await import("node:http")).Request;
-globalThis.Response = globalThis.Response || (await import("node:http")).Response;
 
 const { default: worker } = await import("./worker.js");
 

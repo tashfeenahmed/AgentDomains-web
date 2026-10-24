@@ -28,19 +28,16 @@ export default {
     const host = url.hostname.toLowerCase();
 
     const fwd = await resolveForward(host, ctx);
-    if (!fwd) {
-      // Two very different "no": the origin said this host has NO forward
-      // (404 — a genuinely dead name), versus the origin was unreachable or
-      // 5xx'd and we could not tell. Answering a transient API blip with a 404
-      // "Nothing here yet" told browsers and crawlers that a live forward's
-      // destination was gone (a 404 that search engines index and proxies may
-      // cache), and hid the outage from the owner. A confirmed miss stays a
-      // 404; an unknown answer is now a retryable 502, matching what the proxy
-      // Worker already does (badGateway).
-      return notFound(host);
-    }
     if (fwd === UNRESOLVED) {
+      // The API was unreachable or 5xx'd, so we can't tell whether this host
+      // forwards. A retryable 502, never the 404 page: a live forward must not
+      // look dead to browsers and crawlers during an API blip.
       return upstreamUnavailable(host);
+    }
+    if (!fwd) {
+      // Confirmed by the API: no forward for this host (e.g. a just-deleted
+      // forward whose placeholder lingers). Friendly 404 rather than a CF error.
+      return notFound(host);
     }
 
     // Build the destination.
@@ -67,7 +64,8 @@ export default {
 };
 
 // resolveForward fetches (and edge-caches) the forward config for a host.
-// Returns null when the host has no forward.
+// Returns null when the API confirms the host has no forward, and UNRESOLVED
+// when the API could not be asked.
 async function resolveForward(host, ctx) {
   const cacheKey = new Request(
     `https://forward-cache.agentdomains.internal/${encodeURIComponent(host)}`
