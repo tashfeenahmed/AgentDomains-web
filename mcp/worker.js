@@ -19,7 +19,7 @@
 
 const DEFAULT_API_BASE = "https://api.agentdomains.co";
 const PROTOCOL_VERSION = "2024-11-05";
-const SERVER_INFO = { name: "agentdomains", version: "0.1.3" };
+const SERVER_INFO = { name: "agentdomains", version: "0.1.4" };
 
 // What the origin sees in User-Agent for every call this Worker makes on a
 // caller's behalf, so audit rows can tell hosted-MCP traffic apart from the CLI
@@ -111,6 +111,7 @@ const ANNOTATIONS = {
   attach_email: { title: "Attach an email", readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
   claim_domain: { title: "Claim a domain", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
   list_domains: { title: "List my domains", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  get_visits: { title: "Show visitor stats", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
   get_domain: { title: "Show one domain", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
   delete_domain: { title: "Delete a domain", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
   add_dns_record: { title: "Add a DNS record", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
@@ -247,6 +248,27 @@ const TOOLS = [
       "Show one subdomain in full: its fqdn, DNS records, forward or proxy configuration, and delegation state.",
     inputSchema: { type: "object", properties: { ...labelProp, ...domainProp }, required: ["label"] },
     plan: (a) => ({ method: "GET", path: resourcePath(a.label, "", a.domain) }),
+  },
+  {
+    name: "get_visits",
+    description:
+      "Visitor stats for a name that has a forward or proxy (plain DNS records are not seen). Pro accounts get " +
+      "daily requests and page views plus top countries; free accounts get the period total and an 'upgrade' " +
+      "offer. 'days' is 1 to 90 (default 30).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        ...labelProp,
+        ...domainProp,
+        days: { type: "integer", minimum: 1, maximum: 90, description: "How many days back to count (default 30)." },
+      },
+      required: ["label"],
+    },
+    plan: (a) => {
+      let p = resourcePath(a.label, "/visits", a.domain);
+      if (a.days) p += (p.includes("?") ? "&" : "?") + "days=" + encodeURIComponent(String(a.days));
+      return { method: "GET", path: p };
+    },
   },
   {
     name: "delete_domain",
