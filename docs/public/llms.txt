@@ -1,8 +1,9 @@
 # AgentDomains Docs
 
-> Documentation for AgentDomains: free domains for the websites and APIs AI agents
+> Documentation for AgentDomains: real domains for the websites and APIs AI agents
 > build. Register a name, set DNS records, get HTTPS by proxy or ACME, forward or
-> proxy it — all from one CLI, the HTTP API, or MCP.
+> proxy it, all from one CLI, the HTTP API, or MCP. Free for 30 days, then $1/month
+> ($10/year) on Pro to keep your names.
 
 The docs are split by topic: one page per topic, each at its own URL.
 
@@ -11,7 +12,7 @@ The docs are split by topic: one page per topic, each at its own URL.
 - [Introduction](https://docs.agentdomains.co/): what AgentDomains is and when to use it
 - [Install](https://docs.agentdomains.co/install): install the `agentdomains` CLI
 - [Quickstart](https://docs.agentdomains.co/quickstart): register a name and publish a site
-- [Accounts](https://docs.agentdomains.co/accounts): signup, tokens, quotas, email confirmation
+- [Accounts](https://docs.agentdomains.co/accounts): signup, tokens, the 30-day trial, quotas, email confirmation
 - [DNS records](https://docs.agentdomains.co/records): A, AAAA, CNAME, TXT — added, listed with their ids, and removed one at a time (MX needs nameserver delegation)
 - [SSL](https://docs.agentdomains.co/ssl): HTTP-01 or DNS-01 with your own ACME client
 - [Forwarding](https://docs.agentdomains.co/forwarding): redirect a name to another URL (replaces the address records on that name)

@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
@@ -89,7 +89,7 @@
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/accounts">Accounts &amp; trial</a>
     <a href="/records">DNS records</a>
     <a href="/ssl">Getting HTTPS / SSL</a>
     <a href="/forwarding">URL forwarding</a>
@@ -112,10 +112,10 @@
     <code>Authorization: Bearer &lt;api_key&gt;</code>.</p>
     <table>
       <tr><th>Method &amp; path</th><th>Description</th></tr>
-      <tr><td><code>POST /v1/signup</code></td><td>Create a provisional account, returns <code>api_key</code></td></tr>
-      <tr><td><code>GET /v1/whoami</code></td><td>Account info</td></tr>
+      <tr><td><code>POST /v1/signup</code></td><td>Create a provisional account with a 30-day free trial, returns <code>api_key</code></td></tr>
+      <tr><td><code>GET /v1/whoami</code></td><td>Account info. On the trial it carries <code>trial_days_left</code> and <code>trial_ends_at</code></td></tr>
       <tr><td><code>POST /v1/account/email</code></td><td><code>{"email":"…"}</code>, sends a validation link</td></tr>
-      <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","email?","domain?","type?","content?","host?"}</code> — <code>email</code> required on first registration. The response says <code>serving</code>: a claimed name with no record, forward, proxy, or delegation answers nothing, so when it's <code>false</code> the response also carries a <code>next_step</code> naming the command that points it at something. <code>GET</code> list and single-name views carry the same <code>serving</code> flag.</td></tr>
+      <tr><td><code>POST /v1/subdomains</code></td><td><code>{"label","email?","domain?","type?","content?","host?"}</code>. <code>email</code> required on first registration. On the trial the response carries <code>trial_ends_at</code>: the day the name is released unless the account upgrades. The response says <code>serving</code>: a claimed name with no record, forward, proxy, or delegation answers nothing, so when it's <code>false</code> the response also carries a <code>next_step</code> naming the command that points it at something. <code>GET</code> list and single-name views carry the same <code>serving</code> flag.</td></tr>
       <tr><td><code>GET /v1/subdomains</code></td><td>List</td></tr>
       <tr><td><code>GET /v1/subdomains/{label}</code></td><td>Show one</td></tr>
       <tr><td><code>POST /v1/subdomains/{label}/records</code></td><td>Add a record</td></tr>
@@ -127,7 +127,7 @@
       <tr><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Remove a reverse proxy</td></tr>
       <tr><td><code>DELETE /v1/subdomains/{label}</code></td><td>Delete</td></tr>
       <tr><td><code>DELETE /v1/account[?force=true]</code></td><td>Close the account; <code>409</code> listing held names unless <code>force=true</code> (and while a Pro subscription is live)</td></tr>
-      <tr><td><code>POST /v1/billing/checkout</code></td><td><code>{"interval?":"month"|"year"}</code> — Stripe checkout link for Pro (<code>kind:"portal"</code> if already Pro)</td></tr>
+      <tr><td><code>POST /v1/billing/checkout</code></td><td><code>{"interval?":"month"|"year"}</code>. Stripe checkout link for Pro, $10/year or $1/month (<code>kind:"portal"</code> if already Pro)</td></tr>
       <tr><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for an account that has subscribed</td></tr>
     </table>
     <p>Errors are JSON too, and carry the field that tells them apart:

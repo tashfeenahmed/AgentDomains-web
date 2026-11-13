@@ -137,6 +137,7 @@
   .name-foot{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.7rem}
   .confirm{margin-top:.6rem;padding:.6rem .8rem;border:2px solid var(--ink);border-left:8px solid #c0392b;border-radius:8px;background:#FFF5F3}
   .confirm .plan-btns{margin-top:.4rem}
+  .up-trial{font-weight:700;margin-bottom:.4rem}
   .empty{font-size:1.15rem}
 
   footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
@@ -223,15 +224,16 @@
     </div>
 
     <div class="panel mint" id="upgrade" hidden>
-      <h3>Upgrade to <span class="g">Pro</span>, $1/month or $10/year</h3>
-      <p>100 names instead of 10. Visitor stats for names you forward or proxy. Names are never
-      removed, even if unused or the server behind them goes quiet. Priority support.</p>
+      <h3>Upgrade to <span class="g">Pro</span>, $10/year or $1/month</h3>
+      <p class="up-trial" id="up-trial" hidden></p>
+      <p>Your names are kept as long as you pay. 100 names instead of 10. Visitor stats for names
+      you forward or proxy. Names are never removed for being unused. Priority support.</p>
       <div class="plan-btns">
         <button type="button" class="mini-btn" data-interval="year" data-umami-event="pricing_cta" data-umami-event-location="manage-upgrade-year">$10 / YEAR, BEST DEAL →</button>
         <button type="button" class="mini-btn ghost" data-interval="month" data-umami-event="pricing_cta" data-umami-event-location="manage-upgrade-month">$1 / MONTH →</button>
       </div>
       <div class="claim-err" id="up-err" role="alert"></div>
-      <p class="fine">You pay on Stripe. Yearly is 2 months free. Cancel any time and keep your names.</p>
+      <p class="fine">You pay on Stripe. Yearly is 2 months free. Cancel any time.</p>
     </div>
 
     <div class="panel mint" id="billing" hidden>
@@ -253,7 +255,7 @@
 
   <footer>
     <div>
-      <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <h2>Real domains<br>for the sites<br><span class="g">agents build.</span></h2>
       <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
     </div>
     <div style="text-align:right">
@@ -358,7 +360,21 @@
     function renderAccount(w){
       who = w || {};
       const pro = who.plan === 'pro';
-      $('s-plan').textContent = pro ? 'Pro' : 'Free';
+      // trial: trial_days_left / trial_ends_at from whoami, when the server sends them
+      const ends = trialEnd(who.trial_ends_at);
+      let left = typeof who.trial_days_left === 'number' ? who.trial_days_left : null;
+      if (left === null && ends) left = Math.max(0, Math.ceil((ends - Date.now()) / 86400000));
+      const trial = !pro && (left !== null || ends);
+      if (pro) $('s-plan').textContent = 'Pro';
+      else if (left !== null) $('s-plan').innerHTML = 'Trial: <small>' + (left > 0 ? esc(left) + (left === 1 ? ' day' : ' days') + ' left' : 'ends today') + '</small>';
+      else $('s-plan').textContent = trial ? 'Trial' : 'Free';
+      const upTrial = $('up-trial');
+      if (trial) {
+        const when = ends ? 'on <b>' + esc(ends.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })) + '</b>'
+          : 'in <b>' + esc(left) + (left === 1 ? ' day' : ' days') + '</b>';
+        upTrial.innerHTML = 'Your free trial ends ' + when + '. If you have not upgraded by then, your names stop working and anyone can claim them.';
+        upTrial.hidden = false;
+      } else upTrial.hidden = true;
       renderUsage();
       $('s-email').textContent = who.email ? who.email + (who.email_verified ? '' : ' (not confirmed yet)') : '-';
       let note = '';
@@ -367,6 +383,12 @@
       $('s-note').textContent = note.trim();
       $('upgrade').hidden = pro;
       $('billing').hidden = !pro;
+    }
+    // trial_ends_at may be unix seconds, ms or an ISO string
+    function trialEnd(t){
+      if (t == null || t === '') return null;
+      const d = new Date(typeof t === 'number' ? (t < 1e12 ? t * 1000 : t) : t);
+      return isNaN(d) ? null : d;
     }
     function cap(){ return who.max_subdomains || who.quota || 0; }
     function renderUsage(){

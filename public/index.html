@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgentDomains: free domains for the sites your agents build</title>
-<meta name="description" content="Your AI agent just built a site. Give it a real domain (agentdomains.co or makes.fyi) in one command. Free. Signup needs nothing; the first name needs an email.">
+<title>AgentDomains: real domains for the sites your agents build</title>
+<meta name="description" content="Your AI agent just built a site. Give it a real domain (agentdomains.co or makes.fyi) in one command. Free for 30 days, then $1/month. Signup needs nothing; the first name needs an email.">
 <meta property="og:title" content="AgentDomains: yourname.agentdomains.co">
-<meta property="og:description" content="Free domains for the websites and APIs your AI agents build, in one command.">
+<meta property="og:description" content="Real domains for the websites and APIs your AI agents build, in one command. Free for 30 days, then $1/month.">
 <link rel="canonical" href="https://agentdomains.co/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://agentdomains.co/">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build. A terminal showing: agentdomains claim yourname, then yourname.makes.fyi.">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build. A terminal showing: agentdomains claim yourname, then yourname.makes.fyi.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <script type="application/ld+json">
@@ -26,7 +26,7 @@
       "@id": "https://agentdomains.co/#organization",
       "name": "AgentDomains",
       "url": "https://agentdomains.co/",
-      "description": "Free domains for the websites and APIs AI agents build. One command gives an agent a real hostname, with DNS records, automatic SSL, URL forwarding, and reverse proxying.",
+      "description": "Real domains for the websites and APIs AI agents build. One command gives an agent a real hostname, with DNS records, automatic SSL, URL forwarding, and reverse proxying. Free for 30 days, then $1 a month.",
       "logo": {
         "@type": "ImageObject",
         "url": "https://agentdomains.co/logo.svg",
@@ -50,8 +50,8 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Is AgentDomains really free, or is there a catch?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Free covers up to 10 names under agentdomains.co or makes.fyi with every feature (DNS records, forwarding, reverse proxy with HTTPS) and no card in the flow. An optional Pro plan at $10 a year or $1 a month raises the ceiling to 100 names, adds visitor stats, and never removes a name. The honest catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
+          "name": "Is AgentDomains free, or is there a catch?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Free for 30 days, then $1 a month. Every new account gets a 30-day free trial with up to 10 names under agentdomains.co or makes.fyi, every feature (DNS records, forwarding, reverse proxy with HTTPS) and no card. On day 25 we email a reminder with the end date. On day 30, names on accounts that have not upgraded are released for anyone to claim. The account stays, and upgrading lets you claim again. Pro is $10 a year or $1 a month: names kept as long as you pay, 100 names, visitor stats, and priority support. The other catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
         },
         {
           "@type": "Question",
@@ -61,12 +61,12 @@
         {
           "@type": "Question",
           "name": "Can an AI agent run the whole thing without a human?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 20 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying if you ever choose Pro." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 20 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying for Pro to keep names after the 30-day trial." }
         },
         {
           "@type": "Question",
           "name": "Are there request quotas or bandwidth bills?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No request quota, no rate card, no overage on either plan. Signup and availability checks are rate-limited per IP to keep the free pool from being farmed, and that is the extent of it." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No request quota, no rate card, no overage on either plan. Signup and availability checks are rate-limited per IP to keep the pool from being farmed, and that is the extent of it." }
         }
       ]
     },
@@ -99,7 +99,7 @@
       "contentUrl": "https://agentdomains.co/img/cli-or-mcp.svg",
       "width": 1080,
       "height": 675,
-      "caption": "An AI agent reaches AgentDomains over the CLI or the hosted MCP server at mcp.agentdomains.co; both issue the same free subdomain.",
+      "caption": "An AI agent reaches AgentDomains over the CLI or the hosted MCP server at mcp.agentdomains.co; both issue the same subdomain.",
       "inLanguage": "en",
       "creator": { "@id": "https://agentdomains.co/#organization" }
     }
@@ -394,9 +394,9 @@
 <main>
   <section class="hero">
     <div class="hero-text">
-      <h1 class="hero-title">Free domains<br><span class="g">for agents.</span></h1>
+      <h1 class="hero-title">Real domains<br><span class="g">for agents.</span></h1>
       <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain in one command.
-      No new TLD to wait for: a real hostname under <b>agentdomains.co</b> or <b>makes.fyi</b>, today.</p>
+      <b>Free for 30 days</b>, then $1/month. A real hostname under <b>agentdomains.co</b> or <b>makes.fyi</b>, today.</p>
 
       <div class="domain-search">
         <div class="metadata">// type a name to check it</div>
@@ -500,7 +500,7 @@
     <div class="feature-card">
       <div class="metadata" style="color:var(--energy)">02 / SIGNUP</div>
       <h3>Signup needs nothing</h3>
-      <p><code>signup</code> hands your agent an API key with no email and no form. Registering the first name takes <code>--email</code>, used only for the confirmation link and for notices before a name is reclaimed.</p>
+      <p><code>signup</code> hands your agent an API key with no email and no form. Registering the first name takes <code>--email</code>, used only for the confirmation link, the trial reminder, and notices about your names.</p>
     </div>
 
     <div class="feature-card">
@@ -600,12 +600,14 @@
   <section class="faq">
     <div class="faq-list">
       <div class="faq-item">
-        <h3>Is it really free, or is there a catch?</h3>
-        <p>Free covers up to 10 names under <code>agentdomains.co</code> or <code>makes.fyi</code>
-        with every feature (DNS records, forwarding, reverse proxy with HTTPS) and no card in the
-        flow. Pro ($10/year or $1/month) raises the ceiling to 100 names, adds visitor stats, and
-        never removes a name. The honest catch is the next question, on the
-        <a href="/compare">compare page</a> in full.</p>
+        <h3>Is it free, or is there a catch?</h3>
+        <p>Free for 30 days, then $1/month. Every new account gets a 30-day free trial: up to 10
+        names under <code>agentdomains.co</code> or <code>makes.fyi</code>, every feature, no card.
+        On day 25 we email a reminder. On day 30, names on accounts that have not upgraded are
+        released for anyone to claim. The account stays, and upgrading lets you claim again.
+        Pro ($10/year or $1/month) keeps your names as long as you pay, raises the cap to 100,
+        and adds visitor stats. The other catch is the next question, on the
+        <a href="/compare">compare page</a> in full. More on <a href="/pricing">pricing</a>.</p>
       </div>
       <div class="faq-item">
         <h3>Do I own the domain I claim?</h3>
@@ -616,14 +618,14 @@
       <div class="faq-item">
         <h3>Can an agent run the whole thing without a human?</h3>
         <p>Almost, deliberately: <code>signup</code> is an unauthenticated API call that returns a
-        key instantly, the CLI prints JSON with <code>--json</code>, and the MCP server exposes 19
-        tools. A human shows up twice — clicking the email confirmation link on the first name
-        (within 30 days), and paying if you ever pick Pro. Agents can't accidentally charge you.</p>
+        key instantly, the CLI prints JSON with <code>--json</code>, and the MCP server exposes 20
+        tools. A human shows up twice: clicking the email confirmation link on the first name,
+        and paying for Pro to keep names after the trial. Agents can't accidentally charge you.</p>
       </div>
       <div class="faq-item">
         <h3>Any request quotas or bandwidth bills?</h3>
         <p>None on either plan: no request quota, no rate card, no overage. Signup and availability
-        checks are rate-limited per IP to keep the free pool from being farmed.</p>
+        checks are rate-limited per IP to keep the pool from being farmed.</p>
       </div>
     </div>
   </section>
@@ -644,7 +646,7 @@
       </figure>
       <figure class="shot">
         <img src="/img/cli-or-mcp.svg" width="1080" height="675" loading="lazy" decoding="async"
-          alt="An AI agent connected to AgentDomains two ways: the agentdomains CLI binary on one side and the hosted MCP server at mcp.agentdomains.co with 20 tools on the other, both issuing one free subdomain such as myshop.makes.fyi or myshop.agentdomains.co.">
+          alt="An AI agent connected to AgentDomains two ways: the agentdomains CLI binary on one side and the hosted MCP server at mcp.agentdomains.co with 20 tools on the other, both issuing one subdomain such as myshop.makes.fyi or myshop.agentdomains.co.">
         <figcaption>Two doors, one subdomain</figcaption>
       </figure>
     </div>
@@ -653,38 +655,35 @@
   <section class="limits" id="limits">
     <div class="metadata">// the fine print, up front</div>
     <h2>Quotas and <span class="g">expiry</span>: the whole policy</h2>
-    <p class="lede">Every free-subdomain service has limits; most hide theirs. Here is the entire
-    quota and expiry policy of AgentDomains, on the page you are already reading — no README
-    archaeology required.</p>
+    <p class="lede">Every subdomain service has limits; most hide theirs. Here is the entire
+    quota and expiry policy of AgentDomains, on the page you are already reading.</p>
 
     <div class="limits-grid">
       <div class="limit-card">
         <div class="metadata">01 / NAMES</div>
-        <h3>10 names free</h3>
+        <h3>10 names per account</h3>
         <p>An account holds up to <b>10 names</b> under <code>agentdomains.co</code> and
-        <code>makes.fyi</code> combined, with every feature on each one. No paid tier is
-        needed to hold the tenth. <b>Pro</b> ($10/year or $1/month) raises the ceiling to
-        <b>100</b>. <code>agentdomains whoami</code> shows your usage against the cap.</p>
+        <code>makes.fyi</code> combined, with every feature on each one, trial included.
+        <b>Pro</b> ($10/year or $1/month) raises the ceiling to <b>100</b>. <code>agentdomains whoami</code> shows your usage against the cap.</p>
       </div>
 
       <div class="limit-card">
-        <div class="metadata">02 / CONFIRM</div>
-        <h3>30 days to confirm</h3>
-        <p><code>signup</code> is instant and anonymous, and starts a <b>30-day clock</b>. Your
-        first <code>claim</code> takes <code>--email</code> and we send a confirmation link:
-        confirm within 30 days and the account and every name on it become permanent. Never
-        confirm, and a background job deletes the account and releases its names — that is the
-        anti-squat tax, and it is the only one.</p>
+        <div class="metadata">02 / TRIAL</div>
+        <h3>30 days free</h3>
+        <p><code>signup</code> is instant and anonymous, with no card, and starts a <b>30-day
+        free trial</b>. Your first <code>claim</code> takes <code>--email</code> and we send a
+        confirmation link. On <b>day 25</b> we email a reminder with the end date. On
+        <b>day 30</b>, names on accounts that have not upgraded are released for anyone to claim.
+        The account and key stay, and upgrading lets you claim again.</p>
       </div>
 
       <div class="limit-card">
         <div class="metadata">03 / KEEPING IT</div>
-        <h3>Live origin, kept live</h3>
-        <p>A name whose origin stops answering gets you an <b>email at 30 days</b> and may be
-        released back to the pool at <b>45</b>, so abandoned names come back around. A name that
-        answers over HTTPS (or plain HTTP when it has no HTTPS) with any status below 500 is never
-        touched; a 5xx or a failed TLS handshake counts as down. On Pro, names are never removed, even
-        when the server goes quiet. There is no request quota and no bandwidth bill on either plan.</p>
+        <h3>Pro keeps them</h3>
+        <p><b>Pro</b> is <b>$10/year</b> or <b>$1/month</b>. Your names are kept as long as you
+        pay, and never removed for being unused, even when the server behind them goes quiet.
+        You also get 100 names, visitor stats and priority support. There is no request quota
+        and no bandwidth bill on either plan.</p>
       </div>
     </div>
 
@@ -692,12 +691,12 @@
     checks are rate-limited per IP to keep the pool from being farmed, and the cap counts
     confirmed mailboxes, not throwaway accounts. Full text:
     <a href="/pricing" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">/pricing</a>
-    and <a href="https://docs.agentdomains.co/accounts" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">docs · Accounts &amp; confirmation</a>.</p>
+    and <a href="https://docs.agentdomains.co/accounts" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">docs · Accounts &amp; trial</a>.</p>
   </section>
 
   <footer>
     <div>
-      <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <h2>Real domains<br>for the sites<br><span class="g">agents build.</span></h2>
       <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
     </div>
     <div style="text-align:right">
@@ -809,7 +808,7 @@
           <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="your email">
           <button class="mini-btn" type="submit" data-umami-event="signup_click" data-umami-event-location="browser-claim">CLAIM IT HERE →</button>
         </div>
-        <p class="fine">We email you a confirm link. Confirm it within 30 days to keep the name.</p>
+        <p class="fine">Free for 30 days, no card. We email you a confirm link.</p>
         <div class="claim-err" role="alert"></div>
       </form>`;
     const form = div.firstElementChild;
@@ -843,11 +842,21 @@
   function showClaimed(c, key, email, domain){
     const label = c.label, fqdn = c.fqdn;
     const days = c.confirm_within_days || 30;
+    // trial_ends_at: unix seconds (or ms, or an ISO string); fall back to 30 days from now
+    let until = null;
+    if (c.trial_ends_at != null) {
+      const t = c.trial_ends_at;
+      until = new Date(typeof t === 'number' ? (t < 1e12 ? t * 1000 : t) : t);
+      if (isNaN(until)) until = null;
+    }
+    const untilTxt = until ? until.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : '';
     const dflag = domain === 'makes.fyi' ? '' : ' --domain ' + domain;
     checkEl.innerHTML = '';
     claimedEl.innerHTML = `<div class="claimed">
         <div class="metadata">// claimed</div>
         <h3>🎉 <span class="g">${esc(fqdn)}</span> is yours</h3>
+        <p class="fine">${untilTxt ? 'Free until <b>' + esc(untilTxt) + '</b>.' : 'Free for 30 days.'} We email a reminder 5 days before.
+          To keep it after that, <a href="/pricing">upgrade to Pro</a>: $10/year or $1/month.</p>
 
         <div class="step"><b>1. Save your API key.</b> It's shown once, right here, and never again.
           <div class="keybox"><code id="api-key">${esc(key)}</code><button class="mini-btn" type="button" id="copy-key">COPY KEY</button></div>
@@ -856,7 +865,7 @@
         </div>
 
         <div class="step"><b>2. Check your inbox.</b> We sent a link to <b>${esc(email)}</b>. Confirm it within
-          <b>${esc(days)} days</b> to make it permanent, or ${esc(fqdn)} (and the account) is deleted automatically.</div>
+          <b>${esc(days)} days</b>, or ${esc(fqdn)} (and the account) is deleted automatically. Your trial reminder goes there too.</div>
 
         <div class="step"><b>3. Point it somewhere.</b> Send it to a URL, your server's IP, or the host your app runs on.
           <div id="point-slot"></div>

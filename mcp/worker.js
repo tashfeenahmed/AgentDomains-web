@@ -156,12 +156,14 @@ const TOOLS = [
     name: "signup",
     description:
       "Create a new AgentDomains account and get an API key. Requires no existing key. " +
-      "IMPORTANT: the returned api_key is shown ONCE and is never retrievable again — you must store it " +
+      "IMPORTANT: the returned api_key is shown ONCE and is never retrievable again: you must store it " +
       "immediately (save it to ~/.agentdomains/config.json or set AGENTDOMAINS_API_KEY) or the account is lost. " +
       "If this MCP connection has no Authorization header configured, pass the key as the 'api_key' argument " +
       "on every later tool call. " +
       "The account is provisional: attach and confirm an email within 30 days (see the attach_email tool) or " +
-      "it is deleted along with its domains. This endpoint is rate-limited per IP address.",
+      "it is deleted along with its domains. Every new account gets a 30-day free trial with no card: on day 30, " +
+      "names on an account that has not upgraded to Pro ($10/year or $1/month, see upgrade_to_pro) are released " +
+      "for anyone to claim. The account stays. This endpoint is rate-limited per IP address.",
     inputSchema: { type: "object", properties: {} },
     plan: () => ({ method: "POST", path: "/v1/signup" }),
   },
@@ -171,8 +173,9 @@ const TOOLS = [
       "Show the current account: id, state, attached email and whether it is verified, domains used, and which " +
       "domains are available to claim under. When quotas are disabled the response omits 'quota' and says " +
       "unlimited:true; 'max_subdomains' is the separate hard cap on how many names one account may hold at once " +
-      "(10 on the free plan, 100 on Pro). 'plan' is 'free' or 'pro'; when Pro is on sale a free account also " +
-      "gets an 'upgrade' hint (see upgrade_to_pro).",
+      "(10 on the trial, 100 on Pro). 'plan' is 'free' or 'pro'; when Pro is on sale a free account also " +
+      "gets an 'upgrade' hint (see upgrade_to_pro). A trial account also gets 'trial_days_left' and " +
+      "'trial_ends_at': on that date its names are released unless the account upgrades to Pro. Tell the user.",
     inputSchema: { type: "object", properties: {} },
     plan: () => ({ method: "GET", path: "/v1/whoami" }),
   },
@@ -194,12 +197,14 @@ const TOOLS = [
     name: "claim_domain",
     description:
       "Register a subdomain (label.makes.fyi or label.agentdomains.co) on this account, optionally creating its " +
-      "first DNS record in the same call. An email is required the first time an account registers a name — pass " +
+      "first DNS record in the same call. An email is required the first time an account registers a name: pass " +
       "'email' here or call attach_email first; the name is reaped if that email is not confirmed within 30 days. " +
+      "On the 30-day free trial, names last until the trial ends ('trial_ends_at' in the response) unless the " +
+      "account upgrades to Pro; tell the user that date. " +
       "Returns the fqdn and, when a record was requested, the created record. The claim and its first record " +
       "succeed or fail together: if the record is malformed (400) or the provider refuses it (503) the label is " +
       "NOT claimed, so fix the record and call again. Re-claiming a name this account already holds answers " +
-      "409 with owned:true — that means carry on using it, not pick another label.",
+      "409 with owned:true: that means carry on using it, not pick another label.",
     inputSchema: {
       type: "object",
       properties: {
@@ -506,9 +511,11 @@ const TOOLS = [
   {
     name: "upgrade_to_pro",
     description:
-      "Get a Stripe checkout link for AgentDomains Pro: 100 names instead of the free 10, names never released " +
-      "for being unreachable, and priority email support, for $5/month (or $48/year with interval 'year'). " +
-      "Use this when a claim is refused because the account is at its name limit and the user wants more. " +
+      "Get a Stripe checkout link for AgentDomains Pro: names kept after the 30-day free trial for as long as " +
+      "you pay, 100 names instead of 10, visitor stats, names never removed for being unused, and priority " +
+      "support, for $10/year (interval 'year', the better deal) or $1/month. " +
+      "Use this when the trial is ending and the user wants to keep their names, or when a claim is refused " +
+      "because the account is at its name limit and the user wants more. " +
       "It only returns a link and never charges anything: a human must open the URL and pay. Show them the url " +
       "and say what Pro costs; do not open it or pay on their behalf. If the account is already Pro the answer " +
       "has kind:'portal' and a link to manage the subscription instead. Answers 404 'billing is not enabled' on " +
@@ -519,7 +526,7 @@ const TOOLS = [
         interval: {
           type: "string",
           enum: ["month", "year"],
-          description: "Billing interval: 'month' ($5, the default) or 'year' ($48).",
+          description: "Billing interval: 'month' ($1, the default) or 'year' ($10, the better deal).",
         },
       },
     },
