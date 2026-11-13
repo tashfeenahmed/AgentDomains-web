@@ -1,7 +1,7 @@
 # AgentDomains
 
 > Free domains for the websites and APIs AI agents build. One command gives an
-> agent a real hostname under `makes.fyi` or `agentdomains.co`, with DNS records,
+> agent a real hostname under `agentdomains.co` or `makes.fyi`, with DNS records,
 > automatic SSL, URL forwarding, and reverse proxying. Signing up needs nothing;
 > the account's first name needs an email address.
 
@@ -21,14 +21,14 @@ account need no email. Labels are lowercased when claimed, so `MyApp` becomes
 
 Stated up front, because every free-subdomain rival states its limits and shoppers compare them:
 
-- **Names per account:** 10 on Free (every feature on every name), 100 on Pro ($5/month or
-  $48/year). The cap counts confirmed mailboxes, so throwaway accounts don't multiply it.
+- **Names per account:** 10 on Free (every feature on every name), 100 on Pro ($10/year or
+  $1/month). The cap counts confirmed mailboxes, so throwaway accounts don't multiply it.
   `whoami` reports usage against the cap.
 - **Account expiry:** signup starts a provisional account on a 30-day clock. Confirm the email
   sent on the first claim within 30 days and the account and its names are permanent; never
   confirm and both are deleted automatically.
 - **Name health:** a name whose origin stops answering gets an email at 30 days and may be
-  released at 45 (Pro names are never released). An HTTPS answer (plain HTTP only when
+  released at 45 (Pro names are never removed). An HTTPS answer (plain HTTP only when
   nothing listens on 443) with any status below 500 counts as alive; a 5xx or a failed TLS
   handshake does not.
 - **No request quota, no bandwidth bill, no rate card** on either plan. Signup, claims and
@@ -50,6 +50,7 @@ sub-label and TXT records are untouched. One record can be removed on its own
 
 ## Docs
 
+- [Manage](https://agentdomains.co/manage): paste an API key to see each name and whether it is set up, point it at a URL, a server IP or an app host, remove records, delete names, upgrade to Pro or open billing, and request a new key by email
 - [Documentation](https://docs.agentdomains.co/): what AgentDomains is and when to use it
 - [Install](https://docs.agentdomains.co/install): install the CLI
 - [Quickstart](https://docs.agentdomains.co/quickstart): register a name and publish a site
@@ -68,6 +69,7 @@ sub-label and TXT records are untouched. One record can be removed on its own
 
 - Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
+- No key yet: connect to the hosted server with no key, call `signup`, then pass the key it returns as `api_key` on each tool call
 - 19 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, closing the account, and getting a Pro checkout or billing-portal link
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
@@ -77,11 +79,13 @@ sub-label and TXT records are untouched. One record can be removed on its own
   - **Free, $0, no card.** A hostname, DNS records (A, AAAA, CNAME, TXT, NS delegation), forwarding,
     and a reverse proxy with edge HTTPS, for up to 10 names per account. A name whose origin stays
     unreachable is emailed about at 30 days and may be released at 45.
-  - **Pro, $5/month or $48/year.** Up to 100 names, names are never released for being unreachable,
-    and priority email support. Every Free feature is included unchanged.
+  - **Pro, $10/year or $1/month** (yearly is the better deal). Up to 100 names instead of 10;
+    visitor stats for names you forward or proxy (daily visits per name); names are never removed,
+    even if unused or the server behind them goes quiet; priority support. Every Free feature is
+    included unchanged.
   - Names already registered keep working; adding Pro removed nothing from Free. Cancelling Pro never
     deletes a name: the account keeps what it holds and cannot add past 10.
-  - To upgrade: `agentdomains upgrade` (or `--yearly`), the MCP tool `upgrade_to_pro`, or
+  - To upgrade: [Manage](https://agentdomains.co/manage) (paste the API key), `agentdomains upgrade --yearly` (or monthly without the flag), the MCP tool `upgrade_to_pro`, or
     `POST /v1/billing/checkout`. Each returns a Stripe Checkout link that a human opens and pays; an
     agent cannot complete the payment. `agentdomains billing` / `manage_billing` /
     `POST /v1/billing/portal` manage or cancel it. A free account at its limit gets a 403 that says so.
@@ -95,8 +99,8 @@ payment to get started**. The free plan needs no card. The only payment is the o
 by card through Stripe Checkout, which a human completes. There is no crypto and no x402. It **does not register or transfer
 second-level domains** (no `.com`, no registrar function, no WHOIS/RDAP record — a subdomain has
 none). It is **not** a product called InstaDomain and is not affiliated with one. It hosts nothing:
-there is no build step, no deploy, and no storage. It hands out a hostname under `makes.fyi` or
-`agentdomains.co`, and you point that hostname at whatever you already run.
+there is no build step, no deploy, and no storage. It hands out a hostname under `agentdomains.co` or
+`makes.fyi`, and you point that hostname at whatever you already run.
 
 ## Compare
 

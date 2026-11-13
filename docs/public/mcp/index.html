@@ -176,12 +176,12 @@ curl -s https://mcp.agentdomains.co \
       <tr><td><code>remove_proxy</code></td><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Stop proxying</td></tr>
       <tr><td><code>delegate_nameservers</code></td><td><code>PUT /v1/subdomains/{label}/ns</code></td><td>Delegate the name to your own nameservers</td></tr>
       <tr><td><code>delete_account</code></td><td><code>DELETE /v1/account[?force=true]</code></td><td><span class="pill">destructive</span> Close the account and kill its key; refuses while names are held unless <code>force</code></td></tr>
-      <tr><td><code>upgrade_to_pro</code></td><td><code>POST /v1/billing/checkout</code></td><td>Stripe checkout link for Pro ($5/month or $48/year); charges nothing, a human pays</td></tr>
+      <tr><td><code>upgrade_to_pro</code></td><td><code>POST /v1/billing/checkout</code></td><td>Stripe checkout link for Pro ($10/year or $1/month); charges nothing, a human pays</td></tr>
       <tr><td><code>manage_billing</code></td><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for a Pro account</td></tr>
     </table>
     </div>
     <p class="muted">Every label-scoped tool takes an optional <code>domain</code>
-    (<code>makes.fyi</code> or <code>agentdomains.co</code>). Seventeen tools in all.</p>
+    (<code>agentdomains.co</code> or <code>makes.fyi</code>). Seventeen tools in all.</p>
     <div class="note">There is no "give me SSL" tool, because that is not one operation.
     Either <code>set_proxy</code> (the edge terminates TLS with its own certificate — nothing
     to install on your origin), or <code>add_acme_challenge</code> (publishes the DNS-01

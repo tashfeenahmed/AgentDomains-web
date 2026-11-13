@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDomains: free domains for the sites your agents build</title>
-<meta name="description" content="Your AI agent just built a site. Give it a real domain (makes.fyi or agentdomains.co) in one command. Free. Signup needs nothing; the first name needs an email.">
-<meta property="og:title" content="AgentDomains: yourname.makes.fyi">
+<meta name="description" content="Your AI agent just built a site. Give it a real domain (agentdomains.co or makes.fyi) in one command. Free. Signup needs nothing; the first name needs an email.">
+<meta property="og:title" content="AgentDomains: yourname.agentdomains.co">
 <meta property="og:description" content="Free domains for the websites and APIs your AI agents build, in one command.">
 <link rel="canonical" href="https://agentdomains.co/">
 <meta property="og:type" content="website">
@@ -51,12 +51,12 @@
         {
           "@type": "Question",
           "name": "Is AgentDomains really free, or is there a catch?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Free covers up to 10 names under makes.fyi or agentdomains.co with every feature — DNS records, forwarding, reverse proxy with HTTPS — and no card in the flow. An optional Pro plan at $5 a month raises the ceiling to 100 names and never releases a name for being unreachable. The honest catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Free covers up to 10 names under agentdomains.co or makes.fyi with every feature (DNS records, forwarding, reverse proxy with HTTPS) and no card in the flow. An optional Pro plan at $10 a year or $1 a month raises the ceiling to 100 names, adds visitor stats, and never removes a name. The honest catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
         },
         {
           "@type": "Question",
           "name": "Do I own the domain I claim?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. A name here is a subdomain of makes.fyi or agentdomains.co, which we operate. There is no auth code, no transfer out, and no registration record — the name exists as long as we keep running. If the name has to carry a brand or survive for years, buy a real second-level domain from a registrar instead." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. A name here is a subdomain of agentdomains.co or makes.fyi, which we operate. There is no auth code, no transfer out, and no registration record. The name exists as long as we keep running. If the name has to carry a brand or survive for years, buy a real second-level domain from a registrar instead." }
         },
         {
           "@type": "Question",
@@ -192,6 +192,15 @@
   .fine{font-size:1rem;margin:.45rem 0 0;opacity:.75}
   .claim-err{color:#c0392b;font-weight:700;margin-top:.45rem;font-size:1.05rem}
   .claim-err:empty{display:none}
+  /* three-choice picker: same segmented toggle as the pricing page interval */
+  .point-form{margin-top:.45rem}
+  .pick{display:inline-flex;flex-wrap:wrap;border:3px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:.5rem;max-width:100%}
+  .pick label{font-family:'Space Mono',monospace;font-size:.8rem;padding:.45rem .7rem;cursor:pointer;background:#fff}
+  .pick label + label{border-left:3px solid var(--ink)}
+  .pick input{position:absolute;opacity:0;pointer-events:none}
+  .pick label:has(input:checked){background:var(--energy);font-weight:700}
+  .pick label:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:-5px}
+  .point-ok:empty{display:none}
 
   .claimed{margin-top:1rem;padding:1rem 1.1rem;background:#fff;border:3px solid var(--ink);border-radius:12px;
     box-shadow:8px 8px 0 var(--energy);max-width:640px}
@@ -245,7 +254,7 @@
     border:2px solid var(--ink);border-radius:8px;padding:.2rem .6rem;display:inline-block;white-space:nowrap}
   .mcp .inline{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
     border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
-  .mcp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.1rem;margin-top:1rem}
+  .mcp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:1.1rem;margin-top:1rem}
   /* pre-wrap, not overflow-x: at this column width the hosted `claude mcp add`
      line is wider than the box, and a command you have to scroll to finish
      reading is a command nobody copies correctly. Indentation survives. */
@@ -345,7 +354,7 @@
   footer h2{font-size:clamp(1.9rem,5.5vw,3rem);font-weight:800;text-transform:uppercase}
   footer h2 .g{color:var(--energy)}
   .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
-  .foot-links{display:flex;gap:1.2rem;margin-top:1rem}
+  .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
 
   /* clear control — drops in from the top-center once something is drawn */
@@ -357,7 +366,9 @@
   .doodle-ctl button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 
   @media(max-width:1024px){.hero{grid-template-columns:1fr}.examples{order:2;min-height:260px}}
-  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
+  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}
+    .pick{display:grid;grid-template-columns:repeat(3,1fr)}
+    .pick label{font-size:.72rem;padding:.45rem .3rem;text-align:center}}
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
 </head>
@@ -372,6 +383,7 @@
     <a href="/#mcp">MCP</a>
     <a href="/compare">Compare</a>
     <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a href="/manage">Manage</a>
     <a href="/#limits">Limits</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
@@ -384,13 +396,13 @@
     <div class="hero-text">
       <h1 class="hero-title">Free domains<br><span class="g">for agents.</span></h1>
       <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain in one command.
-      No new TLD to wait for: a real hostname under <b>makes.fyi</b> or <b>agentdomains.co</b>, today.</p>
+      No new TLD to wait for: a real hostname under <b>agentdomains.co</b> or <b>makes.fyi</b>, today.</p>
 
       <div class="domain-search">
         <div class="metadata">// type a name to check it</div>
         <div class="input-wrapper">
           <input type="text" placeholder="my-agent" id="domain-input" aria-label="your domain name">
-          <span class="suffix" id="suffix" title="click to switch domain">.makes.fyi</span>
+          <span class="suffix" id="suffix" title="click to switch domain">.agentdomains.co</span>
         </div>
         <div class="check" id="check" aria-live="polite"></div>
         <div id="claimed" aria-live="polite"></div>
@@ -402,9 +414,9 @@
     </div>
 
     <div class="examples" id="examples" aria-label="example domains, draw here">
-      <div class="tag tag-1"><span class="dom">siteforhuman.makes.fyi</span></div>
-      <div class="tag tag-2"><span class="dom">samtheagent.makes.fyi</span></div>
-      <div class="tag tag-3"><span class="dom">myshop.agentdomains.co</span></div>
+      <div class="tag tag-1"><span class="dom">siteforhuman.agentdomains.co</span></div>
+      <div class="tag tag-2"><span class="dom">samtheagent.agentdomains.co</span></div>
+      <div class="tag tag-3"><span class="dom">myshop.makes.fyi</span></div>
       <canvas id="doodle"></canvas>
     </div>
   </section>
@@ -421,8 +433,8 @@
       <span class="c"># install the CLI</span><br>
       <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
       <span class="c"># point a domain at the site your agent just built</span><br>
-      <span class="p">$</span> agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10<br>
-      <span class="g">✓ myapp.makes.fyi is live on the public internet</span>
+      <span class="p">$</span> agentdomains claim myapp --email you@example.com --domain agentdomains.co --type A --content 203.0.113.10<br>
+      <span class="g">✓ myapp.agentdomains.co is live on the public internet</span>
     </div>
   </section>
 
@@ -432,6 +444,7 @@
     <p>Hosted Streamable HTTP endpoint at <span class="endpoint">https://mcp.agentdomains.co</span>,
     or the same server locally over stdio. Nothing to install for the hosted one.</p>
     <p><b>19 tools</b>: check availability, claim, list, records, forwards, proxies — same API key as the CLI.</p>
+    <p>No key yet? Connect with no key, call <span class="inline">signup</span>, then pass the key it returns as <span class="inline">api_key</span> on each call.</p>
 
     <div class="mcp-grid">
       <div>
@@ -481,7 +494,7 @@
     <div class="feature-card">
       <div class="metadata">01 / CLI</div>
       <h3>One command</h3>
-      <p><code>agentdomains claim myapp --email you@example.com</code> and your domain resolves on the public internet in seconds. Add <code>--json</code> for clean machine output.</p>
+      <p><code>agentdomains claim myapp --email you@example.com --domain agentdomains.co</code> and your domain resolves on the public internet in seconds. Add <code>--json</code> for clean machine output.</p>
     </div>
 
     <div class="feature-card">
@@ -499,7 +512,7 @@
     <div class="feature-card">
       <div class="metadata">04 / CHOICE</div>
       <h3>Two domains</h3>
-      <p>Claim under <code>makes.fyi</code> or <code>agentdomains.co</code> with <code>--domain</code>. The same name can live under each.</p>
+      <p>Claim under <code>agentdomains.co</code> or <code>makes.fyi</code> with <code>--domain</code>. The same name can live under each.</p>
     </div>
   </section>
 
@@ -552,7 +565,7 @@
         <div class="metadata">01 / DEMOS</div>
         <h3>Ship a demo with a real URL</h3>
         <p>Your agent deploys a prototype to a server and hands it over as a bare IP.
-        <code>agentdomains claim demo --type A --content 203.0.113.10</code> turns it into a link
+        <code>agentdomains claim demo --domain agentdomains.co --type A --content 203.0.113.10</code> turns it into a link
         you can share, live on the public internet in seconds.</p>
       </div>
       <div class="usecase-card">
@@ -560,7 +573,7 @@
         <h3>Give an API a front door</h3>
         <p>Agent-built APIs need real hostnames for webhooks, CORS origins, and OAuth callbacks.
         Reverse-proxy the name at your backend and TLS terminates on our certificate:
-        <code>https://api-widget.makes.fyi</code>, nothing to install or renew.</p>
+        <code>https://api-widget.agentdomains.co</code>, nothing to install or renew.</p>
       </div>
       <div class="usecase-card">
         <div class="metadata">03 / PREVIEW HOSTS</div>
@@ -588,10 +601,10 @@
     <div class="faq-list">
       <div class="faq-item">
         <h3>Is it really free, or is there a catch?</h3>
-        <p>Free covers up to 10 names under <code>makes.fyi</code> or <code>agentdomains.co</code>
-        with every feature — DNS records, forwarding, reverse proxy with HTTPS — and no card in the
-        flow. Pro ($5/month) raises the ceiling to 100 names and never releases a name for being
-        unreachable. The honest catch is the next question, on the
+        <p>Free covers up to 10 names under <code>agentdomains.co</code> or <code>makes.fyi</code>
+        with every feature (DNS records, forwarding, reverse proxy with HTTPS) and no card in the
+        flow. Pro ($10/year or $1/month) raises the ceiling to 100 names, adds visitor stats, and
+        never removes a name. The honest catch is the next question, on the
         <a href="/compare">compare page</a> in full.</p>
       </div>
       <div class="faq-item">
@@ -648,9 +661,9 @@
       <div class="limit-card">
         <div class="metadata">01 / NAMES</div>
         <h3>10 names free</h3>
-        <p>An account holds up to <b>10 names</b> under <code>makes.fyi</code> and
-        <code>agentdomains.co</code> combined, with every feature on each one. No paid tier is
-        needed to hold the tenth. <b>Pro</b> ($5/month or $48/year) raises the ceiling to
+        <p>An account holds up to <b>10 names</b> under <code>agentdomains.co</code> and
+        <code>makes.fyi</code> combined, with every feature on each one. No paid tier is
+        needed to hold the tenth. <b>Pro</b> ($10/year or $1/month) raises the ceiling to
         <b>100</b>. <code>agentdomains whoami</code> shows your usage against the cap.</p>
       </div>
 
@@ -670,8 +683,8 @@
         <p>A name whose origin stops answering gets you an <b>email at 30 days</b> and may be
         released back to the pool at <b>45</b>, so abandoned names come back around. A name that
         answers over HTTPS (or plain HTTP when it has no HTTPS) with any status below 500 is never
-        touched; a 5xx or a failed TLS handshake counts as down. On Pro, names are never released for
-        being dark. There is no request quota and no bandwidth bill on either plan.</p>
+        touched; a 5xx or a failed TLS handshake counts as down. On Pro, names are never removed, even
+        when the server goes quiet. There is no request quota and no bandwidth bill on either plan.</p>
       </div>
     </div>
 
@@ -706,6 +719,7 @@
   <button id="clear-doodle" type="button">🧹 clear</button>
 </div>
 
+<script src="/js/point.js"></script>
 <script>
   // playful wobble on the search box as you type
   const input = document.getElementById('domain-input');
@@ -717,7 +731,7 @@
 
   // click the suffix to toggle between the two domains
   const suffix = document.getElementById('suffix');
-  const domains = ['.makes.fyi', '.agentdomains.co'];
+  const domains = ['.agentdomains.co', '.makes.fyi']; // agentdomains.co first: it is what most people pick
   let di = 0;
   suffix.addEventListener('click', () => { di = (di + 1) % domains.length; suffix.textContent = domains[di]; runCheck(); });
 
@@ -844,14 +858,10 @@
         <div class="step"><b>2. Check your inbox.</b> We sent a link to <b>${esc(email)}</b>. Confirm it within
           <b>${esc(days)} days</b> to make it permanent, or ${esc(fqdn)} (and the account) is deleted automatically.</div>
 
-        <div class="step"><b>3. Point it somewhere.</b>
-          <form class="claim-row" id="fwd-form" novalidate style="margin-top:.4rem">
-            <input type="url" name="target" placeholder="https://your-site.example.com" aria-label="forward to this URL" required>
-            <button class="mini-btn ghost" type="submit">FORWARD IT →</button>
-          </form>
-          <div class="claim-err" id="fwd-err" role="alert"></div>
-          <div id="fwd-ok"></div>
-          <p class="fine">Or use the CLI for a server, a forward or a reverse proxy:</p>
+        <div class="step"><b>3. Point it somewhere.</b> Send it to a URL, your server's IP, or the host your app runs on.
+          <div id="point-slot"></div>
+          <p class="fine">Change it later, see all your names, or upgrade: <a href="/manage">agentdomains.co/manage</a> with your key.</p>
+          <p class="fine">Or use the CLI:</p>
 <pre><span class="c"># install (Go 1.22+), or grab a binary from github.com/tashfeenahmed/AgentDomains/releases</span>
 go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest
 export AGENTDOMAINS_API_KEY=${esc(key)}
@@ -877,26 +887,18 @@ agentdomains proxy ${esc(label)} myapp.fly.dev${esc(dflag)}</pre>
       else copyBtn.textContent = 'SELECT + COPY';
     });
 
-    const fwd = document.getElementById('fwd-form'), fwdErr = document.getElementById('fwd-err'), fwdOk = document.getElementById('fwd-ok');
-    fwd.addEventListener('submit', async e => {
-      e.preventDefault();
-      const tIn = fwd.querySelector('input'), b = fwd.querySelector('button');
-      let target = tIn.value.trim();
-      fwdErr.textContent = ''; fwdOk.innerHTML = '';
-      if (!target) { fwdErr.textContent = 'paste the URL to send visitors to'; return; }
-      if (!/^https?:\/\//i.test(target)) target = 'https://' + target;
-      b.disabled = true; b.textContent = 'FORWARDING…';
-      try {
-        const f = await api('PUT', '/v1/subdomains/' + encodeURIComponent(label) + '/forward', key, { target, domain });
-        const to = (f.forward && f.forward.target) || target;
-        fwdOk.innerHTML = `<p class="fine"><span class="ok">✓ <a href="https://${esc(fqdn)}" target="_blank" rel="noopener">${esc(fqdn)}</a> now forwards to ${esc(to)}</span>. Give it a minute for the edge to pick it up.</p>`;
-        b.textContent = 'UPDATE →';
-      } catch (ex) {
-        fwdErr.textContent = ex.message;
-        b.textContent = 'FORWARD IT →';
-      }
-      b.disabled = false;
-    });
+    // step 3: a URL (forward), a server IP (A/AAAA record) or an app host (proxy)
+    const slot = document.getElementById('point-slot');
+    if (window.ADPoint) {
+      slot.innerHTML = ADPoint.formHTML('url');
+      ADPoint.wireForm(slot.firstElementChild, async (mode, value) => {
+        const msg = await ADPoint.pointName(api, key, label, domain, mode, value);
+        track('browser_point_done', { mode, domain });
+        return msg;
+      });
+    } else {
+      slot.innerHTML = '<p class="fine">Use the CLI below, or <a href="/manage">/manage</a>.</p>';
+    }
     claimedEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
