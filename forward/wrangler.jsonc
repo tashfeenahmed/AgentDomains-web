@@ -7,5 +7,7 @@
   // a per-hostname Worker route (e.g. "shop.makes.fyi/*" -> this script) via the
   // Cloudflare API each time a URL forward is created, and removes it on delete.
   // So this Worker only ever runs for hostnames that are genuinely forwards.
-  "workers_dev": false
+  "workers_dev": false,
+  // Pro visitor stats (see recordVisit in worker.js).
+  "analytics_engine_datasets": [{ "binding": "VISITS", "dataset": "agentdomains_visits" }]
 }

@@ -9,6 +9,8 @@
   // Cloudflare API when a reverse-proxy is set up, and removes it on teardown.
   // So this Worker only ever runs for hostnames that are genuinely proxies.
   "workers_dev": false,
+  // Pro visitor stats (see recordVisit in worker.js).
+  "analytics_engine_datasets": [{ "binding": "VISITS", "dataset": "agentdomains_visits" }],
   "vars": {
     // Pinned host->origin overrides, JSON. Used as a fast path and so a host can
     // be proxied before the resolve endpoint knows about it (bootstrap/testing).
