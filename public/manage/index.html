@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage your names: AgentDomains</title>
+<meta name="description" content="Paste your API key to see your names, point them at a URL, a server IP or an app host, and upgrade to Pro. Your key stays in this tab.">
+<meta property="og:title" content="Manage your AgentDomains names">
+<meta property="og:description" content="See every name, point it somewhere, remove what you don't need, and upgrade to Pro.">
+<link rel="canonical" href="https://agentdomains.co/manage">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agentdomains.co/manage">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --energy:#00CC74;
+    --lime:#C6F24E;
+    --ink:#0A0A0A;
+    --canvas:#FFFFFF;
+    --mint:#EFFCF5;
+    --energy-d:#00A85E;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--canvas);color:var(--ink);
+    font-family:'Gaegu',cursive;font-size:1.2rem;line-height:1.3;overflow-x:hidden;
+  }
+  a{color:inherit}
+  h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.95;letter-spacing:-1px}
+  [hidden]{display:none!important}
+
+  .dot-grid{
+    background-image:radial-gradient(rgba(10,10,10,.13) 1.6px, transparent 1.6px);
+    background-size:38px 38px;background-position:-19px -19px;
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+  }
+
+  nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
+  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+  .logo .dot{color:var(--energy)}
+  .nav-links{display:flex;flex-wrap:wrap;gap:.9rem 1.5rem;align-items:center;justify-content:flex-end}
+  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+  .nav-links a:hover{border-bottom:2px solid var(--energy)}
+  .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
+  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+
+  main{padding:1rem 2rem 0;max-width:1100px;margin:0 auto}
+  h1{font-size:clamp(2.2rem,7vw,4.4rem);font-weight:800;text-transform:uppercase;margin-bottom:.7rem}
+  h1 .g{color:var(--energy)}
+  h2{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:800;text-transform:uppercase;margin:2.2rem 0 .8rem;
+    padding-top:.7rem;border-top:4px solid var(--ink)}
+  h2 .g{color:var(--energy)}
+  .lede{font-size:1.25rem;max-width:760px;padding:.9rem 1.2rem;border:3px solid var(--ink);
+    border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block;margin:0}
+  .metadata{font-family:'Space Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6;margin:.4rem 0}
+  p{max-width:820px}
+  code{font-family:'Space Mono',monospace;font-size:.82rem;background:var(--mint);border:1.5px solid var(--ink);
+    border-radius:5px;padding:0 5px;overflow-wrap:anywhere}
+
+  /* panels: the ink border + hard shadow of the pricing page's upgrade box */
+  .panel{border:3px solid var(--ink);border-radius:14px;padding:1.1rem 1.4rem;background:#fff;box-shadow:6px 6px 0 var(--energy);
+    max-width:900px;margin:1.5rem 0 0}
+  .panel.mint{background:var(--mint);box-shadow:6px 6px 0 var(--ink)}
+  .panel h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;margin-bottom:.4rem}
+  .panel h3 .g{color:var(--energy-d)}
+  .panel p{margin:.3rem 0}
+  .claim-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:stretch;margin-top:.5rem}
+  .claim-row input{flex:1 1 220px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
+    border:3px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink);outline:none}
+  .claim-row input:focus{box-shadow:3px 3px 0 var(--energy)}
+  .mini-btn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.95rem;padding:.55rem 1.1rem;cursor:pointer;
+    background:var(--energy);color:var(--ink);border:3px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--ink);transition:.12s;white-space:nowrap}
+  .mini-btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+  .mini-btn:disabled{opacity:.6;cursor:wait}
+  .mini-btn.ghost{background:#fff}
+  .mini-btn.danger{background:#fff;color:#c0392b}
+  .mini-btn.small{font-size:.8rem;padding:.3rem .7rem;box-shadow:3px 3px 0 var(--ink)}
+  .linkish{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;
+    text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+  .panel a,.fine a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+  .fine{font-size:1rem;margin:.45rem 0 0;opacity:.75}
+  .claim-err{color:#c0392b;font-weight:700;margin-top:.45rem;font-size:1.05rem}
+  .claim-err:empty{display:none}
+  .ok{color:var(--energy-d);font-weight:700}
+
+  /* the three-choice picker: same segmented toggle as the pricing interval */
+  .point-form{margin-top:.6rem}
+  .pick{display:inline-flex;flex-wrap:wrap;border:3px solid var(--ink);border-radius:8px;overflow:hidden;max-width:100%}
+  .pick label{font-family:'Space Mono',monospace;font-size:.8rem;padding:.45rem .7rem;cursor:pointer;background:#fff}
+  .pick label + label{border-left:3px solid var(--ink)}
+  .pick input{position:absolute;opacity:0;pointer-events:none}
+  .pick label:has(input:checked){background:var(--energy);font-weight:700}
+  .pick label:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:-5px}
+  .point-ok:empty{display:none}
+
+  /* account summary */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-top:.6rem}
+  .stat .metadata{margin:0}
+  .stat .v{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:-1px;overflow-wrap:anywhere}
+  .stat .v small{font-size:1rem;letter-spacing:0;opacity:.7}
+  .meter{height:12px;border:2px solid var(--ink);border-radius:8px;background:#fff;overflow:hidden;margin-top:.3rem}
+  .meter span{display:block;height:100%;background:var(--energy)}
+  .plan-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.6rem}
+
+  /* one card per name */
+  .names{display:grid;gap:1.3rem;margin-top:1rem;max-width:900px}
+  .name{border:3px solid var(--ink);border-radius:14px;padding:1rem 1.2rem;background:#fff}
+  .name.idle{border-left:10px solid var(--lime)}
+  .name.live{border-left:10px solid var(--energy)}
+  .name-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;flex-wrap:wrap}
+  .name h3{font-size:1.3rem;font-weight:800;line-height:1.05;overflow-wrap:anywhere;min-width:0}
+  .name h3 a{text-decoration:none;border-bottom:2px solid var(--energy)}
+  .badge{font-family:'Space Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;font-weight:700;
+    border:2px solid var(--ink);border-radius:20px;padding:.15rem .6rem;white-space:nowrap}
+  .badge.live{background:var(--energy)}
+  .badge.idle{background:var(--lime)}
+  .what{list-style:none;padding:0;margin:.6rem 0 0}
+  .what li{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.35rem 0;border-top:1.5px dashed rgba(10,10,10,.25)}
+  .what li:first-child{border-top:0}
+  .what .desc{min-width:0;overflow-wrap:anywhere;font-size:1.08rem}
+  .what code{font-size:.78rem}
+  .name-foot{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.7rem}
+  .confirm{margin-top:.6rem;padding:.6rem .8rem;border:2px solid var(--ink);border-left:8px solid #c0392b;border-radius:8px;background:#FFF5F3}
+  .confirm .plan-btns{margin-top:.4rem}
+  .empty{font-size:1.15rem}
+
+  footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
+    align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:3rem}
+  footer h2{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;border-top:0;padding-top:0;margin:0}
+  footer h2 .g{color:var(--energy)}
+  .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
+  .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
+  .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+
+  @media(max-width:700px){
+    .pick{display:grid;grid-template-columns:repeat(3,1fr)}
+    .pick label{font-size:.72rem;padding:.45rem .3rem;text-align:center}
+    .nav-links{width:100%;justify-content:flex-start}
+    nav{padding:1rem 16px}
+    main{padding:.5rem 16px 0}
+    footer{padding:2.5rem 0}
+    .panel{padding:1rem;box-shadow:4px 4px 0 var(--energy)}
+    .panel.mint{box-shadow:4px 4px 0 var(--ink)}
+    .name{padding:.9rem}
+    .lede{border-radius:18px}
+  }
+</style>
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+
+<div class="dot-grid"></div>
+
+<nav>
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="https://docs.agentdomains.co">Docs</a>
+    <a href="/#mcp">MCP</a>
+    <a href="/compare">Compare</a>
+    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a href="/manage" aria-current="page">Manage</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
+  </div>
+</nav>
+
+<main>
+  <h1>Manage your <span class="g">names.</span></h1>
+  <p class="lede">Paste your API key to see every name, point it somewhere, and upgrade.
+  Your key stays in this tab. It is not saved.</p>
+
+  <form class="panel" id="key-form" novalidate>
+    <h3>Your <span class="g">API key</span></h3>
+    <div class="claim-row">
+      <input type="password" id="key-in" placeholder="adom_…" autocomplete="off" spellcheck="false" aria-label="your AgentDomains API key">
+      <button class="mini-btn" type="submit">OPEN →</button>
+    </div>
+    <div class="claim-err" id="key-err" role="alert"></div>
+    <p class="fine">It goes only to <code>api.agentdomains.co</code>. No key yet?
+    <a href="/">Claim a name</a> and you get one. <button type="button" class="linkish" id="lost-btn">Lost your key?</button></p>
+  </form>
+
+  <form class="panel mint" id="recover" novalidate hidden>
+    <h3>Lost your <span class="g">key?</span></h3>
+    <p>Type the email on your account. If it is confirmed, we send a link that gives you a new key.</p>
+    <div class="claim-row">
+      <input type="email" id="rec-email" placeholder="you@example.com" autocomplete="email" aria-label="your email">
+      <button class="mini-btn ghost" type="submit">SEND LINK →</button>
+    </div>
+    <div class="claim-err" id="rec-err" role="alert"></div>
+    <p class="fine" id="rec-ok" hidden></p>
+  </form>
+
+  <section id="account" hidden>
+    <div class="panel">
+      <div class="name-head">
+        <h3>Your <span class="g">account</span></h3>
+        <button type="button" class="mini-btn ghost small" id="sign-out">FORGET KEY</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="metadata">Plan</div><div class="v" id="s-plan">-</div></div>
+        <div class="stat"><div class="metadata">Names</div><div class="v" id="s-used">-</div><div class="meter" id="s-meter" hidden><span></span></div></div>
+        <div class="stat"><div class="metadata">Not set up yet</div><div class="v" id="s-idle">-</div></div>
+        <div class="stat"><div class="metadata">Email</div><div class="v" style="font-size:1.05rem;letter-spacing:0" id="s-email">-</div></div>
+      </div>
+      <p class="fine" id="s-note"></p>
+    </div>
+
+    <div class="panel mint" id="upgrade" hidden>
+      <h3>Upgrade to <span class="g">Pro</span>, $1/month or $10/year</h3>
+      <p>100 names instead of 10. Visitor stats for names you forward or proxy. Names are never
+      removed, even if unused or the server behind them goes quiet. Priority support.</p>
+      <div class="plan-btns">
+        <button type="button" class="mini-btn" data-interval="year" data-umami-event="pricing_cta" data-umami-event-location="manage-upgrade-year">$10 / YEAR, BEST DEAL →</button>
+        <button type="button" class="mini-btn ghost" data-interval="month" data-umami-event="pricing_cta" data-umami-event-location="manage-upgrade-month">$1 / MONTH →</button>
+      </div>
+      <div class="claim-err" id="up-err" role="alert"></div>
+      <p class="fine">You pay on Stripe. Yearly is 2 months free. Cancel any time and keep your names.</p>
+    </div>
+
+    <div class="panel mint" id="billing" hidden>
+      <h3>You're on <span class="g">Pro</span></h3>
+      <p>Change your card, see invoices, switch to yearly or cancel.</p>
+      <div class="plan-btns">
+        <button type="button" class="mini-btn ghost" id="portal-btn">MANAGE BILLING →</button>
+      </div>
+      <div class="claim-err" id="portal-err" role="alert"></div>
+    </div>
+
+    <h2>Your <span class="g">names</span></h2>
+    <p>A name is <b>working</b> when it has a record, a forward or a proxy. Names that are
+    <b>not set up yet</b> point nowhere: pick a URL, a server IP or an app host to fix that.
+    A forward or proxy replaces the name's A, AAAA and CNAME records.</p>
+    <div class="claim-err" id="list-err" role="alert"></div>
+    <div class="names" id="names"></div>
+  </section>
+
+  <footer>
+    <div>
+      <h2>Free domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
+    </div>
+    <div style="text-align:right">
+      <div class="metadata">Find us</div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="/compare">Compare</a>
+        <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
+        <a href="/manage">Manage</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script src="/js/point.js"></script>
+<script>
+  // The key lives in `key` below and nowhere else: never localStorage,
+  // sessionStorage, a cookie or the URL. Reloading the page forgets it.
+  (function(){
+    const API = 'https://api.agentdomains.co';
+    let key = null;
+    let names = [];
+
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const track = (ev, data) => { try { if (window.umami && typeof umami.track === 'function') umami.track(ev, data); } catch (e) {} };
+
+    async function api(method, path, k, body){
+      const headers = {};
+      if (k) headers['Authorization'] = 'Bearer ' + k;
+      if (body !== undefined) headers['Content-Type'] = 'application/json';
+      let r;
+      try {
+        r = await fetch(API + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+      } catch (e) {
+        throw new Error("couldn't reach api.agentdomains.co, check your connection and try again");
+      }
+      let d = {};
+      try { d = await r.json(); } catch (e) {}
+      if (!r.ok) {
+        let msg = d.error || ('request failed (' + r.status + ')');
+        if (r.status === 429 && d.retry_after) msg += ' (try again in ' + Math.ceil(d.retry_after / 60) + ' min)';
+        const err = new Error(msg); err.status = r.status; throw err;
+      }
+      return d;
+    }
+
+    // ---- key in, key out ----
+    const keyForm = $('key-form'), keyIn = $('key-in'), keyErr = $('key-err');
+    keyForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      keyErr.textContent = '';
+      const k = keyIn.value.trim();
+      if (!k) { keyErr.textContent = 'paste your API key first'; keyIn.focus(); return; }
+      const btn = keyForm.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = 'OPENING…';
+      try {
+        const who = await api('GET', '/v1/whoami', k);
+        key = k; keyIn.value = '';
+        keyForm.hidden = true; $('recover').hidden = true;
+        renderAccount(who);
+        $('account').hidden = false;
+        track('manage_opened', { plan: who.plan || 'free' });
+        await loadNames();
+      } catch (ex) {
+        keyErr.textContent = ex.status === 401 ? (ex.message + '. Check the key, or get a new one below.') : ex.message;
+      }
+      btn.disabled = false; btn.textContent = 'OPEN →';
+    });
+
+    $('sign-out').addEventListener('click', () => {
+      key = null; names = [];
+      $('names').innerHTML = '';
+      $('account').hidden = true;
+      keyForm.hidden = false; keyIn.focus();
+    });
+
+    // ---- lost key ----
+    const recForm = $('recover');
+    function showRecover(){ recForm.hidden = false; $('rec-email').focus(); }
+    $('lost-btn').addEventListener('click', showRecover);
+    if (location.hash === '#recover') showRecover();
+    window.addEventListener('hashchange', () => { if (location.hash === '#recover') showRecover(); });
+    recForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = $('rec-email').value.trim(), err = $('rec-err'), ok = $('rec-ok');
+      const btn = recForm.querySelector('button');
+      err.textContent = ''; ok.hidden = true;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = "that email doesn't look right"; return; }
+      btn.disabled = true; btn.textContent = 'SENDING…';
+      // the same message whatever happens: it must not tell anyone which emails have accounts
+      try { await api('POST', '/v1/account/key/recover', null, { email }); } catch (ex) {}
+      ok.textContent = 'If a confirmed account uses that email, a link is on its way. Open it to get a new key. Your old key keeps working until you do.';
+      ok.hidden = false;
+      btn.disabled = false; btn.textContent = 'SEND LINK →';
+    });
+
+    // ---- account ----
+    let who = {};
+    function renderAccount(w){
+      who = w || {};
+      const pro = who.plan === 'pro';
+      $('s-plan').textContent = pro ? 'Pro' : 'Free';
+      renderUsage();
+      $('s-email').textContent = who.email ? who.email + (who.email_verified ? '' : ' (not confirmed yet)') : '-';
+      let note = '';
+      if (who.email && !who.email_verified) note = 'Confirm the link we emailed you, or the account and its names are deleted.';
+      if (who.expires_at && !who.email_verified) note += ' Deadline: ' + new Date(who.expires_at * 1000).toLocaleDateString() + '.';
+      $('s-note').textContent = note.trim();
+      $('upgrade').hidden = pro;
+      $('billing').hidden = !pro;
+    }
+    function cap(){ return who.max_subdomains || who.quota || 0; }
+    function renderUsage(){
+      const used = typeof who.used === 'number' ? who.used : names.length;
+      const n = cap();
+      $('s-used').innerHTML = esc(used) + ' <small>of ' + (n ? esc(n) : '-') + '</small>';
+      const m = $('s-meter');
+      if (n) { m.hidden = false; m.firstElementChild.style.width = Math.min(100, Math.round(used / n * 100)) + '%'; }
+      else m.hidden = true;
+    }
+
+    // ---- billing ----
+    document.querySelectorAll('#upgrade [data-interval]').forEach(b => b.addEventListener('click', async () => {
+      const interval = b.dataset.interval, err = $('up-err'), label = b.textContent;
+      err.textContent = '';
+      b.disabled = true; b.textContent = 'OPENING STRIPE…';
+      try {
+        const d = await api('POST', '/v1/billing/checkout', key, { interval });
+        if (!d.url) throw new Error('no checkout link came back, try again');
+        track('upgrade_checkout_opened', { interval, kind: d.kind || 'checkout', from: 'manage' });
+        window.location.href = d.url;
+      } catch (ex) {
+        err.textContent = ex.message;
+        b.disabled = false; b.textContent = label;
+      }
+    }));
+    $('portal-btn').addEventListener('click', async () => {
+      const b = $('portal-btn'), err = $('portal-err');
+      err.textContent = '';
+      b.disabled = true; b.textContent = 'OPENING…';
+      try {
+        const d = await api('POST', '/v1/billing/portal', key);
+        if (!d.url) throw new Error('no billing link came back, try again');
+        window.location.href = d.url;
+      } catch (ex) {
+        err.textContent = ex.message;
+        b.disabled = false; b.textContent = 'MANAGE BILLING →';
+      }
+    });
+
+    // ---- names ----
+    const sdPath = sd => '/v1/subdomains/' + encodeURIComponent(sd.label);
+    const dq = sd => '?domain=' + encodeURIComponent(sd.domain);
+    const working = sd => sd.serving !== undefined ? !!sd.serving : !!(sd.delegated || sd.forward || sd.proxy || (sd.records || []).length);
+
+    async function loadNames(){
+      $('list-err').textContent = '';
+      $('names').innerHTML = '<p class="fine">Loading your names…</p>';
+      try {
+        const d = await api('GET', '/v1/subdomains', key);
+        names = d.subdomains || [];
+        renderNames();
+      } catch (ex) {
+        $('names').innerHTML = '';
+        $('list-err').textContent = ex.message;
+      }
+    }
+
+    function renderNames(){
+      const box = $('names');
+      $('s-idle').textContent = names.length ? String(names.filter(sd => !working(sd)).length) : '-';
+      renderUsage();
+      if (!names.length) {
+        box.innerHTML = '<p class="empty">No names yet. <a href="/" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">Check a name on the homepage</a> and claim it with this key\'s email.</p>';
+        return;
+      }
+      box.innerHTML = '';
+      // names that point nowhere first: they are the ones to fix
+      const sorted = names.slice().sort((a, b) => working(a) - working(b));
+      for (const sd of sorted) box.appendChild(nameCard(sd));
+    }
+
+    function describe(sd){
+      const rows = [];
+      if (sd.forward) rows.push({ kind: 'forward', html: 'Forwards to <code>' + esc(sd.forward.target) + '</code>' });
+      if (sd.proxy) rows.push({ kind: 'proxy', html: 'Serves <code>' + esc(sd.proxy.origin) + '</code> over HTTPS' });
+      if (sd.delegated) rows.push({ kind: null, html: 'Uses your own nameservers' });
+      for (const r of (sd.records || [])) {
+        const at = r.name && r.name !== sd.fqdn ? ' on <code>' + esc(r.name) + '</code>' : '';
+        rows.push({ kind: 'record', id: r.id, html: '<b>' + esc(r.type) + '</b> <code>' + esc(r.content) + '</code>' + at });
+      }
+      return rows;
+    }
+
+    function nameCard(sd){
+      const live = working(sd);
+      const el = document.createElement('div');
+      el.className = 'name ' + (live ? 'live' : 'idle');
+      const rows = describe(sd);
+      el.innerHTML =
+        '<div class="name-head">' +
+          '<h3><a href="https://' + esc(sd.fqdn) + '" target="_blank" rel="noopener">' + esc(sd.fqdn) + '</a></h3>' +
+          '<span class="badge ' + (live ? 'live' : 'idle') + '">' + (live ? 'working' : 'not set up yet') + '</span>' +
+        '</div>' +
+        (rows.length
+          ? '<ul class="what">' + rows.map((r, i) => '<li><span class="desc">' + r.html + '</span>' +
+              (r.kind ? '<button type="button" class="mini-btn ghost small" data-row="' + i + '">REMOVE</button>' : '') + '</li>').join('') + '</ul>'
+          : '<p class="fine">Points nowhere yet. Visitors get nothing.</p>') +
+        '<div class="metadata" style="margin-top:.8rem">// ' + (live ? 'point it somewhere else' : 'point it somewhere') + '</div>' +
+        '<div class="slot"></div>' +
+        '<div class="claim-err row-err" role="alert"></div>' +
+        '<div class="name-foot"><button type="button" class="mini-btn danger small del">DELETE NAME</button></div>' +
+        '<div class="confirm" hidden>' +
+          '<b>Delete ' + esc(sd.fqdn) + '?</b> Its records, forward and proxy go too, and someone else can claim it. This can\'t be undone.' +
+          '<div class="plan-btns"><button type="button" class="mini-btn danger small yes">YES, DELETE IT</button>' +
+          '<button type="button" class="mini-btn ghost small no">KEEP IT</button></div>' +
+        '</div>';
+
+      const rowErr = el.querySelector('.row-err');
+
+      // point it: URL / server IP / app host
+      const slot = el.querySelector('.slot');
+      slot.innerHTML = ADPoint.formHTML(sd.proxy ? 'host' : (sd.records || []).some(r => /^(A|AAAA)$/.test(r.type)) && !sd.forward ? 'ip' : 'url');
+      ADPoint.wireForm(slot.firstElementChild, async (mode, value) => {
+        const msg = await ADPoint.pointName(api, key, sd.label, sd.domain, mode, value);
+        track('manage_point_done', { mode, domain: sd.domain });
+        await refresh(sd, msg);
+        return msg;
+      });
+
+      // remove one record / the forward / the proxy
+      el.querySelectorAll('[data-row]').forEach(b => b.addEventListener('click', async () => {
+        const r = rows[+b.dataset.row];
+        rowErr.textContent = '';
+        b.disabled = true; b.textContent = 'REMOVING…';
+        try {
+          if (r.kind === 'forward') await api('DELETE', sdPath(sd) + '/forward' + dq(sd), key);
+          else if (r.kind === 'proxy') await api('DELETE', sdPath(sd) + '/proxy' + dq(sd), key);
+          else await api('DELETE', sdPath(sd) + '/records/' + encodeURIComponent(r.id) + dq(sd), key);
+          await refresh(sd);
+        } catch (ex) {
+          rowErr.textContent = ex.message;
+          b.disabled = false; b.textContent = 'REMOVE';
+        }
+      }));
+
+      // delete the name, with a confirm step
+      const conf = el.querySelector('.confirm'), del = el.querySelector('.del');
+      del.addEventListener('click', () => { conf.hidden = false; del.hidden = true; conf.querySelector('.no').focus(); });
+      conf.querySelector('.no').addEventListener('click', () => { conf.hidden = true; del.hidden = false; });
+      conf.querySelector('.yes').addEventListener('click', async e => {
+        const b = e.currentTarget;
+        rowErr.textContent = '';
+        b.disabled = true; b.textContent = 'DELETING…';
+        try {
+          await api('DELETE', sdPath(sd) + dq(sd), key);
+          names = names.filter(x => !(x.label === sd.label && x.domain === sd.domain));
+          if (typeof who.used === 'number') who.used = Math.max(0, who.used - 1);
+          track('manage_name_deleted', { domain: sd.domain });
+          renderNames();
+        } catch (ex) {
+          rowErr.textContent = ex.message;
+          b.disabled = false; b.textContent = 'YES, DELETE IT';
+        }
+      });
+      return el;
+    }
+
+    // re-read one name and redraw its card in place; `msg` survives the redraw
+    async function refresh(sd, msg){
+      const fresh = await api('GET', sdPath(sd) + dq(sd), key);
+      const i = names.findIndex(x => x.label === sd.label && x.domain === sd.domain);
+      if (i >= 0) names[i] = fresh;
+      renderNames();
+      if (msg) {
+        const card = Array.from(document.querySelectorAll('#names .name')).find(c => c.querySelector('h3').textContent === fresh.fqdn);
+        if (card) {
+          const ok = card.querySelector('.point-ok');
+          ok.innerHTML = '<p class="fine"><span class="ok"></span></p>';
+          ok.querySelector('.ok').textContent = '✓ ' + msg + '. Give it a minute to go live.';
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>
