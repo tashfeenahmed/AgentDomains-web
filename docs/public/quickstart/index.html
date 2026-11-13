@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quickstart — claim a free domain | AgentDomains Docs</title>
-<meta name="description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
+<title>Quickstart: claim a domain | AgentDomains Docs</title>
+<meta name="description" content="Sign up, claim a subdomain (free for 30 days) and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
 <link rel="canonical" href="https://docs.agentdomains.co/quickstart">
-<meta property="og:title" content="Quickstart — claim a free domain | AgentDomains Docs">
-<meta property="og:description" content="Sign up, claim a free subdomain and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
+<meta property="og:title" content="Quickstart: claim a domain | AgentDomains Docs">
+<meta property="og:description" content="Sign up, claim a subdomain (free for 30 days) and publish it in three commands: signup, claim with --email and an A record, then dig to confirm it resolves.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/quickstart">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
@@ -89,7 +89,7 @@
     <a href="/install">Install</a>
     <a class="cur" href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/accounts">Accounts &amp; trial</a>
     <a href="/records">DNS records</a>
     <a href="/ssl">Getting HTTPS / SSL</a>
     <a href="/forwarding">URL forwarding</a>
@@ -111,10 +111,13 @@
     <pre><code>agentdomains signup                                   # instant account + API key
 agentdomains claim myagent --email you@example.com --type A --content 203.0.113.10
 dig +short myagent.makes.fyi                       # 203.0.113.10 ✨</code></pre>
-    <div class="note">Your <strong>first</strong> registration needs <code>--email</code> — we send a
-    confirmation link and start a 30-day clock. Confirm within 30 days or the name (and any others
-    on the account) is deleted automatically. After the first time, the email is remembered on the
+    <div class="note">Your <strong>first</strong> registration needs <code>--email</code>: we send a
+    confirmation link. Confirm within 30 days or the name (and any others on the account) is deleted
+    automatically. After the first time, the email is remembered on the
     account, so later <code>claim</code>/<code>forward</code>/<code>proxy</code> calls don't repeat it.</div>
+    <div class="note">New accounts get a <strong>30-day free trial</strong>, no card. We email a
+    reminder on day 25. On day 30 the names are released unless you upgrade to Pro ($10/year or
+    $1/month): <code>agentdomains upgrade --yearly</code>. See <a href="/accounts#trial">the trial</a>.</div>
 
     <h3>Choosing a domain</h3>
     <p>Names are claimed under <code>makes.fyi</code> by default. Pass

@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
@@ -89,7 +89,7 @@
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a href="/accounts">Accounts &amp; confirmation</a>
+    <a href="/accounts">Accounts &amp; trial</a>
     <a href="/records">DNS records</a>
     <a href="/ssl">Getting HTTPS / SSL</a>
     <a href="/forwarding">URL forwarding</a>
@@ -160,10 +160,10 @@ curl -s https://mcp.agentdomains.co \
     <table>
       <tr><th>Tool</th><th>Endpoint</th><th>Description</th></tr>
       <tr><td><code>check_availability</code></td><td><code>GET /v1/available</code></td><td>Is a label free? No key required</td></tr>
-      <tr><td><code>signup</code></td><td><code>POST /v1/signup</code></td><td>Create an account; the key is shown once. No key required</td></tr>
-      <tr><td><code>whoami</code></td><td><code>GET /v1/whoami</code></td><td>Account state, email, quota, usage</td></tr>
+      <tr><td><code>signup</code></td><td><code>POST /v1/signup</code></td><td>Create an account with a 30-day free trial; the key is shown once. No key required</td></tr>
+      <tr><td><code>whoami</code></td><td><code>GET /v1/whoami</code></td><td>Account state, email, quota, usage, trial days left</td></tr>
       <tr><td><code>attach_email</code></td><td><code>POST /v1/account/email</code></td><td>Attach an email and send its verification link</td></tr>
-      <tr><td><code>claim_domain</code></td><td><code>POST /v1/subdomains</code></td><td>Register a name, optionally with a first record</td></tr>
+      <tr><td><code>claim_domain</code></td><td><code>POST /v1/subdomains</code></td><td>Register a name, optionally with a first record. On the trial, names last until day 30 unless you upgrade</td></tr>
       <tr><td><code>list_domains</code></td><td><code>GET /v1/subdomains</code></td><td>List every name on the account</td></tr>
       <tr><td><code>get_domain</code></td><td><code>GET /v1/subdomains/{label}</code></td><td>One name, its records and forward/proxy state</td></tr>
       <tr><td><code>delete_domain</code></td><td><code>DELETE /v1/subdomains/{label}</code></td><td><span class="pill">destructive</span> Delete a name and all its records</td></tr>
@@ -176,9 +176,9 @@ curl -s https://mcp.agentdomains.co \
       <tr><td><code>remove_proxy</code></td><td><code>DELETE /v1/subdomains/{label}/proxy</code></td><td>Stop proxying</td></tr>
       <tr><td><code>delegate_nameservers</code></td><td><code>PUT /v1/subdomains/{label}/ns</code></td><td>Delegate the name to your own nameservers</td></tr>
       <tr><td><code>delete_account</code></td><td><code>DELETE /v1/account[?force=true]</code></td><td><span class="pill">destructive</span> Close the account and kill its key; refuses while names are held unless <code>force</code></td></tr>
-      <tr><td><code>upgrade_to_pro</code></td><td><code>POST /v1/billing/checkout</code></td><td>Stripe checkout link for Pro ($10/year or $1/month); charges nothing, a human pays</td></tr>
+      <tr><td><code>upgrade_to_pro</code></td><td><code>POST /v1/billing/checkout</code></td><td>Stripe checkout link for Pro ($10/year or $1/month), which keeps names after the trial; charges nothing, a human pays</td></tr>
       <tr><td><code>manage_billing</code></td><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for a Pro account</td></tr>
-      <tr><td><code>get_visits</code></td><td><code>GET /v1/subdomains/{label}/visits</code></td><td>Visitors to a forwarded or proxied name. Pro: daily counts and countries; free: the total</td></tr>
+      <tr><td><code>get_visits</code></td><td><code>GET /v1/subdomains/{label}/visits</code></td><td>Visitors to a forwarded or proxied name. Pro: daily counts and countries; trial: the total</td></tr>
     </table>
     </div>
     <p class="muted">Every label-scoped tool takes an optional <code>domain</code>

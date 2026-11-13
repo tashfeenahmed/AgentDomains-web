@@ -1,9 +1,9 @@
 # AgentDomains
 
-> Free domains for the websites and APIs AI agents build. One command gives an
+> Real domains for the websites and APIs AI agents build. One command gives an
 > agent a real hostname under `agentdomains.co` or `makes.fyi`, with DNS records,
-> automatic SSL, URL forwarding, and reverse proxying. Signing up needs nothing;
-> the account's first name needs an email address.
+> automatic SSL, URL forwarding, and reverse proxying. Free for 30 days, then
+> $1/month. Signing up needs nothing; the account's first name needs an email address.
 
 AgentDomains is a CLI (`agentdomains`) plus a hosted DNS API. An agent registers a
 name, points records at whatever it just deployed, and the site is live over HTTPS.
@@ -12,25 +12,26 @@ Signup takes no email and no form: `POST /v1/signup` returns an API key immediat
 The account's *first* registration does need an email — pass `--email you@example.com`
 to `agentdomains claim` (or `email` in the JSON body), or the call answers
 400 "registering a name needs an email". That address is used only for the
-verification link and for notices before an unhealthy name is reclaimed. Confirm it
+verification link, the trial reminder, and notices about your names. Confirm it
 within 30 days or the account and its names are deleted. Later claims on the same
 account need no email. Labels are lowercased when claimed, so `MyApp` becomes
 `myapp.makes.fyi`.
 
 ## Quotas and expiry (the whole policy)
 
-Stated up front, because every free-subdomain rival states its limits and shoppers compare them:
+Stated up front, because every subdomain rival states its limits and shoppers compare them:
 
-- **Names per account:** 10 on Free (every feature on every name), 100 on Pro ($10/year or
+- **Free trial:** every new account gets 30 days free, no card. Agents can sign up and claim
+  instantly. On day 25 we email a reminder with the end date. On day 30, names on accounts that
+  have not upgraded are released (deleted, free for anyone to claim). The account and API key
+  stay, and upgrading lets you claim again.
+- **Names per account:** 10 on the trial (every feature on every name), 100 on Pro ($10/year or
   $1/month). The cap counts confirmed mailboxes, so throwaway accounts don't multiply it.
   `whoami` reports usage against the cap.
-- **Account expiry:** signup starts a provisional account on a 30-day clock. Confirm the email
-  sent on the first claim within 30 days and the account and its names are permanent; never
-  confirm and both are deleted automatically.
-- **Name health:** a name whose origin stops answering gets an email at 30 days and may be
-  released at 45 (Pro names are never removed). An HTTPS answer (plain HTTP only when
-  nothing listens on 443) with any status below 500 counts as alive; a 5xx or a failed TLS
-  handshake does not.
+- **Email confirmation:** the first claim sends a confirmation link. Never confirm it within
+  30 days and the account and its names are deleted automatically.
+- **Pro keeps names:** on Pro, names are kept as long as you pay and are never removed for
+  being unused, even when the server behind them goes quiet.
 - **No request quota, no bandwidth bill, no rate card** on either plan. Signup, claims and
   verification emails are rate-limited per IP to keep the pool from being farmed.
 
@@ -54,7 +55,7 @@ sub-label and TXT records are untouched. One record can be removed on its own
 - [Documentation](https://docs.agentdomains.co/): what AgentDomains is and when to use it
 - [Install](https://docs.agentdomains.co/install): install the CLI
 - [Quickstart](https://docs.agentdomains.co/quickstart): register a name and publish a site
-- [Accounts](https://docs.agentdomains.co/accounts): signup, quotas, email confirmation
+- [Accounts](https://docs.agentdomains.co/accounts): signup, the 30-day trial, quotas, email confirmation
 - [DNS records](https://docs.agentdomains.co/records): A, AAAA, CNAME, TXT (MX needs nameserver delegation)
 - [SSL](https://docs.agentdomains.co/ssl): HTTP-01 or DNS-01 with your own ACME client
 - [Forwarding](https://docs.agentdomains.co/forwarding): redirect a name to another URL (replaces the address records on that name)
@@ -75,28 +76,27 @@ sub-label and TXT records are untouched. One record can be removed on its own
 
 ## Pricing
 
-- [Pricing](https://agentdomains.co/pricing): two plans.
-  - **Free, $0, no card.** A hostname, DNS records (A, AAAA, CNAME, TXT, NS delegation), forwarding,
-    and a reverse proxy with edge HTTPS, for up to 10 names per account. A name whose origin stays
-    unreachable is emailed about at 30 days and may be released at 45.
-  - **Pro, $10/year or $1/month** (yearly is the better deal). Up to 100 names instead of 10;
-    visitor stats for names you forward or proxy (daily visits per name); names are never removed,
-    even if unused or the server behind them goes quiet; priority support. Every Free feature is
-    included unchanged.
-  - Names already registered keep working; adding Pro removed nothing from Free. Cancelling Pro never
-    deletes a name: the account keeps what it holds and cannot add past 10.
+- [Pricing](https://agentdomains.co/pricing): free for 30 days, then $1/month.
+  - **Free trial, 30 days, no card.** A hostname, DNS records (A, AAAA, CNAME, TXT, NS delegation),
+    forwarding, and a reverse proxy with edge HTTPS, for up to 10 names per account. Reminder email
+    on day 25. On day 30, names on accounts that have not upgraded are released for anyone to
+    claim; the account stays.
+  - **Pro, $10/year or $1/month** (yearly is the better deal). Names kept as long as you pay;
+    up to 100 names instead of 10; visitor stats for names you forward or proxy (daily visits per
+    name); names never removed for being unused; priority support. Everything in the trial is
+    included.
   - To upgrade: [Manage](https://agentdomains.co/manage) (paste the API key), `agentdomains upgrade --yearly` (or monthly without the flag), the MCP tool `upgrade_to_pro`, or
     `POST /v1/billing/checkout`. Each returns a Stripe Checkout link that a human opens and pays; an
     agent cannot complete the payment. `agentdomains billing` / `manage_billing` /
-    `POST /v1/billing/portal` manage or cancel it. A free account at its limit gets a 403 that says so.
+    `POST /v1/billing/portal` manage or cancel it. A trial account at its limit gets a 403 that says so.
   - Not offered at any price: registering or transferring a real second-level domain, and WHOIS/RDAP
     records (a subdomain has none).
 
 ## What AgentDomains is not
 
 Stated plainly, because it is regularly confused with other products: AgentDomains takes **no
-payment to get started**. The free plan needs no card. The only payment is the optional Pro plan,
-by card through Stripe Checkout, which a human completes. There is no crypto and no x402. It **does not register or transfer
+payment to get started**. The 30-day trial needs no card. The only payment is Pro, which keeps
+names after the trial, by card through Stripe Checkout, which a human completes. There is no crypto and no x402. It **does not register or transfer
 second-level domains** (no `.com`, no registrar function, no WHOIS/RDAP record — a subdomain has
 none). It is **not** a product called InstaDomain and is not affiliated with one. It hosts nothing:
 there is no build step, no deploy, and no storage. It hands out a hostname under `agentdomains.co` or
@@ -107,17 +107,17 @@ there is no build step, no deploy, and no storage. It hands out a hostname under
 Two comparisons, because there are two different questions.
 
 - [Compare](https://agentdomains.co/compare): the full sourced tables.
-- [Free vs the paid rivals](https://agentdomains.co/compare/paid-rivals): a head-to-head against
+- [Us vs the paid rivals](https://agentdomains.co/compare/paid-rivals): a head-to-head against
   two paid rivals with public pricing — agentdomain.app (example x402 checkout
   `USDC 25.00 on Base`, $3.90/yr platform fee, Starter $59 / Pro $120 / Enterprise $240 per year,
   USDC on Base only) and MCPDomain (Stripe checkout via `register_new_domain`, "wholesale + a small
-  flat margin", free availability checks, TLD price table unpublished). AgentDomains is $0: a free
-  subdomain has no registry fee behind it. Rivals' pricing read 2026-09-29.
+  flat margin", free availability checks, TLD price table unpublished). AgentDomains is free for
+  30 days, then $1/month: a subdomain has no registry fee behind it. Rivals' pricing read 2026-09-29.
 
 **Against registrars** (agentdomain.app, DomainForAgents, Namefi, Cloudflare Registrar, Name.com) —
 cost to first working hostname, account/KYC, payment method, SSL, DNS API coverage, CLI/MCP access.
 Figures verified 2026-08-23. Key caveat: AgentDomains gives you a subdomain we operate, not a
-second-level domain you own and can transfer. Free and instant, but not yours in the registrar sense.
+second-level domain you own and can transfer. Cheap and instant, but not yours in the registrar sense.
 
 **Against free subdomains** (`*.vercel.app`, `*.netlify.app`, `<owner>.github.io`, `*.duckdns.org`,
 `<ip>.nip.io`) — verified 2026-09-03. This is the comparison that matters when the question is

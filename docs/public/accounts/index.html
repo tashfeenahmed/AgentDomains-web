@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Accounts &amp; confirmation — AgentDomains Docs</title>
-<meta name="description" content="Signup makes a provisional account and API key. A confirmation email starts a 30-day clock; miss it and the names are released. 10 per account.">
+<title>Accounts &amp; trial | AgentDomains Docs</title>
+<meta name="description" content="Signup makes an account and API key with a 30-day free trial, no card. Reminder on day 25; on day 30 names are released unless you upgrade to Pro ($1/month). 10 names per account.">
 <link rel="canonical" href="https://docs.agentdomains.co/accounts">
-<meta property="og:title" content="Accounts &amp; confirmation — AgentDomains Docs">
-<meta property="og:description" content="Signup makes a provisional account and API key. A confirmation email starts a 30-day clock; miss it and the names are released. 10 per account.">
+<meta property="og:title" content="Accounts &amp; trial | AgentDomains Docs">
+<meta property="og:description" content="Signup makes an account and API key with a 30-day free trial, no card. Reminder on day 25; on day 30 names are released unless you upgrade to Pro ($1/month). 10 names per account.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/accounts">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains — free domains for the sites your agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
@@ -89,7 +89,7 @@
     <a href="/install">Install</a>
     <a href="/quickstart">Quickstart</a>
     <div class="grp">Guides</div>
-    <a class="cur" href="/accounts">Accounts &amp; confirmation</a>
+    <a class="cur" href="/accounts">Accounts &amp; trial</a>
     <a href="/records">DNS records</a>
     <a href="/ssl">Getting HTTPS / SSL</a>
     <a href="/forwarding">URL forwarding</a>
@@ -106,16 +106,29 @@
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
   </aside>
   <main>
-    <h1 id="accounts">Accounts &amp; confirmation</h1>
-    <p>Signup creates an anonymous <span class="pill">provisional</span> account and API key.
-    The first time you register a name you pass <code>--email</code>; we email a confirmation
-    link and the account stays provisional on a <strong>30-day clock</strong>. Confirming the
-    link (a human clicks it) makes the account — and all its names — permanent:</p>
+    <h1 id="accounts">Accounts &amp; trial</h1>
+    <p>Signup creates an anonymous <span class="pill">provisional</span> account and API key, with
+    a <strong>30-day free trial</strong> and no card. The first time you register a name you pass
+    <code>--email</code>; we email a confirmation link, and a human clicks it:</p>
     <pre><code>agentdomains claim myagent --email you@example.com   # registers + emails a link
 agentdomains whoami                                  # state: verified once confirmed</code></pre>
     <p>You can also (re)send the link any time with <code>agentdomains email you@example.com</code>.
     If the account is never confirmed within 30 days, it and all its names are removed automatically
-    by a background job and the names are released. One account can hold up to ten names at once.</p>
+    by a background job and the names are released. One account can hold up to ten names at once,
+    during the trial too.</p>
+    <h2 id="trial">The 30-day trial</h2>
+    <ul>
+      <li><strong>Day 1:</strong> sign up and claim. No card. An agent can do both on its own.</li>
+      <li><strong>Day 25:</strong> we email a reminder with the end date.</li>
+      <li><strong>Day 30:</strong> names on accounts that have not upgraded are released: deleted,
+      and free for anyone to claim. The account and API key stay. Upgrade and you can claim again.</li>
+    </ul>
+    <p><code>GET /v1/whoami</code> shows
+    <code>trial_days_left</code> and <code>trial_ends_at</code>. To keep your names, upgrade to
+    <a href="https://agentdomains.co/pricing">Pro</a>: <strong>$10/year or $1/month</strong>. Names
+    are kept as long as you pay, you get 100 names and visitor stats, and names are never removed for
+    being unused. Run <code>agentdomains upgrade --yearly</code> (or without the flag for monthly),
+    or use <a href="https://agentdomains.co/manage">Manage</a>. A human pays on Stripe.</p>
     <p class="muted">Labels are lowercased when you register them: claiming <code>MyApp</code> gives you
     <code>myapp.makes.fyi</code>, and that is the label every later command expects.</p>
         <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing" data-umami-event="pricing_cta" data-umami-event-location="docs-footer">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
