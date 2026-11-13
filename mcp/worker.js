@@ -101,6 +101,17 @@ function resourcePath(label, suffix = "", domain) {
   return p;
 }
 
+// Tools that need no key never advertise api_key.
+const NO_KEY_TOOLS = new Set(["check_availability", "signup"]);
+const apiKeyProp = {
+  api_key: {
+    type: "string",
+    description:
+      "Your AgentDomains API key (adom_…). Only needed when this MCP connection has no " +
+      "`Authorization: Bearer` header, for example right after calling signup.",
+  },
+};
+
 const TOOLS = [
   {
     name: "check_availability",
@@ -121,6 +132,8 @@ const TOOLS = [
       "Create a new AgentDomains account and get an API key. Requires no existing key. " +
       "IMPORTANT: the returned api_key is shown ONCE and is never retrievable again — you must store it " +
       "immediately (save it to ~/.agentdomains/config.json or set AGENTDOMAINS_API_KEY) or the account is lost. " +
+      "If this MCP connection has no Authorization header configured, pass the key as the 'api_key' argument " +
+      "on every later tool call. " +
       "The account is provisional: attach and confirm an email within 30 days (see the attach_email tool) or " +
       "it is deleted along with its domains. This endpoint is rate-limited per IP address.",
     inputSchema: { type: "object", properties: {} },
@@ -487,12 +500,18 @@ const TOOL_BY_NAME = new Map(TOOLS.map((t) => [t.name, t]));
  * User-Agent names this Worker, with the caller's own string kept in
  * X-Forwarded-User-Agent.
  */
-async function callApi(env, request, { method, path, body }) {
+async function callApi(env, request, { method, path, body }, apiKey) {
   const base = (env.API_BASE || DEFAULT_API_BASE).replace(/\/+$/, "");
   const headers = { "Content-Type": "application/json", "User-Agent": HOSTED_USER_AGENT };
 
+  // The connection's own header wins. Without one, a key passed as the
+  // api_key tool argument is used: an agent that called signup mid-session
+  // has no way to add a header to a connection that is already open, and
+  // before this every call after signup came back 401 (8 hosted signups in
+  // Nov 2026, none of which ever claimed a name).
   const auth = request.headers.get("Authorization");
   if (auth) headers["Authorization"] = auth;
+  else if (apiKey) headers["Authorization"] = `Bearer ${apiKey}`;
 
   // The origin's audit log keeps one User-Agent per row, and the useful answer
   // to "what called this?" is "the hosted MCP server", not whichever client is
@@ -529,7 +548,9 @@ async function callApi(env, request, { method, path, body }) {
       // Non-JSON error body — fall through to the status-code message.
     }
     if (!msg && res.status === 401) {
-      msg = "unauthorized — send your key as `Authorization: Bearer adom_…`, or call the signup tool to get one";
+      msg =
+        "unauthorized — pass your key as the api_key argument (or configure `Authorization: Bearer adom_…` " +
+        "on this MCP connection), or call the signup tool to get one";
     }
     throw new Error(msg || `request failed (${res.status})`);
   }
@@ -568,7 +589,9 @@ async function handleRpc(msg, env, request) {
         tools: TOOLS.map((t) => ({
           name: t.name,
           description: t.description,
-          inputSchema: t.inputSchema,
+          inputSchema: NO_KEY_TOOLS.has(t.name)
+            ? t.inputSchema
+            : { ...t.inputSchema, properties: { ...t.inputSchema.properties, ...apiKeyProp } },
         })),
       });
 
@@ -577,7 +600,14 @@ async function handleRpc(msg, env, request) {
       const tool = TOOL_BY_NAME.get(name);
       if (!tool) return rpcError(id, -32602, `unknown tool: ${name}`);
       try {
-        const out = await callApi(env, request, tool.plan(params?.arguments ?? {}));
+        const args = params?.arguments ?? {};
+        const key = typeof args.api_key === "string" ? args.api_key.trim() : "";
+        const out = await callApi(env, request, tool.plan(args), key);
+        if (name === "signup" && out && out.api_key && !request.headers.get("Authorization")) {
+          out.next_step =
+            "Store api_key now; it is shown once. This connection has no Authorization header, so pass " +
+            "api_key as an argument on every other tool call (claim_domain next).";
+        }
         return rpcResult(id, { content: [{ type: "text", text: JSON.stringify(out, null, 2) }] });
       } catch (err) {
         // Tool failures are results, not protocol errors — the model should see
