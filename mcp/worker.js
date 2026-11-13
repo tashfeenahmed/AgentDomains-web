@@ -101,6 +101,31 @@ function resourcePath(label, suffix = "", domain) {
   return p;
 }
 
+// MCP tool annotations: a human title plus hints that tell a client which
+// tools only read, which can remove or replace something, and which are safe
+// to repeat. Directories (and Claude's connector review) require them.
+const ANNOTATIONS = {
+  check_availability: { title: "Check if a name is free", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  signup: { title: "Create an account", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  whoami: { title: "Show my account", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  attach_email: { title: "Attach an email", readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  claim_domain: { title: "Claim a domain", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  list_domains: { title: "List my domains", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  get_domain: { title: "Show one domain", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  delete_domain: { title: "Delete a domain", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  add_dns_record: { title: "Add a DNS record", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  delete_record: { title: "Delete a DNS record", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  add_acme_challenge: { title: "Add an ACME challenge", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  set_forward: { title: "Forward a domain to a URL", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  remove_forward: { title: "Remove a forward", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  set_proxy: { title: "Proxy a domain to an app", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  remove_proxy: { title: "Remove a proxy", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  delegate_nameservers: { title: "Delegate to my nameservers", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  delete_account: { title: "Delete my account", readOnlyHint: false, destructiveHint: true, idempotentHint: true, openWorldHint: true },
+  upgrade_to_pro: { title: "Get a Pro checkout link", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+  manage_billing: { title: "Get a billing portal link", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+};
+
 // Tools that need no key never advertise api_key.
 const NO_KEY_TOOLS = new Set(["check_availability", "signup"]);
 const apiKeyProp = {
@@ -588,7 +613,9 @@ async function handleRpc(msg, env, request) {
       return rpcResult(id, {
         tools: TOOLS.map((t) => ({
           name: t.name,
+          title: ANNOTATIONS[t.name]?.title,
           description: t.description,
+          annotations: ANNOTATIONS[t.name],
           inputSchema: NO_KEY_TOOLS.has(t.name)
             ? t.inputSchema
             : { ...t.inputSchema, properties: { ...t.inputSchema.properties, ...apiKeyProp } },
@@ -643,6 +670,34 @@ export default {
     if (request.method === "GET" || request.method === "HEAD") {
       const url = new URL(request.url);
       if (url.pathname === "/health") return json({ ok: true, server: SERVER_INFO });
+
+      // Static description for directories that scan before connecting
+      // (Smithery reads this path). It used to fall through to the HTML page.
+      if (url.pathname === "/.well-known/mcp/server-card.json") {
+        return json({
+          serverInfo: { ...SERVER_INFO, title: "AgentDomains" },
+          description:
+            "Free subdomains under makes.fyi or agentdomains.co for the sites and APIs AI agents build: " +
+            "claim a name, set DNS records, forward to a URL, or reverse-proxy over HTTPS.",
+          homepage: "https://agentdomains.co",
+          documentation: "https://docs.agentdomains.co/mcp",
+          transport: { type: "streamable-http", url: "https://mcp.agentdomains.co" },
+          protocolVersion: PROTOCOL_VERSION,
+          capabilities: { tools: {} },
+          authentication: {
+            required: false,
+            schemes: ["bearer"],
+            note: "Connect with no key and call signup, then pass the key as api_key or a Bearer header.",
+          },
+          tools: TOOLS.map((t) => ({
+            name: t.name,
+            title: ANNOTATIONS[t.name]?.title,
+            description: t.description,
+            annotations: ANNOTATIONS[t.name],
+            inputSchema: t.inputSchema,
+          })),
+        });
+      }
 
       // An MCP client opening the optional server-initiated stream always asks
       // for it by Accept, per Streamable HTTP. We never open one, and the spec
