@@ -28,6 +28,28 @@ const HOP_BY_HOP = new Set([
   "te", "trailer", "transfer-encoding", "upgrade",
 ]);
 
+// Pro visitor stats: one Analytics Engine data point per request that reaches
+// a forward or proxy (DNS-only names never touch our edge, so they have none).
+// index1 = hostname so the API can query one name cheaply. blob4 marks a page
+// view: a GET that asks for HTML from something that is not an obvious bot.
+// Never awaited and never throws: stats must not break a visitor's request.
+const BOT_UA = /bot|crawl|spider|slurp|curl|wget|python|go-http|httpclient|headless|monitor|uptime/i;
+function recordVisit(env, request, host, kind, status) {
+  try {
+    if (!env.VISITS) return;
+    const ua = request.headers.get("user-agent") || "";
+    const page = request.method === "GET" &&
+      (request.headers.get("accept") || "").includes("text/html") && !BOT_UA.test(ua);
+    env.VISITS.writeDataPoint({
+      indexes: [host],
+      blobs: [host, kind, (request.cf && request.cf.country) || "", page ? "1" : "0"],
+      doubles: [1, status || 0],
+    });
+  } catch (_) {
+    // ignore
+  }
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -75,6 +97,7 @@ export default {
       if (rewritten) outHeaders.set("location", rewritten);
     }
     outHeaders.set("X-AgentDomains-Proxy", host);
+    recordVisit(env, request, host, "proxy", resp.status);
 
     return new Response(resp.body, {
       status: resp.status,

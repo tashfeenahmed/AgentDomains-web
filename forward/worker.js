@@ -22,6 +22,28 @@ const RESOLVE_TTL = 60; // seconds to cache a host's forward config at the edge
 // cached, so the next request asks again immediately.
 const UNRESOLVED = Symbol("unresolved");
 
+// Pro visitor stats: one Analytics Engine data point per request that reaches
+// a forward or proxy (DNS-only names never touch our edge, so they have none).
+// index1 = hostname so the API can query one name cheaply. blob4 marks a page
+// view: a GET that asks for HTML from something that is not an obvious bot.
+// Never awaited and never throws: stats must not break a visitor's request.
+const BOT_UA = /bot|crawl|spider|slurp|curl|wget|python|go-http|httpclient|headless|monitor|uptime/i;
+function recordVisit(env, request, host, kind, status) {
+  try {
+    if (!env.VISITS) return;
+    const ua = request.headers.get("user-agent") || "";
+    const page = request.method === "GET" &&
+      (request.headers.get("accept") || "").includes("text/html") && !BOT_UA.test(ua);
+    env.VISITS.writeDataPoint({
+      indexes: [host],
+      blobs: [host, kind, (request.cf && request.cf.country) || "", page ? "1" : "0"],
+      doubles: [1, status || 0],
+    });
+  } catch (_) {
+    // ignore
+  }
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -47,10 +69,12 @@ export default {
     }
 
     if (fwd.cloak) {
+      recordVisit(env, request, host, "forward", 200);
       return cloakPage(target, host);
     }
 
     const code = fwd.code === 301 ? 301 : 302;
+    recordVisit(env, request, host, "forward", code);
     return new Response(null, {
       status: code,
       headers: {
