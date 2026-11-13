@@ -671,6 +671,34 @@ export default {
       const url = new URL(request.url);
       if (url.pathname === "/health") return json({ ok: true, server: SERVER_INFO });
 
+      // Static description for directories that scan before connecting
+      // (Smithery reads this path). It used to fall through to the HTML page.
+      if (url.pathname === "/.well-known/mcp/server-card.json") {
+        return json({
+          serverInfo: { ...SERVER_INFO, title: "AgentDomains" },
+          description:
+            "Free subdomains under makes.fyi or agentdomains.co for the sites and APIs AI agents build: " +
+            "claim a name, set DNS records, forward to a URL, or reverse-proxy over HTTPS.",
+          homepage: "https://agentdomains.co",
+          documentation: "https://docs.agentdomains.co/mcp",
+          transport: { type: "streamable-http", url: "https://mcp.agentdomains.co" },
+          protocolVersion: PROTOCOL_VERSION,
+          capabilities: { tools: {} },
+          authentication: {
+            required: false,
+            schemes: ["bearer"],
+            note: "Connect with no key and call signup, then pass the key as api_key or a Bearer header.",
+          },
+          tools: TOOLS.map((t) => ({
+            name: t.name,
+            title: ANNOTATIONS[t.name]?.title,
+            description: t.description,
+            annotations: ANNOTATIONS[t.name],
+            inputSchema: t.inputSchema,
+          })),
+        });
+      }
+
       // An MCP client opening the optional server-initiated stream always asks
       // for it by Accept, per Streamable HTTP. We never open one, and the spec
       // wants 405 there so the client falls back to POST-only instead of
