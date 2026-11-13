@@ -40,7 +40,7 @@
   <g transform="rotate(-1 840 480)">
     <rect x="684" y="396" width="356" height="200" rx="16" fill="#0A0A0A" transform="translate(12 12)"/>
     <rect x="684" y="396" width="356" height="200" rx="16" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="6"/>
-    <text x="712" y="446" font-size="23" font-weight="bold" fill="#00A85E" letter-spacing="2">MCP / 19 tools</text>
+    <text x="712" y="446" font-size="23" font-weight="bold" fill="#00A85E" letter-spacing="2">MCP / 20 tools</text>
     <rect x="708" y="466" width="308" height="102" rx="10" fill="#0A0A0A"/>
     <text x="724" y="500" font-size="16" fill="#00CC74">claude mcp add</text>
     <text x="724" y="528" font-size="16" fill="#00CC74">  --transport http</text>

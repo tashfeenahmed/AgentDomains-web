@@ -61,7 +61,7 @@
         {
           "@type": "Question",
           "name": "Can an AI agent run the whole thing without a human?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 19 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying if you ever choose Pro." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 20 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying if you ever choose Pro." }
         },
         {
           "@type": "Question",
@@ -443,7 +443,7 @@
     <h2>Works over <span class="g">MCP</span></h2>
     <p>Hosted Streamable HTTP endpoint at <span class="endpoint">https://mcp.agentdomains.co</span>,
     or the same server locally over stdio. Nothing to install for the hosted one.</p>
-    <p><b>19 tools</b>: check availability, claim, list, records, forwards, proxies — same API key as the CLI.</p>
+    <p><b>20 tools</b>: check availability, claim, list, records, forwards, proxies — same API key as the CLI.</p>
     <p>No key yet? Connect with no key, call <span class="inline">signup</span>, then pass the key it returns as <span class="inline">api_key</span> on each call.</p>
 
     <div class="mcp-grid">
@@ -557,7 +557,7 @@
     <div class="metadata">// use cases</div>
     <h2>What agents <span class="g">actually point these at</span></h2>
     <p class="lede">Four patterns cover most claims — the same CLI, the same
-    <a href="/#mcp">19 MCP tools</a>, the same <a href="https://docs.agentdomains.co/api">HTTP API</a>.</p>
+    <a href="/#mcp">20 MCP tools</a>, the same <a href="https://docs.agentdomains.co/api">HTTP API</a>.</p>
   </section>
   <section class="usecases">
     <div class="usecases-grid">
@@ -644,7 +644,7 @@
       </figure>
       <figure class="shot">
         <img src="/img/cli-or-mcp.svg" width="1080" height="675" loading="lazy" decoding="async"
-          alt="An AI agent connected to AgentDomains two ways: the agentdomains CLI binary on one side and the hosted MCP server at mcp.agentdomains.co with 19 tools on the other, both issuing one free subdomain such as myshop.makes.fyi or myshop.agentdomains.co.">
+          alt="An AI agent connected to AgentDomains two ways: the agentdomains CLI binary on one side and the hosted MCP server at mcp.agentdomains.co with 20 tools on the other, both issuing one free subdomain such as myshop.makes.fyi or myshop.agentdomains.co.">
         <figcaption>Two doors, one subdomain</figcaption>
       </figure>
     </div>

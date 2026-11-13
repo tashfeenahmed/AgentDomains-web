@@ -126,6 +126,9 @@
     border:2px solid var(--ink);border-radius:20px;padding:.15rem .6rem;white-space:nowrap}
   .badge.live{background:var(--energy)}
   .badge.idle{background:var(--lime)}
+  .visits{margin-top:.6rem}
+  .bars{display:flex;align-items:flex-end;gap:2px;height:30px;margin-top:.3rem}
+  .bars span{flex:1;max-width:10px;background:var(--energy);border-radius:2px 2px 0 0}
   .what{list-style:none;padding:0;margin:.6rem 0 0}
   .what li{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.35rem 0;border-top:1.5px dashed rgba(10,10,10,.25)}
   .what li:first-child{border-top:0}
@@ -448,6 +451,28 @@
       return rows;
     }
 
+    // Pro sees a 30-day bar strip, page views and top countries; free sees
+    // the total and what Pro adds. Any error (stats not switched on yet)
+    // simply leaves the box empty.
+    async function loadVisits(sd, box){
+      let d;
+      try { d = await api('GET', sdPath(sd) + '/visits' + dq(sd), key); } catch (e) { return; }
+      const t = (d.total && d.total.requests) || 0, pv = (d.total && d.total.page_views) || 0;
+      if (d.plan !== 'pro') {
+        box.innerHTML = '<p class="fine"><b>' + esc(t) + '</b> visits in the last 30 days. ' +
+          '<a href="#upgrade">Pro</a> shows them day by day, with page views and countries.</p>';
+        return;
+      }
+      const days = d.daily || [];
+      const max = Math.max(1, ...days.map(x => x.requests));
+      const bars = days.map(x => '<span title="' + esc(x.day) + ': ' + esc(x.requests) + '" style="height:' +
+        Math.max(2, Math.round(28 * x.requests / max)) + 'px"></span>').join('');
+      const top = (d.top_countries || []).filter(c => c.country).map(c => esc(c.country) + ' ' + esc(c.requests)).join(', ');
+      box.innerHTML = '<div class="metadata">// visitors, last 30 days</div>' +
+        '<p class="fine"><b>' + esc(pv) + '</b> page views, <b>' + esc(t) + '</b> requests' + (top ? '. Top countries: ' + top : '') + '</p>' +
+        (days.length ? '<div class="bars" aria-hidden="true">' + bars + '</div>' : '');
+    }
+
     function nameCard(sd){
       const live = working(sd);
       const el = document.createElement('div');
@@ -473,6 +498,14 @@
         '</div>';
 
       const rowErr = el.querySelector('.row-err');
+
+      // visitors: only forwards and proxies pass through our edge
+      if (sd.forward || sd.proxy) {
+        const v = document.createElement('div');
+        v.className = 'visits';
+        el.querySelector('.slot').before(v);
+        loadVisits(sd, v);
+      }
 
       // point it: URL / server IP / app host
       const slot = el.querySelector('.slot');
