@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MCP server — 19 tools for AI agents | AgentDomains Docs</title>
-<meta name="description" content="The AgentDomains MCP server: 19 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
+<title>MCP server — 20 tools for AI agents | AgentDomains Docs</title>
+<meta name="description" content="The AgentDomains MCP server: 20 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <link rel="canonical" href="https://docs.agentdomains.co/mcp">
-<meta property="og:title" content="MCP server — 19 tools for AI agents | AgentDomains Docs">
-<meta property="og:description" content="The AgentDomains MCP server: 19 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
+<meta property="og:title" content="MCP server — 20 tools for AI agents | AgentDomains Docs">
+<meta property="og:description" content="The AgentDomains MCP server: 20 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/mcp">
 <meta property="og:site_name" content="AgentDomains">
@@ -178,6 +178,7 @@ curl -s https://mcp.agentdomains.co \
       <tr><td><code>delete_account</code></td><td><code>DELETE /v1/account[?force=true]</code></td><td><span class="pill">destructive</span> Close the account and kill its key; refuses while names are held unless <code>force</code></td></tr>
       <tr><td><code>upgrade_to_pro</code></td><td><code>POST /v1/billing/checkout</code></td><td>Stripe checkout link for Pro ($10/year or $1/month); charges nothing, a human pays</td></tr>
       <tr><td><code>manage_billing</code></td><td><code>POST /v1/billing/portal</code></td><td>Stripe billing-portal link for a Pro account</td></tr>
+      <tr><td><code>get_visits</code></td><td><code>GET /v1/subdomains/{label}/visits</code></td><td>Visitors to a forwarded or proxied name. Pro: daily counts and countries; free: the total</td></tr>
     </table>
     </div>
     <p class="muted">Every label-scoped tool takes an optional <code>domain</code>

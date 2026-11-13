@@ -70,7 +70,7 @@ sub-label and TXT records are untouched. One record can be removed on its own
 - Local (stdio): `npx -y agentdomains-mcp`, with `AGENTDOMAINS_API_KEY=adom_…` (falls back to the CLI's `~/.agentdomains/config.json`)
 - Hosted (Streamable HTTP): `https://mcp.agentdomains.co`, `Authorization: Bearer adom_…`
 - No key yet: connect to the hosted server with no key, call `signup`, then pass the key it returns as `api_key` on each tool call
-- 19 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, closing the account, and getting a Pro checkout or billing-portal link
+- 20 tools covering availability, signup, claiming, DNS records (added and deleted one at a time), ACME DNS-01 challenges, forwarding, proxying, nameserver delegation, closing the account, and getting a Pro checkout or billing-portal link
 - Works with any MCP client: Claude Code, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI
 
 ## Pricing
