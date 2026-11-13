@@ -9,5 +9,6 @@
   // So this Worker only ever runs for hostnames that are genuinely forwards.
   "workers_dev": false,
   // Pro visitor stats (see recordVisit in worker.js).
-  "analytics_engine_datasets": [{ "binding": "VISITS", "dataset": "agentdomains_visits" }]
+  "analytics_engine_datasets": [{ "binding": "VISITS", "dataset": "agentdomains_visits" }],
+  "d1_databases": [{ "binding": "VISITS_DB", "database_name": "agentdomains-visits", "database_id": "af37105b-d922-4897-9627-cd48022ccbd7" }]
 }

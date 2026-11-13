@@ -34,7 +34,7 @@ const HOP_BY_HOP = new Set([
 // view: a GET that asks for HTML from something that is not an obvious bot.
 // Never awaited and never throws: stats must not break a visitor's request.
 const BOT_UA = /bot|crawl|spider|slurp|curl|wget|python|go-http|httpclient|headless|monitor|uptime/i;
-function recordVisit(env, request, host, kind, status) {
+function recordVisit(env, ctx, request, host, kind, status) {
   try {
     if (!env.VISITS) return;
     const ua = request.headers.get("user-agent") || "";
@@ -45,6 +45,28 @@ function recordVisit(env, request, host, kind, status) {
       blobs: [host, kind, (request.cf && request.cf.country) || "", page ? "1" : "0"],
       doubles: [1, status || 0],
     });
+  } catch (_) {
+    // ignore
+  }
+  // Daily counters in D1 are what the API reads (Analytics Engine above needs
+  // a separate API token to query). Two upserts, after the response is sent.
+  try {
+    if (!env.VISITS_DB || !ctx) return;
+    const ua = request.headers.get("user-agent") || "";
+    const page = request.method === "GET" &&
+      (request.headers.get("accept") || "").includes("text/html") && !BOT_UA.test(ua);
+    const day = new Date().toISOString().slice(0, 10);
+    const country = (request.cf && request.cf.country) || "";
+    ctx.waitUntil(env.VISITS_DB.batch([
+      env.VISITS_DB.prepare(
+        "INSERT INTO visits(host, day, requests, page_views) VALUES(?1, ?2, 1, ?3) " +
+        "ON CONFLICT(host, day) DO UPDATE SET requests = requests + 1, page_views = page_views + ?3"
+      ).bind(host, day, page ? 1 : 0),
+      env.VISITS_DB.prepare(
+        "INSERT INTO visit_countries(host, day, country, requests) VALUES(?1, ?2, ?3, 1) " +
+        "ON CONFLICT(host, day, country) DO UPDATE SET requests = requests + 1"
+      ).bind(host, day, country),
+    ]).catch(() => {}));
   } catch (_) {
     // ignore
   }
@@ -97,7 +119,7 @@ export default {
       if (rewritten) outHeaders.set("location", rewritten);
     }
     outHeaders.set("X-AgentDomains-Proxy", host);
-    recordVisit(env, request, host, "proxy", resp.status);
+    recordVisit(env, ctx, request, host, "proxy", resp.status);
 
     return new Response(resp.body, {
       status: resp.status,

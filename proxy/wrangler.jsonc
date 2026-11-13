@@ -11,6 +11,7 @@
   "workers_dev": false,
   // Pro visitor stats (see recordVisit in worker.js).
   "analytics_engine_datasets": [{ "binding": "VISITS", "dataset": "agentdomains_visits" }],
+  "d1_databases": [{ "binding": "VISITS_DB", "database_name": "agentdomains-visits", "database_id": "af37105b-d922-4897-9627-cd48022ccbd7" }],
   "vars": {
     // Pinned host->origin overrides, JSON. Used as a fast path and so a host can
     // be proxied before the resolve endpoint knows about it (bootstrap/testing).

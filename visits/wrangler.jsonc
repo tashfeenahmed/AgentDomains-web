@@ -1,0 +1,11 @@
+{
+  "name": "agentdns-visits",
+  "main": "worker.js",
+  "compatibility_date": "2024-11-01",
+  // Read side of Pro visitor stats. The forward/proxy Workers write daily
+  // counters into D1; the API server reads them here with a shared secret
+  // (wrangler secret put VISITS_SECRET; same value as AGENTDOMAINS_VISITS_SECRET
+  // on the server). workers.dev only: nothing public links to it.
+  "workers_dev": true,
+  "d1_databases": [{ "binding": "VISITS_DB", "database_name": "agentdomains-visits", "database_id": "af37105b-d922-4897-9627-cd48022ccbd7" }]
+}
