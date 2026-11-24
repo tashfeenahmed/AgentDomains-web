@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live DNS Propagation &amp; ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains</title>
-<meta name="description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.">
+<meta name="description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and ACME records.">
 <link rel="canonical" href="https://agentdomains.co/tools/dns-ssl-checker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Live DNS Propagation &amp; ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains">
-<meta property="og:description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.">
+<meta property="og:description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and ACME records.">
 <meta property="og:url" content="https://agentdomains.co/tools/dns-ssl-checker">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Live DNS Propagation &amp; ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains">
-<meta name="twitter:description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.">
+<meta name="twitter:description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and ACME records.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -89,7 +89,7 @@
           "name": "Which public resolvers does this DNS checker query?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It queries Cloudflare DoH (https://cloudflare-dns.com/dns-query) and Google Public DNS DoH (https://dns.google/resolve) directly from your browser in parallel and compares their answers for propagation consistency."
+            "text": "It queries Cloudflare DoH (1.1.1.1) and Google DoH (8.8.8.8) in parallel. Then it compares both answers for sync."
           }
         },
         {
@@ -97,7 +97,7 @@
           "name": "How does the ACME DNS-01 check work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It automatically queries TXT records at _acme-challenge.<hostname> on both Cloudflare and Google resolvers and highlights whether an active ACME verification token is visible globally."
+            "text": "It queries TXT records at _acme-challenge.<hostname> on both resolvers and highlights active tokens."
           }
         }
       ]
@@ -130,7 +130,78 @@
   
     <span class="eyebrow">Free Tool 02 · Live Dual-Resolver DoH Debugger</span>
     <h1>DNS Propagation &amp; <span class="g">ACME DNS-01</span> Checker</h1>
-    <p class="lede">Inspect live <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, <code>TXT</code>, <code>NS</code>, and <code>_acme-challenge</code> records across Cloudflare (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) simultaneously using CORS-enabled DNS-over-HTTPS.</p>
+    <p class="lede">Check live <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, <code>TXT</code>, <code>NS</code>, and <code>_acme-challenge</code> records across Cloudflare and Google DoH.</p>
+    <div class="spec-strip" role="region" aria-label="Key specifications">
+  <div class="spec-tile green">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Resolvers</span>
+      <span class="spec-val">1.1.1.1 + 8.8.8.8</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Record Types</span>
+      <span class="spec-val">6 Live Checks</span>
+    </div>
+  </div>
+  <div class="spec-tile lime">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">ACME Mode</span>
+      <span class="spec-val">TXT Token Match</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Protocol</span>
+      <span class="spec-val">Browser DoH</span>
+    </div>
+  </div>
+</div>
+    <div class="step-pills" role="list" aria-label="Tool steps">
+  
+  <span class="step-pill" role="listitem"><span class="num">01</span>Enter hostname</span><span class="step-arrow" aria-hidden="true">→</span>
+  <span class="step-pill" role="listitem"><span class="num">02</span>Optional ACME token</span><span class="step-arrow" aria-hidden="true">→</span>
+  <span class="step-pill" role="listitem"><span class="num">03</span>Compare 1.1.1.1 vs 8.8.8.8</span>
+</div>
+    <div class="diagram-box">
+  <svg viewBox="0 0 880 156" width="880" height="156" role="img" aria-label="Dual-resolver DNS over HTTPS lookup flow">
+    <defs>
+      <marker id="arr-tl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
+
+    <rect x="16" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="18" width="246" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="24" y="30" width="74" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="61" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">INPUT</text>
+    <text x="24" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Hostname + Token</text>
+    <text x="24" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">myapp.makes.fyi</text>
+
+    <line x1="260" y1="71" x2="312" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
+
+    <rect x="322" y="24" width="246" height="106" rx="14" fill="#00CC74"/>
+    <rect x="316" y="18" width="246" height="106" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="330" y="30" width="84" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="372" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">DOH API</text>
+    <text x="330" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Dual Query</text>
+    <text x="330" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#0A0A0A">Cloudflare + Google</text>
+
+    <line x1="566" y1="71" x2="618" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
+
+    <rect x="628" y="24" width="242" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="622" y="18" width="242" height="106" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="636" y="30" width="78" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="675" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">SYNC</text>
+    <text x="636" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Diff &amp; ACME Pass</text>
+    <text x="636" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">TTL + token verification</text>
+  </svg>
+  <p class="diagram-caption">Queries run in parallel directly from your browser over HTTPS with zero server proxy.</p>
+</div>
 
     <div class="widget" id="dns-checker-app">
       <form id="dc-form" class="widget-grid" style="align-items:end">
@@ -158,14 +229,14 @@
     <div id="dc-results" class="grid"></div>
 
     <div class="panel accent" style="margin-top:1.5rem">
-      <strong>Need to publish an ACME DNS-01 challenge?</strong> With AgentDomains run <code>agentdomains txt &lt;label&gt; &lt;token&gt;</code> or invoke the <code>add_acme_challenge</code> MCP tool, wait 5 seconds, and re-run this debugger to confirm both 1.1.1.1 and 8.8.8.8 match.
+      <strong>Publish an ACME token fast:</strong> Run <code>agentdomains txt &lt;label&gt; &lt;token&gt;</code> or call <code>add_acme_challenge</code>. Wait 5 seconds and re-run this check.
     </div>
 
     <section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    <div class="faq-item"><h3>Which public resolvers does this DNS checker query?</h3><p>It queries Cloudflare DoH (https://cloudflare-dns.com/dns-query) and Google Public DNS DoH (https://dns.google/resolve) directly from your browser in parallel and compares their answers for propagation consistency.</p></div>
-    <div class="faq-item"><h3>How does the ACME DNS-01 check work?</h3><p>It automatically queries TXT records at _acme-challenge.&lt;hostname&gt; on both Cloudflare and Google resolvers and highlights whether an active ACME verification token is visible globally.</p></div>
+    <div class="faq-item"><h3>Which public resolvers does this DNS checker query?</h3><p>It queries Cloudflare DoH (1.1.1.1) and Google DoH (8.8.8.8) in parallel. Then it compares both answers for sync.</p></div>
+    <div class="faq-item"><h3>How does the ACME DNS-01 check work?</h3><p>It queries TXT records at _acme-challenge.&lt;hostname&gt; on both resolvers and highlights active tokens.</p></div>
   </div>
 </section>
   

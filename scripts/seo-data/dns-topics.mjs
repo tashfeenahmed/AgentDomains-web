@@ -8,8 +8,8 @@ export const DNS_TOPICS = [
     defaultType: 'TXT',
     defaultHost: '_acme-challenge',
     defaultValue: 'gfj9Xq...example_token_9zK2',
-    summary: 'Prove domain control to Let’s Encrypt by publishing a TXT record at `_acme-challenge.<hostname>` — works behind NAT, firewalled port 80, and for wildcard certificates.',
-    explanation: 'During ACME DNS-01 validation, your certificate authority gives your ACME client (Certbot, Caddy, acme.sh) a cryptographically signed token derived from your account key. When you publish that token as a TXT record at `_acme-challenge.myapp.makes.fyi`, the CA queries authoritative DNS directly over port 53 without ever touching your web server.',
+    summary: 'Prove domain control to Let’s Encrypt with a TXT record at `_acme-challenge.<hostname>`. Works behind NAT and for wildcards.',
+    explanation: 'Your certificate authority sends a signed token to Certbot, Caddy, or acme.sh. Publish that token as a TXT record at `_acme-challenge.myapp.makes.fyi`. The CA checks DNS over port 53 without reaching your web server.',
     cli: 'agentdomains txt myapp "gfj9Xq...example_token_9zK2"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -30,8 +30,8 @@ export const DNS_TOPICS = [
     defaultType: 'TXT',
     defaultHost: '_acme-challenge',
     defaultValue: 'acme-dns01-token-example',
-    summary: 'When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy.',
-    explanation: 'HTTP-01 serves a token file at `http://<host>/.well-known/acme-challenge/<token>` on TCP port 80, which is effortless on public VPS boxes running Caddy or Nginx. DNS-01 validates via a TXT record instead, making it mandatory for wildcard certificates (`*.myapp.makes.fyi`), private intranet servers, and ISPs that block port 80. If your origin already has a hostname (like `app.fly.dev`), `agentdomains proxy` handles edge TLS without you running ACME at all.',
+    summary: 'Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.',
+    explanation: 'HTTP-01 serves a file on TCP port 80. It works well on public VPS servers running Caddy or Nginx. DNS-01 checks a TXT record instead. Use DNS-01 for wildcards, private servers, or blocked port 80. For PaaS origins like `app.fly.dev`, `agentdomains proxy` handles edge TLS automatically.',
     cli: 'agentdomains txt myapp "acme-dns01-token-example"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -41,7 +41,7 @@ export const DNS_TOPICS = [
     mcpArgs: { label: 'myapp', value: 'acme-dns01-token-example' },
     pitfalls: [
       'HTTP-01 cannot issue wildcard certificates (`*.example`) — Let’s Encrypt enforces DNS-01 for all wildcards.',
-      'Cloud firewalls (OCI iptables, AWS SG, Hetzner Firewall) frequently block port 80 even when 443 is open, breaking HTTP-01.',
+      'Cloud firewalls often block port 80 while port 443 is open. That breaks HTTP-01.',
     ],
   },
   {
@@ -52,8 +52,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'myapp.fly.dev',
-    summary: 'Choose an A record for static IPv4 servers (VPS/Droplets) and a CNAME record (or edge proxy) for cloud PaaS hostnames whose underlying IPs rotate.',
-    explanation: 'An A record maps a hostname directly to a 32-bit IPv4 address (`203.0.113.10`), whereas a CNAME aliases one hostname to another canonical hostname (`myapp.fly.dev`). On managed subdomains like `myapp.makes.fyi`, both A and CNAME records are legal — unlike zone apexes where RFC 1034 forbids CNAMEs alongside SOA/NS records.',
+    summary: 'Use an A record for static IPv4 servers. Use a CNAME or edge proxy for rotating PaaS hostnames.',
+    explanation: 'An A record maps a hostname to an IPv4 address like `203.0.113.10`. A CNAME points one hostname to another hostname like `myapp.fly.dev`. Both A and CNAME records work cleanly on subdomains like `myapp.makes.fyi`.',
     cli: 'agentdomains record myapp --type CNAME --content myapp.fly.dev',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -62,7 +62,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_dns_record',
     mcpArgs: { label: 'myapp', type: 'CNAME', content: 'myapp.fly.dev' },
     pitfalls: [
-      'Per DNS RFC rules, a CNAME cannot coexist with other records (like TXT) on the exact same node label — put TXT on a sub-label or use `set_proxy`.',
+      'DNS rules forbid a CNAME and TXT record on the same label. Put TXT on a sub-label or use `set_proxy`.',
       'Never include `https://` or a trailing path in a CNAME target — DNS only resolves hostnames.',
     ],
   },
@@ -74,8 +74,8 @@ export const DNS_TOPICS = [
     defaultType: 'TXT',
     defaultHost: '@',
     defaultValue: 'google-site-verification=abc123xyz',
-    summary: 'Publish arbitrary TXT strings on your subdomain or sub-label to verify ownership with Google Search Console, Bluesky ATProto handles, GitHub, and SaaS APIs.',
-    explanation: 'TXT records carry arbitrary human- or machine-readable text strings in DNS. Services ask you to publish a unique token at `@` or a dedicated sub-label (like `_atproto.myapp.makes.fyi` for Bluesky handles) to prove you control the hostname.',
+    summary: 'Publish TXT records on your subdomain to verify ownership with Google, Bluesky, GitHub, and SaaS tools.',
+    explanation: 'TXT records store text strings inside DNS. Services ask you to add a token at `@` or a sub-label like `_atproto.myapp.makes.fyi`. That proves you control the name.',
     cli: 'agentdomains record myapp --type TXT --content "google-site-verification=abc123xyz"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -96,7 +96,7 @@ export const DNS_TOPICS = [
     defaultType: 'NS',
     defaultHost: '@',
     defaultValue: 'ns1.desec.io',
-    summary: 'Hand authoritative control of your entire subdomain tree (`*.myapp.makes.fyi`) to your own nameservers (Cloudflare, Route 53, deSEC, or BIND) for MX, SRV, and custom DNSSEC.',
+    summary: 'Delegate your subdomain tree (`*.myapp.makes.fyi`) to your own nameservers. Run custom MX, SRV, and DNSSEC records.',
     explanation: 'NS delegation tells recursive resolvers to ask your chosen authoritative nameservers for `myapp.makes.fyi` and every label beneath it. Once delegated, you manage MX, SRV, CAA, and arbitrary deep subtrees directly on your own DNS provider.',
     cli: 'agentdomains ns myapp ns1.desec.io ns2.desec.org',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/ns \\
@@ -118,8 +118,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'myapp.up.railway.app',
-    summary: 'Reverse proxy (`set_proxy`) serves your origin directly under your domain with edge HTTPS; URL forwarding (`set_forward`) issues an HTTP 301/302 redirect to another URL.',
-    explanation: 'When you configure a reverse proxy, the browser or webhook client connects to `https://myapp.makes.fyi`, our edge fetches the response from your upstream hostname (e.g. `myapp.up.railway.app`), and returns it seamlessly while keeping `myapp.makes.fyi` in the address bar. URL forwarding immediately responds with a 301 or 302 `Location:` header sending the client elsewhere — great for short links, terrible for POST webhooks.',
+    summary: 'Reverse proxy (`set_proxy`) serves your origin under your domain with HTTPS. URL forwarding (`set_forward`) sends a 301 or 302 redirect.',
+    explanation: 'With a reverse proxy, clients hit `https://myapp.makes.fyi`. Our edge fetches your upstream host and keeps your domain in the browser bar. URL forwarding returns a 301 or 302 redirect instead. Use forwarding for short links, not POST webhooks.',
     cli: 'agentdomains proxy myapp myapp.up.railway.app',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -128,8 +128,8 @@ export const DNS_TOPICS = [
     mcpTool: 'set_proxy',
     mcpArgs: { label: 'myapp', origin: 'myapp.up.railway.app' },
     pitfalls: [
-      'Never use URL forwarding for Stripe, GitHub, or Slack webhooks — webhook senders do not follow 302 redirects on POST requests.',
-      'A proxy and a forward are mutually exclusive on the same label, and either replaces existing A/AAAA/CNAME records on that apex label.',
+      'Never use URL forwarding for webhooks. Webhook senders do not follow 302 redirects on POST requests.',
+      'A label can use a proxy or a forward, not both. Either mode replaces existing A, AAAA, or CNAME records.',
     ],
   },
   {
@@ -140,8 +140,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'example.com',
-    summary: '302 is temporary and safe to change anytime (AgentDomains default); 301 is permanent and aggressively cached by browsers and search engines.',
-    explanation: 'HTTP 302 Found tells browsers and crawlers to check your AgentDomains edge again on future visits, making it ideal while iterating on demo destinations. HTTP 301 Moved Permanently instructs browsers to cache the destination indefinitely and signals search engines to transfer ranking signals to the target URL.',
+    summary: '302 is temporary and easy to change (our default). 301 is permanent and browsers cache it hard.',
+    explanation: 'HTTP 302 Found tells browsers to check your edge again on each visit. Use 302 for active demos. HTTP 301 Moved Permanently caches the target in browsers and moves SEO signals to the new URL.',
     cli: 'agentdomains forward myapp https://example.com --permanent',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/forward \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -150,7 +150,7 @@ export const DNS_TOPICS = [
     mcpTool: 'set_forward',
     mcpArgs: { label: 'myapp', target: 'https://example.com', permanent: true, preserve_path: true },
     pitfalls: [
-      'Avoid setting `permanent: true` (301) during active testing — browsers will cling to the old target even after you update the forward.',
+      'Do not use `permanent: true` (301) during testing. Browsers keep the old target cached after you change it.',
       'Keep `preserve_path: true` (the default) so `/docs?v=2` cleanly forwards to `https://example.com/docs?v=2`.',
     ],
   },
@@ -162,8 +162,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Why DNS changes usually appear within seconds on Cloudflare-backed zones, and how recursive resolver TTL caching causes stale answers.',
-    explanation: 'TTL (Time To Live) is the number of seconds a recursive resolver (like 1.1.1.1, 8.8.8.8, or your ISP resolver) is allowed to cache a DNS answer before querying authoritative nameservers again. New records on AgentDomains become resolvable globally within seconds because nothing cached them yet; updating an existing record waits at most for the previous record’s TTL to expire.',
+    summary: 'Learn why new DNS records go live in seconds and how resolver TTL caches cause stale answers.',
+    explanation: 'TTL (Time To Live) sets how many seconds resolvers like 1.1.1.1 or 8.8.8.8 cache a DNS answer. New records resolve globally in seconds. Updated records take effect once the old TTL expires.',
     cli: 'agentdomains record myapp --type A --content 203.0.113.10',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -185,7 +185,7 @@ export const DNS_TOPICS = [
     defaultHost: '_acme-challenge',
     defaultValue: 'wildcard-acme-token-value',
     summary: 'Issue a single `*.myapp.makes.fyi` TLS certificate covering unlimited deeper sub-labels (`a.myapp.makes.fyi`, `b.myapp.makes.fyi`) via ACME DNS-01.',
-    explanation: 'A wildcard certificate (`*.myapp.makes.fyi`) secures every one-level child label under your claimed subdomain with a single keypair. Let’s Encrypt mandates DNS-01 validation for wildcards, which maps directly to `agentdomains txt myapp <token>` or the `add_acme_challenge` MCP tool.',
+    explanation: 'A wildcard cert (`*.myapp.makes.fyi`) secures every single-level child label with one key. Let’s Encrypt requires DNS-01 for wildcards. Publish the token with `agentdomains txt` or `add_acme_challenge`.',
     cli: 'agentdomains txt myapp "wildcard-acme-token-value"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -194,7 +194,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_acme_challenge',
     mcpArgs: { label: 'myapp', value: 'wildcard-acme-token-value' },
     pitfalls: [
-      'A wildcard cert `*.myapp.makes.fyi` does NOT cover the bare parent `myapp.makes.fyi` unless you include both SANs in the CSR (`-d myapp.makes.fyi -d "*.myapp.makes.fyi"`).',
+      'A wildcard cert `*.myapp.makes.fyi` does not cover the bare parent. Pass both `-d myapp.makes.fyi` and `-d "*.myapp.makes.fyi"`.',
       'Wildcards match exactly one label level: `a.b.myapp.makes.fyi` is not covered by `*.myapp.makes.fyi`.',
     ],
   },
@@ -206,8 +206,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'myapp.fly.dev',
-    summary: 'Why a subdomain like `myapp.makes.fyi` can cleanly hold a standard CNAME record while root apex domains (`example.com`) require CNAME flattening or ALIAS tricks.',
-    explanation: 'RFC 1034 prohibits placing a CNAME record at the root of a DNS zone because the apex already owns SOA and NS records. Because `myapp.makes.fyi` is a subdomain inside the `makes.fyi` zone, you can point it straight at Fly.io, Railway, or Render with a standard RFC-compliant CNAME record.',
+    summary: 'See why `myapp.makes.fyi` accepts standard CNAME records while root domains need CNAME flattening.',
+    explanation: 'RFC 1034 forbids CNAME records at a zone apex because the apex owns SOA and NS records. Your `myapp.makes.fyi` host is a subdomain. You can point it straight at Fly.io, Railway, or Render with a standard CNAME.',
     cli: 'agentdomains record myapp --type CNAME --content myapp.fly.dev',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -227,8 +227,8 @@ export const DNS_TOPICS = [
     defaultType: 'AAAA',
     defaultHost: '@',
     defaultValue: '2001:db8:85a3::8a2e:370:7334',
-    summary: 'Point your subdomain at IPv6-only VPS instances (like Hetzner’s cheaper IPv6-only servers) or enable dual-stack routing alongside an A record.',
-    explanation: 'An AAAA ("quad-A") record maps a hostname to a 128-bit IPv6 address. Modern browsers use Happy Eyeballs (RFC 8305) to race IPv6 and IPv4 seamlessly when both A and AAAA records exist.',
+    summary: 'Point your subdomain at IPv6-only VPS servers or run dual-stack routing next to an A record.',
+    explanation: 'An AAAA record maps a hostname to a 128-bit IPv6 address. Modern browsers race IPv6 and IPv4 cleanly when both A and AAAA records exist.',
     cli: 'agentdomains record myapp --type AAAA --content 2001:db8:85a3::8a2e:370:7334',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -237,7 +237,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_dns_record',
     mcpArgs: { label: 'myapp', type: 'AAAA', content: '2001:db8:85a3::8a2e:370:7334' },
     pitfalls: [
-      'Make sure your web server binds `[::]:443` (dual-stack) before publishing an AAAA record, otherwise IPv6 clients will fail to connect.',
+      'Bind your server to `[::]:443` before you add an AAAA record. Otherwise IPv6 clients fail to connect.',
     ],
   },
   {
@@ -248,8 +248,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Query live authoritative DNS records straight from browsers, CI scripts, or locked-down sandboxes using Cloudflare and Google JSON DoH APIs.',
-    explanation: 'DNS over HTTPS (RFC 8484) encapsulates DNS queries inside standard HTTPS requests on port 443, bypassing ISP DNS hijacking and allowing browser-based diagnostic tools (like our `/tools/dns-ssl-checker`) to verify live DNS propagation over CORS.',
+    summary: 'Query live DNS records from browsers, CI jobs, or sandboxes using Cloudflare and Google JSON DoH APIs.',
+    explanation: 'DNS over HTTPS (RFC 8484) sends DNS queries inside standard port 443 HTTPS requests. It bypasses ISP DNS blocks and lets browser tools like `/tools/dns-ssl-checker` inspect live records directly.',
     cli: 'curl -H "accept: application/dns-json" "https://cloudflare-dns.com/dns-query?name=myapp.makes.fyi&type=A"',
     curl: `curl -s "https://dns.google/resolve?name=myapp.makes.fyi&type=TXT"`,
     mcpTool: 'get_domain',
@@ -260,14 +260,14 @@ export const DNS_TOPICS = [
   },
   {
     slug: 'cloudflare-edge-tls',
-    name: 'Cloudflare Edge TLS Termination',
-    term: 'Edge TLS Termination',
+    name: 'Cloudflare Edge TLS & HTTPS',
+    term: 'Edge TLS & HTTPS',
     category: 'Edge Routing',
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'myapp.fly.dev',
-    summary: 'How AgentDomains `set_proxy` terminates TLS 1.3 at the edge globally and forwards requests cleanly to your upstream origin hostname.',
-    explanation: 'When you enable `agentdomains proxy myapp myapp.fly.dev`, incoming HTTPS connections terminate at Cloudflare’s edge using a managed trusted certificate, giving visitors sub-50ms TLS handshakes worldwide without you touching Certbot, OpenSSL, or certificate renewals.',
+    summary: 'See how `set_proxy` handles TLS 1.3 at the edge and forwards traffic to your origin hostname.',
+    explanation: 'When you run `agentdomains proxy`, Cloudflare handles HTTPS at the edge with a managed cert. Visitors get fast TLS 1.3 handshakes worldwide. You never touch Certbot or manual renewals.',
     cli: 'agentdomains proxy myapp myapp.fly.dev',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -287,8 +287,8 @@ export const DNS_TOPICS = [
     defaultType: 'TXT',
     defaultHost: '_acme-challenge',
     defaultValue: 'staging-acme-test-token',
-    summary: 'Avoid hitting Let’s Encrypt’s 50-certs-per-week registered domain limit by testing against staging ACME first or using AgentDomains edge proxy.',
-    explanation: 'Let’s Encrypt enforces per-registered-domain issuance limits across shared zones not on the Public Suffix List, plus duplicate-certificate limits (5 identical certs per week). Using `agentdomains proxy` uses our wildcard edge certificate with zero ACME calls on your server; when running your own Certbot/Caddy on an A record, always test configs against Let’s Encrypt Staging first and persist your cert volume across container restarts.',
+    summary: 'Avoid Let’s Encrypt weekly rate limits. Test with staging ACME first, or use AgentDomains edge proxy.',
+    explanation: 'Let’s Encrypt caps cert issuance per registered domain and allows 5 duplicate certs per week. `agentdomains proxy` uses our wildcard edge cert with zero ACME calls on your server. On an A record, test with Let’s Encrypt Staging first and persist your cert volume.',
     cli: 'agentdomains proxy myapp myapp.fly.dev',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -308,8 +308,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Configure Caddy’s automatic HTTPS on an AgentDomains A record using HTTP-01 (zero config) or DNS-01 via `agentdomains txt` / delegated NS.',
-    explanation: 'Caddy automatically provisions and renews TLS certificates for any hostname in your Caddyfile as soon as the A record resolves to your server. If port 80 is blocked, delegate NS to a provider with a Caddy DNS module or run an ACME DNS-01 pre-hook calling the AgentDomains API.',
+    summary: 'Run Caddy automatic HTTPS on an AgentDomains A record with HTTP-01 or DNS-01 via `agentdomains txt`.',
+    explanation: 'Caddy issues and renews TLS certs as soon as your A record resolves to your server. If port 80 is blocked, delegate NS or call the AgentDomains DNS-01 API from a pre-hook.',
     cli: 'agentdomains record caddyapp --type A --content 203.0.113.10',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/caddyapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -330,7 +330,7 @@ export const DNS_TOPICS = [
     defaultHost: '_acme-challenge',
     defaultValue: 'certbot-validation-token',
     summary: 'Automate Certbot `--manual-auth-hook` and `--manual-cleanup-hook` with `agentdomains txt` and `agentdomains unrecord` for unattended renewals.',
-    explanation: 'Certbot passes `$CERTBOT_VALIDATION` to your `--manual-auth-hook` script. A 3-line shell hook calling `agentdomains txt myapp "$CERTBOT_VALIDATION"` and sleeping 10 seconds lets Certbot renew certificates cleanly even with port 80 completely firewalled.',
+    explanation: 'Certbot passes `$CERTBOT_VALIDATION` to your `--manual-auth-hook` script. Call `agentdomains txt myapp "$CERTBOT_VALIDATION"` and wait 10 seconds. Certbot renews your cert even with port 80 closed.',
     cli: 'agentdomains txt myapp "$CERTBOT_VALIDATION"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -350,8 +350,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'hooks-worker.fly.dev',
-    summary: 'Why Stripe, GitHub, Slack, Meta, and Twilio reject raw IPs, self-signed certs, and 302 redirects — and how edge proxying satisfies all of them.',
-    explanation: 'Production webhook senders validate three things before delivering events: a valid CA-signed certificate matching the URL hostname (SNI), port 443 HTTPS, and a direct 2xx response without following POST redirects. `agentdomains proxy` satisfies all three instantly.',
+    summary: 'See why Stripe, GitHub, and Slack reject raw IPs and 302 redirects, and how edge proxy fixes it.',
+    explanation: 'Webhook senders check three rules: a valid CA cert matching SNI, port 443 HTTPS, and a direct 2xx response. They do not follow POST redirects. `agentdomains proxy` meets all three rules at once.',
     cli: 'agentdomains proxy webhooks hooks-worker.fly.dev',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/webhooks/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -372,7 +372,7 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: 'api-origin.up.railway.app',
     summary: 'Configure `Access-Control-Allow-Origin` and `OPTIONS` preflight handling cleanly when your API sits behind an edge reverse proxy.',
-    explanation: 'Browsers evaluate Cross-Origin Resource Sharing (CORS) against the public URL in the address bar (`https://myapp.makes.fyi`), not your upstream origin hostname. Ensure your backend responds to `OPTIONS` preflight requests with 204 and echoes your allowed frontend origin.',
+    explanation: 'Browsers check CORS against the public address bar URL (`https://myapp.makes.fyi`), not your origin host. Return HTTP 204 on `OPTIONS` requests and echo your allowed frontend origin.',
     cli: 'agentdomains proxy api-demo api-origin.up.railway.app',
     curl: `curl -i -X OPTIONS https://api-demo.makes.fyi/v1/items -H "Origin: https://app.example.com" -H "Access-Control-Request-Method: POST"`,
     mcpTool: 'set_proxy',
@@ -390,7 +390,7 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: '203.0.113.10',
     summary: 'Keep long-lived `wss://` WebSocket connections and AI token Server-Sent Events (SSE) streaming cleanly over HTTPS.',
-    explanation: 'WebSockets begin with an HTTP/1.1 `Upgrade: websocket` handshake over TLS (`wss://`), while LLM streaming commonly uses `text/event-stream` over HTTP/2. When running Nginx on an A record, explicitly enable `proxy_http_version 1.1`, pass `Upgrade`/`Connection`, and set `proxy_buffering off` for instant token streaming.',
+    explanation: 'WebSockets start with an HTTP/1.1 `Upgrade` handshake over `wss://`. LLM streams usually use SSE over HTTP/2. In Nginx, enable HTTP 1.1, pass `Upgrade` headers, and set `proxy_buffering off`.',
     cli: 'agentdomains record ws-app --type A --content 203.0.113.10',
     curl: `curl -N https://ws-app.makes.fyi/events`,
     mcpTool: 'add_dns_record',
@@ -407,14 +407,14 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Understand how `Strict-Transport-Security` enforces HTTPS on your subdomain and why you should avoid `includeSubDomains` until every sub-label has valid TLS.',
+    summary: 'Learn how HSTS enforces HTTPS and why you should skip `includeSubDomains` until every sub-label has TLS.',
     explanation: 'HSTS tells browsers to automatically upgrade all `http://` requests to `https://` for `max-age` seconds, preventing SSL-stripping attacks. Start with a short `max-age=300` while testing your Caddy/Nginx TLS config before extending to `31536000`.',
     cli: 'curl -sI https://myapp.makes.fyi | grep -i strict-transport-security',
     curl: `curl -sI https://myapp.makes.fyi`,
     mcpTool: 'get_domain',
     mcpArgs: { label: 'myapp' },
     pitfalls: [
-      'Never enable HSTS if you intend to test plain HTTP on a sub-label later — browsers refuse to downgrade until `max-age` expires.',
+      'Do not turn on HSTS if you plan to test plain HTTP later. Browsers block HTTP until `max-age` ends.',
     ],
   },
   {
@@ -425,14 +425,14 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Trace the 4 caching layers (Browser → OS stub → Router/ISP → Public Recursive Resolver) that explain why `dig` and Chrome sometimes disagree.',
-    explanation: 'Even after authoritative DNS updates instantaneously, your OS (`mDNSResponder` on macOS, `systemd-resolved` on Linux), Chrome’s internal DNS cache (`chrome://net-internals/#dns`), and your ISP’s resolver each keep independent copies until the record’s TTL counts down to zero.',
+    summary: 'Trace the 4 DNS cache layers to see why `dig` and Chrome sometimes show different answers.',
+    explanation: 'Authoritative DNS updates right away. Your OS, browser cache, and ISP resolver still hold old answers until the record TTL reaches zero.',
     cli: 'dig @1.1.1.1 myapp.makes.fyi A +noall +answer',
     curl: `curl -s "https://dns.google/resolve?name=myapp.makes.fyi&type=A"`,
     mcpTool: 'get_domain',
     mcpArgs: { label: 'myapp' },
     pitfalls: [
-      'Flush macOS DNS cache with `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder` if your laptop shows an older IP than `dig @1.1.1.1`.',
+      'Flush the macOS DNS cache if your laptop shows an old IP while `dig @1.1.1.1` is fresh.',
     ],
   },
   {
@@ -443,8 +443,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Why visiting a hostname BEFORE claiming it can make it look broken for a few minutes even after your record goes live.',
-    explanation: 'RFC 2308 allows recursive resolvers to cache NXDOMAIN ("domain does not exist") and NODATA answers for the minimum of the zone SOA TTL and SOA MINIMUM field. Claim and add your DNS record *before* opening the URL in your browser to avoid negative cache delays.',
+    summary: 'Opening a hostname before claiming it caches NXDOMAIN. That can hide your new record for minutes.',
+    explanation: 'RFC 2308 lets resolvers cache NXDOMAIN ("not found") replies using the zone SOA timer. Claim your name and add records before opening the URL in a browser.',
     cli: 'agentdomains claim myapp --email you@example.com --type A --content 203.0.113.10',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -453,7 +453,7 @@ export const DNS_TOPICS = [
     mcpTool: 'claim_domain',
     mcpArgs: { label: 'myapp', email: 'you@example.com', type: 'A', content: '203.0.113.10' },
     pitfalls: [
-      'Pass `--type` and `--content` right in `claim_domain` so the label and its first record publish atomically in a single call.',
+      'Pass `--type` and `--content` in `claim_domain`. That publishes your label and first record in one atomic step.',
     ],
   },
   {
@@ -464,14 +464,14 @@ export const DNS_TOPICS = [
     defaultType: 'NS',
     defaultHost: '@',
     defaultValue: 'ns1.desec.io',
-    summary: 'How CAA records restrict which Certificate Authorities may issue TLS certs for a domain — and how ACME walks up parent zones.',
-    explanation: 'When Let’s Encrypt or Google Trust Services validates a certificate request for `myapp.makes.fyi`, it checks CAA records on `myapp.makes.fyi` and walks upward to `makes.fyi`. To publish custom CAA policies on your own subtree, delegate NS to your authoritative DNS provider.',
+    summary: 'Learn how CAA records control which CAs can issue TLS certs and how ACME checks parent zones.',
+    explanation: 'Before issuing a cert, Let’s Encrypt checks CAA records on `myapp.makes.fyi` and then `makes.fyi`. Delegate NS to publish your own custom CAA rules.',
     cli: 'dig CAA makes.fyi +short',
     curl: `curl -s "https://dns.google/resolve?name=makes.fyi&type=CAA"`,
     mcpTool: 'delegate_nameservers',
     mcpArgs: { label: 'myapp', nameservers: ['ns1.desec.io', 'ns2.desec.org'] },
     pitfalls: [
-      'If you delegate NS and add a restrictive `issue` CAA record, remember to allow `letsencrypt.org` if you use Caddy or Certbot.',
+      'When you add a custom `issue` CAA record, include `letsencrypt.org` if you use Caddy or Certbot.',
     ],
   },
   {
@@ -482,8 +482,8 @@ export const DNS_TOPICS = [
     defaultType: 'TXT',
     defaultHost: '@',
     defaultValue: 'v=spf1 -all',
-    summary: 'Why non-email subdomains benefit from `v=spf1 -all` and how SPF’s 10-DNS-lookup cap works if you send mail via delegated NS.',
-    explanation: 'Publishing `v=spf1 -all` as a TXT record signals receiving mail servers that a demo subdomain sends zero email, reducing spoofing risk. If you need full transactional email with MX, DKIM, and DMARC, delegate NS to your own DNS provider or buy a dedicated second-level domain.',
+    summary: 'Add `v=spf1 -all` to block spoofing on non-mail subdomains, and stay under the 10-lookup SPF cap.',
+    explanation: 'Add a `v=spf1 -all` TXT record to show that a demo subdomain sends no email. For real email with MX and DKIM, delegate NS or buy a root domain.',
     cli: 'agentdomains record myapp --type TXT --content "v=spf1 -all"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -492,7 +492,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_dns_record',
     mcpArgs: { label: 'myapp', type: 'TXT', content: 'v=spf1 -all' },
     pitfalls: [
-      'Never publish two separate `v=spf1` TXT records on the same hostname — RFC 7208 treats duplicate SPF records as a PermError.',
+      'Never add two `v=spf1` TXT records on one hostname. Mail servers reject duplicate SPF records.',
     ],
   },
   {
@@ -503,8 +503,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'Legacy DDNS only updates a single home IP; modern API/MCP DNS provisions new hostnames, records, ACME challenges, and edge proxies programmatically.',
-    explanation: 'Traditional DDNS protocols (DynDNS2, DuckDNS update URLs) assume a human pre-created a static hostname and a router simply pings its current IPv4. Programmatic API/MCP DNS lets CI pipelines and AI agents check availability, claim fresh labels, write A/AAAA/CNAME/TXT records, and clean them up automatically.',
+    summary: 'Legacy DDNS only updates one IP. API and MCP DNS creates hostnames, records, ACME tokens, and proxies.',
+    explanation: 'Legacy DDNS assumes you already created one hostname and only need IP updates. API and MCP DNS lets agents check names, claim labels, write records, and clean up automatically.',
     cli: 'agentdomains record homebox --type A --content "$(curl -s https://api.ipify.org)"',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/homebox/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -513,7 +513,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_dns_record',
     mcpArgs: { label: 'homebox', type: 'A', content: '203.0.113.10' },
     pitfalls: [
-      'When updating an existing A record on AgentDomains, remove the stale record ID (`delete_record`) so you do not accidentally round-robin between the old and new IP.',
+      'Delete the old A record ID with `delete_record` when changing IPs. That avoids round-robin routing to the stale IP.',
     ],
   },
   {
@@ -525,7 +525,7 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: '203.0.113.10',
     summary: 'Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.',
-    explanation: 'Good DNS APIs for AI agents avoid partial-failure state. AgentDomains makes `POST /v1/subdomains` atomic (if your initial DNS record fails validation, the label is NOT claimed), returns `409 {"owned":true}` when re-claiming your own label so retries stay idempotent, and mirrors every REST call 1:1 in its MCP server.',
+    explanation: 'Good DNS APIs avoid half-broken state. `POST /v1/subdomains` is atomic: bad DNS input never claims the label. Re-claiming your own label returns `409 {"owned":true}` so retries stay safe.',
     cli: 'agentdomains claim api-bot --email you@example.com --type A --content 203.0.113.10 --json',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -545,8 +545,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'myapp.fly.dev',
-    summary: 'How authoritative DNS resolvers dynamically resolve CNAME chains at the edge to return A/AAAA answers faster — and when plain CNAMEs suffice.',
-    explanation: 'CNAME flattening resolves a CNAME target on the authoritative server itself and returns the final IP addresses to the client, cutting out extra recursive round-trips and allowing apex aliasing. On subdomains like `myapp.makes.fyi`, standard CNAME records already work everywhere without special apex workarounds.',
+    summary: 'See how edge resolvers flatten CNAME chains into A/AAAA answers and when plain CNAMEs work fine.',
+    explanation: 'CNAME flattening resolves the target at the authoritative server and returns the final IP. That enables apex aliasing and saves lookup hops. Subdomains like `myapp.makes.fyi` already support standard CNAMEs everywhere.',
     cli: 'agentdomains record myapp --type CNAME --content myapp.fly.dev',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -555,7 +555,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_dns_record',
     mcpArgs: { label: 'myapp', type: 'CNAME', content: 'myapp.fly.dev' },
     pitfalls: [
-      'When inspecting a flattened CNAME with `dig`, you may see synthetic A records directly instead of a CNAME hop.',
+      'When you run `dig` on a flattened CNAME, you may see A records instead of a CNAME hop.',
     ],
   },
   {
@@ -566,8 +566,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'myapp.fly.dev',
-    summary: 'Always remove DNS records, proxies, or the subdomain itself *before* deleting your underlying Fly.io, Railway, Heroku, or S3 origin.',
-    explanation: 'A dangling DNS takeover happens when `myapp.makes.fyi` still CNAMEs or proxies to `old-app.fly.dev` after you deleted `old-app` on Fly.io — allowing someone else to claim `old-app.fly.dev` and serve arbitrary content under your subdomain. Teardown order matters: delete DNS/proxy first, destroy cloud compute second.',
+    summary: 'Delete your DNS records or proxy before you destroy your Fly.io, Railway, Heroku, or S3 origin.',
+    explanation: 'A dangling takeover happens when DNS still points to a deleted cloud app. Someone else can claim that origin name and serve content on your subdomain. Always delete DNS first, then destroy compute.',
     cli: 'agentdomains delete myapp',
     curl: `curl -X DELETE https://api.agentdomains.co/v1/subdomains/myapp \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY"`,
@@ -585,8 +585,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'How TLS SNI lets a single IPv4 VPS or Cloudflare edge serve hundreds of HTTPS subdomains simultaneously with distinct certificates.',
-    explanation: 'During the TLS ClientHello handshake, the client sends the requested hostname (`myapp.makes.fyi`) in the SNI extension before encryption begins. Your reverse proxy (Caddy, Nginx, Traefik, or AgentDomains edge) reads SNI to pick the matching TLS certificate and route the request to the right backend.',
+    summary: 'Learn how TLS SNI lets one IPv4 server or edge node serve hundreds of HTTPS domains.',
+    explanation: 'In the TLS ClientHello step, the client sends the requested hostname inside SNI. Your reverse proxy reads SNI, picks the right cert, and routes traffic to the matching backend.',
     cli: 'openssl s_client -servername myapp.makes.fyi -connect myapp.makes.fyi:443 </dev/null 2>/dev/null | openssl x509 -noout -subject -dates',
     curl: `curl -vI https://myapp.makes.fyi 2>&1 | grep -E "subject:|expire date:|issuer:"`,
     mcpTool: 'get_domain',
@@ -604,7 +604,7 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: 'myapp.up.railway.app',
     summary: 'Configure Express, FastAPI, Django, and Rails to trust `X-Forwarded-Proto` and `X-Forwarded-For` behind edge TLS proxies.',
-    explanation: 'When TLS terminates at an edge proxy, your backend container receives proxy-forwarded traffic. Frameworks rely on `X-Forwarded-Proto: https` and `X-Forwarded-Host` to build correct `https://` OAuth redirect URLs and set `Secure` session cookies.',
+    explanation: 'When the edge proxy handles TLS, your backend sees forwarded traffic. Frameworks read `X-Forwarded-Proto` and `X-Forwarded-Host` to build HTTPS URLs and set secure cookies.',
     cli: 'agentdomains proxy myapp myapp.up.railway.app',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -624,8 +624,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'my-backend.fly.dev',
-    summary: 'How `agentdomains proxy` terminates visitor traffic at the edge rather than exposing your backend’s raw address directly in public DNS.',
-    explanation: 'An A record publishes your server’s IP directly in global DNS, allowing anyone to connect straight to your box. Using `agentdomains proxy` serves requests through our Cloudflare-backed edge Worker, insulating your origin from direct DNS IP lookup while adding free edge TLS and (on Pro) daily visitor analytics.',
+    summary: 'See how `agentdomains proxy` handles visitor traffic at the edge and keeps your backend address private.',
+    explanation: 'An A record publishes your server IP directly in public DNS. `agentdomains proxy` routes requests through our Cloudflare edge instead. It hides your origin from DNS lookups and adds free edge TLS.',
     cli: 'agentdomains proxy myapp my-backend.fly.dev',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -646,7 +646,7 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: '203.0.113.10',
     summary: 'Turn `http://203.0.113.10:8080` or `:3000` into a clean `https://myapp.makes.fyi` URL without ugly port numbers in links.',
-    explanation: 'DNS records (`A`, `AAAA`, `CNAME`) do not carry HTTP port numbers — browsers always connect to port 443 for `https://`. Run Caddy, Nginx, or Traefik on port 443 of your VPS to proxy cleanly to `127.0.0.1:3000`, `:8000`, or `:11434`, or deploy on Fly/Railway/Render and use `agentdomains proxy`.',
+    explanation: 'DNS records do not store HTTP port numbers. Browsers always hit port 443 for HTTPS. Run Caddy or Nginx on port 443 to forward to local ports, or use `agentdomains proxy`.',
     cli: 'agentdomains record myapp --type A --content 203.0.113.10',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains/myapp/records \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -655,7 +655,7 @@ export const DNS_TOPICS = [
     mcpTool: 'add_dns_record',
     mcpArgs: { label: 'myapp', type: 'A', content: '203.0.113.10' },
     pitfalls: [
-      'DNS SRV records are ignored by web browsers for HTTP/HTTPS — always use a reverse proxy to map port 443 to internal app ports.',
+      'Web browsers ignore DNS SRV records for HTTPS. Use a reverse proxy to map port 443 to internal ports.',
     ],
   },
   {
@@ -666,8 +666,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'oauth-app.up.railway.app',
-    summary: 'Why Google, GitHub, Slack, and Apple require exact HTTPS callback hostnames — and how a fixed `makes.fyi` proxy avoids redirect mismatch errors.',
-    explanation: 'RFC 6749 and modern OAuth 2.1 security profiles require exact-match HTTPS redirect URIs for non-loopback applications to prevent authorization code interception. Assigning `https://oauth-app.makes.fyi/callback` gives your team a permanent callback host even when staging containers redeploy.',
+    summary: 'See why OAuth providers require exact HTTPS callback URLs and how a fixed `makes.fyi` host prevents errors.',
+    explanation: 'OAuth 2.1 requires exact-match HTTPS redirect URIs to stop code theft. Using `https://oauth-app.makes.fyi/callback` gives your team one fixed callback URL across redeploys.',
     cli: 'agentdomains proxy oauth-app oauth-app.up.railway.app',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/oauth-app/proxy \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -687,8 +687,8 @@ export const DNS_TOPICS = [
     defaultType: 'CNAME',
     defaultHost: '@',
     defaultValue: 'my-mcp.fly.dev',
-    summary: 'Host your own remote Model Context Protocol server over stateless Streamable HTTP with trusted HTTPS TLS on port 443.',
-    explanation: 'Remote MCP clients (Claude Code, Cursor, VS Code, OpenAI Agents SDK, n8n) connect to Streamable HTTP servers by POSTing JSON-RPC 2.0 payloads (`initialize`, `tools/list`, `tools/call`) to a public HTTPS endpoint. Fronting your MCP worker with `agentdomains proxy` provides instant edge TLS and clean `*.agentdomains.co` branding.',
+    summary: 'Host your remote MCP server over stateless Streamable HTTP with valid port 443 HTTPS.',
+    explanation: 'Remote MCP clients send JSON-RPC POST requests to a public HTTPS endpoint. Put `agentdomains proxy` in front of your MCP server for instant edge TLS and a clean `*.agentdomains.co` URL.',
     cli: 'agentdomains proxy my-mcp my-mcp.fly.dev --domain agentdomains.co',
     curl: `curl -X POST https://mcp.agentdomains.co \\
   -H "Content-Type: application/json" \\
@@ -708,13 +708,13 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: '203.0.113.10',
     summary: 'Essential `dig` commands for debugging A, AAAA, CNAME, TXT, `_acme-challenge`, NS delegation, and TTLs in seconds.',
-    explanation: 'Use `dig +short A myapp.makes.fyi` for scripting, `dig @1.1.1.1 TXT _acme-challenge.myapp.makes.fyi +noall +answer` to inspect live ACME tokens and remaining TTLs, and `dig +trace myapp.makes.fyi` to walk the full delegation chain from root nameservers down.',
+    explanation: 'Run `dig +short A myapp.makes.fyi` in scripts. Use `dig @1.1.1.1 TXT _acme-challenge.myapp.makes.fyi` to check ACME tokens and TTLs. Run `dig +trace` to walk the full delegation chain.',
     cli: 'dig @1.1.1.1 myapp.makes.fyi ANY +noall +answer',
     curl: `curl -s "https://dns.google/resolve?name=myapp.makes.fyi&type=A"`,
     mcpTool: 'get_domain',
     mcpArgs: { label: 'myapp' },
     pitfalls: [
-      'Modern Cloudflare authoritative zones return RFC 8482 minimal responses for `ANY` queries — query explicit types (`A`, `AAAA`, `CNAME`, `TXT`, `NS`) instead.',
+      'Cloudflare returns minimal answers for `ANY` queries. Query exact record types like `A`, `CNAME`, `TXT`, or `NS`.',
     ],
   },
   {
@@ -726,7 +726,7 @@ export const DNS_TOPICS = [
     defaultHost: '_acme-challenge',
     defaultValue: 'verify-token-123',
     summary: 'Why `dig` gives cleaner TTL/authority output than `nslookup`, and when browser DoH tools beat both.',
-    explanation: '`nslookup` ships by default on Windows and macOS, making it handy in a pinch (`nslookup -type=TXT _acme-challenge.myapp.makes.fyi 1.1.1.1`), but `dig` shows exact TTLs, flags (`aa`, `ad`), and query latency cleanly. When working from a restricted corporate network or browser, our live DoH `/tools/dns-ssl-checker` queries both `1.1.1.1` and `8.8.8.8` simultaneously.',
+    explanation: '`nslookup` comes built into Windows and macOS for quick checks. `dig` gives exact TTLs, DNS flags, and timing. In a browser, use `/tools/dns-ssl-checker` to query `1.1.1.1` and `8.8.8.8` together.',
     cli: 'nslookup -type=TXT _acme-challenge.myapp.makes.fyi 1.1.1.1',
     curl: `curl -s -H "accept: application/dns-json" "https://cloudflare-dns.com/dns-query?name=_acme-challenge.myapp.makes.fyi&type=TXT"`,
     mcpTool: 'get_domain',
@@ -743,8 +743,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'A practical 4-step checklist when your newly created subdomain works on mobile data but not on your laptop Wi-Fi.',
-    explanation: 'DNS does not "push" updates across the globe — resolvers pull records lazily and cache them for TTL seconds. If your phone loads `myapp.makes.fyi` while your laptop gets NXDOMAIN, your laptop or office router cached an earlier NXDOMAIN response. Check `1.1.1.1` and `8.8.8.8` via DoH, flush OS DNS cache, or open an incognito tab.',
+    summary: 'Follow this 4-step checklist when a new subdomain works on mobile but fails on laptop Wi-Fi.',
+    explanation: 'DNS does not push changes globally. Resolvers pull records and cache them for TTL seconds. If your phone loads the site but your laptop fails, flush your OS DNS cache.',
     cli: 'agentdomains get myapp --json',
     curl: `curl -s "https://api.agentdomains.co/v1/subdomains/myapp" -H "Authorization: Bearer $AGENTDOMAINS_API_KEY"`,
     mcpTool: 'get_domain',
@@ -781,7 +781,7 @@ export const DNS_TOPICS = [
     defaultHost: '@',
     defaultValue: 'docs.example.com',
     summary: 'Control whether `myapp.makes.fyi/pricing?ref=gh` redirects to `https://target.com/pricing?ref=gh` or collapses to the target root.',
-    explanation: 'By default, AgentDomains `set_forward` sets `preserve_path: true`, appending the incoming path and query string onto your target URL so deep links stay intact. Set `preserve_path: false` when you want every path on an old promo domain to land cleanly on a single landing page.',
+    explanation: 'By default, `set_forward` keeps `preserve_path: true` so deep links and query strings stay intact. Set `preserve_path: false` to send every path to one landing page.',
     cli: 'agentdomains forward myapp https://docs.example.com',
     curl: `curl -X PUT https://api.agentdomains.co/v1/subdomains/myapp/forward \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -790,7 +790,7 @@ export const DNS_TOPICS = [
     mcpTool: 'set_forward',
     mcpArgs: { label: 'myapp', target: 'https://docs.example.com', preserve_path: true },
     pitfalls: [
-      'Avoid `cloak: true` (iframe cloaking) for modern web apps — most sites send `X-Frame-Options: DENY` or `frame-ancestors` CSP headers that block iframes.',
+      'Skip `cloak: true` for modern apps. Most sites send `X-Frame-Options: DENY` headers that block iframes.',
     ],
   },
   {
@@ -801,8 +801,8 @@ export const DNS_TOPICS = [
     defaultType: 'A',
     defaultHost: '@',
     defaultValue: '203.0.113.10',
-    summary: 'An honest architectural guide to when a managed subdomain (`*.makes.fyi` / `*.agentdomains.co`) beats buying a `.com` — and when you must buy a TLD.',
-    explanation: 'A managed subdomain has zero ICANN registry fee, zero WHOIS paperwork, instant API/MCP provisioning, and works for 100 agent projects at $10/yr total. However, you do NOT own it in the registrar sense: there is no EPP transfer code and it lives as long as the operator runs. Use managed subdomains for demos, previews, webhooks, bots, and agent prototypes; buy a real `.com`/`.dev` at Cloudflare Registrar or Porkbun for your long-term company brand or email domain.',
+    summary: 'Learn when a managed subdomain beats buying a `.com`, and when you should buy a real TLD.',
+    explanation: 'A managed subdomain has no ICANN fee, no WHOIS forms, and instant MCP setup for $10/yr (100 names). But you do not own an ICANN transfer code. Use managed subdomains for demos, webhooks, and agent builds. Buy a `.com` at Cloudflare or Porkbun for your main brand.',
     cli: 'agentdomains claim proto-demo --email you@example.com',
     curl: `curl -X POST https://api.agentdomains.co/v1/subdomains \\
   -H "Authorization: Bearer $AGENTDOMAINS_API_KEY" \\
@@ -811,7 +811,7 @@ export const DNS_TOPICS = [
     mcpTool: 'claim_domain',
     mcpArgs: { label: 'proto-demo', email: 'you@example.com' },
     pitfalls: [
-      'When a prototype outgrows `*.makes.fyi` and earns a real `.com`, turn your old subdomain into a `301` redirect (`set_forward` with `permanent: true`) so existing links migrate smoothly.',
+      'When a prototype graduates to a `.com`, point your old subdomain to it with a 301 forward.',
     ],
   },
 ];

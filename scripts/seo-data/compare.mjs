@@ -12,7 +12,7 @@ export const COMPARE_RIVALS = [
     rivalFlat: 0,
     pricingSummary: 'Free (up to 5 subdomains per account; donation-supported)',
     writableDns: 'A, AAAA, TXT only — no CNAME, no NS delegation',
-    edgeHttpsProxy: 'No — points DNS to your IP; you terminate TLS yourself',
+    edgeHttpsProxy: 'No — points DNS to your IP; you run TLS yourself',
     acmeDns01: 'Yes (via TXT update API)',
     mcpServer: 'No official MCP server or CLI',
     cardFreeTrial: 'Free, requires OAuth login (GitHub, Google, Reddit, etc.)',
@@ -25,7 +25,7 @@ export const COMPARE_RIVALS = [
     ],
     chooseUs: [
       'Your AI agent needs to claim names unattended via CLI or 20-tool MCP server.',
-      'You need CNAME records, NS delegation, URL forwarding, or zero-config edge HTTPS reverse proxying in front of PaaS hosts.',
+      'You need CNAME records, NS delegation, URL forwarding, or edge HTTPS proxying.',
       'You want 10 names on a card-free 30-day trial and up to 100 names for $10/yr.',
     ],
     migrationSteps: [
@@ -45,7 +45,7 @@ export const COMPARE_RIVALS = [
     rivalFlat: 96,
     pricingSummary: 'Free tier (1 static domain, interstitial banner on web); Personal $8/mo ($96/yr); Pro $20/mo',
     writableDns: 'No — tunnel hostnames only (no A/AAAA/CNAME/TXT)',
-    edgeHttpsProxy: 'Yes — built-in TLS termination & local NAT traversal tunnel',
+    edgeHttpsProxy: 'Yes — built-in edge HTTPS and local NAT traversal tunnel',
     acmeDns01: 'No (managed TLS on tunnel endpoints only)',
     mcpServer: 'No domain/DNS MCP server',
     cardFreeTrial: 'Free tier needs account + authtoken; extra custom domains paid',
@@ -56,7 +56,7 @@ export const COMPARE_RIVALS = [
       'You need ngrok’s traffic inspector UI, OAuth edge policies, or request replay for local webhook debugging.',
     ],
     chooseUs: [
-      'Your app already runs on a public VPS, Fly.io, Railway, Render, or Cloud Run and needs a clean hostname with real DNS records.',
+      'Your app runs on a VPS, Fly.io, Railway, Render, or Cloud Run. You need real DNS records.',
       'You want zero interstitial warning pages, writable A/AAAA/CNAME/TXT records, and up to 100 names for $10/yr.',
       'You want an agent to claim and route hostnames via MCP without installing a persistent tunnel daemon.',
     ],
@@ -77,19 +77,19 @@ export const COMPARE_RIVALS = [
     rivalFlat: 0,
     pricingSummary: 'Tunnel software is free (Quick Tunnels give random *.trycloudflare.com; custom names require owning a domain ~$10+/yr)',
     writableDns: 'Only if you bring your own domain on Cloudflare DNS',
-    edgeHttpsProxy: 'Yes — outbound cloudflared daemon terminates TLS at Cloudflare edge',
+    edgeHttpsProxy: 'Yes — outbound cloudflared daemon handles HTTPS at the Cloudflare edge',
     acmeDns01: 'Only on your own Cloudflare zone',
     mcpServer: 'Cloudflare has general API MCP servers, not card-free instant subdomains',
     cardFreeTrial: 'Quick Tunnels need no account (ephemeral URL); named tunnels require Cloudflare account + own domain',
     cost10: 'Free tunnel + ~$10/yr for 1 root domain (subdomains free on your zone)',
     cost100: 'Free tunnel + ~$10/yr for 1 root domain',
     chooseRival: [
-      'You already own a custom domain on Cloudflare and want outbound-only zero-trust tunnels into a private home server or VPC.',
+      'You own a Cloudflare domain and need outbound tunnels into a private server.',
       'You need Cloudflare Access SSO or private CIDR routing in front of internal services.',
     ],
     chooseUs: [
-      'You do not want to buy a domain, verify a card, or run a cloudflared daemon just to give an agent build a stable HTTPS URL.',
-      'You want an agent to call a single MCP tool (set_proxy or add_dns_record) and get a memorable name in seconds.',
+      'You want a stable HTTPS URL with no domain purchase, no card, and no tunnel daemon.',
+      'You want an agent to call one MCP tool and get a live name in seconds.',
       'Bonus: you can even pair a Quick Tunnel or private tunnel hostname behind an AgentDomains proxy for testing.',
     ],
     migrationSteps: [
@@ -116,11 +116,11 @@ export const COMPARE_RIVALS = [
     cost10: '$0 Hobby (non-commercial) or $240/yr Pro',
     cost100: '$240+/yr Pro (commercial use)',
     chooseRival: [
-      'You have a Next.js or static frontend with no existing server and want hosting + CI + generated URL in one step.',
+      'You have a static or Next.js frontend and want hosting, CI, and a URL together.',
       'You never need to point the hostname at a VPS, Fly.io container, or external API.',
     ],
     chooseUs: [
-      'Your backend already runs on a VPS, Docker box, Railway, Fly.io, or local GPU server — *.vercel.app cannot point there.',
+      'Your backend runs on a VPS, Docker box, Railway, or Fly.io. Vercel URLs cannot point there.',
       'You need real writable DNS records (A, AAAA, CNAME, TXT, NS) or ACME DNS-01 challenges.',
       'You want one agent tool (CLI/MCP) to name any origin anywhere for $0 trial / $10/yr Pro.',
     ],
@@ -180,11 +180,11 @@ export const COMPARE_RIVALS = [
     cost10: '$0 (unbranded IP-encoded names like 203-0-113-10.nip.io)',
     cost100: '$0 (IP-encoded only; breaks if IP changes)',
     chooseRival: [
-      'You need a zero-setup throwaway hostname for an internal Kubernetes Ingress test and do not care that the IP is visible in the URL.',
+      'You need a quick Kubernetes Ingress test hostname and do not mind a raw IP in the URL.',
     ],
     chooseUs: [
       'You want a clean human-readable name (myapp.makes.fyi) that hides your origin IP behind our HTTPS edge proxy.',
-      'You need TXT records for ACME DNS-01, CNAMEs for PaaS hosts, or a stable name when your VPS IP changes.',
+      'You need ACME DNS-01 TXT records, PaaS CNAMEs, or a stable name across IP changes.',
       'You want to avoid shared Let’s Encrypt rate-limit exhaustion common on public wildcard resolvers.',
     ],
     migrationSteps: [
@@ -242,11 +242,11 @@ export const COMPARE_RIVALS = [
     cost10: '$0 Personal (tied to tailnet machine names, max 3 users)',
     cost100: 'Requires paid Starter/Premium tailnet for team scale',
     chooseRival: [
-      'Your service lives on a laptop or Raspberry Pi inside a Tailscale mesh and needs NAT traversal without opening router ports.',
+      'Your service runs inside a Tailscale mesh and needs NAT traversal with no open router ports.',
       'You do not mind sharing an ugly tailnet suffix like box.tail9a2f1.ts.net.',
     ],
     chooseUs: [
-      'You want a clean public hostname (bot.makes.fyi) — in fact, you can run `agentdomains proxy bot box.tail9a2f1.ts.net` right in front of Tailscale Funnel!',
+      'You want a clean hostname like bot.makes.fyi. You can even proxy straight to your Tailscale Funnel host.',
       'You need custom DNS records (A, AAAA, CNAME, TXT) or webhook domains unrelated to a Tailscale daemon.',
     ],
     migrationSteps: [
@@ -273,11 +273,11 @@ export const COMPARE_RIVALS = [
     cost10: '~$110.80/yr for 10 .com domains',
     cost100: '~$1,108/yr for 100 .com domains',
     chooseRival: [
-      'You need a real, transferable second-level domain (.com, .dev, .io) that you legally own with WHOIS/RDAP and custom MX email.',
+      'You need a transferable .com, .dev, or .io domain with full WHOIS ownership and custom email.',
       'The project is a permanent brand or production SaaS — AgentDomains explicitly does NOT sell transferable TLDs.',
     ],
     chooseUs: [
-      'Your AI agent spins up 10–100 demos, previews, or webhook receivers and buying a new .com for each is absurdly expensive.',
+      'Your agent builds 10 to 100 demos or webhooks. Buying a .com for each costs too much.',
       'You want an instant card-free 30-day trial, native 20-tool hosted MCP server, and built-in edge HTTPS reverse proxy.',
     ],
     migrationSteps: [
@@ -307,7 +307,7 @@ export const COMPARE_RIVALS = [
       'You want to buy and own a permanent .com brand domain and already hold a qualifying Namecheap account.',
     ],
     chooseUs: [
-      'You want instant API and MCP access from any dynamic IP with zero IP whitelisting and zero upfront spend.',
+      'You want instant API and MCP access from any IP with no whitelist and no upfront fee.',
       'You want built-in HTTPS reverse proxying and up to 100 agent hostnames for $10/yr total.',
     ],
     migrationSteps: [
@@ -337,8 +337,8 @@ export const COMPARE_RIVALS = [
       'You are brainstorming permanent .com/.ai brand names to purchase manually at a registrar.',
     ],
     chooseUs: [
-      'You want your agent to actually claim a working hostname, write DNS records, and serve HTTPS traffic in the same session.',
-      'AgentDomains takes your agent from zero to a live 200 OK HTTPS URL with 20 MCP tools — not just search results.',
+      'You want your agent to claim a hostname, write DNS, and serve HTTPS in one session.',
+      'AgentDomains gives your agent 20 MCP tools to ship a live HTTPS URL, not just search results.',
     ],
     migrationSteps: [
       'agentdomains signup',
@@ -355,7 +355,7 @@ export const COMPARE_RIVALS = [
     rivalModel: 'per-domain',
     rivalUnit: 25.0,
     rivalFlat: 59,
-    pricingSummary: 'Example x402 checkout $25 USDC on Base + $3.90/yr platform fee; plans Starter $59 / Pro $120 / Enterprise $240 per year',
+    pricingSummary: 'Example x402 checkout: $25 USDC + $3.90/yr fee. Plans cost $59 to $240/yr.',
     writableDns: 'Yes — DNS records on registered second-level domains',
     edgeHttpsProxy: 'No built-in edge HTTPS reverse proxy',
     acmeDns01: 'Yes (via DNS TXT records on purchased domain)',
@@ -395,10 +395,10 @@ export const COMPARE_RIVALS = [
     cost10: '~$140+/yr for 10 domains',
     cost100: '~$1,400+/yr for 100 domains',
     chooseRival: [
-      'You specifically want to buy permanent second-level domains (.com/.io) via an MCP tool and pay per domain on Stripe.',
+      'You want to buy permanent .com or .io domains via MCP and pay per domain on Stripe.',
     ],
     chooseUs: [
-      'You want instant working hostnames for $0 during a 30-day trial (10 names) and $10/yr total for up to 100 names.',
+      'You want 10 free names for 30 days, then up to 100 names for $10/yr.',
       'You need automatic edge HTTPS reverse proxying and URL forwarding out of the box.',
       'See /compare/paid-rivals for the full head-to-head.',
     ],
@@ -459,7 +459,7 @@ export const COMPARE_RIVALS = [
       'You have legacy router firmware hardcoded specifically for DynDNS2 protocol credentials.',
     ],
     chooseUs: [
-      'You want modern JSON REST APIs, a Go CLI, and a 20-tool MCP server at a fraction of the cost ($10/yr for 100 names).',
+      'You want a JSON API, Go CLI, and 20-tool MCP server for $10/yr (100 names).',
       'You need CNAME records, NS delegation, ACME DNS-01 TXT automation, and automatic edge HTTPS proxying.',
     ],
     migrationSteps: [
@@ -519,7 +519,7 @@ export const COMPARE_RIVALS = [
       'You want a quirky community-donated domain suffix and only need manual DNS records for a hobby box.',
     ],
     chooseUs: [
-      'You do not want your subdomain controlled by a random third-party domain donor who can pull the domain offline.',
+      'You do not want a third-party domain donor to pull your subdomain offline.',
       'You want a clean REST API, Go CLI, 20-tool MCP server, and built-in edge HTTPS reverse proxy.',
     ],
     migrationSteps: [
@@ -527,7 +527,7 @@ export const COMPARE_RIVALS = [
       'agentdomains claim lab-node --email you@example.com',
       'agentdomains record lab-node --type A --content 203.0.113.10',
     ],
-    sourceNote: 'FreeDNS free accounts are limited to 5 subdomains on shared community zones; no native MCP or edge HTTPS proxy.',
+    sourceNote: 'FreeDNS caps free accounts at 5 subdomains on shared zones. It has no MCP or HTTPS proxy.',
   },
   {
     slug: 'localtunnel',
@@ -569,7 +569,7 @@ export const COMPARE_RIVALS = [
     rivalFlat: 36,
     pricingSummary: 'Free (60-minute expiring random URLs); Pro ~$3/mo ($36/yr for 1 persistent subdomain)',
     writableDns: 'No — SSH tunnel ingress only',
-    edgeHttpsProxy: 'Yes — SSH reverse tunnel with TLS termination',
+    edgeHttpsProxy: 'Yes — SSH reverse tunnel with built-in HTTPS',
     acmeDns01: 'No',
     mcpServer: 'None',
     cardFreeTrial: 'Free 60-minute anonymous tunnels via ssh -p 443',
@@ -629,7 +629,7 @@ export const COMPARE_RIVALS = [
     rivalFlat: 0,
     pricingSummary: 'Free open-source Rust TCP tunnel (bore.pub:<random-port>); no HTTPS or DNS',
     writableDns: 'No — raw TCP port forwarding only',
-    edgeHttpsProxy: 'No — plain TCP ports, no TLS termination',
+    edgeHttpsProxy: 'No — plain TCP ports with no HTTPS',
     acmeDns01: 'No',
     mcpServer: 'None',
     cardFreeTrial: 'No signup; random port each run',
@@ -666,19 +666,19 @@ export const COMPARE_RIVALS = [
     cost10: '~$104.40/yr for 10 .com domains',
     cost100: '~$1,044/yr for 100 .com domains',
     chooseRival: [
-      'You need a real, transferable .com/.org/.dev domain for a long-term company, brand, or email domain — Cloudflare Registrar is the gold standard.',
+      'You need a transferable .com or .dev for a long-term brand. Cloudflare Registrar fits best.',
       'You already own a root domain and want unlimited subdomains under your own brand.',
     ],
     chooseUs: [
       'Your agent needs instant hostnames with zero card upfront during a 30-day free trial.',
-      'You want a purpose-built 20-tool MCP server and 1-command CLI (`signup` → `claim` → `proxy`) without configuring Cloudflare Zones or API token permissions.',
+      'You want a 20-tool MCP server and simple CLI with no zone setup or token rules.',
     ],
     migrationSteps: [
       'agentdomains signup',
       'agentdomains claim quick-proto --email you@example.com',
       'agentdomains proxy quick-proto quick-proto.fly.dev',
     ],
-    sourceNote: 'Cloudflare Registrar sells TLDs at wholesale cost (no markup) with mandatory card payment; AgentDomains sells managed subdomains with a free 30-day trial.',
+    sourceNote: 'Cloudflare sells wholesale TLDs with a card. AgentDomains gives managed subdomains with a 30-day free trial.',
   },
   {
     slug: 'name-com',
@@ -761,13 +761,13 @@ export const COMPARE_RIVALS = [
     ],
     chooseUs: [
       'You want unrestricted DNS API and MCP access from domain #1 with zero account minimums and zero upsells.',
-      'You want 30 days free (no card) and $10/yr Pro for up to 100 hostnames with automatic HTTPS proxying.',
+      'You want 30 free days with no card, then $10/yr for 100 names and edge HTTPS.',
     ],
     migrationSteps: [
       'agentdomains signup',
       'agentdomains claim dev-portal --email you@example.com',
       'agentdomains proxy dev-portal dev-portal.onrender.com',
     ],
-    sourceNote: 'GoDaddy restricted production DNS API access in 2024 to accounts with 10+ domains (or 50+ for certain endpoints); AgentDomains gives full API/MCP on every account.',
+    sourceNote: 'GoDaddy limits DNS API access to accounts with 10+ domains. AgentDomains includes full API and MCP for everyone.',
   },
 ];

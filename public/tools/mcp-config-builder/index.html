@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Universal MCP Config Builder &amp; Live Streamable HTTP Tester — AgentDomains</title>
-<meta name="description" content="Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.">
+<meta name="description" content="Build verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and SDKs. Test live Streamable HTTP handshakes.">
 <link rel="canonical" href="https://agentdomains.co/tools/mcp-config-builder">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Universal MCP Config Builder &amp; Live Streamable HTTP Tester — AgentDomains">
-<meta property="og:description" content="Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.">
+<meta property="og:description" content="Build verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and SDKs. Test live Streamable HTTP handshakes.">
 <meta property="og:url" content="https://agentdomains.co/tools/mcp-config-builder">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Universal MCP Config Builder &amp; Live Streamable HTTP Tester — AgentDomains">
-<meta name="twitter:description" content="Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.">
+<meta name="twitter:description" content="Build verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and SDKs. Test live Streamable HTTP handshakes.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -86,18 +86,18 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Does the live Streamable HTTP handshake tester send my API key anywhere else?",
+          "name": "Does the handshake tester send my API key anywhere else?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The browser sends the JSON-RPC POST directly to the MCP URL you enter (default https://mcp.agentdomains.co). Nothing is logged or sent to any third-party backend."
+            "text": "No. Your browser posts directly to the MCP URL you enter. Nothing goes to any third-party server."
           }
         },
         {
           "@type": "Question",
-          "name": "Why does the handshake tester work without an API key on mcp.agentdomains.co?",
+          "name": "Why does the test work without an API key on mcp.agentdomains.co?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "MCP initialize and tools/list are public protocol discovery calls on mcp.agentdomains.co (along with check_availability and signup), so you can verify connectivity and inspect all 20 tools before entering a key."
+            "text": "Discovery methods like initialize and tools/list are public on mcp.agentdomains.co. You can inspect all 20 tools before adding a key."
           }
         }
       ]
@@ -130,7 +130,78 @@
   
     <span class="eyebrow">Free Tool 01 · Live Streamable HTTP Tester</span>
     <h1>Universal <span class="g">MCP Config Builder</span></h1>
-    <p class="lede">Generate verified Streamable HTTP and stdio configs for 12+ AI clients, create 1-click Cursor &amp; VS Code install deeplinks, and test a live JSON-RPC <code>initialize</code> + <code>tools/list</code> handshake right from your browser.</p>
+    <p class="lede">Build exact Streamable HTTP or stdio configs for 12+ AI clients. Test a live JSON-RPC handshake directly from your browser.</p>
+    <div class="spec-strip" role="region" aria-label="Key specifications">
+  <div class="spec-tile green">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Clients</span>
+      <span class="spec-val">12+ Formats</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Live Test</span>
+      <span class="spec-val">initialize + list</span>
+    </div>
+  </div>
+  <div class="spec-tile lime">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Key Safety</span>
+      <span class="spec-val">Browser Only</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Deeplinks</span>
+      <span class="spec-val">Cursor &amp; VS Code</span>
+    </div>
+  </div>
+</div>
+    <div class="step-pills" role="list" aria-label="Tool steps">
+  
+  <span class="step-pill" role="listitem"><span class="num">01</span>Pick client &amp; transport</span><span class="step-arrow" aria-hidden="true">→</span>
+  <span class="step-pill" role="listitem"><span class="num">02</span>Copy snippet or 1-click install</span><span class="step-arrow" aria-hidden="true">→</span>
+  <span class="step-pill" role="listitem"><span class="num">03</span>Run live handshake test</span>
+</div>
+    <div class="diagram-box">
+  <svg viewBox="0 0 880 156" width="880" height="156" role="img" aria-label="MCP Config Builder direct browser handshake flow">
+    <defs>
+      <marker id="arr-tl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
+
+    <rect x="16" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="18" width="246" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="24" y="30" width="74" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="61" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">BROWSER</text>
+    <text x="24" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Select Client</text>
+    <text x="24" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">JSON / TOML / YAML / SDK</text>
+
+    <line x1="260" y1="71" x2="312" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
+
+    <rect x="322" y="24" width="246" height="106" rx="14" fill="#00CC74"/>
+    <rect x="316" y="18" width="246" height="106" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="330" y="30" width="84" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="372" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">POST</text>
+    <text x="330" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">JSON-RPC 2.0</text>
+    <text x="330" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#0A0A0A">initialize + tools/list</text>
+
+    <line x1="566" y1="71" x2="618" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
+
+    <rect x="628" y="24" width="242" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="622" y="18" width="242" height="106" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="636" y="30" width="78" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="675" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">RESULT</text>
+    <text x="636" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Verified Tools</text>
+    <text x="636" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">Latency + 20 tool names</text>
+  </svg>
+  <p class="diagram-caption">Your browser sends JSON-RPC directly to the target MCP endpoint over HTTPS.</p>
+</div>
 
     <div class="widget" id="mcp-builder-app">
       <div class="widget-head">
@@ -208,7 +279,7 @@
           <button type="button" class="btn sm" id="mb-test-init">Run initialize + tools/list →</button>
         </div>
       </div>
-      <p style="font-size:.92rem;color:var(--muted)">Sends real JSON-RPC 2.0 <code>initialize</code> and <code>tools/list</code> POST requests directly from your browser to the endpoint above (works with any CORS-enabled Streamable HTTP server including <code>https://mcp.agentdomains.co</code>).</p>
+      <p style="font-size:.92rem;color:var(--muted)">Send live JSON-RPC <code>initialize</code> and <code>tools/list</code> requests straight from your browser to test CORS and tool discovery.</p>
       <div class="status-line status-dim" id="mb-test-status">Ready to test handshake.</div>
       <div class="code-box" style="margin:.5rem 0 0">
         <div class="code-head">
@@ -222,8 +293,8 @@
     <section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    <div class="faq-item"><h3>Does the live Streamable HTTP handshake tester send my API key anywhere else?</h3><p>No. The browser sends the JSON-RPC POST directly to the MCP URL you enter (default https://mcp.agentdomains.co). Nothing is logged or sent to any third-party backend.</p></div>
-    <div class="faq-item"><h3>Why does the handshake tester work without an API key on mcp.agentdomains.co?</h3><p>MCP initialize and tools/list are public protocol discovery calls on mcp.agentdomains.co (along with check_availability and signup), so you can verify connectivity and inspect all 20 tools before entering a key.</p></div>
+    <div class="faq-item"><h3>Does the handshake tester send my API key anywhere else?</h3><p>No. Your browser posts directly to the MCP URL you enter. Nothing goes to any third-party server.</p></div>
+    <div class="faq-item"><h3>Why does the test work without an API key on mcp.agentdomains.co?</h3><p>Discovery methods like initialize and tools/list are public on mcp.agentdomains.co. You can inspect all 20 tools before adding a key.</p></div>
   </div>
 </section>
   
