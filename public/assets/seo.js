@@ -55,23 +55,40 @@
     });
   });
 
-  // Hub card live filter
+  // Hub card live filter + category pills
   document.querySelectorAll('[data-filter-input]').forEach((input) => {
     const gridId = input.dataset.filterInput;
     const grid = document.getElementById(gridId);
     if (!grid) return;
     const items = Array.from(grid.querySelectorAll('[data-search]'));
     const countEl = document.getElementById(gridId + '-count');
-    input.addEventListener('input', () => {
+    const pillsWrap = document.querySelector(`[data-filter-pills="${gridId}"]`);
+    let activeCat = 'all';
+
+    function applyFilter(){
       const q = input.value.trim().toLowerCase();
       let shown = 0;
       items.forEach((el) => {
-        const match = !q || el.dataset.search.includes(q);
+        const matchText = !q || el.dataset.search.includes(q);
+        const matchCat = activeCat === 'all' || (el.dataset.cat || '').toLowerCase() === activeCat;
+        const match = matchText && matchCat;
         el.style.display = match ? '' : 'none';
         if (match) shown++;
       });
       if (countEl) countEl.textContent = shown + ' shown';
-    });
+    }
+
+    input.addEventListener('input', applyFilter);
+    if (pillsWrap) {
+      const pills = Array.from(pillsWrap.querySelectorAll('.filter-pill'));
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          activeCat = (pill.dataset.cat || 'all').toLowerCase();
+          pills.forEach((p) => p.classList.toggle('active', p === pill));
+          applyFilter();
+        });
+      });
+    }
   });
 
   // Cluster 2: Interactive "Generate My CLI Command" widget + live availability check
@@ -264,17 +281,35 @@
     const customBtn = hub.querySelector('[data-names-custom-btn]');
     const customOut = hub.querySelector('[data-names-custom-out]');
     const checkAllBtn = hub.querySelector('[data-names-check-all]');
+    const statAvail = hub.querySelector('[data-stat-avail]');
+    const statTaken = hub.querySelector('[data-stat-taken]');
+    const statPending = hub.querySelector('[data-stat-pending]');
+    const statSuffix = hub.querySelector('[data-stat-suffix]');
     const cards = Array.from(hub.querySelectorAll('.name-card'));
 
     function currentDomain(){ return domainSel ? domainSel.value : 'makes.fyi'; }
+
+    function refreshStats(){
+      let avail = 0, taken = 0, pending = 0;
+      cards.forEach((c) => {
+        if (c.classList.contains('is-free')) avail++;
+        else if (c.classList.contains('is-taken')) taken++;
+        else pending++;
+      });
+      if (statAvail) statAvail.textContent = String(avail);
+      if (statTaken) statTaken.textContent = String(taken);
+      if (statPending) statPending.textContent = String(pending);
+      if (statSuffix) statSuffix.textContent = '.' + currentDomain();
+    }
 
     function updateSuffixes(){
       const dom = currentDomain();
       const dflag = dom === 'makes.fyi' ? '' : ' --domain ' + dom;
       cards.forEach((card) => {
         const lbl = card.dataset.label;
+        card.classList.remove('is-free', 'is-taken');
         card.querySelector('.name-fqdn').textContent = `${lbl}.${dom}`;
-        const cbtn = card.querySelector('.copy-btn');
+        const cbtn = card.querySelector('.copy-btn[data-copy]');
         if (cbtn) cbtn.dataset.copy = `agentdomains claim ${lbl} --email you@example.com${dflag}`;
         const badge = card.querySelector('.badge');
         if (badge) {
@@ -282,24 +317,29 @@
           badge.textContent = 'click check';
         }
       });
+      refreshStats();
     }
 
     async function checkOne(card){
       const lbl = card.dataset.label;
       const dom = currentDomain();
       const badge = card.querySelector('.badge');
+      card.classList.remove('is-free', 'is-taken');
       badge.className = 'badge checking';
       badge.textContent = 'checking…';
       try {
         const r = await fetch(`${API}/v1/available?label=${encodeURIComponent(lbl)}&domain=${encodeURIComponent(dom)}`);
         const d = await r.json();
         if (d.reason === 'available') {
+          card.classList.add('is-free');
           badge.className = 'badge free';
           badge.textContent = 'available';
         } else if (d.reason === 'taken') {
+          card.classList.add('is-taken');
           badge.className = 'badge taken';
           badge.textContent = 'taken';
         } else {
+          card.classList.add('is-taken');
           badge.className = 'badge taken';
           badge.textContent = 'unavailable';
         }
@@ -307,6 +347,7 @@
         badge.className = 'badge checking';
         badge.textContent = 'offline';
       }
+      refreshStats();
     }
 
     cards.forEach((card) => {

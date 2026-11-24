@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTTP-01 vs DNS-01 SSL Validation: Developer DNS &amp; SSL Reference — AgentDomains</title>
-<meta name="description" content="When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains…">
+<meta name="description" content="Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy. Includes DNS anatomy diagram, syntax…">
 <link rel="canonical" href="https://agentdomains.co/dns/http-01-vs-dns-01-ssl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP-01 vs DNS-01 SSL Validation: Developer DNS &amp; SSL Reference — AgentDomains">
-<meta property="og:description" content="When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains…">
+<meta property="og:description" content="Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy. Includes DNS anatomy diagram, syntax…">
 <meta property="og:url" content="https://agentdomains.co/dns/http-01-vs-dns-01-ssl">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HTTP-01 vs DNS-01 SSL Validation: Developer DNS &amp; SSL Reference — AgentDomains">
-<meta name="twitter:description" content="When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains…">
+<meta name="twitter:description" content="Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy. Includes DNS anatomy diagram, syntax…">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -71,7 +71,7 @@
       "@type": "TechArticle",
       "@id": "https://agentdomains.co/dns/http-01-vs-dns-01-ssl#article",
       "headline": "HTTP-01 vs DNS-01 SSL Validation Explained",
-      "description": "When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy.",
+      "description": "Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.",
       "url": "https://agentdomains.co/dns/http-01-vs-dns-01-ssl",
       "author": {
         "@id": "https://agentdomains.co/#organization"
@@ -84,7 +84,7 @@
       "@type": "DefinedTerm",
       "@id": "https://agentdomains.co/dns/http-01-vs-dns-01-ssl#term",
       "name": "HTTP-01 vs DNS-01",
-      "description": "When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy.",
+      "description": "Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.",
       "inDefinedTermSet": "https://agentdomains.co/dns"
     },
     {
@@ -96,7 +96,7 @@
           "name": "What is HTTP-01 vs DNS-01?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy."
+            "text": "Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy."
           }
         },
         {
@@ -104,7 +104,7 @@
           "name": "How do I automate HTTP-01 vs DNS-01 SSL Validation with AgentDomains?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Run `agentdomains txt myapp \"acme-dns01-token-example\"` from the Go CLI, call the REST API over curl, or invoke the `add_acme_challenge` tool on https://mcp.agentdomains.co."
+            "text": "Use the Go CLI snippet above, send a REST curl call, or invoke add_acme_challenge on https://mcp.agentdomains.co."
           }
         }
       ]
@@ -137,21 +137,94 @@
   
       <span class="eyebrow">SSL / ACME · DNS &amp; TLS Reference</span>
       <h1>HTTP-01 vs DNS-01 SSL Validation <span class="g">Explained</span></h1>
-      <p class="lede">When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy.</p>
+      <p class="lede">Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.</p>
+      <div class="spec-strip" role="region" aria-label="Key specifications">
+  <div class="spec-tile green">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29a1 1 0 0 0 1.42 0l8.58-8.58a1 1 0 0 0 0-1.42L12 2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Record Type</span>
+      <span class="spec-val">TXT</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Sub-Label</span>
+      <span class="spec-val">_acme-challenge</span>
+    </div>
+  </div>
+  <div class="spec-tile lime">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Default TTL</span>
+      <span class="spec-val">300s Auto</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">MCP Tool</span>
+      <span class="spec-val">add_acme_challenge</span>
+    </div>
+  </div>
+</div>
+
+      <div class="diagram-box">
+  <svg viewBox="0 0 880 198" width="880" height="198" role="img" aria-label="DNS record anatomy diagram for HTTP-01 vs DNS-01 SSL Validation: HOST _acme-challenge.myapp.makes.fyi, TYPE TXT, TTL 300s, TARGET acme-dns01-token-example">
+    <text x="16" y="28" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">DNS Record Anatomy — HTTP-01 vs DNS-01 SSL Validation</text>
+
+    <!-- Field 1: HOST -->
+    <rect x="18" y="48" width="246" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="14" y="44" width="246" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="26" y="54" width="60" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="56" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">HOST</text>
+    <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">_acme-challenge.myapp.makes…</text>
+    <text x="26" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Sub-label: _acme-challenge</text>
+
+    <!-- Field 2: TYPE -->
+    <rect x="278" y="48" width="122" height="82" rx="12" fill="#00CC74"/>
+    <rect x="274" y="44" width="122" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="286" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="315" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
+    <text x="335" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">TXT</text>
+
+    <!-- Field 3: TTL -->
+    <rect x="414" y="48" width="114" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="410" y="44" width="114" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="422" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="446" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
+    <text x="467" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
+    <text x="467" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
+
+    <!-- Field 4: TARGET / CONTENT -->
+    <rect x="542" y="48" width="326" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="538" y="44" width="326" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="550" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="588" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
+    <text x="550" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">acme-dns01-token-example</text>
+    <text x="550" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
+
+    <!-- Callout Footer Bar -->
+    <rect x="14" y="146" width="850" height="36" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="439" y="169" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#0A0A0A">Authoritative zone: Cloudflare Edge DNS · Manage via Go CLI, REST API, or MCP tool</text>
+  </svg>
+  <p class="diagram-caption">Exact DNS wire fields: HOST identifies the label, TYPE picks the record format, TTL sets cache duration, TARGET holds the answer.</p>
+</div>
 
       <h2>1. Engineering <span class="g">Breakdown</span></h2>
       <div class="panel accent">
-        <p style="margin:0">HTTP-01 serves a token file at `http://&lt;host&gt;/.well-known/acme-challenge/&lt;token&gt;` on TCP port 80, which is effortless on public VPS boxes running Caddy or Nginx. DNS-01 validates via a TXT record instead, making it mandatory for wildcard certificates (`*.myapp.makes.fyi`), private intranet servers, and ISPs that block port 80. If your origin already has a hostname (like `app.fly.dev`), `agentdomains proxy` handles edge TLS without you running ACME at all.</p>
+        <p style="margin:0">HTTP-01 serves a file on TCP port 80. It works well on public VPS servers running Caddy or Nginx. DNS-01 checks a TXT record instead. Use DNS-01 for wildcards, private servers, or blocked port 80. For PaaS origins like `app.fly.dev`, `agentdomains proxy` handles edge TLS automatically.</p>
       </div>
       <div class="panel warn">
         <h3>Common Pitfalls</h3>
         <ul>
           <li>HTTP-01 cannot issue wildcard certificates (`*.example`) — Let’s Encrypt enforces DNS-01 for all wildcards.</li>
-          <li>Cloud firewalls (OCI iptables, AWS SG, Hetzner Firewall) frequently block port 80 even when 443 is open, breaking HTTP-01.</li>
+          <li>Cloud firewalls often block port 80 while port 443 is open. That breaks HTTP-01.</li>
         </ul>
       </div>
 
       <h2>2. Interactive <span class="g">DNS Record Syntax Validator</span></h2>
+      <p>Edit the record type, host label, or value below to validate syntax and build your CLI command.</p>
       <div class="widget" data-dns-validator>
         <div class="widget-head">
           <strong>Validate DNS syntax &amp; generate AgentDomains CLI</strong>
@@ -184,6 +257,7 @@
       </div>
 
       <h2>3. Exact <span class="g">CLI, curl &amp; MCP JSON-RPC</span> Payloads</h2>
+      <p>Pick your preferred interface below and copy the working payload.</p>
       <div data-tabs>
         <div class="tabs" role="tablist">
           <button type="button" class="tab-btn active" data-tab="cli">AgentDomains CLI</button>
@@ -236,8 +310,8 @@
       <section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    <div class="faq-item"><h3>What is HTTP-01 vs DNS-01?</h3><p>When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy.</p></div>
-    <div class="faq-item"><h3>How do I automate HTTP-01 vs DNS-01 SSL Validation with AgentDomains?</h3><p>Run `agentdomains txt myapp &quot;acme-dns01-token-example&quot;` from the Go CLI, call the REST API over curl, or invoke the `add_acme_challenge` tool on https://mcp.agentdomains.co.</p></div>
+    <div class="faq-item"><h3>What is HTTP-01 vs DNS-01?</h3><p>Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.</p></div>
+    <div class="faq-item"><h3>How do I automate HTTP-01 vs DNS-01 SSL Validation with AgentDomains?</h3><p>Use the Go CLI snippet above, send a REST curl call, or invoke add_acme_challenge on https://mcp.agentdomains.co.</p></div>
   </div>
 </section>
 
@@ -246,7 +320,7 @@
         <a class="card" href="/dns/acme-dns-01-challenge">
           <span class="kicker">SSL / ACME</span>
           <h3>ACME DNS-01 Challenge</h3>
-          <p>Prove domain control to Let’s Encrypt by publishing a TXT record at `_acme-challenge.&lt;hostname&gt;` — works behind NAT, firewalled port 80, and for wildcard certificates.</p>
+          <p>Prove domain control to Let’s Encrypt with a TXT record at `_acme-challenge.&lt;hostname&gt;`. Works behind NAT and for wildcards.</p>
         </a>
         <a class="card" href="/dns/wildcard-ssl-subdomains">
           <span class="kicker">SSL / ACME</span>
@@ -256,12 +330,12 @@
         <a class="card" href="/dns/lets-encrypt-rate-limits">
           <span class="kicker">SSL / ACME</span>
           <h3>Let’s Encrypt Rate Limits on Subdomains</h3>
-          <p>Avoid hitting Let’s Encrypt’s 50-certs-per-week registered domain limit by testing against staging ACME first or using AgentDomains edge proxy.</p>
+          <p>Avoid Let’s Encrypt weekly rate limits. Test with staging ACME first, or use AgentDomains edge proxy.</p>
         </a>
         <a class="card" href="/dns/caddy-dns-01">
           <span class="kicker">SSL / ACME</span>
           <h3>Caddy Server with DNS-01 &amp; Subdomains</h3>
-          <p>Configure Caddy’s automatic HTTPS on an AgentDomains A record using HTTP-01 (zero config) or DNS-01 via `agentdomains txt` / delegated NS.</p>
+          <p>Run Caddy automatic HTTPS on an AgentDomains A record with HTTP-01 or DNS-01 via `agentdomains txt`.</p>
         </a>
       </div>
     

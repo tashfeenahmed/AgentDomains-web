@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDomains Workflow Blueprints: 30 AI Agent, Webhook &amp; Vibe-Coding Flows</title>
-<meta name="description" content="Copy-paste MCP tool transcripts, SVG DNS/TLS diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth callbacks, bots, and remote MCP servers.">
+<meta name="description" content="Copy-paste MCP tool transcripts, sequence diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth, bots, and remote MCP.">
 <link rel="canonical" href="https://agentdomains.co/use-cases">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AgentDomains Workflow Blueprints: 30 AI Agent, Webhook &amp; Vibe-Coding Flows">
-<meta property="og:description" content="Copy-paste MCP tool transcripts, SVG DNS/TLS diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth callbacks, bots, and remote MCP servers.">
+<meta property="og:description" content="Copy-paste MCP tool transcripts, sequence diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth, bots, and remote MCP.">
 <meta property="og:url" content="https://agentdomains.co/use-cases">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AgentDomains Workflow Blueprints: 30 AI Agent, Webhook &amp; Vibe-Coding Flows">
-<meta name="twitter:description" content="Copy-paste MCP tool transcripts, SVG DNS/TLS diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth callbacks, bots, and remote MCP servers.">
+<meta name="twitter:description" content="Copy-paste MCP tool transcripts, sequence diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth, bots, and remote MCP.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -98,161 +98,393 @@
   
     <span class="eyebrow">Cluster 04 · 30 Agent &amp; Vibe-Coding Blueprints</span>
     <h1>Agent Workflow <span class="g">Blueprints</span></h1>
-    <p class="lede">End-to-end MCP tool transcripts, DNS/TLS flow diagrams, and GitHub Actions teardown scripts for webhooks, OAuth callbacks, PR previews, voice bots, and A2A agent endpoints.</p>
+    <p class="lede">Copy-paste MCP tool transcripts, sequence diagrams, and CI teardown scripts for webhooks, OAuth, PR previews, bots, and A2A agents.</p>
+    <div class="spec-strip" role="region" aria-label="Key specifications">
+  <div class="spec-tile green">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Blueprints</span>
+      <span class="spec-val">30 Workflows</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Transcript</span>
+      <span class="spec-val">4 MCP Steps</span>
+    </div>
+  </div>
+  <div class="spec-tile lime">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Edge TLS</span>
+      <span class="spec-val">Automatic</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">CI Cleanup</span>
+      <span class="spec-val">GitHub Action</span>
+    </div>
+  </div>
+</div>
+    <div class="diagram-box">
+  <svg viewBox="0 0 880 285" width="880" height="285" role="img" aria-label="3-stage MCP sequence diagram for Autonomous AI Agent Deployments: AI Agent to AgentDomains to agent-prod.fly.dev">
+    <defs>
+      <marker id="seq-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
+
+    <!-- Lifelines -->
+    <line x1="140" y1="74" x2="140" y2="270" stroke="#0A0A0A" stroke-width="2.5" stroke-dasharray="6 5"/>
+    <line x1="440" y1="74" x2="440" y2="270" stroke="#00CC74" stroke-width="2.5" stroke-dasharray="6 5"/>
+    <line x1="740" y1="74" x2="740" y2="270" stroke="#0A0A0A" stroke-width="2.5" stroke-dasharray="6 5"/>
+
+    <!-- Actor 1 -->
+    <rect x="40" y="16" width="208" height="58" rx="12" fill="#0A0A0A"/>
+    <rect x="36" y="12" width="208" height="58" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <text x="140" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">1. AI Agent / CI</text>
+    <text x="140" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#00A85E">MCP Client or CLI</text>
+
+    <!-- Actor 2 -->
+    <rect x="330" y="16" width="228" height="58" rx="12" fill="#00CC74"/>
+    <rect x="326" y="12" width="228" height="58" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <text x="440" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">2. AgentDomains Edge</text>
+    <text x="440" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">agent-prod.makes.fyi</text>
+
+    <!-- Actor 3 -->
+    <rect x="640" y="16" width="208" height="58" rx="12" fill="#0A0A0A"/>
+    <rect x="636" y="12" width="208" height="58" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <text x="740" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">3. Your Origin</text>
+    <text x="740" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#00A85E">agent-prod.fly.dev</text>
+
+    <!-- Step 1 -->
+    <line x1="146" y1="108" x2="430" y2="108" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="174" y="88" width="232" height="22" rx="6" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="103" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">1. check_availability → free</text>
+
+    <!-- Step 2 -->
+    <line x1="146" y1="154" x2="430" y2="154" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="174" y="134" width="232" height="22" rx="6" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="149" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">2. claim_domain → claimed</text>
+
+    <!-- Step 3 -->
+    <line x1="146" y1="200" x2="430" y2="200" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="174" y="180" width="232" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="195" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">3. set_proxy (HTTPS Edge)</text>
+
+    <!-- Step 4: Live Traffic -->
+    <line x1="446" y1="224" x2="730" y2="224" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="484" y="204" width="212" height="22" rx="6" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="590" y="219" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">Forward HTTPS / DNS traffic</text>
+
+    <line x1="734" y1="256" x2="150" y2="256" stroke="#00A85E" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#seq-arr)"/>
+    <rect x="330" y="242" width="220" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="440" y="257" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">4. HTTP/2 200 OK · Valid TLS</text>
+  </svg>
+  <p class="diagram-caption">3-stage sequence: AI agent claims agent-prod.makes.fyi, maps it to agent-prod.fly.dev, and verifies HTTPS 200 OK.</p>
+</div>
     <div class="hub-search">
       <input type="text" placeholder="Filter 30 workflows (e.g. stripe, oauth, pr, mcp, discord, voice)…" data-filter-input="usecases-grid" aria-label="Filter workflow blueprints">
       <span class="pill" id="usecases-grid-count">30 shown</span>
     </div>
+    <div class="filter-pills" data-filter-pills="usecases-grid" role="group" aria-label="Filter by category">
+  <button type="button" class="filter-pill active" data-cat="all">All</button>
+  <button type="button" class="filter-pill" data-cat="agent infra">Agent Infra</button>
+  <button type="button" class="filter-pill" data-cat="vibe coding">Vibe Coding</button>
+  <button type="button" class="filter-pill" data-cat="webhooks">Webhooks</button>
+  <button type="button" class="filter-pill" data-cat="auth &amp; identity">Auth &amp; Identity</button>
+  <button type="button" class="filter-pill" data-cat="ci / cd">CI / CD</button>
+  <button type="button" class="filter-pill" data-cat="mcp ecosystem">MCP Ecosystem</button>
+  <button type="button" class="filter-pill" data-cat="rapid shipping">Rapid Shipping</button>
+  <button type="button" class="filter-pill" data-cat="ai inference">AI Inference</button>
+  <button type="button" class="filter-pill" data-cat="ssl / tls">SSL / TLS</button>
+  <button type="button" class="filter-pill" data-cat="client delivery">Client Delivery</button>
+  <button type="button" class="filter-pill" data-cat="automation">Automation</button>
+  <button type="button" class="filter-pill" data-cat="chat bots">Chat Bots</button>
+  <button type="button" class="filter-pill" data-cat="messaging">Messaging</button>
+  <button type="button" class="filter-pill" data-cat="mobile dev">Mobile Dev</button>
+  <button type="button" class="filter-pill" data-cat="iot &amp; edge">IoT &amp; Edge</button>
+  <button type="button" class="filter-pill" data-cat="saas architecture">SaaS Architecture</button>
+  <button type="button" class="filter-pill" data-cat="voice ai">Voice AI</button>
+  <button type="button" class="filter-pill" data-cat="e-commerce">E-Commerce</button>
+  <button type="button" class="filter-pill" data-cat="devtools">DevTools</button>
+  <button type="button" class="filter-pill" data-cat="multi-agent">Multi-Agent</button>
+  <button type="button" class="filter-pill" data-cat="ai tools">AI Tools</button>
+  <button type="button" class="filter-pill" data-cat="qa &amp; testing">QA &amp; Testing</button>
+</div>
     <div class="grid" id="usecases-grid">
-      <a class="card" href="/use-cases/ai-agent-deployments" data-search="autonomous ai agent deployments ai-agent-deployments agent infra let claude code, codex, or openai agents claim a live https hostname immediately after deploying a service — zero dashboard clicks, zero credit card.">
-        <span class="kicker">Agent Infra</span>
+      <a class="card" href="/use-cases/ai-agent-deployments" data-cat="agent infra" data-search="autonomous ai agent deployments ai-agent-deployments agent infra let coding agents claim a live https hostname right after deploy. no dashboard clicks and no credit card.">
+        <div class="card-top">
+          <span class="kicker">Agent Infra</span>
+          <span class="card-icon">01</span>
+        </div>
         <h3>Autonomous AI Agent Deployments</h3>
-        <p>Let Claude Code, Codex, or OpenAI Agents claim a live HTTPS hostname immediately after deploying a service — zero dashboard clicks, zero credit card.</p>
+        <p>Let coding agents claim a live HTTPS hostname right after deploy. No dashboard clicks and no credit card.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">agent-prod.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/vibe-coding-demos" data-search="vibe-coding live demos vibe-coding-demos vibe coding turn a cursor, windsurf, or bolt.new session into a memorable `*.makes.fyi` url you can drop in slack or x within 15 seconds.">
-        <span class="kicker">Vibe Coding</span>
+      <a class="card" href="/use-cases/vibe-coding-demos" data-cat="vibe coding" data-search="vibe-coding live demos vibe-coding-demos vibe coding turn any cursor, windsurf, or bolt.new build into a short `*.makes.fyi` url in 15 seconds.">
+        <div class="card-top">
+          <span class="kicker">Vibe Coding</span>
+          <span class="card-icon">02</span>
+        </div>
         <h3>Vibe-Coding Live Demos</h3>
-        <p>Turn a Cursor, Windsurf, or Bolt.new session into a memorable `*.makes.fyi` URL you can drop in Slack or X within 15 seconds.</p>
+        <p>Turn any Cursor, Windsurf, or Bolt.new build into a short `*.makes.fyi` URL in 15 seconds.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">vibe-app.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/stripe-webhook-testing" data-search="stripe webhook testing stripe-webhook-testing webhooks give stripe test and staging webhooks a valid https url with trusted edge tls and untouched raw post payloads for signature verification.">
-        <span class="kicker">Webhooks</span>
+      <a class="card" href="/use-cases/stripe-webhook-testing" data-cat="webhooks" data-search="stripe webhook testing stripe-webhook-testing webhooks give stripe webhooks a valid https url with edge tls and untouched raw post bodies for signature checks.">
+        <div class="card-top">
+          <span class="kicker">Webhooks</span>
+          <span class="card-icon">03</span>
+        </div>
         <h3>Stripe Webhook Testing</h3>
-        <p>Give Stripe test and staging webhooks a valid HTTPS URL with trusted edge TLS and untouched raw POST payloads for signature verification.</p>
+        <p>Give Stripe webhooks a valid HTTPS URL with edge TLS and untouched raw POST bodies for signature checks.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">stripe-dev.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/oauth-callback-urls" data-search="oauth 2.0 callback urls oauth-callback-urls auth &amp; identity register stable https redirect uris (`https://oauth-stage.agentdomains.co/auth/callback`) for google, github, discord, and slack oauth apps.">
-        <span class="kicker">Auth &amp; Identity</span>
+      <a class="card" href="/use-cases/oauth-callback-urls" data-cat="auth &amp; identity" data-search="oauth 2.0 callback urls oauth-callback-urls auth &amp; identity register stable https redirect uris (`https://oauth-stage.agentdomains.co/auth/callback`) for google, github, discord, and slack oauth apps.">
+        <div class="card-top">
+          <span class="kicker">Auth &amp; Identity</span>
+          <span class="card-icon">04</span>
+        </div>
         <h3>OAuth 2.0 Callback URLs</h3>
         <p>Register stable HTTPS redirect URIs (`https://oauth-stage.agentdomains.co/auth/callback`) for Google, GitHub, Discord, and Slack OAuth apps.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">oauth-stage.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/ephemeral-pr-previews" data-search="ephemeral pull-request previews ephemeral-pr-previews ci / cd spin up `pr-142-web.makes.fyi` automatically when a github pr opens and delete it cleanly on merge.">
-        <span class="kicker">CI / CD</span>
+      <a class="card" href="/use-cases/ephemeral-pr-previews" data-cat="ci / cd" data-search="ephemeral pull-request previews ephemeral-pr-previews ci / cd spin up `pr-142-web.makes.fyi` automatically when a github pr opens and delete it cleanly on merge.">
+        <div class="card-top">
+          <span class="kicker">CI / CD</span>
+          <span class="card-icon">05</span>
+        </div>
         <h3>Ephemeral Pull-Request Previews</h3>
         <p>Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">pr-142-web.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/mcp-server-hosting" data-search="remote mcp server hosting mcp-server-hosting mcp ecosystem publish your own streamable http mcp server over trusted https (`https://my-mcp-srv.agentdomains.co`) so claude, cursor, and chatgpt can connect.">
-        <span class="kicker">MCP Ecosystem</span>
+      <a class="card" href="/use-cases/mcp-server-hosting" data-cat="mcp ecosystem" data-search="remote mcp server hosting mcp-server-hosting mcp ecosystem publish your own streamable http mcp server over trusted https (`https://my-mcp-srv.agentdomains.co`) so claude, cursor, and chatgpt can connect.">
+        <div class="card-top">
+          <span class="kicker">MCP Ecosystem</span>
+          <span class="card-icon">06</span>
+        </div>
         <h3>Remote MCP Server Hosting</h3>
         <p>Publish your own Streamable HTTP MCP server over trusted HTTPS (`https://my-mcp-srv.agentdomains.co`) so Claude, Cursor, and ChatGPT can connect.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">my-mcp-srv.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/hackathon-projects" data-search="hackathon demo urls hackathon-projects rapid shipping claim a short, judge-friendly demo domain in 10 seconds during a 24-hour hackathon — free for 30 days with zero credit card.">
-        <span class="kicker">Rapid Shipping</span>
+      <a class="card" href="/use-cases/hackathon-projects" data-cat="rapid shipping" data-search="hackathon demo urls hackathon-projects rapid shipping claim a short demo domain in 10 seconds during a hackathon. free for 30 days with no card.">
+        <div class="card-top">
+          <span class="kicker">Rapid Shipping</span>
+          <span class="card-icon">07</span>
+        </div>
         <h3>Hackathon Demo URLs</h3>
-        <p>Claim a short, judge-friendly demo domain in 10 seconds during a 24-hour hackathon — free for 30 days with zero credit card.</p>
+        <p>Claim a short demo domain in 10 seconds during a hackathon. Free for 30 days with no card.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">hack-ai.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/local-llm-api-endpoint" data-search="local llm api endpoint local-llm-api-endpoint ai inference point an a record at your ollama or vllm gpu box behind caddy with bearer auth so remote agents can call your private openai-compatible api.">
-        <span class="kicker">AI Inference</span>
+      <a class="card" href="/use-cases/local-llm-api-endpoint" data-cat="ai inference" data-search="local llm api endpoint local-llm-api-endpoint ai inference point an a record at your ollama or vllm box behind caddy. call your private api over https.">
+        <div class="card-top">
+          <span class="kicker">AI Inference</span>
+          <span class="card-icon">08</span>
+        </div>
         <h3>Local LLM API Endpoint</h3>
-        <p>Point an A record at your Ollama or vLLM GPU box behind Caddy with Bearer auth so remote agents can call your private OpenAI-compatible API.</p>
+        <p>Point an A record at your Ollama or vLLM box behind Caddy. Call your private API over HTTPS.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">gpu-llm.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/acme-dns01-wildcards" data-search="acme dns-01 &amp; private tls certs acme-dns01-wildcards ssl / tls automate let’s encrypt `_acme-challenge` txt records via mcp (`add_acme_challenge`) or cli (`agentdomains txt`) for boxes behind nat or firewalled port 80.">
-        <span class="kicker">SSL / TLS</span>
+      <a class="card" href="/use-cases/acme-dns01-wildcards" data-cat="ssl / tls" data-search="acme dns-01 &amp; private tls certs acme-dns01-wildcards ssl / tls publish `_acme-challenge` txt records via mcp or cli. get let’s encrypt certs behind nat or closed port 80.">
+        <div class="card-top">
+          <span class="kicker">SSL / TLS</span>
+          <span class="card-icon">09</span>
+        </div>
         <h3>ACME DNS-01 &amp; Private TLS Certs</h3>
-        <p>Automate Let’s Encrypt `_acme-challenge` TXT records via MCP (`add_acme_challenge`) or CLI (`agentdomains txt`) for boxes behind NAT or firewalled port 80.</p>
+        <p>Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">internal-ca.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/client-staging-links" data-search="agency client staging links client-staging-links client delivery give freelance and agency clients clean `clientname-stage.makes.fyi` preview links across up to 100 active projects on a single $10/yr pro plan.">
-        <span class="kicker">Client Delivery</span>
+      <a class="card" href="/use-cases/client-staging-links" data-cat="client delivery" data-search="agency client staging links client-staging-links client delivery give clients clean `clientname-stage.makes.fyi` preview links. run up to 100 projects on one $10/yr pro plan.">
+        <div class="card-top">
+          <span class="kicker">Client Delivery</span>
+          <span class="card-icon">10</span>
+        </div>
         <h3>Agency Client Staging Links</h3>
-        <p>Give freelance and agency clients clean `clientname-stage.makes.fyi` preview links across up to 100 active projects on a single $10/yr Pro plan.</p>
+        <p>Give clients clean `clientname-stage.makes.fyi` preview links. Run up to 100 projects on one $10/yr Pro plan.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">acme-stage.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/cron-api-endpoints" data-search="scheduled cron &amp; job endpoints cron-api-endpoints automation expose clean https webhook triggers for github actions, upstash qstash, or cloud scheduler without hardcoding opaque serverless urls.">
-        <span class="kicker">Automation</span>
+      <a class="card" href="/use-cases/cron-api-endpoints" data-cat="automation" data-search="scheduled cron &amp; job endpoints cron-api-endpoints automation expose clean https webhook triggers for github actions, upstash qstash, or cloud scheduler without hardcoding opaque serverless urls.">
+        <div class="card-top">
+          <span class="kicker">Automation</span>
+          <span class="card-icon">11</span>
+        </div>
         <h3>Scheduled Cron &amp; Job Endpoints</h3>
         <p>Expose clean HTTPS webhook triggers for GitHub Actions, Upstash QStash, or Cloud Scheduler without hardcoding opaque serverless URLs.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">cron-worker.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/discord-bot-webhooks" data-search="discord interaction endpoints discord-bot-webhooks chat bots give discord http interactions (`ed25519`-verified slash commands) a fast, trusted https endpoint with zero manual certificate renewal.">
-        <span class="kicker">Chat Bots</span>
+      <a class="card" href="/use-cases/discord-bot-webhooks" data-cat="chat bots" data-search="discord interaction endpoints discord-bot-webhooks chat bots give discord http interactions (`ed25519`-verified slash commands) a fast, trusted https endpoint with zero manual certificate renewal.">
+        <div class="card-top">
+          <span class="kicker">Chat Bots</span>
+          <span class="card-icon">12</span>
+        </div>
         <h3>Discord Interaction Endpoints</h3>
         <p>Give Discord HTTP Interactions (`Ed25519`-verified slash commands) a fast, trusted HTTPS endpoint with zero manual certificate renewal.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">disc-bot.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/telegram-bot-https" data-search="telegram bot webhook https telegram-bot-https chat bots call telegram’s `setwebhook` api with `https://tg-helper.makes.fyi/bot` backed by trusted cloudflare edge tls on port 443.">
-        <span class="kicker">Chat Bots</span>
+      <a class="card" href="/use-cases/telegram-bot-https" data-cat="chat bots" data-search="telegram bot webhook https telegram-bot-https chat bots call telegram’s `setwebhook` api with `https://tg-helper.makes.fyi/bot` backed by trusted cloudflare edge tls on port 443.">
+        <div class="card-top">
+          <span class="kicker">Chat Bots</span>
+          <span class="card-icon">13</span>
+        </div>
         <h3>Telegram Bot Webhook HTTPS</h3>
         <p>Call Telegram’s `setWebhook` API with `https://tg-helper.makes.fyi/bot` backed by trusted Cloudflare edge TLS on port 443.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">tg-helper.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/slack-app-urls" data-search="slack app events &amp; slash commands slack-app-urls chat bots configure slack event subscriptions, interactivity, and slash command request urls on a stable https hostname.">
-        <span class="kicker">Chat Bots</span>
+      <a class="card" href="/use-cases/slack-app-urls" data-cat="chat bots" data-search="slack app events &amp; slash commands slack-app-urls chat bots configure slack event subscriptions, interactivity, and slash command request urls on a stable https hostname.">
+        <div class="card-top">
+          <span class="kicker">Chat Bots</span>
+          <span class="card-icon">14</span>
+        </div>
         <h3>Slack App Events &amp; Slash Commands</h3>
         <p>Configure Slack Event Subscriptions, Interactivity, and Slash Command request URLs on a stable HTTPS hostname.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">slack-agent.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/whatsapp-webhooks" data-search="whatsapp cloud api webhooks whatsapp-webhooks messaging verify meta’s whatsapp business cloud api webhook challenge over trusted https without wrestling with nginx cert chains.">
-        <span class="kicker">Messaging</span>
+      <a class="card" href="/use-cases/whatsapp-webhooks" data-cat="messaging" data-search="whatsapp cloud api webhooks whatsapp-webhooks messaging verify meta’s whatsapp business cloud api webhook challenge over trusted https without wrestling with nginx cert chains.">
+        <div class="card-top">
+          <span class="kicker">Messaging</span>
+          <span class="card-icon">15</span>
+        </div>
         <h3>WhatsApp Cloud API Webhooks</h3>
         <p>Verify Meta’s WhatsApp Business Cloud API webhook challenge over trusted HTTPS without wrestling with Nginx cert chains.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">wa-agent.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/ci-cd-preview-domains" data-search="ci/cd branch preview domains ci-cd-preview-domains ci / cd provision deterministic per-branch urls (`feat-auth.makes.fyi`) directly from github actions or gitlab ci using the agentdomains go cli.">
-        <span class="kicker">CI / CD</span>
+      <a class="card" href="/use-cases/ci-cd-preview-domains" data-cat="ci / cd" data-search="ci/cd branch preview domains ci-cd-preview-domains ci / cd provision deterministic per-branch urls (`feat-auth.makes.fyi`) directly from github actions or gitlab ci using the agentdomains go cli.">
+        <div class="card-top">
+          <span class="kicker">CI / CD</span>
+          <span class="card-icon">16</span>
+        </div>
         <h3>CI/CD Branch Preview Domains</h3>
         <p>Provision deterministic per-branch URLs (`feat-auth.makes.fyi`) directly from GitHub Actions or GitLab CI using the AgentDomains Go CLI.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">feat-auth.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/mobile-app-backend-dev" data-search="ios &amp; android backend dev urls mobile-app-backend-dev mobile dev satisfy ios app transport security (ats) and android network security config with a real https api domain during mobile development.">
-        <span class="kicker">Mobile Dev</span>
+      <a class="card" href="/use-cases/mobile-app-backend-dev" data-cat="mobile dev" data-search="ios &amp; android backend dev urls mobile-app-backend-dev mobile dev pass ios ats and android tls rules with a real https api domain during mobile builds.">
+        <div class="card-top">
+          <span class="kicker">Mobile Dev</span>
+          <span class="card-icon">17</span>
+        </div>
         <h3>iOS &amp; Android Backend Dev URLs</h3>
-        <p>Satisfy iOS App Transport Security (ATS) and Android Network Security Config with a real HTTPS API domain during mobile development.</p>
+        <p>Pass iOS ATS and Android TLS rules with a real HTTPS API domain during mobile builds.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">ios-api.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/iot-device-callbacks" data-search="iot &amp; hardware device callbacks iot-device-callbacks iot &amp; edge give esp32, raspberry pi, and mqtt/http gateways a stable dns hostname so you never have to reflash firmware when your server ip moves.">
-        <span class="kicker">IoT &amp; Edge</span>
+      <a class="card" href="/use-cases/iot-device-callbacks" data-cat="iot &amp; edge" data-search="iot &amp; hardware device callbacks iot-device-callbacks iot &amp; edge give esp32 and raspberry pi devices a fixed dns name. never reflash firmware when your server ip changes.">
+        <div class="card-top">
+          <span class="kicker">IoT &amp; Edge</span>
+          <span class="card-icon">18</span>
+        </div>
         <h3>IoT &amp; Hardware Device Callbacks</h3>
-        <p>Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves.</p>
+        <p>Give ESP32 and Raspberry Pi devices a fixed DNS name. Never reflash firmware when your server IP changes.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">esp32-hub.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/saas-subdomain-demos" data-search="multi-tenant saas subdomain demos saas-subdomain-demos saas architecture test tenant-per-subdomain routing (`acme.tenant-demo.makes.fyi`, `beta.tenant-demo.makes.fyi`) using agentdomains sub-label dns records (`--host`).">
-        <span class="kicker">SaaS Architecture</span>
+      <a class="card" href="/use-cases/saas-subdomain-demos" data-cat="saas architecture" data-search="multi-tenant saas subdomain demos saas-subdomain-demos saas architecture test tenant-per-subdomain routing (`acme.tenant-demo.makes.fyi`, `beta.tenant-demo.makes.fyi`) using agentdomains sub-label dns records (`--host`).">
+        <div class="card-top">
+          <span class="kicker">SaaS Architecture</span>
+          <span class="card-icon">19</span>
+        </div>
         <h3>Multi-Tenant SaaS Subdomain Demos</h3>
         <p>Test tenant-per-subdomain routing (`acme.tenant-demo.makes.fyi`, `beta.tenant-demo.makes.fyi`) using AgentDomains sub-label DNS records (`--host`).</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">tenant-demo.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/ai-voice-agent-webhooks" data-search="ai voice agent webhooks ai-voice-agent-webhooks voice ai host vapi, retell, elevenlabs, or twilio ai voice agent tool-call webhooks on a low-latency https domain.">
-        <span class="kicker">Voice AI</span>
+      <a class="card" href="/use-cases/ai-voice-agent-webhooks" data-cat="voice ai" data-search="ai voice agent webhooks ai-voice-agent-webhooks voice ai host vapi, retell, elevenlabs, or twilio ai voice agent tool-call webhooks on a low-latency https domain.">
+        <div class="card-top">
+          <span class="kicker">Voice AI</span>
+          <span class="card-icon">20</span>
+        </div>
         <h3>AI Voice Agent Webhooks</h3>
         <p>Host Vapi, Retell, ElevenLabs, or Twilio AI voice agent tool-call webhooks on a low-latency HTTPS domain.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">voice-bot.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/n8n-webhook-endpoints" data-search="self-hosted n8n webhook endpoints n8n-webhook-endpoints automation give self-hosted n8n on a vps a clean `webhook_url=https://n8n-flows.makes.fyi/` so stripe, slack, and google oauth triggers work smoothly.">
-        <span class="kicker">Automation</span>
+      <a class="card" href="/use-cases/n8n-webhook-endpoints" data-cat="automation" data-search="self-hosted n8n webhook endpoints n8n-webhook-endpoints automation give self-hosted n8n on a vps a clean `webhook_url=https://n8n-flows.makes.fyi/` so stripe, slack, and google oauth triggers work smoothly.">
+        <div class="card-top">
+          <span class="kicker">Automation</span>
+          <span class="card-icon">21</span>
+        </div>
         <h3>Self-Hosted n8n Webhook Endpoints</h3>
         <p>Give self-hosted n8n on a VPS a clean `WEBHOOK_URL=https://n8n-flows.makes.fyi/` so Stripe, Slack, and Google OAuth triggers work smoothly.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">n8n-flows.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/zapier-custom-webhooks" data-search="zapier &amp; make custom webhooks zapier-custom-webhooks automation expose custom python/node microservice actions to zapier webhooks and make http modules over reliable https.">
-        <span class="kicker">Automation</span>
+      <a class="card" href="/use-cases/zapier-custom-webhooks" data-cat="automation" data-search="zapier &amp; make custom webhooks zapier-custom-webhooks automation expose custom python/node microservice actions to zapier webhooks and make http modules over reliable https.">
+        <div class="card-top">
+          <span class="kicker">Automation</span>
+          <span class="card-icon">22</span>
+        </div>
         <h3>Zapier &amp; Make Custom Webhooks</h3>
         <p>Expose custom Python/Node microservice actions to Zapier Webhooks and Make HTTP modules over reliable HTTPS.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">zap-bridge.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/shopify-app-dev" data-search="shopify custom app development shopify-app-dev e-commerce run a stable https app url and oauth callback domain for shopify partner dev stores without re-editing app urls on every restart.">
-        <span class="kicker">E-Commerce</span>
+      <a class="card" href="/use-cases/shopify-app-dev" data-cat="e-commerce" data-search="shopify custom app development shopify-app-dev e-commerce keep one fixed https app url and oauth callback for shopify dev stores across restarts.">
+        <div class="card-top">
+          <span class="kicker">E-Commerce</span>
+          <span class="card-icon">23</span>
+        </div>
         <h3>Shopify Custom App Development</h3>
-        <p>Run a stable HTTPS App URL and OAuth callback domain for Shopify Partner dev stores without re-editing app URLs on every restart.</p>
+        <p>Keep one fixed HTTPS App URL and OAuth callback for Shopify dev stores across restarts.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">shopify-dev.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/github-app-webhooks" data-search="github app webhook &amp; setup urls github-app-webhooks devtools give automated pr review bots and github apps a dedicated https webhook and post-install callback url.">
-        <span class="kicker">DevTools</span>
+      <a class="card" href="/use-cases/github-app-webhooks" data-cat="devtools" data-search="github app webhook &amp; setup urls github-app-webhooks devtools give automated pr review bots and github apps a dedicated https webhook and post-install callback url.">
+        <div class="card-top">
+          <span class="kicker">DevTools</span>
+          <span class="card-icon">24</span>
+        </div>
         <h3>GitHub App Webhook &amp; Setup URLs</h3>
         <p>Give automated PR review bots and GitHub Apps a dedicated HTTPS webhook and post-install callback URL.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">gh-review-bot.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/auth0-callback-urls" data-search="auth0 allowed callback &amp; logout urls auth0-callback-urls auth &amp; identity configure auth0 allowed callback urls, logout urls, and web origins on a predictable https staging hostname.">
-        <span class="kicker">Auth &amp; Identity</span>
+      <a class="card" href="/use-cases/auth0-callback-urls" data-cat="auth &amp; identity" data-search="auth0 allowed callback &amp; logout urls auth0-callback-urls auth &amp; identity configure auth0 allowed callback urls, logout urls, and web origins on a predictable https staging hostname.">
+        <div class="card-top">
+          <span class="kicker">Auth &amp; Identity</span>
+          <span class="card-icon">25</span>
+        </div>
         <h3>Auth0 Allowed Callback &amp; Logout URLs</h3>
         <p>Configure Auth0 Allowed Callback URLs, Logout URLs, and Web Origins on a predictable HTTPS staging hostname.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">auth0-demo.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/supabase-auth-redirects" data-search="supabase auth magic-link &amp; oauth redirects supabase-auth-redirects auth &amp; identity add `https://supa-auth.makes.fyi/**` to supabase auth redirect urls so magic links and pkce oauth flows land on your real staging app.">
-        <span class="kicker">Auth &amp; Identity</span>
+      <a class="card" href="/use-cases/supabase-auth-redirects" data-cat="auth &amp; identity" data-search="supabase auth magic-link &amp; oauth redirects supabase-auth-redirects auth &amp; identity add `https://supa-auth.makes.fyi/**` to supabase redirect urls for live magic links and pkce oauth tests.">
+        <div class="card-top">
+          <span class="kicker">Auth &amp; Identity</span>
+          <span class="card-icon">26</span>
+        </div>
         <h3>Supabase Auth Magic-Link &amp; OAuth Redirects</h3>
-        <p>Add `https://supa-auth.makes.fyi/**` to Supabase Auth Redirect URLs so magic links and PKCE OAuth flows land on your real staging app.</p>
+        <p>Add `https://supa-auth.makes.fyi/**` to Supabase Redirect URLs for live magic links and PKCE OAuth tests.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">supa-auth.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/clerk-dev-callbacks" data-search="clerk dev &amp; staging callbacks clerk-dev-callbacks auth &amp; identity test clerk authentication flows, sign-in redirects, and svix webhooks together on a clean https staging hostname.">
-        <span class="kicker">Auth &amp; Identity</span>
+      <a class="card" href="/use-cases/clerk-dev-callbacks" data-cat="auth &amp; identity" data-search="clerk dev &amp; staging callbacks clerk-dev-callbacks auth &amp; identity test clerk authentication flows, sign-in redirects, and svix webhooks together on a clean https staging hostname.">
+        <div class="card-top">
+          <span class="kicker">Auth &amp; Identity</span>
+          <span class="card-icon">27</span>
+        </div>
         <h3>Clerk Dev &amp; Staging Callbacks</h3>
         <p>Test Clerk authentication flows, sign-in redirects, and Svix webhooks together on a clean HTTPS staging hostname.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">clerk-stage.makes.fyi</span>
       </a>
-      <a class="card" href="/use-cases/a2a-agent-endpoints" data-search="agent-to-agent (a2a) protocol endpoints a2a-agent-endpoints multi-agent publish `/.well-known/agent.json` agent cards and a2a task endpoints over https on `*.agentdomains.co`.">
-        <span class="kicker">Multi-Agent</span>
+      <a class="card" href="/use-cases/a2a-agent-endpoints" data-cat="multi-agent" data-search="agent-to-agent (a2a) protocol endpoints a2a-agent-endpoints multi-agent publish `/.well-known/agent.json` agent cards and a2a task endpoints over https on `*.agentdomains.co`.">
+        <div class="card-top">
+          <span class="kicker">Multi-Agent</span>
+          <span class="card-icon">28</span>
+        </div>
         <h3>Agent-to-Agent (A2A) Protocol Endpoints</h3>
         <p>Publish `/.well-known/agent.json` Agent Cards and A2A task endpoints over HTTPS on `*.agentdomains.co`.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">a2a-research.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/openapi-plugin-hosts" data-search="openapi action &amp; tool hosts openapi-plugin-hosts ai tools serve openapi 3.1 schemas and custom gpt / gemini / claude api actions over clean https with zero cors or tls friction.">
-        <span class="kicker">AI Tools</span>
+      <a class="card" href="/use-cases/openapi-plugin-hosts" data-cat="ai tools" data-search="openapi action &amp; tool hosts openapi-plugin-hosts ai tools serve openapi 3.1 specs and ai tool actions over clean https with working cors and tls.">
+        <div class="card-top">
+          <span class="kicker">AI Tools</span>
+          <span class="card-icon">29</span>
+        </div>
         <h3>OpenAPI Action &amp; Tool Hosts</h3>
-        <p>Serve OpenAPI 3.1 schemas and Custom GPT / Gemini / Claude API actions over clean HTTPS with zero CORS or TLS friction.</p>
+        <p>Serve OpenAPI 3.1 specs and AI tool actions over clean HTTPS with working CORS and TLS.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">openapi-tools.agentdomains.co</span>
       </a>
-      <a class="card" href="/use-cases/playwright-staging-urls" data-search="playwright &amp; e2e staging urls playwright-staging-urls qa &amp; testing run headless playwright, cypress, and visual regression suites against real https staging urls provisioned per ci job.">
-        <span class="kicker">QA &amp; Testing</span>
+      <a class="card" href="/use-cases/playwright-staging-urls" data-cat="qa &amp; testing" data-search="playwright &amp; e2e staging urls playwright-staging-urls qa &amp; testing run headless playwright, cypress, and visual regression suites against real https staging urls provisioned per ci job.">
+        <div class="card-top">
+          <span class="kicker">QA &amp; Testing</span>
+          <span class="card-icon">30</span>
+        </div>
         <h3>Playwright &amp; E2E Staging URLs</h3>
         <p>Run headless Playwright, Cypress, and visual regression suites against real HTTPS staging URLs provisioned per CI job.</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">e2e-stage.makes.fyi</span>
       </a>
     </div>
   

@@ -27,12 +27,12 @@ export const MCP_CLIENTS = [
     }, null, 2),
     firstPrompt: 'Check if demo-bot is free on makes.fyi, claim it with email dev@example.com, and proxy it to demo-bot.fly.dev.',
     gotchas: [
-      'Use --scope project if you want .mcp.json committed to the repo — keep the API key in an environment variable or connect without a key and call signup first.',
-      'Run /mcp inside a live Claude Code session to verify that all 20 AgentDomains tools loaded without restarting the terminal.',
+      'Pass `--scope project` to share `.mcp.json` in Git. Keep your API key in an env var or call `signup` first.',
+      'Run `/mcp` inside Claude Code to verify all 20 tools loaded without restarting.',
       'Project-level .mcp.json requires one-time approval on first load in Claude Code.',
     ],
     related: ['cursor', 'codex-cli', 'cline', 'opencode'],
-    summary: 'Connect Claude Code to AgentDomains via Streamable HTTP or npx stdio so Claude can claim hostnames, set DNS records, and wire HTTPS reverse proxies straight from your terminal.',
+    summary: 'Connect Claude Code via Streamable HTTP or stdio. Claim hostnames, write DNS records, and wire HTTPS proxies from your terminal.',
   },
   {
     slug: 'cursor',
@@ -63,12 +63,12 @@ export const MCP_CLIENTS = [
     }, null, 2),
     firstPrompt: 'Use agentdomains to check availability of invoice-api on agentdomains.co, claim it, and point an HTTPS proxy at my Railway service invoice-api.up.railway.app.',
     gotchas: [
-      'After saving .cursor/mcp.json, open Settings → Tools & MCP and click the refresh icon so Cursor fetches the 20 tool schemas.',
-      'Cursor Agent Mode (not Ask Mode) is required for tool execution; enable auto-run carefully because delete_domain and set_proxy are marked destructive.',
+      'After saving `.cursor/mcp.json`, open Settings → Tools & MCP and click Refresh to load all 20 tools.',
+      'Switch Cursor to Agent Mode to run tools. Review auto-run settings carefully for `delete_domain` and `set_proxy`.',
       'Never commit your live adom_ key in workspace .cursor/mcp.json — use ~/.cursor/mcp.json for personal keys.',
     ],
     related: ['vscode', 'windsurf', 'claude-code', 'cline'],
-    summary: 'Add AgentDomains to Cursor via one-click deeplink, Streamable HTTP, or npx stdio so Composer and Agent Mode can claim domains and configure edge HTTPS proxies.',
+    summary: 'Add AgentDomains to Cursor via deeplink, Streamable HTTP, or stdio. Claim domains and set HTTPS proxies in Agent Mode.',
   },
   {
     slug: 'vscode',
@@ -116,7 +116,7 @@ export const MCP_CLIENTS = [
       'Switch Copilot Chat to Agent mode and click the tools icon to confirm agentdomains tools are toggled on.',
     ],
     related: ['cursor', 'cline', 'roo-code', 'continue'],
-    summary: 'Configure AgentDomains in VS Code Copilot Agent Mode using .vscode/mcp.json with secure promptString inputs and Streamable HTTP or stdio transport.',
+    summary: 'Add AgentDomains to VS Code Copilot Agent Mode using `.vscode/mcp.json` with secure `promptString` inputs.',
   },
   {
     slug: 'windsurf',
@@ -148,7 +148,7 @@ export const MCP_CLIENTS = [
       'Keep total enabled MCP tools across all servers under Windsurf’s active tool cap by disabling unused servers.',
     ],
     related: ['cursor', 'vscode', 'claude-code', 'zed'],
-    summary: 'Wire AgentDomains into Windsurf Cascade with serverUrl Streamable HTTP or npx stdio so Cascade can claim subdomains and publish live HTTPS previews.',
+    summary: 'Connect Windsurf Cascade using `serverUrl` Streamable HTTP or stdio. Claim subdomains and publish live HTTPS previews.',
   },
   {
     slug: 'claude-desktop',
@@ -186,7 +186,7 @@ export const MCP_CLIENTS = [
       'If you have ~/.agentdomains/config.json from the Go CLI, agentdomains-mcp picks up your key automatically without setting env.',
     ],
     related: ['claude-code', 'cursor', 'goose', 'zed'],
-    summary: 'Install AgentDomains in Claude Desktop via native stdio (npx agentdomains-mcp) or mcp-remote bridge to manage DNS records, redirects, and HTTPS proxies in chat.',
+    summary: 'Install AgentDomains in Claude Desktop via stdio or `mcp-remote`. Manage DNS, forwards, and HTTPS proxies in chat.',
   },
   {
     slug: 'openai-agents-sdk',
@@ -228,7 +228,7 @@ async with MCPServerStdio(
       'Read AGENTDOMAINS_API_KEY from os.environ rather than embedding it in agent source code.',
     ],
     related: ['pydantic-ai', 'langchain', 'crewai', 'vercel-ai-sdk'],
-    summary: 'Connect OpenAI Agents SDK to AgentDomains with MCPServerStreamableHttp or MCPServerStdio to let autonomous Python and TypeScript agents register domains and configure DNS.',
+    summary: 'Connect OpenAI Agents SDK via `MCPServerStreamableHttp` or `MCPServerStdio`. Let Python and TypeScript agents claim domains and write DNS.',
   },
   {
     slug: 'langchain',
@@ -340,7 +340,7 @@ with MCPServerAdapter(params) as tools:
       'If Cline shows a red dot, test connectivity at /tools/mcp-config-builder to verify your Bearer header.',
     ],
     related: ['roo-code', 'vscode', 'cursor', 'claude-code'],
-    summary: 'Add AgentDomains to Cline in VS Code with granular autoApprove rules so Cline can claim hostnames and configure DNS safely.',
+    summary: 'Add AgentDomains to Cline in VS Code with `autoApprove` rules for safe domain and DNS changes.',
   },
   {
     slug: 'zed',
@@ -383,7 +383,7 @@ with MCPServerAdapter(params) as tools:
       'If Zed cannot find npx on macOS, supply the full binary path under command.path.',
     ],
     related: ['cursor', 'claude-code', 'opencode', 'windsurf'],
-    summary: 'Register AgentDomains as a Zed context_server in settings.json so Zed’s Agent Panel can claim domains, set DNS records, and proxy backends.',
+    summary: 'Add AgentDomains as a Zed `context_server` in `settings.json`. Let Zed claim domains and proxy backends.',
   },
   {
     slug: 'codex-cli',
@@ -440,7 +440,7 @@ env = { AGENTDOMAINS_API_KEY = "adom_YOUR_KEY" }`,
       'Use goose configure for an interactive wizard that stores your API key in the OS keychain.',
     ],
     related: ['claude-code', 'codex-cli', 'opencode', 'claude-desktop'],
-    summary: 'Add AgentDomains as a Goose extension using streamable_http or stdio so Goose recipes can claim hostnames and automate DNS.',
+    summary: 'Add AgentDomains as a Goose extension with `streamable_http` or `stdio` to automate hostnames and DNS.',
   },
   {
     slug: 'n8n',
@@ -460,12 +460,12 @@ Arguments: -y agentdomains-mcp
 Environment: AGENTDOMAINS_API_KEY=adom_YOUR_KEY`,
     firstPrompt: 'When a new client onboarding form arrives, claim <slug>.makes.fyi and forward it to their preview URL.',
     gotchas: [
-      'Select "HTTP Streamable" (not SSE) in the n8n MCP Client Tool node — mcp.agentdomains.co rejects GET SSE streams with 405.',
-      'Store your Bearer token inside an n8n Header Auth credential so it is encrypted at rest and never exposed in workflow JSON exports.',
-      'You can also pair n8n with AgentDomains to give your self-hosted n8n instance an HTTPS webhook domain (see /use-cases/n8n-webhook-endpoints).',
+      'Pick "HTTP Streamable" (not SSE) in n8n. Our server rejects GET SSE streams with HTTP 405.',
+      'Save your Bearer token in an n8n Header Auth credential so it stays out of workflow exports.',
+      'You can also give a self-hosted n8n server a clean HTTPS webhook domain.',
     ],
     related: ['dify', 'langchain', 'crewai', 'mastra'],
-    summary: 'Connect n8n’s MCP Client Tool node to mcp.agentdomains.co over HTTP Streamable to provision domains and HTTPS proxies inside automated workflows.',
+    summary: 'Connect n8n to `mcp.agentdomains.co` over HTTP Streamable. Claim domains and HTTPS proxies inside workflows.',
   },
   {
     slug: 'dify',
@@ -588,7 +588,7 @@ mcpServers:
       'Use ${{ secrets.AGENTDOMAINS_API_KEY }} so the YAML file can be shared cleanly across repositories.',
     ],
     related: ['vscode', 'cline', 'roo-code', 'cursor'],
-    summary: 'Add AgentDomains to Continue.dev in VS Code or JetBrains using a clean YAML MCP server block with Streamable HTTP or stdio.',
+    summary: 'Add AgentDomains to Continue.dev in VS Code or JetBrains with a YAML Streamable HTTP or stdio block.',
   },
   {
     slug: 'aider',
@@ -612,12 +612,12 @@ agentdomains signup
 agentdomains claim my-app --email you@example.com --json`,
     firstPrompt: 'After updating the Express server, run agentdomains proxy my-aider-app my-aider-app.fly.dev --json.',
     gotchas: [
-      'Core Aider does not ship a built-in native MCP client — using the AgentDomains Go CLI with --json via /run is zero-overhead and rock solid.',
-      'If you run Aider behind an MCP-enabled wrapper (like aider-mcp or Claude Code calling Aider), attach mcp.agentdomains.co at the orchestrator layer.',
+      'Core Aider has no native MCP client. Run the AgentDomains Go CLI with `--json` via `/run` instead.',
+      'Using an MCP wrapper around Aider? Attach `mcp.agentdomains.co` at the wrapper layer.',
       'Add .agentdomains/ to .gitignore so local config files are never auto-committed by Aider.',
     ],
     related: ['claude-code', 'codex-cli', 'opencode', 'goose'],
-    summary: 'Pair Aider with AgentDomains using the JSON-native Go CLI via /run or an MCP orchestrator bridge to claim and proxy hostnames.',
+    summary: 'Pair Aider with the AgentDomains Go CLI via `/run` or an MCP wrapper to claim and proxy hostnames.',
   },
   {
     slug: 'opencode',
@@ -793,7 +793,7 @@ const mcpClient = await createMCPClient({
       'Enable maxSteps >= 4 in streamText/generateText so the model can chain check_availability → claim_domain → set_proxy.',
     ],
     related: ['mastra', 'openai-agents-sdk', 'langchain', 'dify'],
-    summary: 'Use StreamableHTTPClientTransport with Vercel AI SDK to give Next.js and Node.js AI agents live domain claiming and DNS automation.',
+    summary: 'Use `StreamableHTTPClientTransport` in Vercel AI SDK to give Next.js and Node agents live DNS automation.',
   },
   {
     slug: 'haystack',
@@ -856,7 +856,7 @@ with MCPClient(params) as tools:
     firstPrompt: 'Check if hf-demo is available on makes.fyi, claim it, and forward it to our Hugging Face Space URL.',
     gotchas: [
       'Install `pip install "smolagents[mcp]"` so the MCPClient helper and mcp SDK are available.',
-      'CodeAgent executes Python snippets that call tools directly — pass only non-destructive tools unless running in an approved session.',
+      'CodeAgent runs Python tool calls directly. Limit destructive tools unless you approve every step.',
       'Use transport="streamable-http" so smolagents talks cleanly to mcp.agentdomains.co.',
     ],
     related: ['pydantic-ai', 'openai-agents-sdk', 'crewai', 'haystack'],

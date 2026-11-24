@@ -1,10 +1,61 @@
 import {
   SITE,
+  esc,
   renderPage,
   breadcrumbSchema,
   faqSchema,
   renderFaqs,
 } from '../seo-lib/layout.mjs';
+import { renderSpecStrip } from '../seo-lib/visuals.mjs';
+
+function renderToolFlowSvg(title, leftBox, midBox, rightBox, caption) {
+  return `<div class="diagram-box">
+  <svg viewBox="0 0 880 156" width="880" height="156" role="img" aria-label="${esc(title)}">
+    <defs>
+      <marker id="arr-tl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
+
+    <rect x="16" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="18" width="246" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="24" y="30" width="74" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="61" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${esc(leftBox.tag)}</text>
+    <text x="24" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(leftBox.title)}</text>
+    <text x="24" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">${esc(leftBox.sub)}</text>
+
+    <line x1="260" y1="71" x2="312" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
+
+    <rect x="322" y="24" width="246" height="106" rx="14" fill="#00CC74"/>
+    <rect x="316" y="18" width="246" height="106" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="330" y="30" width="84" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="372" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">${esc(midBox.tag)}</text>
+    <text x="330" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(midBox.title)}</text>
+    <text x="330" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#0A0A0A">${esc(midBox.sub)}</text>
+
+    <line x1="566" y1="71" x2="618" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
+
+    <rect x="628" y="24" width="242" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="622" y="18" width="242" height="106" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="636" y="30" width="78" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="675" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${esc(rightBox.tag)}</text>
+    <text x="636" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(rightBox.title)}</text>
+    <text x="636" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">${esc(rightBox.sub)}</text>
+  </svg>
+  <p class="diagram-caption">${esc(caption)}</p>
+</div>`;
+}
+
+function renderStepPills(steps) {
+  return `<div class="step-pills" role="list" aria-label="Tool steps">
+  ${steps
+    .map(
+      (s, i) => `${i > 0 ? '<span class="step-arrow" aria-hidden="true">→</span>' : ''}
+  <span class="step-pill" role="listitem"><span class="num">${String(i + 1).padStart(2, '0')}</span>${esc(s)}</span>`
+    )
+    .join('')}
+</div>`;
+}
 
 export function buildToolPages() {
   const pages = [];
@@ -20,24 +71,46 @@ export function buildToolPages() {
   const hubHtml = `
     <span class="eyebrow">Free Interactive Browser Utilities · Zero Login</span>
     <h1>Free <span class="g">Agent &amp; DNS</span> Developer Tools</h1>
-    <p class="lede">Three 100% client-side tools built for engineers shipping AI agents: generate &amp; live-test MCP configs, debug DNS propagation &amp; ACME DNS-01 challenges over DoH, and calculate honest domain TCO across providers.</p>
+    <p class="lede">Run three free client-side tools in your browser. Build MCP configs, debug live DNS over DoH, and compare domain costs.</p>
+    ${renderSpecStrip([
+      { icon: 'bolt', label: 'Browser Tools', value: '3 Live Apps', tone: 'green' },
+      { icon: 'lock', label: 'Privacy', value: '100% Client-Side' },
+      { icon: 'card', label: 'Login Needed', value: 'None', tone: 'lime' },
+      { icon: 'globe', label: 'Live Checks', value: 'MCP + 1.1.1.1 + 8.8.8.8' },
+    ])}
+    ${renderToolFlowSvg(
+      'Client-side developer tools overview',
+      { tag: 'TOOL 01', title: 'MCP Config Builder', sub: '12+ clients · Live handshake' },
+      { tag: 'TOOL 02', title: 'DNS & ACME Checker', sub: '1.1.1.1 + 8.8.8.8 DoH' },
+      { tag: 'TOOL 03', title: 'Domain TCO Math', sub: '1–100 projects · SVG chart' },
+      'Every tool runs in your browser with direct HTTPS calls and zero backend tracking.'
+    )}
     <div class="grid">
       <a class="card" href="/tools/mcp-config-builder">
-        <span class="kicker">Tool 01 · MCP + Live Handshake</span>
+        <div class="card-top">
+          <span class="kicker">Tool 01 · MCP + Handshake</span>
+          <span class="card-icon">01</span>
+        </div>
         <h3>Universal MCP Config Builder</h3>
-        <p>Pick any AI client + AgentDomains or a custom MCP endpoint to generate exact JSON/TOML/YAML/SDK configs, Cursor/VS Code 1-click deeplinks, and run a live browser Streamable HTTP <code>initialize</code> handshake test.</p>
+        <p>Pick any AI client and generate exact JSON, TOML, YAML, or SDK configs. Run a live <code>initialize</code> handshake test.</p>
         <span class="btn sm" style="align-self:flex-start;margin-top:.6rem">Launch Builder →</span>
       </a>
       <a class="card" href="/tools/dns-ssl-checker">
-        <span class="kicker">Tool 02 · Live DoH Debugger</span>
+        <div class="card-top">
+          <span class="kicker">Tool 02 · Live DoH Debugger</span>
+          <span class="card-icon">02</span>
+        </div>
         <h3>DNS Propagation &amp; ACME DNS-01 Checker</h3>
-        <p>Query live CORS-enabled Cloudflare (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) DNS-over-HTTPS resolvers simultaneously for <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, <code>TXT</code>, <code>NS</code>, and <code>_acme-challenge</code> records.</p>
+        <p>Query Cloudflare <code>1.1.1.1</code> and Google <code>8.8.8.8</code> together for A, AAAA, CNAME, TXT, NS, and ACME records.</p>
         <span class="btn sm" style="align-self:flex-start;margin-top:.6rem">Launch Debugger →</span>
       </a>
       <a class="card" href="/tools/domain-cost-calculator">
-        <span class="kicker">Tool 03 · Honest TCO Math</span>
+        <div class="card-top">
+          <span class="kicker">Tool 03 · Honest TCO Math</span>
+          <span class="card-icon">03</span>
+        </div>
         <h3>Agent Hostname &amp; Domain TCO Calculator</h3>
-        <p>Slide from 1 to 100 projects, choose lifespan &amp; required features, and view a live SVG cost comparison chart across AgentDomains, Porkbun, Cloudflare Registrar, Namecheap, ngrok, and x402 registrars.</p>
+        <p>Slide from 1 to 100 projects and compare real yearly costs across 6 providers on a live SVG chart.</p>
         <span class="btn sm" style="align-self:flex-start;margin-top:.6rem">Launch Calculator →</span>
       </a>
     </div>
@@ -49,7 +122,7 @@ export function buildToolPages() {
     html: renderPage({
       path: hubPath,
       title: 'Free MCP, DNS & Domain Cost Tools for AI Agents — AgentDomains',
-      description: 'Three free browser tools: Universal MCP Config Builder with live handshake tester, DNS & ACME DNS-01 DoH Debugger, and Domain TCO Calculator.',
+      description: 'Three free browser tools: Universal MCP Config Builder with live handshake tester, DNS & ACME DNS-01 Debugger, and Domain TCO Calculator.',
       activeNav: 'tools',
       breadcrumbs: hubBreadcrumbs,
       ogType: 'website',
@@ -77,18 +150,32 @@ export function buildToolPages() {
   ];
   const t1Faqs = [
     {
-      q: 'Does the live Streamable HTTP handshake tester send my API key anywhere else?',
-      a: 'No. The browser sends the JSON-RPC POST directly to the MCP URL you enter (default https://mcp.agentdomains.co). Nothing is logged or sent to any third-party backend.',
+      q: 'Does the handshake tester send my API key anywhere else?',
+      a: 'No. Your browser posts directly to the MCP URL you enter. Nothing goes to any third-party server.',
     },
     {
-      q: 'Why does the handshake tester work without an API key on mcp.agentdomains.co?',
-      a: 'MCP initialize and tools/list are public protocol discovery calls on mcp.agentdomains.co (along with check_availability and signup), so you can verify connectivity and inspect all 20 tools before entering a key.',
+      q: 'Why does the test work without an API key on mcp.agentdomains.co?',
+      a: 'Discovery methods like initialize and tools/list are public on mcp.agentdomains.co. You can inspect all 20 tools before adding a key.',
     },
   ];
   const t1Html = `
     <span class="eyebrow">Free Tool 01 · Live Streamable HTTP Tester</span>
     <h1>Universal <span class="g">MCP Config Builder</span></h1>
-    <p class="lede">Generate verified Streamable HTTP and stdio configs for 12+ AI clients, create 1-click Cursor &amp; VS Code install deeplinks, and test a live JSON-RPC <code>initialize</code> + <code>tools/list</code> handshake right from your browser.</p>
+    <p class="lede">Build exact Streamable HTTP or stdio configs for 12+ AI clients. Test a live JSON-RPC handshake directly from your browser.</p>
+    ${renderSpecStrip([
+      { icon: 'plug', label: 'Clients', value: '12+ Formats', tone: 'green' },
+      { icon: 'bolt', label: 'Live Test', value: 'initialize + list' },
+      { icon: 'lock', label: 'Key Safety', value: 'Browser Only', tone: 'lime' },
+      { icon: 'check', label: 'Deeplinks', value: 'Cursor & VS Code' },
+    ])}
+    ${renderStepPills(['Pick client & transport', 'Copy snippet or 1-click install', 'Run live handshake test'])}
+    ${renderToolFlowSvg(
+      'MCP Config Builder direct browser handshake flow',
+      { tag: 'BROWSER', title: 'Select Client', sub: 'JSON / TOML / YAML / SDK' },
+      { tag: 'POST', title: 'JSON-RPC 2.0', sub: 'initialize + tools/list' },
+      { tag: 'RESULT', title: 'Verified Tools', sub: 'Latency + 20 tool names' },
+      'Your browser sends JSON-RPC directly to the target MCP endpoint over HTTPS.'
+    )}
 
     <div class="widget" id="mcp-builder-app">
       <div class="widget-head">
@@ -166,7 +253,7 @@ export function buildToolPages() {
           <button type="button" class="btn sm" id="mb-test-init">Run initialize + tools/list →</button>
         </div>
       </div>
-      <p style="font-size:.92rem;color:var(--muted)">Sends real JSON-RPC 2.0 <code>initialize</code> and <code>tools/list</code> POST requests directly from your browser to the endpoint above (works with any CORS-enabled Streamable HTTP server including <code>https://mcp.agentdomains.co</code>).</p>
+      <p style="font-size:.92rem;color:var(--muted)">Send live JSON-RPC <code>initialize</code> and <code>tools/list</code> requests straight from your browser to test CORS and tool discovery.</p>
       <div class="status-line status-dim" id="mb-test-status">Ready to test handshake.</div>
       <div class="code-box" style="margin:.5rem 0 0">
         <div class="code-head">
@@ -186,7 +273,7 @@ export function buildToolPages() {
     html: renderPage({
       path: t1Path,
       title: 'Universal MCP Config Builder & Live Streamable HTTP Tester — AgentDomains',
-      description: 'Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.',
+      description: 'Build verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and SDKs. Test live Streamable HTTP handshakes.',
       activeNav: 'tools',
       breadcrumbs: t1Bc,
       extraScripts: ['/assets/tool-mcp-builder.js'],
@@ -218,17 +305,31 @@ export function buildToolPages() {
   const t2Faqs = [
     {
       q: 'Which public resolvers does this DNS checker query?',
-      a: 'It queries Cloudflare DoH (https://cloudflare-dns.com/dns-query) and Google Public DNS DoH (https://dns.google/resolve) directly from your browser in parallel and compares their answers for propagation consistency.',
+      a: 'It queries Cloudflare DoH (1.1.1.1) and Google DoH (8.8.8.8) in parallel. Then it compares both answers for sync.',
     },
     {
       q: 'How does the ACME DNS-01 check work?',
-      a: 'It automatically queries TXT records at _acme-challenge.<hostname> on both Cloudflare and Google resolvers and highlights whether an active ACME verification token is visible globally.',
+      a: 'It queries TXT records at _acme-challenge.<hostname> on both resolvers and highlights active tokens.',
     },
   ];
   const t2Html = `
     <span class="eyebrow">Free Tool 02 · Live Dual-Resolver DoH Debugger</span>
     <h1>DNS Propagation &amp; <span class="g">ACME DNS-01</span> Checker</h1>
-    <p class="lede">Inspect live <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, <code>TXT</code>, <code>NS</code>, and <code>_acme-challenge</code> records across Cloudflare (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) simultaneously using CORS-enabled DNS-over-HTTPS.</p>
+    <p class="lede">Check live <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, <code>TXT</code>, <code>NS</code>, and <code>_acme-challenge</code> records across Cloudflare and Google DoH.</p>
+    ${renderSpecStrip([
+      { icon: 'globe', label: 'Resolvers', value: '1.1.1.1 + 8.8.8.8', tone: 'green' },
+      { icon: 'layers', label: 'Record Types', value: '6 Live Checks' },
+      { icon: 'lock', label: 'ACME Mode', value: 'TXT Token Match', tone: 'lime' },
+      { icon: 'bolt', label: 'Protocol', value: 'Browser DoH' },
+    ])}
+    ${renderStepPills(['Enter hostname', 'Optional ACME token', 'Compare 1.1.1.1 vs 8.8.8.8'])}
+    ${renderToolFlowSvg(
+      'Dual-resolver DNS over HTTPS lookup flow',
+      { tag: 'INPUT', title: 'Hostname + Token', sub: 'myapp.makes.fyi' },
+      { tag: 'DOH API', title: 'Dual Query', sub: 'Cloudflare + Google' },
+      { tag: 'SYNC', title: 'Diff & ACME Pass', sub: 'TTL + token verification' },
+      'Queries run in parallel directly from your browser over HTTPS with zero server proxy.'
+    )}
 
     <div class="widget" id="dns-checker-app">
       <form id="dc-form" class="widget-grid" style="align-items:end">
@@ -256,7 +357,7 @@ export function buildToolPages() {
     <div id="dc-results" class="grid"></div>
 
     <div class="panel accent" style="margin-top:1.5rem">
-      <strong>Need to publish an ACME DNS-01 challenge?</strong> With AgentDomains run <code>agentdomains txt &lt;label&gt; &lt;token&gt;</code> or invoke the <code>add_acme_challenge</code> MCP tool, wait 5 seconds, and re-run this debugger to confirm both 1.1.1.1 and 8.8.8.8 match.
+      <strong>Publish an ACME token fast:</strong> Run <code>agentdomains txt &lt;label&gt; &lt;token&gt;</code> or call <code>add_acme_challenge</code>. Wait 5 seconds and re-run this check.
     </div>
 
     ${renderFaqs(t2Faqs)}
@@ -268,7 +369,7 @@ export function buildToolPages() {
     html: renderPage({
       path: t2Path,
       title: 'Live DNS Propagation & ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains',
-      description: 'Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.',
+      description: 'Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and ACME records.',
       activeNav: 'tools',
       breadcrumbs: t2Bc,
       extraScripts: ['/assets/tool-dns-checker.js'],
@@ -299,18 +400,32 @@ export function buildToolPages() {
   ];
   const t3Faqs = [
     {
-      q: 'Why does the calculator sometimes recommend Porkbun or Cloudflare Registrar instead of AgentDomains?',
-      a: 'Because AgentDomains is a managed subdomain service (*.makes.fyi and *.agentdomains.co), not a registrar. Whenever you check "Need transferable .com ownership", the calculator honestly recommends Cloudflare Registrar or Porkbun.',
+      q: 'Why does this tool sometimes suggest Cloudflare Registrar or Porkbun?',
+      a: 'AgentDomains provides managed subdomains, not transferable .com domains. If you need full TLD ownership, buy from a real registrar.',
     },
     {
-      q: 'What pricing assumptions are used in the chart?',
-      a: 'AgentDomains: $0 for 30-day trial (up to 10 names) or $10/yr Pro (up to 100 names). Cloudflare Registrar: ~$10.44/yr per .com. Porkbun: ~$11.08/yr per .com. Namecheap: ~$15.88/yr renewal per .com. ngrok: $96/yr base Personal seat + paid tier scaling. x402 Crypto Registrar (agentdomain.app reference): $59/yr Starter + ~$25/domain.',
+      q: 'What pricing numbers power the live chart?',
+      a: 'AgentDomains Pro is $10/yr (100 names). Cloudflare is $10.44/yr per .com, Porkbun $11.08/yr, Namecheap $15.88/yr renewal, ngrok $96/yr base, and x402 $59/yr + $25/domain.',
     },
   ];
   const t3Html = `
     <span class="eyebrow">Free Tool 03 · Transparent Multi-Provider TCO</span>
     <h1>Agent Hostname &amp; <span class="g">Domain TCO</span> Calculator</h1>
-    <p class="lede">Estimate real total cost across 1 to 100 AI agent projects, demos, and staging URLs — with an honest architectural recommendation that tells you when to buy a real <code>.com</code> at Cloudflare Registrar or Porkbun instead.</p>
+    <p class="lede">Estimate real costs across 1 to 100 agent projects. See an honest verdict telling you when to buy a real <code>.com</code> instead.</p>
+    ${renderSpecStrip([
+      { icon: 'tag', label: 'Scale', value: '1–100 Projects', tone: 'green' },
+      { icon: 'layers', label: 'Providers', value: '6 Compared' },
+      { icon: 'bolt', label: 'Output', value: 'Live SVG Chart', tone: 'lime' },
+      { icon: 'check', label: 'Verdict', value: 'Honest Fit Check' },
+    ])}
+    ${renderStepPills(['Set project count', 'Check required features', 'Inspect live SVG chart'])}
+    ${renderToolFlowSvg(
+      'Multi-provider domain cost calculator flow',
+      { tag: 'SLIDER', title: '1–100 Projects', sub: '30 days · 1 yr · 3 yrs' },
+      { tag: 'RULES', title: 'Feature Fit', sub: '.com TLD · Proxy · MCP' },
+      { tag: 'CHART', title: 'Live SVG Math', sub: '6 providers side-by-side' },
+      'Adjust the slider and checkboxes below to update the SVG cost chart and verdict live.'
+    )}
 
     <div class="widget" id="cost-calc-app">
       <div class="widget-grid">
@@ -376,7 +491,7 @@ export function buildToolPages() {
     html: renderPage({
       path: t3Path,
       title: 'Agent Hostname & Domain TCO Calculator (1–100 Projects) — AgentDomains',
-      description: 'Compare 30-day, 1-year, and 3-year costs across AgentDomains, Cloudflare Registrar, Porkbun, Namecheap, ngrok, and x402 registrars with a live SVG chart.',
+      description: 'Compare 30-day, 1-year, and 3-year costs across AgentDomains, Cloudflare, Porkbun, Namecheap, ngrok, and x402 with a live SVG chart.',
       activeNav: 'tools',
       breadcrumbs: t3Bc,
       extraScripts: ['/assets/tool-cost-calc.js'],

@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDomains MCP Setup for OpenAI Agents SDK — Streamable HTTP &amp; stdio</title>
-<meta name="description" content="Connect OpenAI Agents SDK to AgentDomains MCP (Streamable HTTP &amp; stdio). Verified Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio snippet, first…">
+<meta name="description" content="Connect OpenAI Agents SDK to AgentDomains MCP (Streamable HTTP &amp; stdio). Copy-paste config, first prompt, and troubleshooting notes.">
 <link rel="canonical" href="https://agentdomains.co/mcp/openai-agents-sdk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AgentDomains MCP Setup for OpenAI Agents SDK — Streamable HTTP &amp; stdio">
-<meta property="og:description" content="Connect OpenAI Agents SDK to AgentDomains MCP (Streamable HTTP &amp; stdio). Verified Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio snippet, first…">
+<meta property="og:description" content="Connect OpenAI Agents SDK to AgentDomains MCP (Streamable HTTP &amp; stdio). Copy-paste config, first prompt, and troubleshooting notes.">
 <meta property="og:url" content="https://agentdomains.co/mcp/openai-agents-sdk">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AgentDomains MCP Setup for OpenAI Agents SDK — Streamable HTTP &amp; stdio">
-<meta name="twitter:description" content="Connect OpenAI Agents SDK to AgentDomains MCP (Streamable HTTP &amp; stdio). Verified Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio snippet, first…">
+<meta name="twitter:description" content="Connect OpenAI Agents SDK to AgentDomains MCP (Streamable HTTP &amp; stdio). Copy-paste config, first prompt, and troubleshooting notes.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -84,21 +84,21 @@
       "@type": "HowTo",
       "@id": "https://agentdomains.co/mcp/openai-agents-sdk#howto",
       "name": "How to connect OpenAI Agents SDK to AgentDomains MCP",
-      "description": "Connect OpenAI Agents SDK to AgentDomains with MCPServerStreamableHttp or MCPServerStdio to let autonomous Python and TypeScript agents register domains and configure DNS.",
+      "description": "Connect OpenAI Agents SDK via `MCPServerStreamableHttp` or `MCPServerStdio`. Let Python and TypeScript agents claim domains and write DNS.",
       "step": [
         {
           "@type": "HowToStep",
-          "name": "Add AgentDomains MCP configuration",
-          "text": "Add https://mcp.agentdomains.co or npx -y agentdomains-mcp in Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio."
+          "name": "Add MCP config",
+          "text": "Open Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio and add https://mcp.agentdomains.co or npx -y agentdomains-mcp."
         },
         {
           "@type": "HowToStep",
-          "name": "Authenticate with your API key",
-          "text": "Pass Authorization: Bearer adom_... or call the signup tool on your first turn."
+          "name": "Authenticate with API key",
+          "text": "Pass your adom_ API key or call the signup tool first."
         },
         {
           "@type": "HowToStep",
-          "name": "Run your first domain prompt",
+          "name": "Run first prompt",
           "text": "Check if billing-demo is free on makes.fyi, claim it, and set_proxy to billing-demo.fly.dev."
         }
       ]
@@ -109,18 +109,18 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Does OpenAI Agents SDK work with hosted https://mcp.agentdomains.co or stdio?",
+          "name": "Does OpenAI Agents SDK work with Streamable HTTP or stdio?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "OpenAI Agents SDK supports Streamable HTTP & stdio. We recommend hosted Streamable HTTP (https://mcp.agentdomains.co) whenever supported because it requires zero local Node.js runtime, or npx -y agentdomains-mcp for local stdio setups."
+            "text": "OpenAI Agents SDK supports Streamable HTTP & stdio. Pick hosted Streamable HTTP when available for zero local Node setup, or run npx -y agentdomains-mcp for stdio."
           }
         },
         {
           "@type": "Question",
-          "name": "Where does OpenAI Agents SDK store its MCP configuration?",
+          "name": "Where does OpenAI Agents SDK store its MCP config?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio. Keep your adom_ API key in an environment variable or user-scoped config rather than committing it to Git."
+            "text": "Store it in Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio. Keep your adom_ API key in an env var and never commit it to Git."
           }
         },
         {
@@ -128,7 +128,7 @@
           "name": "How much does it cost to claim domains from OpenAI Agents SDK?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Every new account includes a 30-day free trial with up to 10 names (no credit card required). Pro is $10/year or $1/month for up to 100 names with visitor stats and priority support."
+            "text": "Start with a 30-day free trial for 10 names with no card. Pro costs $10/yr or $1/mo for up to 100 names."
           }
         }
       ]
@@ -161,19 +161,112 @@
   
       <span class="eyebrow">Python / TS Agent Framework · MCP Setup Guide</span>
       <h1>AgentDomains MCP for <span class="g">OpenAI Agents SDK</span></h1>
-      <p class="lede">Connect OpenAI Agents SDK to AgentDomains with MCPServerStreamableHttp or MCPServerStdio to let autonomous Python and TypeScript agents register domains and configure DNS.</p>
-      <div class="meta-strip">
-        <span class="pill green">Transport: Streamable HTTP &amp; stdio</span>
-        <span class="pill">Endpoint: https://mcp.agentdomains.co</span>
-        <span class="pill lime">20 Tools · No Card Trial</span>
+      <p class="lede">Connect OpenAI Agents SDK via `MCPServerStreamableHttp` or `MCPServerStdio`. Let Python and TypeScript agents claim domains and write DNS.</p>
+      <div class="spec-strip" role="region" aria-label="Key specifications">
+  <div class="spec-tile green">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Setup Time</span>
+      <span class="spec-val">45 sec</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Transport</span>
+      <span class="spec-val">Streamable HTTP &amp; std…</span>
+    </div>
+  </div>
+  <div class="spec-tile lime">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29a1 1 0 0 0 1.42 0l8.58-8.58a1 1 0 0 0 0-1.42L12 2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Cost</span>
+      <span class="spec-val">$0 / 30 days</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Card Needed</span>
+      <span class="spec-val">None</span>
+    </div>
+  </div>
+</div>
+
+      <div class="diagram-box">
+  <svg viewBox="0 0 880 210" width="880" height="210" role="img" aria-label="MCP handshake flow from OpenAI Agents SDK to mcp.agentdomains.co and live HTTPS subdomains">
+    <defs>
+      <marker id="arr-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
+    <!-- Shadow + Node 1: Client -->
+    <rect x="16" y="42" width="218" height="114" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="36" width="218" height="114" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="24" y="50" width="76" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="62" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#0A0A0A">CLIENT</text>
+    <text x="119" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="17" fill="#0A0A0A">OpenAI Agents SDK</text>
+    <text x="119" y="126" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Streamable HTTP &amp; std…</text>
+
+    <!-- Arrow 1 -->
+    <line x1="232" y1="84" x2="314" y2="84" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-g)"/>
+    <rect x="237" y="54" width="74" height="20" rx="5" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="274" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">JSON-RPC</text>
+
+    <!-- Shadow + Node 2: MCP Server -->
+    <rect x="330" y="28" width="242" height="142" rx="14" fill="#00CC74"/>
+    <rect x="324" y="22" width="242" height="142" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="340" y="36" width="96" height="22" rx="6" fill="#0A0A0A"/>
+    <text x="388" y="51" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">20 MCP TOOLS</text>
+    <text x="445" y="86" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="17" fill="#0A0A0A">mcp.agentdomains.co</text>
+    <text x="445" y="110" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Streamable HTTP or stdio</text>
+    <text x="445" y="132" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">signup · claim · DNS · proxy</text>
+    <text x="445" y="152" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#007A43">Bearer adom_... auth</text>
+
+    <!-- Arrow 2 -->
+    <line x1="570" y1="84" x2="648" y2="84" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-g)"/>
+    <rect x="576" y="54" width="68" height="20" rx="5" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="610" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">AUTO TLS</text>
+
+    <!-- Shadow + Node 3: Live Domain -->
+    <rect x="664" y="42" width="206" height="114" rx="14" fill="#0A0A0A"/>
+    <rect x="658" y="36" width="206" height="114" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="672" y="50" width="76" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="710" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#0A0A0A">LIVE URL</text>
+    <text x="761" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">*.agentdomains.co</text>
+    <text x="761" y="122" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">or *.makes.fyi</text>
+    <text x="761" y="140" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">200 OK · Edge HTTPS</text>
+
+    <!-- Return feedback bar -->
+    <path d="M 761 160 L 761 190 L 119 190 L 119 162" fill="none" stroke="#00A85E" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#arr-g)"/>
+    <rect x="330" y="178" width="230" height="22" rx="6" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="445" y="193" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">Returns live HTTPS URL to agent</text>
+  </svg>
+  <p class="diagram-caption">MCP tool flow: OpenAI Agents SDK sends JSON-RPC calls to mcp.agentdomains.co and receives a live HTTPS domain.</p>
+</div>
+
+      <div class="step-grid" aria-label="Quick setup steps">
+        <div class="step-tile">
+          <div class="step-tile-head"><span class="step-badge">01</span><h3>Add Config</h3></div>
+          <p>Open <code>Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio</code> and paste the snippet below.</p>
+        </div>
+        <div class="step-tile">
+          <div class="step-tile-head"><span class="step-badge">02</span><h3>Reload Tools</h3></div>
+          <p>Refresh MCP tools in OpenAI Agents SDK. Confirm 20 AgentDomains tools appear.</p>
+        </div>
+        <div class="step-tile">
+          <div class="step-tile-head"><span class="step-badge">03</span><h3>Run Prompt</h3></div>
+          <p>Paste the test prompt below to check, claim, and route a live domain.</p>
+        </div>
       </div>
 
       <div class="panel accent">
-        <strong>Verified config location:</strong> <code>Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio</code>
+        <strong>Config path:</strong> <code>Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio</code>
         <div class="btn-row" style="margin:.85rem 0 0"><a class="btn" href="/tools/mcp-config-builder">Customize &amp; Test Live Handshake →</a></div>
       </div>
 
       <h2>1. Install &amp; <span class="g">Configure</span> OpenAI Agents SDK</h2>
+      <p>Choose hosted Streamable HTTP for zero local setup, or pick local stdio to reuse your Go CLI config.</p>
       
       <div data-tabs>
         <div class="tabs" role="tablist">
@@ -226,7 +319,7 @@ async with MCPServerStdio(
       </div>
 
       <h2>2. Tested <span class="g">First Prompt</span></h2>
-      <p>Once OpenAI Agents SDK reloads its MCP tools, run this prompt to verify end-to-end availability check, claiming, and routing:</p>
+      <p>Reload MCP tools in OpenAI Agents SDK. Run this prompt to check a name, claim it, and set routing.</p>
       <div class="code-box">
   <div class="code-head">
     <span>First prompt for OpenAI Agents SDK</span>
@@ -235,7 +328,7 @@ async with MCPServerStdio(
   <pre><code>Check if billing-demo is free on makes.fyi, claim it, and set_proxy to billing-demo.fly.dev.</code></pre>
 </div>
 
-      <h2>3. OpenAI Agents SDK-Specific <span class="g">Gotchas</span></h2>
+      <h2>3. OpenAI Agents SDK <span class="g">Setup Notes</span></h2>
       <div class="panel warn">
         <ul>
           <li>Always use MCPServerStreamableHttp (not MCPServerSse) — mcp.agentdomains.co is stateless Streamable HTTP and returns 405 on GET SSE streams.</li>
@@ -245,7 +338,33 @@ async with MCPServerStdio(
       </div>
 
       <h2>4. Available <span class="g">MCP Tools</span> (20 total)</h2>
-      <p>Once connected, OpenAI Agents SDK can invoke <code>check_availability</code>, <code>signup</code>, <code>whoami</code>, <code>attach_email</code>, <code>claim_domain</code>, <code>list_domains</code>, <code>get_domain</code>, <code>get_visits</code>, <code>delete_domain</code>, <code>add_dns_record</code>, <code>delete_record</code>, <code>add_acme_challenge</code>, <code>set_forward</code>, <code>remove_forward</code>, <code>set_proxy</code>, <code>remove_proxy</code>, <code>delegate_nameservers</code>, <code>delete_account</code>, <code>upgrade_to_pro</code>, and <code>manage_billing</code>.</p>
+      <p>OpenAI Agents SDK gets all 20 tools across account auth, domain claims, DNS records, and edge routing.</p>
+      <div class="tool-groups">
+  <div class="tool-group">
+    <h3>Account &amp; Auth <span class="badge free">5 tools</span></h3>
+    <div class="tool-chips">
+      <span class="tool-chip">signup</span><span class="tool-chip">whoami</span><span class="tool-chip">attach_email</span><span class="tool-chip">upgrade_to_pro</span><span class="tool-chip">manage_billing</span>
+    </div>
+  </div>
+  <div class="tool-group">
+    <h3>Domains &amp; Stats <span class="badge free">6 tools</span></h3>
+    <div class="tool-chips">
+      <span class="tool-chip">check_availability</span><span class="tool-chip">claim_domain</span><span class="tool-chip">list_domains</span><span class="tool-chip">get_domain</span><span class="tool-chip">get_visits</span><span class="tool-chip">delete_domain</span>
+    </div>
+  </div>
+  <div class="tool-group">
+    <h3>DNS &amp; ACME <span class="badge free">4 tools</span></h3>
+    <div class="tool-chips">
+      <span class="tool-chip">add_dns_record</span><span class="tool-chip">delete_record</span><span class="tool-chip">add_acme_challenge</span><span class="tool-chip">delegate_nameservers</span>
+    </div>
+  </div>
+  <div class="tool-group">
+    <h3>Edge Proxy &amp; Forward <span class="badge free">5 tools</span></h3>
+    <div class="tool-chips">
+      <span class="tool-chip">set_proxy</span><span class="tool-chip">remove_proxy</span><span class="tool-chip">set_forward</span><span class="tool-chip">remove_forward</span><span class="tool-chip">delete_account</span>
+    </div>
+  </div>
+</div>
       <div class="btn-row">
         <a class="btn" href="/tools/mcp-config-builder">Test Live MCP Handshake →</a>
         <a class="btn ghost" href="/guides">Browse 45 Host Playbooks</a>
@@ -254,9 +373,9 @@ async with MCPServerStdio(
       <section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    <div class="faq-item"><h3>Does OpenAI Agents SDK work with hosted https://mcp.agentdomains.co or stdio?</h3><p>OpenAI Agents SDK supports Streamable HTTP &amp; stdio. We recommend hosted Streamable HTTP (https://mcp.agentdomains.co) whenever supported because it requires zero local Node.js runtime, or npx -y agentdomains-mcp for local stdio setups.</p></div>
-    <div class="faq-item"><h3>Where does OpenAI Agents SDK store its MCP configuration?</h3><p>Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio. Keep your adom_ API key in an environment variable or user-scoped config rather than committing it to Git.</p></div>
-    <div class="faq-item"><h3>How much does it cost to claim domains from OpenAI Agents SDK?</h3><p>Every new account includes a 30-day free trial with up to 10 names (no credit card required). Pro is $10/year or $1/month for up to 100 names with visitor stats and priority support.</p></div>
+    <div class="faq-item"><h3>Does OpenAI Agents SDK work with Streamable HTTP or stdio?</h3><p>OpenAI Agents SDK supports Streamable HTTP &amp; stdio. Pick hosted Streamable HTTP when available for zero local Node setup, or run npx -y agentdomains-mcp for stdio.</p></div>
+    <div class="faq-item"><h3>Where does OpenAI Agents SDK store its MCP config?</h3><p>Store it in Python: agents.mcp.MCPServerStreamableHttp / MCPServerStdio. Keep your adom_ API key in an env var and never commit it to Git.</p></div>
+    <div class="faq-item"><h3>How much does it cost to claim domains from OpenAI Agents SDK?</h3><p>Start with a 30-day free trial for 10 names with no card. Pro costs $10/yr or $1/mo for up to 100 names.</p></div>
   </div>
 </section>
 
@@ -280,7 +399,7 @@ async with MCPServerStdio(
       <a class="card" href="/mcp/vercel-ai-sdk">
         <span class="kicker">TypeScript AI Toolkit</span>
         <h3>Vercel AI SDK MCP Setup</h3>
-        <p>Use StreamableHTTPClientTransport with Vercel AI SDK to give Next.js and Node.js AI agents live domain claiming and DNS automation.</p>
+        <p>Use `StreamableHTTPClientTransport` in Vercel AI SDK to give Next.js and Node agents live DNS automation.</p>
       </a>
       </div>
     

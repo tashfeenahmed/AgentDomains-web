@@ -7,7 +7,95 @@ import {
   codeBox,
   renderFaqs,
 } from '../seo-lib/layout.mjs';
+import { renderSpecStrip, renderFilterPills, trunc } from '../seo-lib/visuals.mjs';
 import { HOST_GUIDES } from '../seo-data/guides.mjs';
+
+function renderRoutingSvg(g) {
+  const fqdn = `${g.defaultLabel}.makes.fyi`;
+  const midTitle =
+    g.mode === 'record'
+      ? 'Authoritative A Record'
+      : g.mode === 'forward'
+        ? 'Edge 302 / 301 Forward'
+        : 'Edge HTTPS Reverse Proxy';
+  const midSub =
+    g.mode === 'record'
+      ? 'DNS-01 TXT + Caddy / Certbot'
+      : g.mode === 'forward'
+        ? 'Path Preserved · Auto TLS'
+        : 'Automatic Cloudflare Edge TLS';
+  const rightTag = g.mode === 'record' ? 'ORIGIN IP' : 'ORIGIN HOST';
+
+  return `<div class="diagram-box">
+  <svg viewBox="0 0 880 195" width="880" height="195" role="img" aria-label="Origin-to-edge HTTPS routing diagram for ${esc(g.name)}">
+    <defs>
+      <marker id="arr-guide" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
+    <!-- Node 1: Origin -->
+    <rect x="16" y="34" width="222" height="122" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="28" width="222" height="122" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="24" y="42" width="96" height="22" rx="6" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="72" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${rightTag}</text>
+    <text x="121" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(trunc(g.name, 22))}</text>
+    <text x="121" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">${esc(trunc(g.defaultOrigin, 26))}</text>
+    <text x="121" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Your server or PaaS</text>
+
+    <!-- Arrow 1 -->
+    <line x1="236" y1="89" x2="314" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
+    <rect x="242" y="58" width="66" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="275" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${g.mode === 'record' ? 'DNS A' : g.mode === 'forward' ? '302/301' : 'PROXY'}</text>
+
+    <!-- Node 2: AgentDomains Edge -->
+    <rect x="328" y="24" width="250" height="136" rx="14" fill="#00CC74"/>
+    <rect x="322" y="18" width="250" height="136" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="338" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
+    <text x="395" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
+    <text x="447" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(midTitle)}</text>
+    <text x="447" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">${esc(trunc(fqdn, 28))}</text>
+    <text x="447" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">${esc(midSub)}</text>
+
+    <!-- Arrow 2 -->
+    <line x1="576" y1="89" x2="650" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
+    <rect x="580" y="58" width="66" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="613" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TLS 1.3</text>
+
+    <!-- Node 3: Visitors / Webhooks -->
+    <rect x="664" y="34" width="206" height="122" rx="14" fill="#0A0A0A"/>
+    <rect x="658" y="28" width="206" height="122" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="672" y="42" width="96" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="720" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">AUTO HTTPS</text>
+    <text x="761" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Users &amp; Agents</text>
+    <text x="761" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Port 443 · Valid Cert</text>
+    <text x="761" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Zero bandwidth caps</text>
+  </svg>
+  <p class="diagram-caption">Origin-to-edge flow for ${esc(g.name)}: connect ${esc(g.defaultOrigin)} to ${esc(fqdn)} with automatic HTTPS.</p>
+</div>`;
+}
+
+function renderHubRoutingSvg() {
+  return `<div class="diagram-box">
+  <svg viewBox="0 0 880 185" width="880" height="185" role="img" aria-label="Choose Edge Proxy for PaaS hostnames or A Record plus ACME DNS-01 for VPS servers">
+    <rect x="16" y="24" width="400" height="136" rx="14" fill="#00CC74"/>
+    <rect x="10" y="18" width="400" height="136" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="26" y="32" width="124" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="88" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">PATH A · PAAS</text>
+    <text x="26" y="84" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="18" fill="#0A0A0A">Edge HTTPS Proxy</text>
+    <text x="26" y="108" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Fly.io · Railway · Render · Cloud Run</text>
+    <text x="26" y="132" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#007A43">agentdomains proxy app my.fly.dev</text>
+
+    <rect x="464" y="24" width="406" height="136" rx="14" fill="#0A0A0A"/>
+    <rect x="458" y="18" width="406" height="136" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="474" y="32" width="146" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="547" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">PATH B · BARE VPS</text>
+    <text x="474" y="84" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="18" fill="#0A0A0A">A Record + ACME DNS-01</text>
+    <text x="474" y="108" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Hetzner · DigitalOcean · EC2 · Raspberry Pi</text>
+    <text x="474" y="132" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#007A43">agentdomains record app --type A --content IP</text>
+  </svg>
+  <p class="diagram-caption">Pick Edge Proxy for any upstream hostname, or pick A Record + ACME DNS-01 for bare IPv4 servers.</p>
+</div>`;
+}
 
 export function buildGuidePages() {
   const pages = [];
@@ -21,36 +109,42 @@ export function buildGuidePages() {
   ];
   const hubFaqs = [
     {
-      q: 'Should I use agentdomains proxy or an A record?',
-      a: 'Use agentdomains proxy whenever your host gives you a public hostname (Fly.io, Railway, Render, Cloud Run, Tailscale Funnel). Use an A record + Caddy/Certbot whenever you have a bare server IPv4 address (Hetzner VPS, DigitalOcean Droplet, EC2, Raspberry Pi).',
+      q: 'Should I use edge proxy or an A record?',
+      a: 'Use edge proxy when your host gives you a public hostname like Fly.io or Railway. Use an A record plus Caddy when you own a bare IPv4 VPS.',
     },
     {
-      q: 'Does AgentDomains host my application code or containers?',
-      a: 'No. AgentDomains hosts nothing — it gives your agent a real hostname under agentdomains.co or makes.fyi with writable DNS, forwarding, and an edge HTTPS reverse proxy in front of whatever server or PaaS you already run.',
+      q: 'Does AgentDomains host my app code or containers?',
+      a: 'No. AgentDomains hosts no app code. It gives your server a real hostname with writable DNS, forwards, and an HTTPS edge proxy.',
     },
     {
       q: 'Are there bandwidth or request caps on proxied origins?',
-      a: 'No request quotas and no bandwidth bills on either the 30-day free trial or the $10/yr Pro plan.',
+      a: 'No. Neither the 30-day free trial nor the $10/yr Pro plan has request quotas or bandwidth bills.',
     },
   ];
 
   const hubHtml = `
     <span class="eyebrow">Cluster 02 · 45 Origin &amp; Host Playbooks</span>
     <h1>Host &amp; Origin <span class="g">Integration Playbooks</span></h1>
-    <p class="lede">Give any VPS, PaaS container, web framework, local LLM, or webhook handler a real HTTPS hostname under <code>makes.fyi</code> or <code>agentdomains.co</code> in three commands.</p>
-    <div class="meta-strip">
-      <span class="pill green">45 Platforms Covered</span>
-      <span class="pill">Interactive CLI Generator</span>
-      <span class="pill lime">Live Availability Check</span>
-    </div>
+    <p class="lede">Give any VPS, PaaS container, web framework, local LLM, or webhook app a real HTTPS domain in three commands.</p>
+    ${renderSpecStrip([
+      { icon: 'layers', label: 'Playbooks', value: `${HOST_GUIDES.length} Platforms`, tone: 'green' },
+      { icon: 'terminal', label: 'Setup', value: '3 CLI Steps' },
+      { icon: 'lock', label: 'HTTPS', value: 'Edge or DNS-01', tone: 'lime' },
+      { icon: 'card', label: 'Card Needed', value: 'None' },
+    ])}
+    ${renderHubRoutingSvg()}
     <div class="hub-search">
       <input type="text" placeholder="Filter 45 hosts (e.g. hetzner, fly, railway, fastapi, stripe, ollama)…" data-filter-input="guides-grid" aria-label="Filter host playbooks">
       <span class="pill" id="guides-grid-count">${HOST_GUIDES.length} shown</span>
     </div>
+    ${renderFilterPills('guides-grid', HOST_GUIDES.map((g) => g.group))}
     <div class="grid" id="guides-grid">
       ${HOST_GUIDES.map(
-        (g) => `<a class="card" href="/guides/${esc(g.slug)}" data-search="${esc((g.name + ' ' + g.slug + ' ' + g.group + ' ' + g.mode).toLowerCase())}">
-        <span class="kicker">${esc(g.group)} · ${g.mode === 'record' ? 'A Record + TLS' : g.mode === 'forward' ? 'HTTPS Forward' : 'Edge HTTPS Proxy'}</span>
+        (g) => `<a class="card" href="/guides/${esc(g.slug)}" data-cat="${esc(g.group.toLowerCase())}" data-search="${esc((g.name + ' ' + g.slug + ' ' + g.group + ' ' + g.mode).toLowerCase())}">
+        <div class="card-top">
+          <span class="kicker">${esc(g.group)}</span>
+          <span class="badge ${g.mode === 'proxy' ? 'free' : 'checking'}">${g.mode === 'record' ? 'A + TLS' : g.mode === 'forward' ? '302 FWD' : 'PROXY'}</span>
+        </div>
         <h3>${esc(g.name)}</h3>
         <p>${esc(g.recommendation)}</p>
       </a>`
@@ -95,10 +189,10 @@ export function buildGuidePages() {
     ];
     const modeLabel =
       g.mode === 'record'
-        ? 'A Record + ACME / Caddy TLS'
+        ? 'A Record + DNS-01'
         : g.mode === 'forward'
-          ? 'Edge HTTPS Redirect (302/301)'
-          : 'Edge HTTPS Reverse Proxy';
+          ? 'Edge HTTPS Forward'
+          : 'Edge HTTPS Proxy';
 
     const step3 =
       g.mode === 'record'
@@ -124,32 +218,60 @@ export function buildGuidePages() {
         a: g.recommendation,
       },
       {
-        q: `How do I verify DNS propagation for ${g.name}?`,
-        a: `After running the CLI commands above, open our free /tools/dns-ssl-checker or run dig @1.1.1.1 ${g.defaultLabel}.makes.fyi to confirm Cloudflare and Google resolvers return your new record.`,
+        q: `How do I check DNS propagation for ${g.name}?`,
+        a: `Open /tools/dns-ssl-checker or run dig @1.1.1.1 ${g.defaultLabel}.makes.fyi. Confirm both Cloudflare and Google return your record.`,
       },
       {
-        q: `Can an AI agent set up ${g.name} routing automatically via MCP?`,
-        a: `Yes. Connect Claude Code, Cursor, or any MCP client to https://mcp.agentdomains.co and ask it to run claim_domain followed by ${g.mode === 'record' ? 'add_dns_record' : g.mode === 'forward' ? 'set_forward' : 'set_proxy'}.`,
+        q: `Can an AI agent configure ${g.name} routing via MCP?`,
+        a: `Yes. Connect your client to https://mcp.agentdomains.co. Ask it to call claim_domain and ${g.mode === 'record' ? 'add_dns_record' : g.mode === 'forward' ? 'set_forward' : 'set_proxy'}.`,
       },
     ];
+
+    const isProxyMode = g.mode === 'proxy' || g.mode === 'forward';
 
     const bodyHtml = `
       <span class="eyebrow">${esc(g.group)} · Integration Playbook</span>
       <h1>Custom HTTPS Domain for <span class="g">${esc(g.name)}</span></h1>
       <p class="lede">${esc(g.recommendation)}</p>
-      <div class="meta-strip">
-        <span class="pill green">Recommended: ${esc(modeLabel)}</span>
-        <span class="pill">30-Day Free Trial (10 Names)</span>
-        <span class="pill lime">No Card Required</span>
+      ${renderSpecStrip([
+        { icon: 'bolt', label: 'Best Mode', value: modeLabel, tone: 'green' },
+        { icon: 'terminal', label: 'Setup', value: '3 Commands' },
+        { icon: 'lock', label: 'TLS Cert', value: g.mode === 'record' ? 'ACME DNS-01 / Caddy' : 'Automatic Edge', tone: 'lime' },
+        { icon: 'tag', label: 'Trial Cost', value: '$0 / 30 days' },
+      ])}
+
+      ${renderRoutingSvg(g)}
+
+      <h2>1. Choose Mode: <span class="g">Edge Proxy vs DNS-01</span></h2>
+      <div class="decision-grid">
+        <div class="decision-card${isProxyMode ? ' recommended' : ''}">
+          <div class="decision-card-head">
+            <h3>${g.mode === 'forward' ? 'Edge HTTPS Forward / Proxy' : 'Edge HTTPS Reverse Proxy'}</h3>
+            <span class="badge ${isProxyMode ? 'free' : 'checking'}">${isProxyMode ? 'PICK FOR ' + esc(g.name.toUpperCase()).slice(0, 14) : 'FOR PAAS HOSTS'}</span>
+          </div>
+          <ul>
+            <li>Point at any public hostname without <code>https://</code>.</li>
+            <li>Cloudflare edge handles TLS 1.3 automatically.</li>
+            <li>Zero Certbot config and zero IP exposure.</li>
+          </ul>
+        </div>
+        <div class="decision-card${g.mode === 'record' ? ' recommended' : ''}">
+          <div class="decision-card-head">
+            <h3>A Record + ACME DNS-01</h3>
+            <span class="badge ${g.mode === 'record' ? 'free' : 'checking'}">${g.mode === 'record' ? 'PICK FOR ' + esc(g.name.toUpperCase()).slice(0, 14) : 'FOR BARE VPS'}</span>
+          </div>
+          <ul>
+            <li>Point directly at your server IPv4 or IPv6 address.</li>
+            <li>Issue certs via Caddy or <code>agentdomains txt</code> DNS-01.</li>
+            <li>Works even when your firewall blocks port 80.</li>
+          </ul>
+        </div>
       </div>
 
-      <h2>1. Recommended Architecture: <span class="g">Proxy vs A-Record + ACME</span></h2>
-      <div class="panel accent">
-        <p style="margin:0"><strong>${esc(g.name)} verdict:</strong> ${esc(g.recommendation)}</p>
-      </div>
       ${codeBox(`${g.name} — 3-command AgentDomains setup`, cli3)}
 
       <h2>2. Interactive: <span class="g">Generate My CLI Command</span></h2>
+      <p>Enter your subdomain label and origin below. Copy the generated commands or check live name availability.</p>
       <div class="widget" data-cli-gen data-mode="${esc(g.mode)}">
         <div class="widget-head">
           <strong>Live CLI Generator &amp; Availability Checker</strong>
@@ -187,6 +309,7 @@ export function buildGuidePages() {
       </div>
 
       <h2>3. ${esc(g.name)} <span class="g">Origin Configuration</span></h2>
+      <p>Apply this config on ${esc(g.name)} so headers, TLS, and routing match your new hostname.</p>
       ${codeBox(`${g.name} server / platform config`, g.serverSnippet)}
       <div class="panel warn">
         <h3>Operational Checklist</h3>
@@ -222,7 +345,7 @@ export function buildGuidePages() {
       html: renderPage({
         path: pagePath,
         title: `Custom HTTPS Domain for ${g.name} — AgentDomains Playbook`,
-        description: `Give your ${g.name} deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes ${modeLabel} config and live availability check.`,
+        description: `Give ${g.name} a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes ${modeLabel} config and live check.`,
         activeNav: 'guides',
         breadcrumbs,
         jsonLdGraph: [
@@ -241,7 +364,7 @@ export function buildGuidePages() {
             '@id': `${pageUrl}#howto`,
             name: `Point an AgentDomains hostname at ${g.name}`,
             step: [
-              { '@type': 'HowToStep', name: 'Create account', text: 'Run agentdomains signup to get an instant API key with no card.' },
+              { '@type': 'HowToStep', name: 'Create account', text: 'Run agentdomains signup to get a free API key.' },
               { '@type': 'HowToStep', name: 'Claim subdomain', text: `Run agentdomains claim ${g.defaultLabel} --email you@example.com.` },
               { '@type': 'HowToStep', name: `Connect ${g.name}`, text: `Run ${step3}.` },
             ],

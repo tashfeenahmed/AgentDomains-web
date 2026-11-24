@@ -486,6 +486,323 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
 .badge.free{background:var(--lime);color:var(--ink)}
 .badge.taken{background:#FEE2E2;color:#991B1B}
 .badge.checking{background:#F3F4F6;color:#4B5563}
+.name-card.is-free{border-color:var(--ink);border-left:8px solid var(--energy);background:#FAFFFC}
+.name-card.is-taken{border-left:8px solid var(--danger);background:#FFF8F8}
+
+/* At-a-Glance Visual Spec Strip */
+.spec-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:.85rem;
+  margin:1.2rem 0 1.6rem;
+}
+.spec-tile{
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:12px;
+  padding:.85rem 1rem;
+  box-shadow:4px 4px 0 var(--ink);
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.spec-tile.green{background:var(--mint);box-shadow:4px 4px 0 var(--energy)}
+.spec-tile.lime{background:var(--lime);box-shadow:4px 4px 0 var(--ink)}
+.spec-icon{
+  width:38px;
+  height:38px;
+  flex-shrink:0;
+  border-radius:9px;
+  border:2px solid var(--ink);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.spec-tile.green .spec-icon{background:var(--energy);color:var(--ink)}
+.spec-tile.lime .spec-icon{background:var(--ink);color:var(--lime)}
+.spec-body{display:flex;flex-direction:column;gap:.12rem;min-width:0}
+.spec-label{
+  font-family:'Space Mono',monospace;
+  font-size:.69rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:var(--muted);
+  font-weight:700;
+}
+.spec-val{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.05rem;
+  font-weight:800;
+  color:var(--ink);
+  line-height:1.15;
+}
+
+/* Visual 3-Step Numbered Cards */
+.step-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  margin:1.2rem 0 1.4rem;
+}
+.step-tile{
+  background:#fff;
+  border:3px solid var(--ink);
+  border-radius:14px;
+  padding:1.1rem 1.2rem;
+  box-shadow:5px 5px 0 var(--ink);
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.step-tile-head{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+.step-badge{
+  font-family:'Space Mono',monospace;
+  font-size:.78rem;
+  font-weight:700;
+  background:var(--lime);
+  color:var(--ink);
+  border:2px solid var(--ink);
+  border-radius:7px;
+  padding:.18rem .52rem;
+}
+.step-tile h3{margin:0;font-size:1.06rem}
+.step-tile p{margin:0;font-size:.9rem;color:#374151}
+
+/* Visual Step Pills (Tools) */
+.step-pills{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.55rem;
+  margin:1rem 0 1.35rem;
+}
+.step-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:999px;
+  padding:.32rem .85rem .32rem .42rem;
+  font-family:'Space Mono',monospace;
+  font-size:.78rem;
+  font-weight:700;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.step-pill .num{
+  background:var(--energy);
+  color:var(--ink);
+  border:2px solid var(--ink);
+  border-radius:999px;
+  width:24px;
+  height:24px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.72rem;
+}
+.step-arrow{
+  font-family:'Space Mono',monospace;
+  font-weight:700;
+  color:var(--energy-d);
+}
+
+/* Visual Tool Groups (20 MCP Tools) */
+.tool-groups{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;
+  margin:1.1rem 0 1.4rem;
+}
+.tool-group{
+  background:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:12px;
+  padding:1rem 1.1rem;
+  box-shadow:4px 4px 0 var(--ink);
+}
+.tool-group h3{
+  margin:0 0 .65rem;
+  font-size:.98rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.tool-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.tool-chip{
+  font-family:'Space Mono',monospace;
+  font-size:.75rem;
+  background:var(--mint);
+  border:1.5px solid var(--ink);
+  border-radius:6px;
+  padding:.18rem .48rem;
+  font-weight:700;
+}
+
+/* Decision Cards & Split Panels */
+.decision-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.1rem;
+  margin:1.15rem 0 1.4rem;
+}
+.decision-card{
+  background:#fff;
+  border:3px solid var(--ink);
+  border-radius:14px;
+  padding:1.2rem 1.3rem;
+  box-shadow:5px 5px 0 var(--ink);
+}
+.decision-card.recommended{
+  background:var(--mint);
+  box-shadow:6px 6px 0 var(--energy);
+}
+.decision-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.5rem;
+  margin-bottom:.65rem;
+}
+.decision-card h3{margin:0;font-size:1.12rem}
+.decision-card ul{margin:0;padding-left:1.2rem;font-size:.92rem}
+
+/* Capability Matrix Badges */
+.cap-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  border-radius:6px;
+  border:2px solid var(--ink);
+  font-family:'Space Mono',monospace;
+  font-weight:700;
+  font-size:.78rem;
+  margin-right:.45rem;
+  vertical-align:middle;
+  flex-shrink:0;
+}
+.cap-yes{background:var(--energy);color:var(--ink)}
+.cap-no{background:#FEE2E2;color:#991B1B;border-color:#991B1B}
+.cap-mid{background:var(--lime);color:var(--ink)}
+.cap-cell{display:flex;align-items:flex-start;gap:.45rem}
+
+/* Request / Response Pills in Use-Case Transcripts */
+.io-pills{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.45rem;
+  margin:.55rem 0 .25rem;
+  font-family:'Space Mono',monospace;
+  font-size:.74rem;
+}
+.io-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.3rem;
+  border:2px solid var(--ink);
+  border-radius:6px;
+  padding:.14rem .5rem;
+  font-weight:700;
+}
+.io-pill.req{background:var(--lime);color:var(--ink)}
+.io-pill.res{background:var(--mint);color:var(--energy-d)}
+
+/* Live Names Summary Strip */
+.live-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:.65rem;
+  margin:0 0 1rem;
+}
+.live-stat{
+  background:#fff;
+  border:2px solid var(--ink);
+  border-radius:10px;
+  padding:.55rem .8rem;
+  display:flex;
+  flex-direction:column;
+  box-shadow:3px 3px 0 var(--ink);
+}
+.live-stat.avail{background:#ECFDF5;border-color:var(--ink)}
+.live-stat.taken{background:#FEF2F2;border-color:var(--ink)}
+.live-stat .lbl{
+  font-family:'Space Mono',monospace;
+  font-size:.68rem;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:700;
+}
+.live-stat .val{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.25rem;
+  font-weight:800;
+}
+
+/* Hub Category Filter Pills */
+.filter-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  margin:.75rem 0 1.2rem;
+}
+.filter-pill{
+  font-family:'Space Mono',monospace;
+  font-size:.76rem;
+  font-weight:700;
+  background:#fff;
+  color:var(--ink);
+  border:2px solid var(--ink);
+  border-radius:999px;
+  padding:.28rem .78rem;
+  cursor:pointer;
+  transition:background .12s, transform .1s;
+}
+.filter-pill:hover{background:var(--mint)}
+.filter-pill.active{
+  background:var(--ink);
+  color:#fff;
+  box-shadow:2px 2px 0 var(--energy);
+}
+.diagram-caption{
+  font-family:'Space Mono',monospace;
+  font-size:.74rem;
+  color:var(--muted);
+  text-align:center;
+  margin:.6rem 0 0;
+}
+.card-icon{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  border:2px solid var(--ink);
+  background:var(--mint);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Space Mono',monospace;
+  font-weight:700;
+  font-size:.75rem;
+  color:var(--ink);
+  flex-shrink:0;
+}
+.card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.5rem;
+}
 
 /* Transcript & SVG Diagram */
 .transcript{

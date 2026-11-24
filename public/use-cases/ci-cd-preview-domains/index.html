@@ -103,7 +103,7 @@
         {
           "@type": "HowToStep",
           "name": "Verify HTTPS 200 OK",
-          "text": "Verify https://feat-auth.makes.fyi responds with 200 OK over TLS."
+          "text": "Check that https://feat-auth.makes.fyi returns 200 OK."
         }
       ]
     }
@@ -136,48 +136,109 @@
       <span class="eyebrow">CI / CD · Workflow Blueprint</span>
       <h1>CI/CD Branch Preview Domains with <span class="g">AgentDomains</span></h1>
       <p class="lede">Provision deterministic per-branch URLs (`feat-auth.makes.fyi`) directly from GitHub Actions or GitLab CI using the AgentDomains Go CLI.</p>
-      <div class="meta-strip">
-        <span class="pill green">Example Host: feat-auth.makes.fyi</span>
-        <span class="pill">4-Step MCP Transcript</span>
-        <span class="pill lime">CI Teardown Included</span>
-      </div>
+      <div class="spec-strip" role="region" aria-label="Key specifications">
+  <div class="spec-tile green">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Example Host</span>
+      <span class="spec-val">feat-auth.makes.fyi</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">MCP Flow</span>
+      <span class="spec-val">4 Tool Steps</span>
+    </div>
+  </div>
+  <div class="spec-tile lime">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">HTTPS Mode</span>
+      <span class="spec-val">Edge Proxy</span>
+    </div>
+  </div>
+  <div class="spec-tile">
+    <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+    <div class="spec-body">
+      <span class="spec-label">Teardown</span>
+      <span class="spec-val">GitHub Action</span>
+    </div>
+  </div>
+</div>
 
       <div class="panel accent">
-        <p style="margin:0">The Go CLI supports `--json` output and single-binary installation, making automated DNS creation and cleanup trivial inside any CI pipeline.</p>
+        <p style="margin:0">The Go CLI ships as one binary with `--json` output. CI jobs can create and delete DNS cleanly.</p>
       </div>
 
-      <h2>1. DNS &amp; TLS <span class="g">Request Flow</span></h2>
+      <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
       <div class="diagram-box">
-        <svg viewBox="0 0 880 180" width="880" height="180" role="img" aria-label="DNS and TLS flow diagram for CI/CD Branch Preview Domains: Client to feat-auth.makes.fyi to feat-auth.onrender.com">
-  <rect x="8" y="34" width="210" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
-  <text x="113" y="68" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">1. AI Agent / Client</text>
-  <text x="113" y="94" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" fill="#00A85E">HTTPS / MCP JSON-RPC</text>
-  <text x="113" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#525252">TLS 1.3 · Port 443</text>
+  <svg viewBox="0 0 880 285" width="880" height="285" role="img" aria-label="3-stage MCP sequence diagram for CI/CD Branch Preview Domains: AI Agent to AgentDomains to feat-auth.onrender.com">
+    <defs>
+      <marker id="seq-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00CC74" stroke="#0A0A0A" stroke-width="1"/>
+      </marker>
+    </defs>
 
-  <line x1="218" y1="87" x2="310" y2="87" stroke="#0A0A0A" stroke-width="3"/>
-  <polygon points="310,80 324,87 310,94" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <!-- Lifelines -->
+    <line x1="140" y1="74" x2="140" y2="270" stroke="#0A0A0A" stroke-width="2.5" stroke-dasharray="6 5"/>
+    <line x1="440" y1="74" x2="440" y2="270" stroke="#00CC74" stroke-width="2.5" stroke-dasharray="6 5"/>
+    <line x1="740" y1="74" x2="740" y2="270" stroke="#0A0A0A" stroke-width="2.5" stroke-dasharray="6 5"/>
 
-  <rect x="328" y="24" width="244" height="126" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
-  <text x="450" y="56" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">2. feat-auth.makes.fyi</text>
-  <text x="450" y="84" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">AgentDomains Edge HTTPS Proxy</text>
-  <text x="450" y="108" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Cloudflare Edge · Valid Cert</text>
-  <text x="450" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">200 OK Verified</text>
+    <!-- Actor 1 -->
+    <rect x="40" y="16" width="208" height="58" rx="12" fill="#0A0A0A"/>
+    <rect x="36" y="12" width="208" height="58" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <text x="140" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">1. AI Agent / CI</text>
+    <text x="140" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#00A85E">MCP Client or CLI</text>
 
-  <line x1="572" y1="87" x2="646" y2="87" stroke="#0A0A0A" stroke-width="3"/>
-  <polygon points="646,80 660,87 646,94" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <!-- Actor 2 -->
+    <rect x="330" y="16" width="228" height="58" rx="12" fill="#00CC74"/>
+    <rect x="326" y="12" width="228" height="58" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <text x="440" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">2. AgentDomains Edge</text>
+    <text x="440" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">feat-auth.makes.fyi</text>
 
-  <rect x="664" y="34" width="208" height="106" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
-  <text x="768" y="68" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">3. Your Origin</text>
-  <text x="768" y="94" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">feat-auth.onrender.com</text>
-  <text x="768" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#525252">HTTP/2 · Raw Body Intact</text>
-</svg>
-      </div>
+    <!-- Actor 3 -->
+    <rect x="640" y="16" width="208" height="58" rx="12" fill="#0A0A0A"/>
+    <rect x="636" y="12" width="208" height="58" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <text x="740" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">3. Your Origin</text>
+    <text x="740" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#00A85E">feat-auth.onrender.com</text>
+
+    <!-- Step 1 -->
+    <line x1="146" y1="108" x2="430" y2="108" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="174" y="88" width="232" height="22" rx="6" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="103" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">1. check_availability → free</text>
+
+    <!-- Step 2 -->
+    <line x1="146" y1="154" x2="430" y2="154" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="174" y="134" width="232" height="22" rx="6" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="149" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">2. claim_domain → claimed</text>
+
+    <!-- Step 3 -->
+    <line x1="146" y1="200" x2="430" y2="200" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="174" y="180" width="232" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="195" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">3. set_proxy (HTTPS Edge)</text>
+
+    <!-- Step 4: Live Traffic -->
+    <line x1="446" y1="224" x2="730" y2="224" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
+    <rect x="484" y="204" width="212" height="22" rx="6" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="590" y="219" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">Forward HTTPS / DNS traffic</text>
+
+    <line x1="734" y1="256" x2="150" y2="256" stroke="#00A85E" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#seq-arr)"/>
+    <rect x="330" y="242" width="220" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="440" y="257" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">4. HTTP/2 200 OK · Valid TLS</text>
+  </svg>
+  <p class="diagram-caption">3-stage sequence: AI agent claims feat-auth.makes.fyi, maps it to feat-auth.onrender.com, and verifies HTTPS 200 OK.</p>
+</div>
 
       <h2>2. 4-Step <span class="g">MCP Tool-Call Transcript</span></h2>
-      <p>Here is the exact sequence an agent executes against <code>https://mcp.agentdomains.co</code> (or local stdio <code>npx -y agentdomains-mcp</code>):</p>
+      <p>Your agent sends these exact calls to <code>https://mcp.agentdomains.co</code> or local stdio.</p>
       <div class="transcript">
         <div class="step-card">
           <div><span class="step-num">STEP 1</span><strong>check_availability</strong></div>
+          <div class="io-pills">
+            <span class="io-pill req">REQ → check_availability("feat-auth")</span>
+            <span class="io-pill res">RES ← available: true</span>
+          </div>
           <div class="code-box">
   <div class="code-head">
     <span>MCP Call → check_availability</span>
@@ -200,6 +261,10 @@
         </div>
         <div class="step-card">
           <div><span class="step-num">STEP 2</span><strong>claim_domain</strong></div>
+          <div class="io-pills">
+            <span class="io-pill req">REQ → claim_domain("feat-auth")</span>
+            <span class="io-pill res">RES ← status: "claimed"</span>
+          </div>
           <div class="code-box">
   <div class="code-head">
     <span>MCP Call → claim_domain</span>
@@ -223,6 +288,10 @@
         </div>
         <div class="step-card">
           <div><span class="step-num">STEP 3</span><strong>set_proxy</strong></div>
+          <div class="io-pills">
+            <span class="io-pill req">REQ → set_proxy("feat-auth.onrender.com")</span>
+            <span class="io-pill res">RES ← ok: true</span>
+          </div>
           <div class="code-box">
   <div class="code-head">
     <span>MCP Call → set_proxy</span>
@@ -246,7 +315,11 @@
 </div>
         </div>
         <div class="step-card">
-          <div><span class="step-num">STEP 4</span><strong>Live Verification (200 OK)</strong></div>
+          <div><span class="step-num">STEP 4</span><strong>Verify Live HTTPS (200 OK)</strong></div>
+          <div class="io-pills">
+            <span class="io-pill req">REQ → HEAD https://feat-auth.makes.fyi</span>
+            <span class="io-pill res">RES ← HTTP/2 200 OK</span>
+          </div>
           <div class="code-box">
   <div class="code-head">
     <span>Verify live HTTPS response</span>
@@ -261,7 +334,7 @@
       </div>
 
       <h2>3. Clean <span class="g">Teardown (GitHub Action &amp; CLI)</span></h2>
-      <p>Run `agentdomains delete` in your branch-cleanup workflow to stay well under your name cap. Always delete the DNS/proxy mapping before deleting your upstream cloud resource to prevent dangling subdomain takeovers.</p>
+      <p>Run `agentdomains delete` in your branch-cleanup workflow to stay well under your name cap. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
       <div class="code-box">
   <div class="code-head">
     <span>.github/workflows/teardown-domain.yml</span>
@@ -297,12 +370,12 @@ jobs:
         <a class="card" href="/use-cases/mobile-app-backend-dev">
           <span class="kicker">Mobile Dev</span>
           <h3>iOS &amp; Android Backend Dev URLs</h3>
-          <p>Satisfy iOS App Transport Security (ATS) and Android Network Security Config with a real HTTPS API domain during mobile development.</p>
+          <p>Pass iOS ATS and Android TLS rules with a real HTTPS API domain during mobile builds.</p>
         </a>
         <a class="card" href="/use-cases/iot-device-callbacks">
           <span class="kicker">IoT &amp; Edge</span>
           <h3>IoT &amp; Hardware Device Callbacks</h3>
-          <p>Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves.</p>
+          <p>Give ESP32 and Raspberry Pi devices a fixed DNS name. Never reflash firmware when your server IP changes.</p>
         </a>
         <a class="card" href="/use-cases/saas-subdomain-demos">
           <span class="kicker">SaaS Architecture</span>
