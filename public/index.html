@@ -415,12 +415,18 @@
   .record-card p{margin:.4rem 0;font-size:1.08rem}
   .record-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
 
-  footer{padding:3.5rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:2rem}
-  footer .foot-brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.92;letter-spacing:-1px;font-size:clamp(1.9rem,5.5vw,3rem);font-weight:800;text-transform:uppercase}
+  footer{padding:3rem 2rem 2.75rem;border-top:4px solid var(--ink);margin-top:2.5rem;background:#fff}
+  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.35fr repeat(4,minmax(145px,1fr));gap:2rem 1.6rem;align-items:start}
+  footer .foot-brand{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0 0 .75rem;line-height:.95;letter-spacing:-1px;max-width:none;font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:800;text-transform:uppercase}
   footer .foot-brand .g{color:var(--energy)}
-  .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
-  .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
-  .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+  .foot-mono{font-family:"Space Mono",monospace;margin:0;font-size:.76rem;line-height:1.55;color:#525252}
+  .foot-col h4{font-family:"Space Mono",monospace;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:#525252;margin:0 0 .7rem}
+  .foot-col ul{list-style:none;padding:0;margin:0}
+  .foot-col li{margin:.34rem 0}
+  .foot-col a{font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:.9rem;font-weight:600;text-decoration:none;border-bottom:2px solid transparent}
+  .foot-col a:hover{border-bottom-color:var(--energy)}
+  @media(max-width:980px){.footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-brand-col{grid-column:1 / -1}}
+  @media(max-width:520px){.footer-inner{grid-template-columns:1fr}}
 
   /* clear control — drops in from the top-center once something is drawn */
   .doodle-ctl{position:fixed;top:0;left:50%;z-index:70;transform:translate(-50%,-130%);
@@ -445,16 +451,10 @@
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
     <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/mcp">MCP</a>
-    <a href="/guides">Guides</a>
     <a href="/tools">Tools</a>
-    <a href="/compare">Compare</a>
     <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
     <a href="/manage">Manage</a>
-    <a href="/#limits">Limits</a>
-    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
-    <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>
 
@@ -785,25 +785,63 @@
   </section>
 
   <footer>
-    <div>
-      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
-      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
-    </div>
-    <div style="text-align:right">
-      <div class="metadata">Find us</div>
-      <div class="foot-links">
-        <a href="https://docs.agentdomains.co">Docs</a>
-        <a href="/mcp">MCP</a>
-        <a href="/guides">Guides</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/dns">DNS</a>
-        <a href="/names">Names</a>
-        <a href="/tools">Tools</a>
-        <a href="/compare">Compare</a>
-        <a href="/compare/paid-rivals">Paid rivals</a>
-        <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
-        <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
-        <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+    <div class="footer-inner">
+      <div class="foot-brand-col">
+        <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+        <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product &amp; Docs</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a></li>
+          <li><a href="/manage">Manage Names</a></li>
+          <li><a href="/#limits">Limits &amp; Policy</a></li>
+          <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+          <li><a href="https://docs.agentdomains.co/quickstart">Quickstart</a></li>
+          <li><a href="https://docs.agentdomains.co/mcp">MCP Reference</a></li>
+          <li><a href="https://docs.agentdomains.co/api">HTTP API</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Guides &amp; Reference</h4>
+        <ul>
+          <li><a href="/mcp">All MCP Setup Guides</a></li>
+          <li><a href="/mcp/cursor">Cursor MCP Setup</a></li>
+          <li><a href="/mcp/claude-code">Claude Code MCP</a></li>
+          <li><a href="/guides">Host Playbooks</a></li>
+          <li><a href="/guides/hetzner-vps">Hetzner VPS Guide</a></li>
+          <li><a href="/use-cases">Agent Workflows</a></li>
+          <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+          <li><a href="/dns/acme-dns-01-challenge">ACME DNS-01 Guide</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Free Tools &amp; Names</h4>
+        <ul>
+          <li><a href="/tools">All Free Tools</a></li>
+          <li><a href="/tools/mcp-config-builder">MCP Config Builder</a></li>
+          <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME Checker</a></li>
+          <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+          <li><a href="/names">Live Subdomain Ideas</a></li>
+          <li><a href="/names/ai-agents">AI Agent Names</a></li>
+          <li><a href="/names/mcp-servers">MCP Server Names</a></li>
+          <li><a href="/names/saas-demos">SaaS Demo Names</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Compare &amp; Source</h4>
+        <ul>
+          <li><a href="/compare">Compare All Rivals</a></li>
+          <li><a href="/compare/paid-rivals">Paid AI-Domain Rivals</a></li>
+          <li><a href="/compare/ngrok">vs ngrok</a></li>
+          <li><a href="/compare/cloudflare-tunnel">vs Cloudflare Tunnel</a></li>
+          <li><a href="/compare/duckdns">vs DuckDNS</a></li>
+          <li><a href="/compare/porkbun-mcp">vs Porkbun MCP</a></li>
+          <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+          <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+          <li><a href="https://github.com/tashfeenahmed/AgentDomains-skill">Agent Skill</a></li>
+        </ul>
       </div>
     </div>
   </footer>
