@@ -140,6 +140,19 @@ second-level domain you own and can transfer. Cheap and instant, but not yours i
   genuine equivalent for pointing a name at an IP; it has no CNAME support, no reverse proxy, and no
   CLI or MCP server.
 
+## Guides, Reference Hubs & Free Tools
+
+- [MCP Client Setup Guides](https://agentdomains.co/mcp): 25 verified Streamable HTTP (`https://mcp.agentdomains.co`) and stdio (`npx -y agentdomains-mcp`) configs for Claude Code, Cursor, VS Code, Windsurf, Claude Desktop, OpenAI Agents SDK, LangChain, CrewAI, Cline, Zed, Codex CLI, Goose, n8n, Dify, AutoGen, Roo Code, Continue, Aider, OpenCode, Mastra, PydanticAI, LlamaIndex, Vercel AI SDK, Haystack, and smolagents
+- [Host & Origin Integration Playbooks](https://agentdomains.co/guides): 45 playbooks covering VPS hosts (Hetzner, DigitalOcean, EC2, Lightsail, Linode, Vultr, Oracle Cloud), PaaS (Fly.io, Railway, Render, Cloud Run), frameworks (FastAPI, Next.js, Express, Go, Flask, Django, Rails, Laravel, Axum), local LLMs (Ollama, vLLM), reverse proxies (Caddy, Nginx, Traefik, Coolify, Dokploy, Kamal), webhooks (Stripe, GitHub, Supabase, Twilio, Clerk, Shopify), AI IDEs (Replit, Bolt.new, Lovable, v0, Codespaces), and homelabs (Raspberry Pi, Proxmox, Synology, Tailscale)
+- [Granular Competitor Comparisons](https://agentdomains.co/compare): 25 honest head-to-head pages (`/compare/duckdns`, `/compare/ngrok`, `/compare/cloudflare-tunnel`, `/compare/porkbun-mcp`, `/compare/cloudflare-registrar`, `/compare/agentdomain-app`, `/compare/mcpdomain`, and 18 more)
+- [Agent & Vibe-Coding Workflow Blueprints](https://agentdomains.co/use-cases): 30 blueprints with 4-step MCP tool transcripts, DNS/TLS flow diagrams, and CI teardown scripts
+- [Developer DNS, SSL & Edge Proxy Reference](https://agentdomains.co/dns): 40 engineering guides (ACME DNS-01, HTTP-01 vs DNS-01, CNAME vs A, NS delegation, reverse proxy vs forward, TTL, SNI, CORS, WebSockets) with an interactive syntax validator and CLI/curl/MCP payloads
+- [Live Subdomain Availability Hubs](https://agentdomains.co/names): 45 curated niche categories (900+ short labels) with live `api.agentdomains.co/v1/available` availability checks under `*.makes.fyi` and `*.agentdomains.co`
+- [Free Developer Tools](https://agentdomains.co/tools):
+  - [Universal MCP Config Builder](https://agentdomains.co/tools/mcp-config-builder): generate configs, 1-click Cursor/VS Code deeplinks, and run a live browser Streamable HTTP `initialize` + `tools/list` handshake test
+  - [DNS Propagation & ACME DNS-01 Checker](https://agentdomains.co/tools/dns-ssl-checker): live browser DoH debugger querying Cloudflare `1.1.1.1` and Google `8.8.8.8` for A, AAAA, CNAME, TXT, NS, and `_acme-challenge`
+  - [Agent Hostname & Domain TCO Calculator](https://agentdomains.co/tools/domain-cost-calculator): interactive 1–100 project cost comparison across AgentDomains, Cloudflare Registrar, Porkbun, Namecheap, ngrok, and x402 registrars
+
 ## Source
 
 - [CLI (Go)](https://github.com/tashfeenahmed/AgentDomains): the `agentdomains` command-line tool

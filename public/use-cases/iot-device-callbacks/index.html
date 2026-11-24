@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT &amp; Hardware Device Callbacks — AgentDomains MCP Workflow Blueprint</title>
+<meta name="description" content="Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves. Includes a 4-step…">
+<link rel="canonical" href="https://agentdomains.co/use-cases/iot-device-callbacks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IoT &amp; Hardware Device Callbacks — AgentDomains MCP Workflow Blueprint">
+<meta property="og:description" content="Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves. Includes a 4-step…">
+<meta property="og:url" content="https://agentdomains.co/use-cases/iot-device-callbacks">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IoT &amp; Hardware Device Callbacks — AgentDomains MCP Workflow Blueprint">
+<meta name="twitter:description" content="Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves. Includes a 4-step…">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/use-cases/iot-device-callbacks#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Workflow Blueprints",
+          "item": "https://agentdomains.co/use-cases"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "IoT & Hardware Device Callbacks",
+          "item": "https://agentdomains.co/use-cases/iot-device-callbacks"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://agentdomains.co/use-cases/iot-device-callbacks#article",
+      "headline": "IoT & Hardware Device Callbacks with AgentDomains",
+      "description": "Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves.",
+      "url": "https://agentdomains.co/use-cases/iot-device-callbacks",
+      "author": {
+        "@id": "https://agentdomains.co/#organization"
+      },
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://agentdomains.co/use-cases/iot-device-callbacks#howto",
+      "name": "How to automate IoT & Hardware Device Callbacks using AgentDomains MCP",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Check availability",
+          "text": "Call check_availability for esp32-hub.makes.fyi."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Claim domain",
+          "text": "Call claim_domain for esp32-hub.makes.fyi."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Configure routing",
+          "text": "Call add_dns_record pointing to 203.0.113.44."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Verify HTTPS 200 OK",
+          "text": "Verify https://esp32-hub.makes.fyi responds with 200 OK over TLS."
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases" aria-current="page">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/use-cases">Workflow Blueprints</a><span aria-hidden="true">/</span><span aria-current="page">IoT &amp; Hardware Device Callbacks</span></nav>
+  
+      <span class="eyebrow">IoT &amp; Edge · Workflow Blueprint</span>
+      <h1>IoT &amp; Hardware Device Callbacks with <span class="g">AgentDomains</span></h1>
+      <p class="lede">Give ESP32, Raspberry Pi, and MQTT/HTTP gateways a stable DNS hostname so you never have to reflash firmware when your server IP moves.</p>
+      <div class="meta-strip">
+        <span class="pill green">Example Host: esp32-hub.makes.fyi</span>
+        <span class="pill">4-Step MCP Transcript</span>
+        <span class="pill lime">CI Teardown Included</span>
+      </div>
+
+      <div class="panel accent">
+        <p style="margin:0">Flashing new IP addresses onto deployed microcontrollers is painful. Pointing firmware at `esp32-hub.makes.fyi` lets you update the A record via CLI or MCP whenever infrastructure moves.</p>
+      </div>
+
+      <h2>1. DNS &amp; TLS <span class="g">Request Flow</span></h2>
+      <div class="diagram-box">
+        <svg viewBox="0 0 880 180" width="880" height="180" role="img" aria-label="DNS and TLS flow diagram for IoT &amp; Hardware Device Callbacks: Client to esp32-hub.makes.fyi to Origin IP 203.0.113.44">
+  <rect x="8" y="34" width="210" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+  <text x="113" y="68" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">1. AI Agent / Client</text>
+  <text x="113" y="94" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" fill="#00A85E">HTTPS / MCP JSON-RPC</text>
+  <text x="113" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#525252">TLS 1.3 · Port 443</text>
+
+  <line x1="218" y1="87" x2="310" y2="87" stroke="#0A0A0A" stroke-width="3"/>
+  <polygon points="310,80 324,87 310,94" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+
+  <rect x="328" y="24" width="244" height="126" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+  <text x="450" y="56" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">2. esp32-hub.makes.fyi</text>
+  <text x="450" y="84" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Authoritative DNS (A Record)</text>
+  <text x="450" y="108" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Cloudflare Edge · Valid Cert</text>
+  <text x="450" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">200 OK Verified</text>
+
+  <line x1="572" y1="87" x2="646" y2="87" stroke="#0A0A0A" stroke-width="3"/>
+  <polygon points="646,80 660,87 646,94" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+
+  <rect x="664" y="34" width="208" height="106" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+  <text x="768" y="68" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">3. Your Origin</text>
+  <text x="768" y="94" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Origin IP 203.0.113.44</text>
+  <text x="768" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#525252">HTTP/2 · Raw Body Intact</text>
+</svg>
+      </div>
+
+      <h2>2. 4-Step <span class="g">MCP Tool-Call Transcript</span></h2>
+      <p>Here is the exact sequence an agent executes against <code>https://mcp.agentdomains.co</code> (or local stdio <code>npx -y agentdomains-mcp</code>):</p>
+      <div class="transcript">
+        <div class="step-card">
+          <div><span class="step-num">STEP 1</span><strong>check_availability</strong></div>
+          <div class="code-box">
+  <div class="code-head">
+    <span>MCP Call → check_availability</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>{
+  &quot;tool&quot;: &quot;check_availability&quot;,
+  &quot;arguments&quot;: {
+    &quot;label&quot;: &quot;esp32-hub&quot;,
+    &quot;domain&quot;: &quot;makes.fyi&quot;
+  }
+}
+// Response:
+{
+  &quot;fqdn&quot;: &quot;esp32-hub.makes.fyi&quot;,
+  &quot;available&quot;: true,
+  &quot;reason&quot;: &quot;available&quot;
+}</code></pre>
+</div>
+        </div>
+        <div class="step-card">
+          <div><span class="step-num">STEP 2</span><strong>claim_domain</strong></div>
+          <div class="code-box">
+  <div class="code-head">
+    <span>MCP Call → claim_domain</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>{
+  &quot;tool&quot;: &quot;claim_domain&quot;,
+  &quot;arguments&quot;: {
+    &quot;label&quot;: &quot;esp32-hub&quot;,
+    &quot;domain&quot;: &quot;makes.fyi&quot;,
+    &quot;email&quot;: &quot;ops@example.com&quot;
+  }
+}
+// Response:
+{
+  &quot;fqdn&quot;: &quot;esp32-hub.makes.fyi&quot;,
+  &quot;status&quot;: &quot;claimed&quot;,
+  &quot;confirm_within_days&quot;: 30
+}</code></pre>
+</div>
+        </div>
+        <div class="step-card">
+          <div><span class="step-num">STEP 3</span><strong>add_dns_record</strong></div>
+          <div class="code-box">
+  <div class="code-head">
+    <span>MCP Call → add_dns_record</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>{
+  &quot;tool&quot;: &quot;add_dns_record&quot;,
+  &quot;arguments&quot;: {
+    &quot;label&quot;: &quot;esp32-hub&quot;,
+    &quot;domain&quot;: &quot;makes.fyi&quot;,
+    &quot;type&quot;: &quot;A&quot;,
+    &quot;content&quot;: &quot;203.0.113.44&quot;
+  }
+}
+// Response:
+{
+  &quot;ok&quot;: true,
+  &quot;id&quot;: &quot;rec_01j8x&quot;,
+  &quot;fqdn&quot;: &quot;esp32-hub.makes.fyi&quot;,
+  &quot;type&quot;: &quot;A&quot;,
+  &quot;content&quot;: &quot;203.0.113.44&quot;
+}</code></pre>
+</div>
+        </div>
+        <div class="step-card">
+          <div><span class="step-num">STEP 4</span><strong>Live Verification (200 OK)</strong></div>
+          <div class="code-box">
+  <div class="code-head">
+    <span>Verify live HTTPS response</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>curl -fsSI https://esp32-hub.makes.fyi
+# HTTP/2 200
+# content-type: application/json
+# strict-transport-security: max-age=31536000</code></pre>
+</div>
+        </div>
+      </div>
+
+      <h2>3. Clean <span class="g">Teardown (GitHub Action &amp; CLI)</span></h2>
+      <p>Only retire IoT hostnames once all active devices have OTA-migrated to a new endpoint. Always delete the DNS/proxy mapping before deleting your upstream cloud resource to prevent dangling subdomain takeovers.</p>
+      <div class="code-box">
+  <div class="code-head">
+    <span>.github/workflows/teardown-domain.yml</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>name: Teardown esp32-hub
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete AgentDomains hostname before destroying compute
+        env:
+          AGENTDOMAINS_API_KEY: ${{ secrets.AGENTDOMAINS_API_KEY }}
+        run: |
+          curl -fsSL -X DELETE \
+            -H &quot;Authorization: Bearer $AGENTDOMAINS_API_KEY&quot; \
+            &quot;https://api.agentdomains.co/v1/subdomains/esp32-hub&quot;
+      # Or with the Go CLI:
+      # agentdomains delete esp32-hub</code></pre>
+</div>
+
+      <div class="btn-row">
+        <a class="btn" href="/mcp">Configure Your MCP Client →</a>
+        <a class="btn ghost" href="/tools/dns-ssl-checker">Check Live DNS &amp; ACME</a>
+      </div>
+
+      <h2>More <span class="g">Workflow Blueprints</span></h2>
+      <div class="grid">
+        <a class="card" href="/use-cases/saas-subdomain-demos">
+          <span class="kicker">SaaS Architecture</span>
+          <h3>Multi-Tenant SaaS Subdomain Demos</h3>
+          <p>Test tenant-per-subdomain routing (`acme.tenant-demo.makes.fyi`, `beta.tenant-demo.makes.fyi`) using AgentDomains sub-label DNS records (`--host`).</p>
+        </a>
+        <a class="card" href="/use-cases/ai-voice-agent-webhooks">
+          <span class="kicker">Voice AI</span>
+          <h3>AI Voice Agent Webhooks</h3>
+          <p>Host Vapi, Retell, ElevenLabs, or Twilio AI voice agent tool-call webhooks on a low-latency HTTPS domain.</p>
+        </a>
+        <a class="card" href="/use-cases/n8n-webhook-endpoints">
+          <span class="kicker">Automation</span>
+          <h3>Self-Hosted n8n Webhook Endpoints</h3>
+          <p>Give self-hosted n8n on a VPS a clean `WEBHOOK_URL=https://n8n-flows.makes.fyi/` so Stripe, Slack, and Google OAuth triggers work smoothly.</p>
+        </a>
+        <a class="card" href="/use-cases/zapier-custom-webhooks">
+          <span class="kicker">Automation</span>
+          <h3>Zapier &amp; Make Custom Webhooks</h3>
+          <p>Expose custom Python/Node microservice actions to Zapier Webhooks and Make HTTP modules over reliable HTTPS.</p>
+        </a>
+      </div>
+    
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>

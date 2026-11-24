@@ -746,8 +746,39 @@
   </div>
 
   <a href="https://docs.agentdomains.co" class="btn" data-umami-event="signup_click" data-umami-event-location="compare-cta">TRY IT FREE →</a>
-  <a href="https://docs.agentdomains.co/mcp" class="btn ghost">MCP SERVER</a>
+  <a href="/mcp" class="btn ghost">MCP SETUP GUIDES</a>
   <a href="/compare/paid-rivals" class="btn ghost">VS THE PAID RIVALS</a>
+  <a href="/tools/domain-cost-calculator" class="btn ghost">TCO CALCULATOR</a>
+
+  <h2>Head-to-head <span class="g">breakdowns</span></h2>
+  <p>Looking for a specific provider? Every breakdown below includes a sourced feature table, interactive project-count cost diff slider, migration CLI commands, and honest guidance on when to pick the rival instead:</p>
+  <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem">
+    <a class="card" href="/compare/duckdns" style="text-decoration:none;padding:.9rem 1rem"><h3>vs DuckDNS</h3><p>Free DDNS (5-name cap, no CNAME)</p></a>
+    <a class="card" href="/compare/ngrok" style="text-decoration:none;padding:.9rem 1rem"><h3>vs ngrok</h3><p>NAT tunnels &amp; static dev domains</p></a>
+    <a class="card" href="/compare/cloudflare-tunnel" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Cloudflare Tunnel</h3><p>Zero-trust outbound daemon</p></a>
+    <a class="card" href="/compare/vercel-app" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Vercel</h3><p>*.vercel.app deployment URLs</p></a>
+    <a class="card" href="/compare/netlify-app" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Netlify</h3><p>*.netlify.app site hostnames</p></a>
+    <a class="card" href="/compare/nip-io" style="text-decoration:none;padding:.9rem 1rem"><h3>vs nip.io</h3><p>IP-encoded wildcard resolver</p></a>
+    <a class="card" href="/compare/sslip-io" style="text-decoration:none;padding:.9rem 1rem"><h3>vs sslip.io</h3><p>Stateless IP wildcard DNS</p></a>
+    <a class="card" href="/compare/tailscale-funnel" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Tailscale Funnel</h3><p>Mesh VPN public *.ts.net ingress</p></a>
+    <a class="card" href="/compare/porkbun-mcp" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Porkbun + MCP</h3><p>ICANN .com registrar &amp; API</p></a>
+    <a class="card" href="/compare/namecheap-mcp" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Namecheap + MCP</h3><p>Retail registrar &amp; gated DNS API</p></a>
+    <a class="card" href="/compare/instant-domain-search-mcp" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Instant Domain Search</h3><p>Search-only MCP vs live DNS</p></a>
+    <a class="card" href="/compare/agentdomain-app" style="text-decoration:none;padding:.9rem 1rem"><h3>vs agentdomain.app</h3><p>x402 USDC Base agent registrar</p></a>
+    <a class="card" href="/compare/mcpdomain" style="text-decoration:none;padding:.9rem 1rem"><h3>vs MCPDomain</h3><p>Stripe pay-per-TLD MCP</p></a>
+    <a class="card" href="/compare/github-pages" style="text-decoration:none;padding:.9rem 1rem"><h3>vs GitHub Pages</h3><p>Static repo hosting &lt;user&gt;.github.io</p></a>
+    <a class="card" href="/compare/dyndns" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Oracle DynDNS</h3><p>Legacy paid DDNS ($55/yr)</p></a>
+    <a class="card" href="/compare/no-ip" style="text-decoration:none;padding:.9rem 1rem"><h3>vs No-IP</h3><p>30-day renewal click DDNS</p></a>
+    <a class="card" href="/compare/freedns" style="text-decoration:none;padding:.9rem 1rem"><h3>vs FreeDNS</h3><p>Community shared zones (afraid.org)</p></a>
+    <a class="card" href="/compare/localtunnel" style="text-decoration:none;padding:.9rem 1rem"><h3>vs localtunnel</h3><p>Ephemeral open-source relay</p></a>
+    <a class="card" href="/compare/pinggy" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Pinggy</h3><p>60-min SSH reverse tunnels</p></a>
+    <a class="card" href="/compare/serveo" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Serveo</h3><p>Unreserved SSH port forwarding</p></a>
+    <a class="card" href="/compare/bore" style="text-decoration:none;padding:.9rem 1rem"><h3>vs bore</h3><p>Raw TCP Rust tunnel (no HTTPS)</p></a>
+    <a class="card" href="/compare/cloudflare-registrar" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Cloudflare Registrar</h3><p>At-cost ICANN .com ownership</p></a>
+    <a class="card" href="/compare/name-com" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Name.com</h3><p>Retail &amp; reseller TLD registrar</p></a>
+    <a class="card" href="/compare/spaceship" style="text-decoration:none;padding:.9rem 1rem"><h3>vs Spaceship</h3><p>Low-cost ICANN TLD registrar</p></a>
+    <a class="card" href="/compare/godaddy" style="text-decoration:none;padding:.9rem 1rem"><h3>vs GoDaddy</h3><p>Retail registrar &amp; 10-domain API gate</p></a>
+  </div>
 
   <footer>
     <div>
@@ -758,6 +789,12 @@
       <div class="metadata">Find us</div>
       <div class="foot-links">
         <a href="/">Home</a>
+        <a href="/mcp">MCP</a>
+        <a href="/guides">Guides</a>
+        <a href="/use-cases">Use Cases</a>
+        <a href="/dns">DNS</a>
+        <a href="/names">Names</a>
+        <a href="/tools">Tools</a>
         <a href="/compare/paid-rivals">Paid rivals</a>
         <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="https://docs.agentdomains.co">Docs</a>

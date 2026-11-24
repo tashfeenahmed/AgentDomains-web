@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom HTTPS Domain for AWS Lightsail — AgentDomains Playbook</title>
+<meta name="description" content="Give your AWS Lightsail deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes A Record + ACME / Caddy TLS config and live…">
+<link rel="canonical" href="https://agentdomains.co/guides/aws-lightsail">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Custom HTTPS Domain for AWS Lightsail — AgentDomains Playbook">
+<meta property="og:description" content="Give your AWS Lightsail deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes A Record + ACME / Caddy TLS config and live…">
+<meta property="og:url" content="https://agentdomains.co/guides/aws-lightsail">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Custom HTTPS Domain for AWS Lightsail — AgentDomains Playbook">
+<meta name="twitter:description" content="Give your AWS Lightsail deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes A Record + ACME / Caddy TLS config and live…">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/guides/aws-lightsail#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Host Playbooks",
+          "item": "https://agentdomains.co/guides"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AWS Lightsail",
+          "item": "https://agentdomains.co/guides/aws-lightsail"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://agentdomains.co/guides/aws-lightsail#article",
+      "headline": "Custom HTTPS Domain for AWS Lightsail",
+      "description": "Attach a free Lightsail Static IP, create an A record with `agentdomains record`, and terminate HTTPS via Caddy or Bitnami’s `bncert-tool`.",
+      "url": "https://agentdomains.co/guides/aws-lightsail",
+      "author": {
+        "@id": "https://agentdomains.co/#organization"
+      },
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://agentdomains.co/guides/aws-lightsail#howto",
+      "name": "Point an AgentDomains hostname at AWS Lightsail",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Create account",
+          "text": "Run agentdomains signup to get an instant API key with no card."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Claim subdomain",
+          "text": "Run agentdomains claim lightsail-app --email you@example.com."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Connect AWS Lightsail",
+          "text": "Run agentdomains record lightsail-app --type A --content 198.51.100.81."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/guides/aws-lightsail#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Should I use edge proxy or an A record for AWS Lightsail?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Attach a free Lightsail Static IP, create an A record with `agentdomains record`, and terminate HTTPS via Caddy or Bitnami’s `bncert-tool`."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I verify DNS propagation for AWS Lightsail?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After running the CLI commands above, open our free /tools/dns-ssl-checker or run dig @1.1.1.1 lightsail-app.makes.fyi to confirm Cloudflare and Google resolvers return your new record."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI agent set up AWS Lightsail routing automatically via MCP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Connect Claude Code, Cursor, or any MCP client to https://mcp.agentdomains.co and ask it to run claim_domain followed by add_dns_record."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides" aria-current="page">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides">Host Playbooks</a><span aria-hidden="true">/</span><span aria-current="page">AWS Lightsail</span></nav>
+  
+      <span class="eyebrow">Major Clouds · Integration Playbook</span>
+      <h1>Custom HTTPS Domain for <span class="g">AWS Lightsail</span></h1>
+      <p class="lede">Attach a free Lightsail Static IP, create an A record with `agentdomains record`, and terminate HTTPS via Caddy or Bitnami’s `bncert-tool`.</p>
+      <div class="meta-strip">
+        <span class="pill green">Recommended: A Record + ACME / Caddy TLS</span>
+        <span class="pill">30-Day Free Trial (10 Names)</span>
+        <span class="pill lime">No Card Required</span>
+      </div>
+
+      <h2>1. Recommended Architecture: <span class="g">Proxy vs A-Record + ACME</span></h2>
+      <div class="panel accent">
+        <p style="margin:0"><strong>AWS Lightsail verdict:</strong> Attach a free Lightsail Static IP, create an A record with `agentdomains record`, and terminate HTTPS via Caddy or Bitnami’s `bncert-tool`.</p>
+      </div>
+      <div class="code-box">
+  <div class="code-head">
+    <span>AWS Lightsail — 3-command AgentDomains setup</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>agentdomains signup
+agentdomains claim lightsail-app --email you@example.com
+agentdomains record lightsail-app --type A --content 198.51.100.81</code></pre>
+</div>
+
+      <h2>2. Interactive: <span class="g">Generate My CLI Command</span></h2>
+      <div class="widget" data-cli-gen data-mode="record">
+        <div class="widget-head">
+          <strong>Live CLI Generator &amp; Availability Checker</strong>
+          <button type="button" class="btn sm" data-check-btn>Check Availability Live</button>
+        </div>
+        <div class="widget-grid">
+          <div class="field">
+            <label for="gen-label">Subdomain Label</label>
+            <input id="gen-label" type="text" data-field="label" value="lightsail-app">
+          </div>
+          <div class="field">
+            <label for="gen-domain">Domain Suffix</label>
+            <select id="gen-domain" data-field="domain">
+              <option value="makes.fyi">.makes.fyi (default)</option>
+              <option value="agentdomains.co">.agentdomains.co</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gen-origin">Server IPv4 Address</label>
+            <input id="gen-origin" type="text" data-field="origin" value="198.51.100.81" placeholder="Your Lightsail Static IPv4">
+          </div>
+          <div class="field">
+            <label for="gen-email">Confirm Email (first claim)</label>
+            <input id="gen-email" type="text" data-field="email" value="you@example.com">
+          </div>
+        </div>
+        <div class="status-line status-dim" data-avail-status>Click "Check Availability Live" to query api.agentdomains.co/v1/available.</div>
+        <div class="code-box" style="margin:.6rem 0 0">
+          <div class="code-head">
+            <span>Generated shell commands for AWS Lightsail</span>
+            <button type="button" class="copy-btn" data-target="gen-cli-out">COPY COMMANDS</button>
+          </div>
+          <pre id="gen-cli-out" data-cli-out></pre>
+        </div>
+      </div>
+
+      <h2>3. AWS Lightsail <span class="g">Origin Configuration</span></h2>
+      <div class="code-box">
+  <div class="code-head">
+    <span>AWS Lightsail server / platform config</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code># Open HTTPS in Lightsail Networking tab, then verify DNS:
+dig +short A lightsail-app.makes.fyi</code></pre>
+</div>
+      <div class="panel warn">
+        <h3>Operational Checklist</h3>
+        <ul>
+          <li>For Lightsail Container Services (`*.cs.amazonlightsail.com`), use `agentdomains proxy` directly against the service hostname.</li>
+          <li>Lightsail Static IPs are free while attached to a running instance.</li>
+        </ul>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn" href="/tools/dns-ssl-checker">Debug DNS &amp; ACME Live →</a>
+        <a class="btn ghost" href="/mcp">Connect via MCP Instead</a>
+      </div>
+
+      <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Should I use edge proxy or an A record for AWS Lightsail?</h3><p>Attach a free Lightsail Static IP, create an A record with `agentdomains record`, and terminate HTTPS via Caddy or Bitnami’s `bncert-tool`.</p></div>
+    <div class="faq-item"><h3>How do I verify DNS propagation for AWS Lightsail?</h3><p>After running the CLI commands above, open our free /tools/dns-ssl-checker or run dig @1.1.1.1 lightsail-app.makes.fyi to confirm Cloudflare and Google resolvers return your new record.</p></div>
+    <div class="faq-item"><h3>Can an AI agent set up AWS Lightsail routing automatically via MCP?</h3><p>Yes. Connect Claude Code, Cursor, or any MCP client to https://mcp.agentdomains.co and ask it to run claim_domain followed by add_dns_record.</p></div>
+  </div>
+</section>
+
+      <h2>Related <span class="g">Host Playbooks</span></h2>
+      <div class="grid">
+        <a class="card" href="/guides/aws-ec2">
+          <span class="kicker">Major Clouds</span>
+          <h3>AWS EC2</h3>
+          <p>Attach an Elastic IP to your EC2 instance and point an A record at it (with Caddy/Nginx TLS), OR if you sit behind an AWS Application Load Balancer (`*.elb.amazonaws.com`), use `agentdomains proxy` for zero ACM cert paperwork.</p>
+        </a>
+        <a class="card" href="/guides/oracle-cloud">
+          <span class="kicker">Major Clouds</span>
+          <h3>Oracle Cloud (OCI Free Tier)</h3>
+          <p>Point an A record at your OCI Always Free ARM VM public IP. Remember OCI requires opening ports 80/443 in BOTH the VCN Security List AND the VM’s local `iptables`!</p>
+        </a>
+        <a class="card" href="/guides/google-cloud-run">
+          <span class="kicker">Major Clouds</span>
+          <h3>Google Cloud Run</h3>
+          <p>Use `agentdomains proxy` directly against your `*.a.run.app` hostname! Cloud Run custom domain mappings only work in select regions and take 15+ minutes — our edge proxy works globally in seconds.</p>
+        </a>
+        <a class="card" href="/guides/linode">
+          <span class="kicker">Cloud VPS</span>
+          <h3>Linode (Akamai Cloud)</h3>
+          <p>Set an A record (and optional AAAA) to your Linode IP and let Caddy or Certbot handle TLS.</p>
+        </a>
+      </div>
+    
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>
