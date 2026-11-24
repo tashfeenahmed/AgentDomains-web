@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page not found | AgentDomains</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --energy:#00CC74;
+    --lime:#C6F24E;
+    --ink:#0A0A0A;
+    --canvas:#FFFFFF;
+    --mint:#EFFCF5;
+    --energy-d:#00A85E;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--canvas);color:var(--ink);
+    font-family:'Gaegu',cursive;font-size:1.2rem;line-height:1.3;overflow-x:hidden;
+  }
+  a{color:inherit}
+  h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.95;letter-spacing:-1px}
+
+  .dot-grid{
+    background-image:radial-gradient(rgba(10,10,10,.13) 1.6px, transparent 1.6px);
+    background-size:38px 38px;background-position:-19px -19px;
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+  }
+
+  nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
+  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+  .logo .dot{color:var(--energy)}
+  .nav-links{display:flex;flex-wrap:wrap;gap:.9rem 1.5rem;align-items:center;justify-content:flex-end}
+  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+  .nav-links a:hover{border-bottom:2px solid var(--energy)}
+  .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
+  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+
+  main{padding:3rem 2rem 0;max-width:900px;margin:0 auto}
+  .metadata{font-family:'Space Mono',monospace;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6;margin:.4rem 0}
+  h1{font-size:clamp(2.6rem,8vw,5rem);font-weight:800;text-transform:uppercase;margin:.3rem 0 1rem}
+  h1 .g{color:var(--energy)}
+  .lede{font-size:1.3rem;max-width:680px;padding:.9rem 1.2rem;border:3px solid var(--ink);
+    border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block}
+  .btn-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
+  .btn{display:inline-block;padding:.8rem 1.6rem;background:var(--energy);color:var(--ink);text-decoration:none;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);
+    box-shadow:6px 6px 0 var(--ink);border-radius:8px;transition:.12s}
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.ghost{background:#fff}
+
+  footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
+    align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:4rem}
+  footer .foot-brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:.95;letter-spacing:-1px;
+    font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;margin:0}
+  footer .foot-brand .g{color:var(--energy)}
+  .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
+  .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
+  .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
+  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
+</style>
+</head>
+<body>
+
+<div class="dot-grid"></div>
+
+<nav>
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="https://docs.agentdomains.co">Docs</a>
+    <a href="/#mcp">MCP</a>
+    <a href="/compare">Compare</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/manage">Manage</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+    <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co">Get started</a>
+  </div>
+</nav>
+
+<main>
+  <div class="metadata">// 404 NXDOMAIN</div>
+  <h1>Nothing lives <span class="g">here.</span></h1>
+  <p class="lede">That path does not exist on agentdomains.co. Check the URL, head back to the homepage, or jump into the docs.</p>
+  <div class="btn-row">
+    <a href="/" class="btn">← BACK HOME</a>
+    <a href="https://docs.agentdomains.co" class="btn ghost">READ THE DOCS</a>
+    <a href="/pricing" class="btn ghost">PRICING</a>
+  </div>
+
+  <footer>
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
+    </div>
+    <div style="text-align:right">
+      <div class="metadata">Find us</div>
+      <div class="foot-links">
+        <a href="/">Home</a>
+        <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="/compare">Compare</a>
+        <a href="/compare/paid-rivals">Paid rivals</a>
+        <a href="/pricing">Pricing</a>
+        <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+</body>
+</html>

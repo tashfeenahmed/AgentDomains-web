@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MCP server — 20 tools for AI agents | AgentDomains Docs</title>
+<title>MCP server: 20 tools for AI agents — AgentDomains Docs</title>
 <meta name="description" content="The AgentDomains MCP server: 20 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <link rel="canonical" href="https://docs.agentdomains.co/mcp">
-<meta property="og:title" content="MCP server — 20 tools for AI agents | AgentDomains Docs">
+<meta property="og:title" content="MCP server: 20 tools for AI agents — AgentDomains Docs">
 <meta property="og:description" content="The AgentDomains MCP server: 20 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://docs.agentdomains.co/mcp">
@@ -16,7 +16,63 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MCP server: 20 tools for AI agents — AgentDomains Docs">
+<meta name="twitter:description" content="The AgentDomains MCP server: 20 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://docs.agentdomains.co/mcp#article",
+      "headline": "MCP server: 20 tools for AI agents — AgentDomains Docs",
+      "description": "The AgentDomains MCP server: 20 typed tools to claim names, set DNS records, forward and proxy. Run npx agentdomains-mcp or the hosted mcp.agentdomains.co.",
+      "url": "https://docs.agentdomains.co/mcp",
+      "mainEntityOfPage": "https://docs.agentdomains.co/mcp",
+      "inLanguage": "en",
+      "about": { "@id": "https://agentdomains.co/#software" },
+      "author": { "@id": "https://agentdomains.co/#organization" },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://agentdomains.co/#organization",
+        "name": "AgentDomains",
+        "url": "https://agentdomains.co/",
+        "logo": { "@type": "ImageObject", "url": "https://agentdomains.co/logo.svg" }
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://docs.agentdomains.co/#website",
+        "name": "AgentDomains Docs",
+        "url": "https://docs.agentdomains.co/"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://agentdomains.co/#software",
+      "name": "AgentDomains MCP Server",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "url": "https://mcp.agentdomains.co",
+      "downloadUrl": "https://www.npmjs.com/package/agentdomains-mcp",
+      "codeRepository": "https://github.com/tashfeenahmed/AgentDomains-mcp",
+      "softwareHelp": "https://docs.agentdomains.co/mcp",
+      "description": "Model Context Protocol (MCP) server exposing 20 typed tools for AgentDomains over stdio (npx agentdomains-mcp) or hosted Streamable HTTP at mcp.agentdomains.co.",
+      "publisher": { "@id": "https://agentdomains.co/#organization" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://docs.agentdomains.co/mcp#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "AgentDomains", "item": "https://agentdomains.co/" },
+        { "@type": "ListItem", "position": 2, "name": "Docs", "item": "https://docs.agentdomains.co/" },
+        { "@type": "ListItem", "position": 3, "name": "MCP server", "item": "https://docs.agentdomains.co/mcp" }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,6 +103,7 @@
   h1{font-size:2.6rem;letter-spacing:-.03em;font-weight:800;margin:.1em 0 .25em}
   h2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin:2.2em 0 .5em;padding-top:.5em;border-top:3px solid var(--ink)}
   h3{font-size:1.2rem;font-weight:800;margin:1.6em 0 .3em}
+  h2.sub{font-size:1.2rem;font-weight:800;letter-spacing:normal;margin:1.6em 0 .3em;padding-top:0;border-top:0}
   p,li{color:#2c2820} .muted{color:var(--muted)}
   strong{font-weight:800}
 
@@ -103,6 +160,7 @@
     <div class="grp">More</div>
     <a href="https://agentdomains.co">← Main site</a>
     <a href="https://agentdomains.co/pricing" data-umami-event="pricing_cta" data-umami-event-location="docs-sidebar">Pricing</a>
+    <a href="https://agentdomains.co/compare">Compare</a>
     <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
   </aside>
 
@@ -112,7 +170,7 @@
     server, so an agent can register and manage names as typed tool calls instead of shelling
     out. Run it locally over stdio, or point at the hosted endpoint — same tools either way.</p>
 
-    <h3>Local (stdio)</h3>
+    <h2 class="sub">Local (stdio)</h2>
     <pre><code>AGENTDOMAINS_API_KEY=adom_… npx -y agentdomains-mcp</code></pre>
     <p>In Claude Code:</p>
     <pre><code>claude mcp add agentdomains --env AGENTDOMAINS_API_KEY=adom_… -- npx -y agentdomains-mcp</code></pre>
@@ -130,7 +188,7 @@
     <code>~/.agentdomains/config.json</code>. <code>AGENTDOMAINS_API_URL</code> overrides the
     API base. The key is never logged or echoed in tool output.</p>
 
-    <h3>Hosted (remote)</h3>
+    <h2 class="sub">Hosted (remote)</h2>
     <p>Streamable HTTP at <code>https://mcp.agentdomains.co</code>, authenticated with the
     same Bearer key. Nothing to install:</p>
     <pre><code>claude mcp add --transport http agentdomains https://mcp.agentdomains.co \
@@ -155,7 +213,7 @@ curl -s https://mcp.agentdomains.co \
     returned key as the <code>api_key</code> argument on every other tool call. The
     header wins when both are present.</p>
 
-    <h3>Tools</h3>
+    <h2 class="sub">Tools</h2>
     <div class="tablewrap">
     <table>
       <tr><th>Tool</th><th>Endpoint</th><th>Description</th></tr>
@@ -182,14 +240,14 @@ curl -s https://mcp.agentdomains.co \
     </table>
     </div>
     <p class="muted">Every label-scoped tool takes an optional <code>domain</code>
-    (<code>agentdomains.co</code> or <code>makes.fyi</code>). Seventeen tools in all.</p>
+    (<code>agentdomains.co</code> or <code>makes.fyi</code>). Twenty tools in all.</p>
     <div class="note">There is no "give me SSL" tool, because that is not one operation.
     Either <code>set_proxy</code> (the edge terminates TLS with its own certificate — nothing
     to install on your origin), or <code>add_acme_challenge</code> (publishes the DNS-01
     record so your own ACME client can issue a cert). A plain public web server needs
     neither: Let's Encrypt HTTP-01 just works. See <a href="/ssl">Getting HTTPS / SSL</a>.</div>
 
-    <h3>Client compatibility</h3>
+    <h2 class="sub">Client compatibility</h2>
     <p>Any MCP client works. Common ones:</p>
     <table>
       <tr><th>Client</th><th>How</th></tr>
@@ -200,7 +258,7 @@ curl -s https://mcp.agentdomains.co \
       <tr><td>CrewAI</td><td><code>MCPServerAdapter</code> with the same stdio command</td></tr>
     </table>
     <p class="muted">Source: <a href="https://github.com/tashfeenahmed/AgentDomains-mcp">github.com/tashfeenahmed/AgentDomains-mcp</a></p>
-        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing" data-umami-event="pricing_cta" data-umami-event-location="docs-footer">Pricing</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
+        <p class="muted" style="margin-top:3em">agent·domains · <a href="https://agentdomains.co">agentdomains.co</a> · <a href="https://agentdomains.co/pricing" data-umami-event="pricing_cta" data-umami-event-location="docs-footer">Pricing</a> · <a href="https://agentdomains.co/compare">Compare</a> · <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a></p>
   </main>
 </div>
 <script>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDomains: real domains for the sites your agents build</title>
-<meta name="description" content="Your AI agent just built a site. Give it a real domain (agentdomains.co or makes.fyi) in one command. Free for 30 days, then $1/month. Signup needs nothing; the first name needs an email.">
+<meta name="description" content="Give your AI agent a real domain (agentdomains.co or makes.fyi) in one command, with DNS, HTTPS proxy, and MCP. Free for 30 days, then $1/month.">
 <meta property="og:title" content="AgentDomains: yourname.agentdomains.co">
 <meta property="og:description" content="Real domains for the websites and APIs your AI agents build, in one command. Free for 30 days, then $1/month.">
 <link rel="canonical" href="https://agentdomains.co/">
@@ -16,7 +16,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build. A terminal showing: agentdomains claim yourname, then yourname.makes.fyi.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AgentDomains: yourname.agentdomains.co">
+<meta name="twitter:description" content="Real domains for the websites and APIs your AI agents build, in one command. Free for 30 days, then $1/month.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build. A terminal showing: agentdomains claim yourname, then yourname.makes.fyi.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,7 +37,9 @@
       },
       "sameAs": [
         "https://github.com/tashfeenahmed/AgentDomains",
-        "https://github.com/tashfeenahmed/AgentDomains-skill"
+        "https://github.com/tashfeenahmed/AgentDomains-skill",
+        "https://github.com/tashfeenahmed/AgentDomains-mcp",
+        "https://www.npmjs.com/package/agentdomains-mcp"
       ]
     },
     {
@@ -42,7 +47,67 @@
       "@id": "https://agentdomains.co/#website",
       "url": "https://agentdomains.co/",
       "name": "AgentDomains",
-      "publisher": { "@id": "https://agentdomains.co/#organization" }
+      "publisher": { "@id": "https://agentdomains.co/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://agentdomains.co/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://agentdomains.co/#software",
+      "name": "AgentDomains",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS, Linux, Windows, Cross-platform",
+      "url": "https://agentdomains.co/",
+      "softwareHelp": "https://docs.agentdomains.co/",
+      "codeRepository": "https://github.com/tashfeenahmed/AgentDomains",
+      "description": "Go CLI and 20-tool MCP server (stdio via npx agentdomains-mcp or hosted at mcp.agentdomains.co) for AI agents to claim real subdomains under agentdomains.co or makes.fyi with DNS records, URL forwarding, and reverse proxy with HTTPS.",
+      "publisher": { "@id": "https://agentdomains.co/#organization" },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free trial (30 days)",
+          "price": "0",
+          "priceCurrency": "USD",
+          "url": "https://agentdomains.co/pricing",
+          "description": "30-day free trial with up to 10 names, all features, and no card required."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro (Monthly)",
+          "price": "1",
+          "priceCurrency": "USD",
+          "url": "https://agentdomains.co/pricing",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "1",
+            "priceCurrency": "USD",
+            "billingDuration": 1,
+            "unitCode": "MON"
+          },
+          "description": "Up to 100 names kept as long as you pay, visitor stats, and priority support."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro (Yearly)",
+          "price": "10",
+          "priceCurrency": "USD",
+          "url": "https://agentdomains.co/pricing",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "10",
+            "priceCurrency": "USD",
+            "billingDuration": 1,
+            "unitCode": "ANN"
+          },
+          "description": "Up to 100 names kept as long as you pay, visitor stats, and priority support (2 months free)."
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -351,8 +416,8 @@
   .record-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
 
   footer{padding:3.5rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:2rem}
-  footer h2{font-size:clamp(1.9rem,5.5vw,3rem);font-weight:800;text-transform:uppercase}
-  footer h2 .g{color:var(--energy)}
+  footer .foot-brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.92;letter-spacing:-1px;font-size:clamp(1.9rem,5.5vw,3rem);font-weight:800;text-transform:uppercase}
+  footer .foot-brand .g{color:var(--energy)}
   .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
@@ -696,7 +761,7 @@
 
   <footer>
     <div>
-      <h2>Real domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
       <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
     </div>
     <div style="text-align:right">
@@ -706,6 +771,7 @@
         <a href="/#mcp">MCP</a>
         <a href="/#limits">Limits</a>
         <a href="/compare">Compare</a>
+        <a href="/compare/paid-rivals">Paid rivals</a>
         <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
