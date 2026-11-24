@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manage your names: AgentDomains</title>
 <meta name="description" content="Paste your API key to see your names, point them at a URL, a server IP or an app host, and upgrade to Pro. Your key stays in this tab.">
+<meta name="robots" content="noindex">
 <meta property="og:title" content="Manage your AgentDomains names">
 <meta property="og:description" content="See every name, point it somewhere, remove what you don't need, and upgrade to Pro.">
 <link rel="canonical" href="https://agentdomains.co/manage">
@@ -14,8 +15,12 @@
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Manage your AgentDomains names">
+<meta name="twitter:description" content="See every name, point it somewhere, remove what you don't need, and upgrade to Pro.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
@@ -73,8 +78,8 @@
   .panel{border:3px solid var(--ink);border-radius:14px;padding:1.1rem 1.4rem;background:#fff;box-shadow:6px 6px 0 var(--energy);
     max-width:900px;margin:1.5rem 0 0}
   .panel.mint{background:var(--mint);box-shadow:6px 6px 0 var(--ink)}
-  .panel h3{font-size:1.15rem;font-weight:800;text-transform:uppercase;margin-bottom:.4rem}
-  .panel h3 .g{color:var(--energy-d)}
+  .panel h2{font-size:1.15rem;font-weight:800;text-transform:uppercase;margin:0 0 .4rem;padding-top:0;border-top:0}
+  .panel h2 .g{color:var(--energy-d)}
   .panel p{margin:.3rem 0}
   .claim-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:stretch;margin-top:.5rem}
   .claim-row input{flex:1 1 220px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
@@ -142,8 +147,8 @@
 
   footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
     align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:3rem}
-  footer h2{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;border-top:0;padding-top:0;margin:0}
-  footer h2 .g{color:var(--energy)}
+  footer .foot-brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:.95;letter-spacing:-1px;max-width:none;font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;margin:0}
+  footer .foot-brand .g{color:var(--energy)}
   .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
@@ -187,7 +192,7 @@
   Your key stays in this tab. It is not saved.</p>
 
   <form class="panel" id="key-form" novalidate>
-    <h3>Your <span class="g">API key</span></h3>
+    <h2>Your <span class="g">API key</span></h2>
     <div class="claim-row">
       <input type="password" id="key-in" placeholder="adom_…" autocomplete="off" spellcheck="false" aria-label="your AgentDomains API key">
       <button class="mini-btn" type="submit">OPEN →</button>
@@ -198,7 +203,7 @@
   </form>
 
   <form class="panel mint" id="recover" novalidate hidden>
-    <h3>Lost your <span class="g">key?</span></h3>
+    <h2>Lost your <span class="g">key?</span></h2>
     <p>Type the email on your account. If it is confirmed, we send a link that gives you a new key.</p>
     <div class="claim-row">
       <input type="email" id="rec-email" placeholder="you@example.com" autocomplete="email" aria-label="your email">
@@ -211,7 +216,7 @@
   <section id="account" hidden>
     <div class="panel">
       <div class="name-head">
-        <h3>Your <span class="g">account</span></h3>
+        <h2>Your <span class="g">account</span></h2>
         <button type="button" class="mini-btn ghost small" id="sign-out">FORGET KEY</button>
       </div>
       <div class="stats">
@@ -224,7 +229,7 @@
     </div>
 
     <div class="panel mint" id="upgrade" hidden>
-      <h3>Upgrade to <span class="g">Pro</span>, $10/year or $1/month</h3>
+      <h2>Upgrade to <span class="g">Pro</span>, $10/year or $1/month</h2>
       <p class="up-trial" id="up-trial" hidden></p>
       <p>Your names are kept as long as you pay. 100 names instead of 10. Visitor stats for names
       you forward or proxy. Names are never removed for being unused. Priority support.</p>
@@ -237,7 +242,7 @@
     </div>
 
     <div class="panel mint" id="billing" hidden>
-      <h3>You're on <span class="g">Pro</span></h3>
+      <h2>You're on <span class="g">Pro</span></h2>
       <p>Change your card, see invoices, switch to yearly or cancel.</p>
       <div class="plan-btns">
         <button type="button" class="mini-btn ghost" id="portal-btn">MANAGE BILLING →</button>
@@ -255,7 +260,7 @@
 
   <footer>
     <div>
-      <h2>Real domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
       <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
     </div>
     <div style="text-align:right">
@@ -264,6 +269,7 @@
         <a href="/">Home</a>
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="/compare">Compare</a>
+        <a href="/compare/paid-rivals">Paid rivals</a>
         <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="/manage">Manage</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>

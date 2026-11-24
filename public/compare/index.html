@@ -16,7 +16,65 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compare: how agents get a hostname">
+<meta name="twitter:description" content="AgentDomains vs the other ways an agent gets a hostname: registrars and free subdomains, compared on cost, control, and pointing at your own server.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://agentdomains.co/compare#webpage",
+      "url": "https://agentdomains.co/compare",
+      "name": "Compare: ways for an AI agent to get a working hostname",
+      "description": "AgentDomains vs the other ways an agent gets a hostname: registrars and free subdomains, compared on cost, control, and pointing at your own server.",
+      "inLanguage": "en",
+      "isPartOf": { "@id": "https://agentdomains.co/#website" },
+      "breadcrumb": { "@id": "https://agentdomains.co/compare#breadcrumb" },
+      "mainEntity": { "@id": "https://agentdomains.co/compare#items" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/compare#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://agentdomains.co/compare"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://agentdomains.co/compare#items",
+      "name": "Domain and subdomain providers for AI agents",
+      "numberOfItems": 11,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "AgentDomains", "url": "https://agentdomains.co/" },
+        { "@type": "ListItem", "position": 2, "name": "agentdomain.app", "url": "https://agentdomain.app/" },
+        { "@type": "ListItem", "position": 3, "name": "DomainForAgents", "url": "https://domainforagents.io/" },
+        { "@type": "ListItem", "position": 4, "name": "Namefi", "url": "https://namefi.io/" },
+        { "@type": "ListItem", "position": 5, "name": "Cloudflare Registrar", "url": "https://www.cloudflare.com/products/registrar/" },
+        { "@type": "ListItem", "position": 6, "name": "Name.com", "url": "https://www.name.com/" },
+        { "@type": "ListItem", "position": 7, "name": "Vercel", "url": "https://vercel.com/" },
+        { "@type": "ListItem", "position": 8, "name": "Netlify", "url": "https://www.netlify.com/" },
+        { "@type": "ListItem", "position": 9, "name": "GitHub Pages", "url": "https://pages.github.com/" },
+        { "@type": "ListItem", "position": 10, "name": "DuckDNS", "url": "https://www.duckdns.org/" },
+        { "@type": "ListItem", "position": 11, "name": "nip.io", "url": "https://nip.io/" }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,8 +187,8 @@
 
   footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
     align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:3rem}
-  footer h2{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;border-top:0;padding-top:0;margin:0}
-  footer h2 .g{color:var(--energy)}
+  footer .foot-brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:.95;letter-spacing:-1px;max-width:none;font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;margin:0}
+  footer .foot-brand .g{color:var(--energy)}
   .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
@@ -693,13 +751,14 @@
 
   <footer>
     <div>
-      <h2>Real domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
       <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
     </div>
     <div style="text-align:right">
       <div class="metadata">Find us</div>
       <div class="foot-links">
         <a href="/">Home</a>
+        <a href="/compare/paid-rivals">Paid rivals</a>
         <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>

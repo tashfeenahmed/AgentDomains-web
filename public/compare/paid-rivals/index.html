@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgentDomains vs the paid rivals: agentdomain.app and MCPDomain</title>
-<meta name="description" content="AgentDomains (subdomain, free for 30 days, then $1/month) vs agentdomain.app (USDC 25.00 on Base example checkout, $3.90/yr platform fee, plans $59–$240/yr) and MCPDomain (Stripe checkout, wholesale + flat margin). Every price read off their own pages 29 September 2026.">
+<meta name="description" content="AgentDomains ($0 trial, then $1/mo) vs agentdomain.app (USDC over x402) and MCPDomain (Stripe checkout): verified pricing, DNS, SSL, and trade-offs.">
 <meta property="og:title" content="$1/month vs paid registrations: AgentDomains against agentdomain.app and MCPDomain">
 <meta property="og:description" content="Two paid rivals now show live pricing: agentdomain.app's x402 USDC checkout and MCPDomain's Stripe checkout. Against them, AgentDomains: free for 30 days, then $1/month. Every figure sourced, everything unverified left blank.">
 <link rel="canonical" href="https://agentdomains.co/compare/paid-rivals">
@@ -16,7 +16,63 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="$1/month vs paid registrations: AgentDomains against agentdomain.app and MCPDomain">
+<meta name="twitter:description" content="AgentDomains ($0 trial, then $1/mo) vs agentdomain.app (USDC over x402) and MCPDomain (Stripe checkout): verified pricing, DNS, SSL, and trade-offs.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://agentdomains.co/compare/paid-rivals#webpage",
+      "url": "https://agentdomains.co/compare/paid-rivals",
+      "name": "AgentDomains vs the paid rivals: agentdomain.app and MCPDomain",
+      "description": "AgentDomains ($0 trial, then $1/mo) vs agentdomain.app (USDC over x402) and MCPDomain (Stripe checkout): verified pricing, DNS, SSL, and trade-offs.",
+      "inLanguage": "en",
+      "isPartOf": { "@id": "https://agentdomains.co/#website" },
+      "breadcrumb": { "@id": "https://agentdomains.co/compare/paid-rivals#breadcrumb" },
+      "mainEntity": { "@id": "https://agentdomains.co/compare/paid-rivals#items" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/compare/paid-rivals#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://agentdomains.co/compare"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Paid rivals",
+          "item": "https://agentdomains.co/compare/paid-rivals"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://agentdomains.co/compare/paid-rivals#items",
+      "name": "AgentDomains vs paid agent-domain rivals",
+      "numberOfItems": 3,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "AgentDomains", "url": "https://agentdomains.co/" },
+        { "@type": "ListItem", "position": 2, "name": "agentdomain.app", "url": "https://agentdomain.app/" },
+        { "@type": "ListItem", "position": 3, "name": "MCPDomain", "url": "https://mcpdomain.ai/" }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,8 +182,8 @@
 
   footer{padding:3rem 2rem;border-top:4px solid var(--ink);display:flex;justify-content:space-between;
     align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-top:3rem}
-  footer h2{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;border-top:0;padding-top:0;margin:0}
-  footer h2 .g{color:var(--energy)}
+  footer .foot-brand{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:.95;letter-spacing:-1px;max-width:none;font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;text-transform:uppercase;margin:0}
+  footer .foot-brand .g{color:var(--energy)}
   .foot-mono{font-family:'Space Mono',monospace;margin-top:1rem;font-size:.9rem}
   .foot-links{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap}
   .foot-links a{border-bottom:2px solid var(--energy);text-decoration:none}
@@ -422,7 +478,7 @@
 
   <footer>
     <div>
-      <h2>Real domains<br>for the sites<br><span class="g">agents build.</span></h2>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
       <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1</p>
     </div>
     <div style="text-align:right">
@@ -431,6 +487,7 @@
         <a href="/">Home</a>
         <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="footer">Pricing</a>
         <a href="/compare">Compare</a>
+        <a href="/compare/paid-rivals">Paid rivals</a>
         <a href="https://docs.agentdomains.co">Docs</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains">GitHub</a>
         <a href="https://github.com/tashfeenahmed/AgentDomains-skill">Skill</a>
