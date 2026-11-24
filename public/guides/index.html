@@ -114,13 +114,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -221,7 +223,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Fly.io</h3>
-        <p>Use `agentdomains proxy` directly against `&lt;app&gt;.fly.dev`. You get instant edge HTTPS without running `fly certs add` or paying for a dedicated IPv4.</p>
+        <p>Use <code>agentdomains proxy</code> directly against <code>&lt;app&gt;.fly.dev</code>. You get instant edge HTTPS without running <code>fly certs add</code> or paying for a dedicated IPv4.</p>
       </a>
       <a class="card" href="/guides/railway" data-cat="paas &amp; containers" data-search="railway railway paas &amp; containers proxy">
         <div class="card-top">
@@ -229,7 +231,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Railway</h3>
-        <p>Use `agentdomains proxy` pointing at your `*.up.railway.app` hostname. Zero custom-domain verification wait and instant HTTPS at our edge.</p>
+        <p>Use <code>agentdomains proxy</code> pointing at your <code>*.up.railway.app</code> hostname. Zero custom-domain verification wait and instant HTTPS at our edge.</p>
       </a>
       <a class="card" href="/guides/render" data-cat="paas &amp; containers" data-search="render render paas &amp; containers proxy">
         <div class="card-top">
@@ -237,7 +239,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Render</h3>
-        <p>Use `agentdomains proxy` targeting `&lt;service&gt;.onrender.com` for immediate HTTPS on your custom makes.fyi or agentdomains.co hostname.</p>
+        <p>Use <code>agentdomains proxy</code> targeting <code>&lt;service&gt;.onrender.com</code> for immediate HTTPS on your custom makes.fyi or agentdomains.co hostname.</p>
       </a>
       <a class="card" href="/guides/raspberry-pi" data-cat="homelab &amp; self-hosted" data-search="raspberry pi raspberry-pi homelab &amp; self-hosted record">
         <div class="card-top">
@@ -245,7 +247,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Raspberry Pi</h3>
-        <p>With a public IP, set an A record and run Caddy. Behind CGNAT, run Tailscale Funnel or Cloudflare Tunnel behind `agentdomains proxy`.</p>
+        <p>With a public IP, set an A record and run Caddy. Behind CGNAT, run Tailscale Funnel or Cloudflare Tunnel behind <code>agentdomains proxy</code>.</p>
       </a>
       <a class="card" href="/guides/docker-compose" data-cat="containers &amp; orchestration" data-search="docker compose docker-compose containers &amp; orchestration record">
         <div class="card-top">
@@ -261,7 +263,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>FastAPI (Python)</h3>
-        <p>Deploy FastAPI on Fly.io, Railway, or Render. Add `agentdomains proxy` so `/docs` and `/openapi.json` serve over HTTPS.</p>
+        <p>Deploy FastAPI on Fly.io, Railway, or Render. Add <code>agentdomains proxy</code> so <code>/docs</code> and <code>/openapi.json</code> serve over HTTPS.</p>
       </a>
       <a class="card" href="/guides/nextjs" data-cat="web frameworks" data-search="next.js nextjs web frameworks proxy">
         <div class="card-top">
@@ -269,7 +271,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Next.js</h3>
-        <p>Use `agentdomains proxy` for Next.js on Railway, Fly.io, or Render. On Vercel, add a custom domain CNAME because Vercel checks the Host header.</p>
+        <p>Use <code>agentdomains proxy</code> for Next.js on Railway, Fly.io, or Render. On Vercel, add a custom domain CNAME because Vercel checks the Host header.</p>
       </a>
       <a class="card" href="/guides/express" data-cat="web frameworks" data-search="express.js (node) express web frameworks proxy">
         <div class="card-top">
@@ -277,7 +279,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Express.js (Node)</h3>
-        <p>Use `agentdomains proxy` for PaaS Express apps, or an A record on a VPS. Enable `trust proxy` so `req.ip` works right.</p>
+        <p>Use <code>agentdomains proxy</code> for PaaS Express apps, or an A record on a VPS. Enable <code>trust proxy</code> so <code>req.ip</code> works right.</p>
       </a>
       <a class="card" href="/guides/go-http" data-cat="web frameworks" data-search="go net/http go-http web frameworks record">
         <div class="card-top">
@@ -285,7 +287,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Go net/http</h3>
-        <p>Point an A record at your Linux server. Serve HTTPS directly with Go `autocert` and skip external proxies.</p>
+        <p>Point an A record at your Linux server. Serve HTTPS directly with Go <code>autocert</code> and skip external proxies.</p>
       </a>
       <a class="card" href="/guides/flask" data-cat="web frameworks" data-search="flask (python) flask web frameworks proxy">
         <div class="card-top">
@@ -293,7 +295,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Flask (Python)</h3>
-        <p>Use `agentdomains proxy` in front of Render/Railway/Fly Gunicorn deployments and wrap Flask with Werkzeug’s `ProxyFix` middleware.</p>
+        <p>Use <code>agentdomains proxy</code> in front of Render/Railway/Fly Gunicorn deployments and wrap Flask with Werkzeug’s <code>ProxyFix</code> middleware.</p>
       </a>
       <a class="card" href="/guides/django" data-cat="web frameworks" data-search="django django web frameworks proxy">
         <div class="card-top">
@@ -301,7 +303,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Django</h3>
-        <p>Use `agentdomains proxy` for PaaS Django apps or an A record + Caddy for VPS deploys. Remember to update `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS`.</p>
+        <p>Use <code>agentdomains proxy</code> for PaaS Django apps or an A record + Caddy for VPS deploys. Remember to update <code>ALLOWED_HOSTS</code> and <code>CSRF_TRUSTED_ORIGINS</code>.</p>
       </a>
       <a class="card" href="/guides/rails" data-cat="web frameworks" data-search="ruby on rails rails web frameworks proxy">
         <div class="card-top">
@@ -309,7 +311,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Ruby on Rails</h3>
-        <p>Use `agentdomains proxy` for Fly.io/Render/Railway Rails apps, or an A record when deploying via Kamal to a VPS. Whitelist the hostname in `config.hosts`.</p>
+        <p>Use <code>agentdomains proxy</code> for Fly.io/Render/Railway Rails apps, or an A record when deploying via Kamal to a VPS. Whitelist the hostname in <code>config.hosts</code>.</p>
       </a>
       <a class="card" href="/guides/laravel" data-cat="web frameworks" data-search="laravel (php) laravel web frameworks record">
         <div class="card-top">
@@ -317,7 +319,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Laravel (PHP)</h3>
-        <p>Point an A record at your VPS or proxy a PaaS app. Set `APP_URL` and `TrustProxies` in Laravel.</p>
+        <p>Point an A record at your VPS or proxy a PaaS app. Set <code>APP_URL</code> and <code>TrustProxies</code> in Laravel.</p>
       </a>
       <a class="card" href="/guides/rust-axum" data-cat="web frameworks" data-search="rust (axum) rust-axum web frameworks record">
         <div class="card-top">
@@ -341,7 +343,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>vLLM Inference Server</h3>
-        <p>Point an A record at your GPU server and start vLLM with `--api-key`. Add Caddy for HTTPS at `/v1`.</p>
+        <p>Point an A record at your GPU server and start vLLM with <code>--api-key</code>. Add Caddy for HTTPS at <code>/v1</code>.</p>
       </a>
       <a class="card" href="/guides/caddy" data-cat="reverse proxies" data-search="caddy server caddy reverse proxies record">
         <div class="card-top">
@@ -357,7 +359,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Nginx</h3>
-        <p>Point an A record at your Nginx VPS. Run `certbot --nginx` or DNS-01 via `agentdomains txt` for HTTPS.</p>
+        <p>Point an A record at your Nginx VPS. Run <code>certbot --nginx</code> or DNS-01 via <code>agentdomains txt</code> for HTTPS.</p>
       </a>
       <a class="card" href="/guides/traefik" data-cat="reverse proxies" data-search="traefik traefik reverse proxies record">
         <div class="card-top">
@@ -365,7 +367,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Traefik</h3>
-        <p>Point an A record at your Traefik host. Add a `Host` router label with an ACME resolver.</p>
+        <p>Point an A record at your Traefik host. Add a <code>Host</code> router label with an ACME resolver.</p>
       </a>
       <a class="card" href="/guides/coolify" data-cat="self-hosted paas" data-search="coolify coolify self-hosted paas record">
         <div class="card-top">
@@ -373,7 +375,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Coolify</h3>
-        <p>Point an A record to your Coolify VPS IP. Then paste `https://coolify-box.makes.fyi` into Coolify Domains.</p>
+        <p>Point an A record to your Coolify VPS IP. Then paste <code>https://coolify-box.makes.fyi</code> into Coolify Domains.</p>
       </a>
       <a class="card" href="/guides/dokploy" data-cat="self-hosted paas" data-search="dokploy dokploy self-hosted paas record">
         <div class="card-top">
@@ -381,7 +383,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Dokploy</h3>
-        <p>Point an A record at your Dokploy IP. Add `dokploy-srv.makes.fyi` in Domains and turn HTTPS on.</p>
+        <p>Point an A record at your Dokploy IP. Add <code>dokploy-srv.makes.fyi</code> in Domains and turn HTTPS on.</p>
       </a>
       <a class="card" href="/guides/kamal" data-cat="self-hosted paas" data-search="kamal (kamal-proxy) kamal self-hosted paas record">
         <div class="card-top">
@@ -389,7 +391,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Kamal (kamal-proxy)</h3>
-        <p>Point an A record at your Kamal host IP. Set `ssl: true` and `host` in `config/deploy.yml`.</p>
+        <p>Point an A record at your Kamal host IP. Set <code>ssl: true</code> and <code>host</code> in <code>config/deploy.yml</code>.</p>
       </a>
       <a class="card" href="/guides/aws-ec2" data-cat="major clouds" data-search="aws ec2 aws-ec2 major clouds record">
         <div class="card-top">
@@ -397,7 +399,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>AWS EC2</h3>
-        <p>Point an A record at your EC2 Elastic IP with Caddy TLS. Behind an AWS ALB, use `agentdomains proxy` instead.</p>
+        <p>Point an A record at your EC2 Elastic IP with Caddy TLS. Behind an AWS ALB, use <code>agentdomains proxy</code> instead.</p>
       </a>
       <a class="card" href="/guides/aws-lightsail" data-cat="major clouds" data-search="aws lightsail aws-lightsail major clouds record">
         <div class="card-top">
@@ -405,7 +407,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>AWS Lightsail</h3>
-        <p>Attach a Lightsail Static IP and add an A record. Enable HTTPS with Caddy or `bncert-tool`.</p>
+        <p>Attach a Lightsail Static IP and add an A record. Enable HTTPS with Caddy or <code>bncert-tool</code>.</p>
       </a>
       <a class="card" href="/guides/linode" data-cat="cloud vps" data-search="linode (akamai cloud) linode cloud vps record">
         <div class="card-top">
@@ -429,7 +431,7 @@
           <span class="badge checking">A + TLS</span>
         </div>
         <h3>Oracle Cloud (OCI Free Tier)</h3>
-        <p>Point an A record at your OCI Always Free ARM VM public IP. Remember OCI requires opening ports 80/443 in BOTH the VCN Security List AND the VM’s local `iptables`!</p>
+        <p>Point an A record at your OCI Always Free ARM VM public IP. Remember OCI requires opening ports 80/443 in BOTH the VCN Security List AND the VM’s local <code>iptables</code>!</p>
       </a>
       <a class="card" href="/guides/google-cloud-run" data-cat="major clouds" data-search="google cloud run google-cloud-run major clouds proxy">
         <div class="card-top">
@@ -437,7 +439,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Google Cloud Run</h3>
-        <p>Use `agentdomains proxy` in front of your `*.a.run.app` host. It works globally in seconds, unlike regional Cloud Run mappings.</p>
+        <p>Use <code>agentdomains proxy</code> in front of your <code>*.a.run.app</code> host. It works globally in seconds, unlike regional Cloud Run mappings.</p>
       </a>
       <a class="card" href="/guides/supabase-webhooks" data-cat="webhooks &amp; saas" data-search="supabase webhooks &amp; edge functions supabase-webhooks webhooks &amp; saas proxy">
         <div class="card-top">
@@ -445,7 +447,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Supabase Webhooks &amp; Edge Functions</h3>
-        <p>Use `agentdomains proxy` for a stable webhook URL. Swap backend hosts later without editing Supabase settings.</p>
+        <p>Use <code>agentdomains proxy</code> for a stable webhook URL. Swap backend hosts later without editing Supabase settings.</p>
       </a>
       <a class="card" href="/guides/stripe-webhooks" data-cat="webhooks &amp; saas" data-search="stripe webhooks stripe-webhooks webhooks &amp; saas proxy">
         <div class="card-top">
@@ -453,7 +455,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Stripe Webhooks</h3>
-        <p>Use `agentdomains proxy` for a trusted Stripe webhook URL. You get automatic HTTPS with no SSL setup.</p>
+        <p>Use <code>agentdomains proxy</code> for a trusted Stripe webhook URL. You get automatic HTTPS with no SSL setup.</p>
       </a>
       <a class="card" href="/guides/github-webhooks" data-cat="webhooks &amp; saas" data-search="github webhooks github-webhooks webhooks &amp; saas proxy">
         <div class="card-top">
@@ -461,7 +463,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>GitHub Webhooks</h3>
-        <p>Use `agentdomains proxy` so GitHub delivers `push`, `pull_request`, and `check_run` events over verified HTTPS to `https://gh-hooks.makes.fyi/webhook`.</p>
+        <p>Use <code>agentdomains proxy</code> so GitHub delivers <code>push</code>, <code>pull_request</code>, and <code>check_run</code> events over verified HTTPS to <code>https://gh-hooks.makes.fyi/webhook</code>.</p>
       </a>
       <a class="card" href="/guides/twilio-webhooks" data-cat="webhooks &amp; saas" data-search="twilio voice &amp; sms webhooks twilio-webhooks webhooks &amp; saas proxy">
         <div class="card-top">
@@ -469,7 +471,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Twilio Voice &amp; SMS Webhooks</h3>
-        <p>Use `agentdomains proxy` for TwiML webhooks. Use an A record and Caddy for high-volume Media Streams WebSockets.</p>
+        <p>Use <code>agentdomains proxy</code> for TwiML webhooks. Use an A record and Caddy for high-volume Media Streams WebSockets.</p>
       </a>
       <a class="card" href="/guides/clerk-webhooks" data-cat="webhooks &amp; saas" data-search="clerk webhooks (svix) clerk-webhooks webhooks &amp; saas proxy">
         <div class="card-top">
@@ -477,7 +479,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Clerk Webhooks (Svix)</h3>
-        <p>Use `agentdomains proxy` to give Clerk/Svix a clean HTTPS URL (`https://clerk-sync.makes.fyi/api/webhooks/clerk`) for `user.created` and `session.created` events.</p>
+        <p>Use <code>agentdomains proxy</code> to give Clerk/Svix a clean HTTPS URL (<code>https://clerk-sync.makes.fyi/api/webhooks/clerk</code>) for <code>user.created</code> and <code>session.created</code> events.</p>
       </a>
       <a class="card" href="/guides/shopify-webhooks" data-cat="webhooks &amp; saas" data-search="shopify app &amp; webhooks shopify-webhooks webhooks &amp; saas proxy">
         <div class="card-top">
@@ -485,7 +487,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Shopify App &amp; Webhooks</h3>
-        <p>Use `agentdomains proxy` for your Shopify App URL and webhooks. Skip rotating tunnel links.</p>
+        <p>Use <code>agentdomains proxy</code> for your Shopify App URL and webhooks. Skip rotating tunnel links.</p>
       </a>
       <a class="card" href="/guides/replit" data-cat="ai &amp; cloud ides" data-search="replit replit ai &amp; cloud ides proxy">
         <div class="card-top">
@@ -493,7 +495,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Replit</h3>
-        <p>Deploy your Repl to `*.replit.app`, then run `agentdomains proxy`. Visitors see a clean `makes.fyi` URL.</p>
+        <p>Deploy your Repl to <code>*.replit.app</code>, then run <code>agentdomains proxy</code>. Visitors see a clean <code>makes.fyi</code> URL.</p>
       </a>
       <a class="card" href="/guides/bolt-new" data-cat="ai &amp; cloud ides" data-search="bolt.new bolt-new ai &amp; cloud ides proxy">
         <div class="card-top">
@@ -501,7 +503,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Bolt.new</h3>
-        <p>Publish your Bolt.new app to Netlify, Fly.io, or Railway. Add `agentdomains proxy` or `forward` for a short URL.</p>
+        <p>Publish your Bolt.new app to Netlify, Fly.io, or Railway. Add <code>agentdomains proxy</code> or <code>forward</code> for a short URL.</p>
       </a>
       <a class="card" href="/guides/lovable" data-cat="ai &amp; cloud ides" data-search="lovable lovable ai &amp; cloud ides forward">
         <div class="card-top">
@@ -509,7 +511,7 @@
           <span class="badge checking">302 FWD</span>
         </div>
         <h3>Lovable</h3>
-        <p>Use `agentdomains forward` for quick links to `*.lovable.app`. Export to Railway or Fly.io to use `agentdomains proxy`.</p>
+        <p>Use <code>agentdomains forward</code> for quick links to <code>*.lovable.app</code>. Export to Railway or Fly.io to use <code>agentdomains proxy</code>.</p>
       </a>
       <a class="card" href="/guides/v0" data-cat="ai &amp; cloud ides" data-search="v0 by vercel v0 ai &amp; cloud ides forward">
         <div class="card-top">
@@ -517,7 +519,7 @@
           <span class="badge checking">302 FWD</span>
         </div>
         <h3>v0 by Vercel</h3>
-        <p>Use `agentdomains forward` for short v0 preview links. Or deploy the Next.js app to a VPS with `proxy` or an A record.</p>
+        <p>Use <code>agentdomains forward</code> for short v0 preview links. Or deploy the Next.js app to a VPS with <code>proxy</code> or an A record.</p>
       </a>
       <a class="card" href="/guides/github-codespaces" data-cat="ai &amp; cloud ides" data-search="github codespaces github-codespaces ai &amp; cloud ides proxy">
         <div class="card-top">
@@ -525,7 +527,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>GitHub Codespaces</h3>
-        <p>Set your Codespaces port to Public, then run `agentdomains proxy`. Share `cs-preview.makes.fyi` instead of a long `.github.dev` URL.</p>
+        <p>Set your Codespaces port to Public, then run <code>agentdomains proxy</code>. Share <code>cs-preview.makes.fyi</code> instead of a long <code>.github.dev</code> URL.</p>
       </a>
       <a class="card" href="/guides/tailscale-node" data-cat="homelab &amp; self-hosted" data-search="tailscale node (funnel) tailscale-node homelab &amp; self-hosted proxy">
         <div class="card-top">
@@ -533,7 +535,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Tailscale Node (Funnel)</h3>
-        <p>Enable `tailscale funnel 3000`, then run `agentdomains proxy ts-node mybox.tail9a2f1.ts.net`. You get Tailscale’s NAT traversal PLUS a clean memorable `makes.fyi` hostname!</p>
+        <p>Enable <code>tailscale funnel 3000</code>, then run <code>agentdomains proxy ts-node mybox.tail9a2f1.ts.net</code>. You get Tailscale’s NAT traversal PLUS a clean memorable <code>makes.fyi</code> hostname!</p>
       </a>
       <a class="card" href="/guides/proxmox-homelab" data-cat="homelab &amp; self-hosted" data-search="proxmox ve homelab proxmox-homelab homelab &amp; self-hosted record">
         <div class="card-top">
@@ -557,7 +559,7 @@
           <span class="badge free">PROXY</span>
         </div>
         <h3>Localhost Staging &amp; Tunnel Fronting</h3>
-        <p>AgentDomains does not run NAT tunnels. Pair `cloudflared` or Tailscale Funnel with `agentdomains proxy` for a permanent localhost URL.</p>
+        <p>AgentDomains does not run NAT tunnels. Pair <code>cloudflared</code> or Tailscale Funnel with <code>agentdomains proxy</code> for a permanent localhost URL.</p>
       </a>
     </div>
     <section aria-labelledby="faq-heading">

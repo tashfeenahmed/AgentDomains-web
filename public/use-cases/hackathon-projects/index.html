@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -168,7 +170,7 @@
 </div>
 
       <div class="panel accent">
-        <p style="margin:0">Judges type demo URLs from slides and QR codes. A crisp `hack-ai.makes.fyi` name beats raw IP addresses or expired ngrok links every single time.</p>
+        <p style="margin:0">Judges type demo URLs from slides and QR codes. A crisp <code>hack-ai.makes.fyi</code> name beats raw IP addresses or expired ngrok links every single time.</p>
       </div>
 
       <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
@@ -366,7 +368,7 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/local-llm-api-endpoint">
           <span class="kicker">AI Inference</span>
           <h3>Local LLM API Endpoint</h3>
@@ -375,12 +377,12 @@ jobs:
         <a class="card" href="/use-cases/acme-dns01-wildcards">
           <span class="kicker">SSL / TLS</span>
           <h3>ACME DNS-01 &amp; Private TLS Certs</h3>
-          <p>Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
+          <p>Publish <code>_acme-challenge</code> TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
         </a>
         <a class="card" href="/use-cases/client-staging-links">
           <span class="kicker">Client Delivery</span>
           <h3>Agency Client Staging Links</h3>
-          <p>Give clients clean `clientname-stage.makes.fyi` preview links. Run up to 100 projects on one $10/yr Pro plan.</p>
+          <p>Give clients clean <code>clientname-stage.makes.fyi</code> preview links. Run up to 100 projects on one $10/yr Pro plan.</p>
         </a>
         <a class="card" href="/use-cases/cron-api-endpoints">
           <span class="kicker">Automation</span>

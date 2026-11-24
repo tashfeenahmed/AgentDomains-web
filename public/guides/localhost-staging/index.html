@@ -71,7 +71,7 @@
       "@type": "TechArticle",
       "@id": "https://agentdomains.co/guides/localhost-staging#article",
       "headline": "Custom HTTPS Domain for Localhost Staging & Tunnel Fronting",
-      "description": "AgentDomains does not run NAT tunnels. Pair `cloudflared` or Tailscale Funnel with `agentdomains proxy` for a permanent localhost URL.",
+      "description": "AgentDomains does not run NAT tunnels. Pair cloudflared or Tailscale Funnel with agentdomains proxy for a permanent localhost URL.",
       "url": "https://agentdomains.co/guides/localhost-staging",
       "author": {
         "@id": "https://agentdomains.co/#organization"
@@ -111,7 +111,7 @@
           "name": "Should I use edge proxy or an A record for Localhost Staging & Tunnel Fronting?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "AgentDomains does not run NAT tunnels. Pair `cloudflared` or Tailscale Funnel with `agentdomains proxy` for a permanent localhost URL."
+            "text": "AgentDomains does not run NAT tunnels. Pair cloudflared or Tailscale Funnel with agentdomains proxy for a permanent localhost URL."
           }
         },
         {
@@ -146,13 +146,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -160,7 +162,7 @@
   
       <span class="eyebrow">Local Dev · Integration Playbook</span>
       <h1>Custom HTTPS Domain for <span class="g">Localhost Staging &amp; Tunnel Fronting</span></h1>
-      <p class="lede">AgentDomains does not run NAT tunnels. Pair `cloudflared` or Tailscale Funnel with `agentdomains proxy` for a permanent localhost URL.</p>
+      <p class="lede">AgentDomains does not run NAT tunnels. Pair <code>cloudflared</code> or Tailscale Funnel with <code>agentdomains proxy</code> for a permanent localhost URL.</p>
       <div class="spec-strip" role="region" aria-label="Key specifications">
   <div class="spec-tile green">
     <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
@@ -200,41 +202,41 @@
       </marker>
     </defs>
     <!-- Node 1: Origin -->
-    <rect x="16" y="34" width="222" height="122" rx="14" fill="#0A0A0A"/>
-    <rect x="10" y="28" width="222" height="122" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="16" y="34" width="244" height="122" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="28" width="244" height="122" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
     <rect x="24" y="42" width="96" height="22" rx="6" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
     <text x="72" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">ORIGIN HOST</text>
-    <text x="121" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Localhost Staging &amp; T…</text>
-    <text x="121" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">random-words.trycloudflar…</text>
-    <text x="121" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Your server or PaaS</text>
+    <text x="132" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="11" fill="#0A0A0A">Localhost Staging &amp; Tunnel Fronting</text>
+    <text x="132" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#00A85E">random-words.trycloudflare.com</text>
+    <text x="132" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Your server or PaaS</text>
 
     <!-- Arrow 1 -->
-    <line x1="236" y1="89" x2="314" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
-    <rect x="242" y="58" width="66" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
-    <text x="275" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">PROXY</text>
+    <line x1="258" y1="89" x2="322" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
+    <rect x="260" y="58" width="60" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">PROXY</text>
 
     <!-- Node 2: AgentDomains Edge -->
-    <rect x="328" y="24" width="250" height="136" rx="14" fill="#00CC74"/>
-    <rect x="322" y="18" width="250" height="136" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
-    <rect x="338" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
-    <text x="395" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
-    <text x="447" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Edge HTTPS Reverse Proxy</text>
-    <text x="447" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">local-dev.makes.fyi</text>
-    <text x="447" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">Automatic Cloudflare Edge TLS</text>
+    <rect x="336" y="24" width="242" height="136" rx="14" fill="#00CC74"/>
+    <rect x="330" y="18" width="242" height="136" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="346" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
+    <text x="403" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
+    <text x="451" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Edge HTTPS Reverse Proxy</text>
+    <text x="451" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">local-dev.makes.fyi</text>
+    <text x="451" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">Automatic Cloudflare Edge TLS</text>
 
     <!-- Arrow 2 -->
-    <line x1="576" y1="89" x2="650" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
-    <rect x="580" y="58" width="66" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
-    <text x="613" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TLS 1.3</text>
+    <line x1="576" y1="89" x2="646" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
+    <rect x="578" y="58" width="66" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="611" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TLS 1.3</text>
 
     <!-- Node 3: Visitors / Webhooks -->
-    <rect x="664" y="34" width="206" height="122" rx="14" fill="#0A0A0A"/>
-    <rect x="658" y="28" width="206" height="122" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
-    <rect x="672" y="42" width="96" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
-    <text x="720" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">AUTO HTTPS</text>
-    <text x="761" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Users &amp; Agents</text>
-    <text x="761" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Port 443 · Valid Cert</text>
-    <text x="761" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Zero bandwidth caps</text>
+    <rect x="660" y="34" width="210" height="122" rx="14" fill="#0A0A0A"/>
+    <rect x="654" y="28" width="210" height="122" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="668" y="42" width="96" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="716" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">AUTO HTTPS</text>
+    <text x="759" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Users &amp; Agents</text>
+    <text x="759" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Port 443 · Valid Cert</text>
+    <text x="759" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Zero bandwidth caps</text>
   </svg>
   <p class="diagram-caption">Origin-to-edge flow for Localhost Staging &amp; Tunnel Fronting: connect random-words.trycloudflare.com to local-dev.makes.fyi with automatic HTTPS.</p>
 </div>
@@ -244,7 +246,7 @@
         <div class="decision-card recommended">
           <div class="decision-card-head">
             <h3>Edge HTTPS Reverse Proxy</h3>
-            <span class="badge free">PICK FOR LOCALHOST STAG</span>
+            <span class="badge free">RECOMMENDED</span>
           </div>
           <ul>
             <li>Point at any public hostname without <code>https://</code>.</li>
@@ -328,7 +330,7 @@ agentdomains proxy local-dev random-words.trycloudflare.com</code></pre>
       <div class="panel warn">
         <h3>Operational Checklist</h3>
         <ul>
-          <li>When `cloudflared` generates a new URL, run `agentdomains proxy` once. Your `local-dev.makes.fyi` URL never changes.</li>
+          <li>When <code>cloudflared</code> generates a new URL, run <code>agentdomains proxy</code> once. Your <code>local-dev.makes.fyi</code> URL never changes.</li>
           <li>Zero interstitial warning page, valid HTTPS, and 100% free during the 30-day trial.</li>
         </ul>
       </div>
@@ -341,14 +343,14 @@ agentdomains proxy local-dev random-words.trycloudflare.com</code></pre>
       <section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    <div class="faq-item"><h3>Should I use edge proxy or an A record for Localhost Staging &amp; Tunnel Fronting?</h3><p>AgentDomains does not run NAT tunnels. Pair `cloudflared` or Tailscale Funnel with `agentdomains proxy` for a permanent localhost URL.</p></div>
+    <div class="faq-item"><h3>Should I use edge proxy or an A record for Localhost Staging &amp; Tunnel Fronting?</h3><p>AgentDomains does not run NAT tunnels. Pair <code>cloudflared</code> or Tailscale Funnel with <code>agentdomains proxy</code> for a permanent localhost URL.</p></div>
     <div class="faq-item"><h3>How do I check DNS propagation for Localhost Staging &amp; Tunnel Fronting?</h3><p>Open /tools/dns-ssl-checker or run dig @1.1.1.1 local-dev.makes.fyi. Confirm both Cloudflare and Google return your record.</p></div>
     <div class="faq-item"><h3>Can an AI agent configure Localhost Staging &amp; Tunnel Fronting routing via MCP?</h3><p>Yes. Connect your client to https://mcp.agentdomains.co. Ask it to call claim_domain and set_proxy.</p></div>
   </div>
 </section>
 
       <h2>Related <span class="g">Host Playbooks</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/guides/hetzner-vps">
           <span class="kicker">Cloud VPS</span>
           <h3>Hetzner Cloud VPS</h3>
@@ -362,12 +364,12 @@ agentdomains proxy local-dev random-words.trycloudflare.com</code></pre>
         <a class="card" href="/guides/fly-io">
           <span class="kicker">PaaS &amp; Containers</span>
           <h3>Fly.io</h3>
-          <p>Use `agentdomains proxy` directly against `&lt;app&gt;.fly.dev`. You get instant edge HTTPS without running `fly certs add` or paying for a dedicated IPv4.</p>
+          <p>Use <code>agentdomains proxy</code> directly against <code>&lt;app&gt;.fly.dev</code>. You get instant edge HTTPS without running <code>fly certs add</code> or paying for a dedicated IPv4.</p>
         </a>
         <a class="card" href="/guides/railway">
           <span class="kicker">PaaS &amp; Containers</span>
           <h3>Railway</h3>
-          <p>Use `agentdomains proxy` pointing at your `*.up.railway.app` hostname. Zero custom-domain verification wait and instant HTTPS at our edge.</p>
+          <p>Use <code>agentdomains proxy</code> pointing at your <code>*.up.railway.app</code> hostname. Zero custom-domain verification wait and instant HTTPS at our edge.</p>
         </a>
       </div>
     

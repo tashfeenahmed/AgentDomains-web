@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -168,7 +170,7 @@
 </div>
 
       <div class="panel accent">
-        <p style="margin:0">Flashing new IP addresses onto deployed microcontrollers is painful. Pointing firmware at `esp32-hub.makes.fyi` lets you update the A record via CLI or MCP whenever infrastructure moves.</p>
+        <p style="margin:0">Flashing new IP addresses onto deployed microcontrollers is painful. Pointing firmware at <code>esp32-hub.makes.fyi</code> lets you update the A record via CLI or MCP whenever infrastructure moves.</p>
       </div>
 
       <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
@@ -368,11 +370,11 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/saas-subdomain-demos">
           <span class="kicker">SaaS Architecture</span>
           <h3>Multi-Tenant SaaS Subdomain Demos</h3>
-          <p>Test tenant-per-subdomain routing (`acme.tenant-demo.makes.fyi`, `beta.tenant-demo.makes.fyi`) using AgentDomains sub-label DNS records (`--host`).</p>
+          <p>Test tenant-per-subdomain routing (<code>acme.tenant-demo.makes.fyi</code>, <code>beta.tenant-demo.makes.fyi</code>) using AgentDomains sub-label DNS records (<code>--host</code>).</p>
         </a>
         <a class="card" href="/use-cases/ai-voice-agent-webhooks">
           <span class="kicker">Voice AI</span>
@@ -382,7 +384,7 @@ jobs:
         <a class="card" href="/use-cases/n8n-webhook-endpoints">
           <span class="kicker">Automation</span>
           <h3>Self-Hosted n8n Webhook Endpoints</h3>
-          <p>Give self-hosted n8n on a VPS a clean `WEBHOOK_URL=https://n8n-flows.makes.fyi/` so Stripe, Slack, and Google OAuth triggers work smoothly.</p>
+          <p>Give self-hosted n8n on a VPS a clean <code>WEBHOOK_URL=https://n8n-flows.makes.fyi/</code> so Stripe, Slack, and Google OAuth triggers work smoothly.</p>
         </a>
         <a class="card" href="/use-cases/zapier-custom-webhooks">
           <span class="kicker">Automation</span>

@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACME DNS-01 &amp; Private TLS Certs — AgentDomains MCP Workflow Blueprint</title>
-<meta name="description" content="Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80. Includes a 4-step MCP transcript, sequence…">
+<meta name="description" content="Publish _acme-challenge TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80. Includes a 4-step MCP transcript, sequence…">
 <link rel="canonical" href="https://agentdomains.co/use-cases/acme-dns01-wildcards">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ACME DNS-01 &amp; Private TLS Certs — AgentDomains MCP Workflow Blueprint">
-<meta property="og:description" content="Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80. Includes a 4-step MCP transcript, sequence…">
+<meta property="og:description" content="Publish _acme-challenge TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80. Includes a 4-step MCP transcript, sequence…">
 <meta property="og:url" content="https://agentdomains.co/use-cases/acme-dns01-wildcards">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ACME DNS-01 &amp; Private TLS Certs — AgentDomains MCP Workflow Blueprint">
-<meta name="twitter:description" content="Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80. Includes a 4-step MCP transcript, sequence…">
+<meta name="twitter:description" content="Publish _acme-challenge TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80. Includes a 4-step MCP transcript, sequence…">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -71,7 +71,7 @@
       "@type": "TechArticle",
       "@id": "https://agentdomains.co/use-cases/acme-dns01-wildcards#article",
       "headline": "ACME DNS-01 & Private TLS Certs with AgentDomains",
-      "description": "Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.",
+      "description": "Publish _acme-challenge TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.",
       "url": "https://agentdomains.co/use-cases/acme-dns01-wildcards",
       "author": {
         "@id": "https://agentdomains.co/#organization"
@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -135,7 +137,7 @@
   
       <span class="eyebrow">SSL / TLS · Workflow Blueprint</span>
       <h1>ACME DNS-01 &amp; Private TLS Certs with <span class="g">AgentDomains</span></h1>
-      <p class="lede">Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
+      <p class="lede">Publish <code>_acme-challenge</code> TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
       <div class="spec-strip" role="region" aria-label="Key specifications">
   <div class="spec-tile green">
     <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
@@ -168,7 +170,7 @@
 </div>
 
       <div class="panel accent">
-        <p style="margin:0">HTTP-01 fails whenever port 80 is blocked or a service is internal-only. `add_acme_challenge` publishes the exact `_acme-challenge` TXT token in seconds so Certbot, Caddy, or acme.sh issues trusted certs.</p>
+        <p style="margin:0">HTTP-01 fails whenever port 80 is blocked or a service is internal-only. <code>add_acme_challenge</code> publishes the exact <code>_acme-challenge</code> TXT token in seconds so Certbot, Caddy, or acme.sh issues trusted certs.</p>
       </div>
 
       <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
@@ -334,7 +336,7 @@
       </div>
 
       <h2>3. Clean <span class="g">Teardown (GitHub Action &amp; CLI)</span></h2>
-      <p>Clean up spent `_acme-challenge` TXT records with `delete_record` after issuance. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
+      <p>Clean up spent <code>_acme-challenge</code> TXT records with <code>delete_record</code> after issuance. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
       <div class="code-box">
   <div class="code-head">
     <span>.github/workflows/teardown-domain.yml</span>
@@ -366,11 +368,11 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/client-staging-links">
           <span class="kicker">Client Delivery</span>
           <h3>Agency Client Staging Links</h3>
-          <p>Give clients clean `clientname-stage.makes.fyi` preview links. Run up to 100 projects on one $10/yr Pro plan.</p>
+          <p>Give clients clean <code>clientname-stage.makes.fyi</code> preview links. Run up to 100 projects on one $10/yr Pro plan.</p>
         </a>
         <a class="card" href="/use-cases/cron-api-endpoints">
           <span class="kicker">Automation</span>
@@ -380,12 +382,12 @@ jobs:
         <a class="card" href="/use-cases/discord-bot-webhooks">
           <span class="kicker">Chat Bots</span>
           <h3>Discord Interaction Endpoints</h3>
-          <p>Give Discord HTTP Interactions (`Ed25519`-verified slash commands) a fast, trusted HTTPS endpoint with zero manual certificate renewal.</p>
+          <p>Give Discord HTTP Interactions (<code>Ed25519</code>-verified slash commands) a fast, trusted HTTPS endpoint with zero manual certificate renewal.</p>
         </a>
         <a class="card" href="/use-cases/telegram-bot-https">
           <span class="kicker">Chat Bots</span>
           <h3>Telegram Bot Webhook HTTPS</h3>
-          <p>Call Telegram’s `setWebhook` API with `https://tg-helper.makes.fyi/bot` backed by trusted Cloudflare edge TLS on port 443.</p>
+          <p>Call Telegram’s <code>setWebhook</code> API with <code>https://tg-helper.makes.fyi/bot</code> backed by trusted Cloudflare edge TLS on port 443.</p>
         </a>
       </div>
     

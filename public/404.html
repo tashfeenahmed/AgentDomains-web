@@ -68,7 +68,15 @@
   .foot-col a:hover{border-bottom-color:var(--energy)}
   @media(max-width:980px){.footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-brand-col{grid-column:1 / -1}}
   @media(max-width:520px){.footer-inner{grid-template-columns:1fr}}
-  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
+  @media(max-width:640px){
+    nav{padding:.6rem 1rem;flex-wrap:nowrap;gap:.5rem;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+    .logo{font-size:1.25rem;white-space:nowrap}
+    .nav-links{width:auto;flex-wrap:nowrap;gap:.65rem;justify-content:flex-end;font-size:1rem}
+    .nav-links .nav-secondary{display:none}
+    .nav-cta{padding:.28rem .72rem;font-size:.92rem;white-space:nowrap}
+    main{padding:2rem 1rem 0}
+    footer{padding:2.2rem 1rem}
+  }
 </style>
 </head>
 <body>
@@ -78,10 +86,10 @@
 <nav>
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
+    <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
     <a href="/tools">Tools</a>
-    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
-    <a href="/manage">Manage</a>
+    <a class="nav-secondary" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a class="nav-secondary" href="/manage">Manage</a>
     <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>

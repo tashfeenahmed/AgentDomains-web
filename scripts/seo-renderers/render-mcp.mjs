@@ -1,18 +1,33 @@
 import {
   SITE,
   esc,
+  escInline,
+  stripTicks,
   renderPage,
   breadcrumbSchema,
   faqSchema,
   codeBox,
   renderFaqs,
 } from '../seo-lib/layout.mjs';
-import { renderSpecStrip, renderFilterPills, trunc } from '../seo-lib/visuals.mjs';
+import { renderSpecStrip, renderFilterPills } from '../seo-lib/visuals.mjs';
 import { MCP_CLIENTS } from '../seo-data/mcp-clients.mjs';
 
+function shortTransport(t) {
+  const s = String(t ?? '').trim();
+  const map = {
+    'Streamable HTTP & stdio': 'HTTP & stdio',
+    'Streamable HTTP / stdio': 'HTTP & stdio',
+    'stdio & Remote Connector': 'stdio & Remote',
+    'stdio (native) & HTTP bridge': 'stdio & HTTP',
+    'Streamable HTTP (MCP Client Tool Node)': 'Streamable HTTP',
+    'CLI + MCP Bridge': 'CLI + MCP',
+  };
+  return map[s] || s;
+}
+
 function renderMcpFlowSvg(clientName, transport) {
-  const cname = trunc(clientName, 22);
-  const tr = trunc(transport, 22);
+  const tr = shortTransport(transport);
+  const nameSize = clientName.length > 20 ? 13.5 : clientName.length > 16 ? 15 : 17;
   return `<div class="diagram-box">
   <svg viewBox="0 0 880 210" width="880" height="210" role="img" aria-label="MCP handshake flow from ${esc(clientName)} to mcp.agentdomains.co and live HTTPS subdomains">
     <defs>
@@ -25,7 +40,7 @@ function renderMcpFlowSvg(clientName, transport) {
     <rect x="10" y="36" width="218" height="114" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
     <rect x="24" y="50" width="76" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2"/>
     <text x="62" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#0A0A0A">CLIENT</text>
-    <text x="119" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="17" fill="#0A0A0A">${esc(cname)}</text>
+    <text x="119" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="${nameSize}" fill="#0A0A0A">${esc(clientName)}</text>
     <text x="119" y="126" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">${esc(tr)}</text>
 
     <!-- Arrow 1 -->
@@ -157,8 +172,8 @@ export function buildMcpPages() {
           <span class="card-icon">${String(i + 1).padStart(2, '0')}</span>
         </div>
         <h3>${esc(c.name)}</h3>
-        <p>${esc(c.summary)}</p>
-        <span class="pill green" style="align-self:flex-start;margin-top:auto">${esc(c.transport)}</span>
+        <p>${escInline(c.summary)}</p>
+        <span class="pill green" style="align-self:flex-start;margin-top:auto">${esc(shortTransport(c.transport))}</span>
       </a>`
       ).join('\n      ')}
     </div>
@@ -221,7 +236,7 @@ export function buildMcpPages() {
         (r) => `<a class="card" href="/mcp/${esc(r.slug)}">
         <span class="kicker">${esc(r.category)}</span>
         <h3>${esc(r.name)} MCP Setup</h3>
-        <p>${esc(r.summary)}</p>
+        <p>${escInline(r.summary)}</p>
       </a>`
       )
       .join('\n      ');
@@ -229,10 +244,10 @@ export function buildMcpPages() {
     const bodyHtml = `
       <span class="eyebrow">${esc(c.category)} · MCP Setup Guide</span>
       <h1>AgentDomains MCP for <span class="g">${esc(c.name)}</span></h1>
-      <p class="lede">${esc(c.summary)}</p>
+      <p class="lede">${escInline(c.summary)}</p>
       ${renderSpecStrip([
         { icon: 'bolt', label: 'Setup Time', value: '45 sec', tone: 'green' },
-        { icon: 'plug', label: 'Transport', value: trunc(c.transport, 22) },
+        { icon: 'plug', label: 'Transport', value: shortTransport(c.transport) },
         { icon: 'tag', label: 'Cost', value: '$0 / 30 days', tone: 'lime' },
         { icon: 'card', label: 'Card Needed', value: 'None' },
       ])}
@@ -268,13 +283,13 @@ export function buildMcpPages() {
       ${c.cliCommand ? codeBox(`${c.name} quick CLI command`, c.cliCommand) : ''}
       <div data-tabs>
         <div class="tabs" role="tablist">
-          <button type="button" class="tab-btn active" data-tab="http">Hosted Streamable HTTP (Recommended)</button>
-          <button type="button" class="tab-btn" data-tab="stdio">Local stdio (npx agentdomains-mcp)</button>
+          <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="http">Hosted Streamable HTTP (Recommended)</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="stdio">Local stdio (npx agentdomains-mcp)</button>
         </div>
-        <div class="tab-pane active" data-pane="http">
+        <div class="tab-pane active" role="tabpanel" data-pane="http">
           ${codeBox(`${c.name} — Streamable HTTP config`, c.httpConfig)}
         </div>
-        <div class="tab-pane" data-pane="stdio">
+        <div class="tab-pane" role="tabpanel" data-pane="stdio">
           ${codeBox(`${c.name} — Local stdio config`, c.stdioConfig)}
         </div>
       </div>
@@ -286,7 +301,7 @@ export function buildMcpPages() {
       <h2>3. ${esc(c.name)} <span class="g">Setup Notes</span></h2>
       <div class="panel warn">
         <ul>
-          ${c.gotchas.map((g) => `<li>${esc(g)}</li>`).join('\n          ')}
+          ${c.gotchas.map((g) => `<li>${escInline(g)}</li>`).join('\n          ')}
         </ul>
       </div>
 
@@ -301,7 +316,7 @@ export function buildMcpPages() {
       ${renderFaqs(faqs)}
 
       <h2>Related <span class="g">MCP Clients</span></h2>
-      <div class="grid">
+      <div class="grid four">
         ${relatedCards}
       </div>
     `;
@@ -330,7 +345,7 @@ export function buildMcpPages() {
             '@type': 'HowTo',
             '@id': `${pageUrl}#howto`,
             name: `How to connect ${c.name} to AgentDomains MCP`,
-            description: c.summary,
+            description: stripTicks(c.summary),
             step: [
               {
                 '@type': 'HowToStep',
