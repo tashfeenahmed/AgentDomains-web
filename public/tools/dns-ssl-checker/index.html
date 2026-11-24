@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live DNS Propagation &amp; ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains</title>
+<meta name="description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.">
+<link rel="canonical" href="https://agentdomains.co/tools/dns-ssl-checker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Live DNS Propagation &amp; ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains">
+<meta property="og:description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.">
+<meta property="og:url" content="https://agentdomains.co/tools/dns-ssl-checker">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live DNS Propagation &amp; ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains">
+<meta name="twitter:description" content="Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/tools/dns-ssl-checker#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Tools",
+          "item": "https://agentdomains.co/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "DNS Propagation & ACME DNS-01 Debugger",
+          "item": "https://agentdomains.co/tools/dns-ssl-checker"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://agentdomains.co/tools/dns-ssl-checker#webapp",
+      "name": "DNS Propagation & ACME DNS-01 Checker",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (Browser)",
+      "url": "https://agentdomains.co/tools/dns-ssl-checker",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/tools/dns-ssl-checker#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which public resolvers does this DNS checker query?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It queries Cloudflare DoH (https://cloudflare-dns.com/dns-query) and Google Public DNS DoH (https://dns.google/resolve) directly from your browser in parallel and compares their answers for propagation consistency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the ACME DNS-01 check work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It automatically queries TXT records at _acme-challenge.<hostname> on both Cloudflare and Google resolvers and highlights whether an active ACME verification token is visible globally."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools" aria-current="page">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools">Free Tools</a><span aria-hidden="true">/</span><span aria-current="page">DNS Propagation &amp; ACME DNS-01 Debugger</span></nav>
+  
+    <span class="eyebrow">Free Tool 02 · Live Dual-Resolver DoH Debugger</span>
+    <h1>DNS Propagation &amp; <span class="g">ACME DNS-01</span> Checker</h1>
+    <p class="lede">Inspect live <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, <code>TXT</code>, <code>NS</code>, and <code>_acme-challenge</code> records across Cloudflare (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) simultaneously using CORS-enabled DNS-over-HTTPS.</p>
+
+    <div class="widget" id="dns-checker-app">
+      <form id="dc-form" class="widget-grid" style="align-items:end">
+        <div class="field" style="grid-column:span 2">
+          <label for="dc-host">Hostname or Subdomain</label>
+          <input id="dc-host" type="text" value="agentdomains.co" placeholder="myapp.makes.fyi">
+        </div>
+        <div class="field">
+          <label for="dc-expected">Optional Expected ACME TXT Token</label>
+          <input id="dc-expected" type="text" placeholder="Optional exact token match check">
+        </div>
+        <div class="field">
+          <button type="submit" class="btn" style="width:100%;justify-content:center" id="dc-run">Run Live DoH Check →</button>
+        </div>
+      </form>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem">
+        <button type="button" class="copy-btn" style="background:#fff" data-dc-sample="agentdomains.co">Try agentdomains.co</button>
+        <button type="button" class="copy-btn" style="background:#fff" data-dc-sample="mcp.agentdomains.co">Try mcp.agentdomains.co</button>
+        <button type="button" class="copy-btn" style="background:#fff" data-dc-sample="makes.fyi">Try makes.fyi</button>
+      </div>
+      <div class="status-line status-dim" id="dc-status">Enter any domain or subdomain and click Run Live DoH Check.</div>
+    </div>
+
+    <div id="dc-summary" class="grid two"></div>
+    <div id="dc-results" class="grid"></div>
+
+    <div class="panel accent" style="margin-top:1.5rem">
+      <strong>Need to publish an ACME DNS-01 challenge?</strong> With AgentDomains run <code>agentdomains txt &lt;label&gt; &lt;token&gt;</code> or invoke the <code>add_acme_challenge</code> MCP tool, wait 5 seconds, and re-run this debugger to confirm both 1.1.1.1 and 8.8.8.8 match.
+    </div>
+
+    <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Which public resolvers does this DNS checker query?</h3><p>It queries Cloudflare DoH (https://cloudflare-dns.com/dns-query) and Google Public DNS DoH (https://dns.google/resolve) directly from your browser in parallel and compares their answers for propagation consistency.</p></div>
+    <div class="faq-item"><h3>How does the ACME DNS-01 check work?</h3><p>It automatically queries TXT records at _acme-challenge.&lt;hostname&gt; on both Cloudflare and Google resolvers and highlights whether an active ACME verification token is visible globally.</p></div>
+  </div>
+</section>
+  
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+<script src="/assets/tool-dns-checker.js"></script>
+</body>
+</html>

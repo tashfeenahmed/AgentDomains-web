@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom HTTPS Domain for Clerk Webhooks (Svix) — AgentDomains Playbook</title>
+<meta name="description" content="Give your Clerk Webhooks (Svix) deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes Edge HTTPS Reverse Proxy config and…">
+<link rel="canonical" href="https://agentdomains.co/guides/clerk-webhooks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Custom HTTPS Domain for Clerk Webhooks (Svix) — AgentDomains Playbook">
+<meta property="og:description" content="Give your Clerk Webhooks (Svix) deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes Edge HTTPS Reverse Proxy config and…">
+<meta property="og:url" content="https://agentdomains.co/guides/clerk-webhooks">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Custom HTTPS Domain for Clerk Webhooks (Svix) — AgentDomains Playbook">
+<meta name="twitter:description" content="Give your Clerk Webhooks (Svix) deployment a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes Edge HTTPS Reverse Proxy config and…">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/guides/clerk-webhooks#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Host Playbooks",
+          "item": "https://agentdomains.co/guides"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Clerk Webhooks (Svix)",
+          "item": "https://agentdomains.co/guides/clerk-webhooks"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://agentdomains.co/guides/clerk-webhooks#article",
+      "headline": "Custom HTTPS Domain for Clerk Webhooks (Svix)",
+      "description": "Use `agentdomains proxy` to give Clerk/Svix a clean HTTPS URL (`https://clerk-sync.makes.fyi/api/webhooks/clerk`) for `user.created` and `session.created` events.",
+      "url": "https://agentdomains.co/guides/clerk-webhooks",
+      "author": {
+        "@id": "https://agentdomains.co/#organization"
+      },
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://agentdomains.co/guides/clerk-webhooks#howto",
+      "name": "Point an AgentDomains hostname at Clerk Webhooks (Svix)",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Create account",
+          "text": "Run agentdomains signup to get an instant API key with no card."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Claim subdomain",
+          "text": "Run agentdomains claim clerk-sync --email you@example.com."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Connect Clerk Webhooks (Svix)",
+          "text": "Run agentdomains proxy clerk-sync auth-sync.up.railway.app."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/guides/clerk-webhooks#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Should I use edge proxy or an A record for Clerk Webhooks (Svix)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use `agentdomains proxy` to give Clerk/Svix a clean HTTPS URL (`https://clerk-sync.makes.fyi/api/webhooks/clerk`) for `user.created` and `session.created` events."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I verify DNS propagation for Clerk Webhooks (Svix)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After running the CLI commands above, open our free /tools/dns-ssl-checker or run dig @1.1.1.1 clerk-sync.makes.fyi to confirm Cloudflare and Google resolvers return your new record."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI agent set up Clerk Webhooks (Svix) routing automatically via MCP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Connect Claude Code, Cursor, or any MCP client to https://mcp.agentdomains.co and ask it to run claim_domain followed by set_proxy."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides" aria-current="page">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides">Host Playbooks</a><span aria-hidden="true">/</span><span aria-current="page">Clerk Webhooks (Svix)</span></nav>
+  
+      <span class="eyebrow">Webhooks &amp; SaaS · Integration Playbook</span>
+      <h1>Custom HTTPS Domain for <span class="g">Clerk Webhooks (Svix)</span></h1>
+      <p class="lede">Use `agentdomains proxy` to give Clerk/Svix a clean HTTPS URL (`https://clerk-sync.makes.fyi/api/webhooks/clerk`) for `user.created` and `session.created` events.</p>
+      <div class="meta-strip">
+        <span class="pill green">Recommended: Edge HTTPS Reverse Proxy</span>
+        <span class="pill">30-Day Free Trial (10 Names)</span>
+        <span class="pill lime">No Card Required</span>
+      </div>
+
+      <h2>1. Recommended Architecture: <span class="g">Proxy vs A-Record + ACME</span></h2>
+      <div class="panel accent">
+        <p style="margin:0"><strong>Clerk Webhooks (Svix) verdict:</strong> Use `agentdomains proxy` to give Clerk/Svix a clean HTTPS URL (`https://clerk-sync.makes.fyi/api/webhooks/clerk`) for `user.created` and `session.created` events.</p>
+      </div>
+      <div class="code-box">
+  <div class="code-head">
+    <span>Clerk Webhooks (Svix) — 3-command AgentDomains setup</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>agentdomains signup
+agentdomains claim clerk-sync --email you@example.com
+agentdomains proxy clerk-sync auth-sync.up.railway.app</code></pre>
+</div>
+
+      <h2>2. Interactive: <span class="g">Generate My CLI Command</span></h2>
+      <div class="widget" data-cli-gen data-mode="proxy">
+        <div class="widget-head">
+          <strong>Live CLI Generator &amp; Availability Checker</strong>
+          <button type="button" class="btn sm" data-check-btn>Check Availability Live</button>
+        </div>
+        <div class="widget-grid">
+          <div class="field">
+            <label for="gen-label">Subdomain Label</label>
+            <input id="gen-label" type="text" data-field="label" value="clerk-sync">
+          </div>
+          <div class="field">
+            <label for="gen-domain">Domain Suffix</label>
+            <select id="gen-domain" data-field="domain">
+              <option value="makes.fyi">.makes.fyi (default)</option>
+              <option value="agentdomains.co">.agentdomains.co</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gen-origin">Origin Hostname</label>
+            <input id="gen-origin" type="text" data-field="origin" value="auth-sync.up.railway.app" placeholder="Your user-sync backend hostname">
+          </div>
+          <div class="field">
+            <label for="gen-email">Confirm Email (first claim)</label>
+            <input id="gen-email" type="text" data-field="email" value="you@example.com">
+          </div>
+        </div>
+        <div class="status-line status-dim" data-avail-status>Click "Check Availability Live" to query api.agentdomains.co/v1/available.</div>
+        <div class="code-box" style="margin:.6rem 0 0">
+          <div class="code-head">
+            <span>Generated shell commands for Clerk Webhooks (Svix)</span>
+            <button type="button" class="copy-btn" data-target="gen-cli-out">COPY COMMANDS</button>
+          </div>
+          <pre id="gen-cli-out" data-cli-out></pre>
+        </div>
+      </div>
+
+      <h2>3. Clerk Webhooks (Svix) <span class="g">Origin Configuration</span></h2>
+      <div class="code-box">
+  <div class="code-head">
+    <span>Clerk Webhooks (Svix) server / platform config</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>// Verify Svix headers (svix-id, svix-timestamp, svix-signature) using the raw body
+const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
+const evt = wh.verify(rawBody, svixHeaders);</code></pre>
+</div>
+      <div class="panel warn">
+        <h3>Operational Checklist</h3>
+        <ul>
+          <li>Do not use a 301/302 forward for webhooks — Svix/Clerk does not follow redirects on POST webhook deliveries. Always use `proxy` or an `A` record.</li>
+          <li>Test live deliveries directly from the Clerk Dashboard Testing tab.</li>
+        </ul>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn" href="/tools/dns-ssl-checker">Debug DNS &amp; ACME Live →</a>
+        <a class="btn ghost" href="/mcp">Connect via MCP Instead</a>
+      </div>
+
+      <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Should I use edge proxy or an A record for Clerk Webhooks (Svix)?</h3><p>Use `agentdomains proxy` to give Clerk/Svix a clean HTTPS URL (`https://clerk-sync.makes.fyi/api/webhooks/clerk`) for `user.created` and `session.created` events.</p></div>
+    <div class="faq-item"><h3>How do I verify DNS propagation for Clerk Webhooks (Svix)?</h3><p>After running the CLI commands above, open our free /tools/dns-ssl-checker or run dig @1.1.1.1 clerk-sync.makes.fyi to confirm Cloudflare and Google resolvers return your new record.</p></div>
+    <div class="faq-item"><h3>Can an AI agent set up Clerk Webhooks (Svix) routing automatically via MCP?</h3><p>Yes. Connect Claude Code, Cursor, or any MCP client to https://mcp.agentdomains.co and ask it to run claim_domain followed by set_proxy.</p></div>
+  </div>
+</section>
+
+      <h2>Related <span class="g">Host Playbooks</span></h2>
+      <div class="grid">
+        <a class="card" href="/guides/supabase-webhooks">
+          <span class="kicker">Webhooks &amp; SaaS</span>
+          <h3>Supabase Webhooks &amp; Edge Functions</h3>
+          <p>Use `agentdomains proxy` to give your webhook handler a clean, stable HTTPS URL (`https://supa-hooks.makes.fyi/db-events`) that survives backend host swaps without editing Supabase Database Webhooks.</p>
+        </a>
+        <a class="card" href="/guides/stripe-webhooks">
+          <span class="kicker">Webhooks &amp; SaaS</span>
+          <h3>Stripe Webhooks</h3>
+          <p>Use `agentdomains proxy` to expose a trusted HTTPS endpoint (`https://stripe-hook.makes.fyi/webhooks/stripe`) for Stripe test and live mode webhooks without touching SSL configs.</p>
+        </a>
+        <a class="card" href="/guides/github-webhooks">
+          <span class="kicker">Webhooks &amp; SaaS</span>
+          <h3>GitHub Webhooks</h3>
+          <p>Use `agentdomains proxy` so GitHub delivers `push`, `pull_request`, and `check_run` events over verified HTTPS to `https://gh-hooks.makes.fyi/webhook`.</p>
+        </a>
+        <a class="card" href="/guides/twilio-webhooks">
+          <span class="kicker">Webhooks &amp; SaaS</span>
+          <h3>Twilio Voice &amp; SMS Webhooks</h3>
+          <p>Use `agentdomains proxy` for standard HTTPS TwiML webhooks (`https://twilio-voice.makes.fyi/voice`), or an A record + Caddy for high-concurrency Twilio Media Streams WebSockets.</p>
+        </a>
+      </div>
+    
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>

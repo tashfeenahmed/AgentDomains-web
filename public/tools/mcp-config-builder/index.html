@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal MCP Config Builder &amp; Live Streamable HTTP Tester — AgentDomains</title>
+<meta name="description" content="Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.">
+<link rel="canonical" href="https://agentdomains.co/tools/mcp-config-builder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Universal MCP Config Builder &amp; Live Streamable HTTP Tester — AgentDomains">
+<meta property="og:description" content="Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.">
+<meta property="og:url" content="https://agentdomains.co/tools/mcp-config-builder">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Universal MCP Config Builder &amp; Live Streamable HTTP Tester — AgentDomains">
+<meta name="twitter:description" content="Generate verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and Python/TS SDKs plus test live Streamable HTTP initialize handshakes.">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/tools/mcp-config-builder#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Tools",
+          "item": "https://agentdomains.co/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Universal MCP Config Builder",
+          "item": "https://agentdomains.co/tools/mcp-config-builder"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://agentdomains.co/tools/mcp-config-builder#webapp",
+      "name": "Universal MCP Config Builder",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (Browser)",
+      "url": "https://agentdomains.co/tools/mcp-config-builder",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/tools/mcp-config-builder#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the live Streamable HTTP handshake tester send my API key anywhere else?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The browser sends the JSON-RPC POST directly to the MCP URL you enter (default https://mcp.agentdomains.co). Nothing is logged or sent to any third-party backend."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the handshake tester work without an API key on mcp.agentdomains.co?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MCP initialize and tools/list are public protocol discovery calls on mcp.agentdomains.co (along with check_availability and signup), so you can verify connectivity and inspect all 20 tools before entering a key."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools" aria-current="page">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools">Free Tools</a><span aria-hidden="true">/</span><span aria-current="page">Universal MCP Config Builder</span></nav>
+  
+    <span class="eyebrow">Free Tool 01 · Live Streamable HTTP Tester</span>
+    <h1>Universal <span class="g">MCP Config Builder</span></h1>
+    <p class="lede">Generate verified Streamable HTTP and stdio configs for 12+ AI clients, create 1-click Cursor &amp; VS Code install deeplinks, and test a live JSON-RPC <code>initialize</code> + <code>tools/list</code> handshake right from your browser.</p>
+
+    <div class="widget" id="mcp-builder-app">
+      <div class="widget-head">
+        <strong>1. Configure Client &amp; Server</strong>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap" id="mcp-deeplinks"></div>
+      </div>
+      <div class="widget-grid">
+        <div class="field">
+          <label for="mb-client">Target MCP Client</label>
+          <select id="mb-client">
+            <option value="claude-code">Claude Code (.mcp.json / CLI)</option>
+            <option value="cursor">Cursor (~/.cursor/mcp.json)</option>
+            <option value="vscode">VS Code (.vscode/mcp.json)</option>
+            <option value="windsurf">Windsurf (mcp_config.json)</option>
+            <option value="claude-desktop">Claude Desktop (claude_desktop_config.json)</option>
+            <option value="codex-cli">OpenAI Codex CLI (~/.codex/config.toml)</option>
+            <option value="zed">Zed (settings.json context_servers)</option>
+            <option value="goose">Goose (~/.config/goose/config.yaml)</option>
+            <option value="opencode">OpenCode (opencode.json)</option>
+            <option value="openai-agents">OpenAI Agents SDK (Python)</option>
+            <option value="langchain">LangChain MCP Adapters (Python)</option>
+            <option value="vercel-ai">Vercel AI SDK (TypeScript)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mb-transport">Transport Mode</label>
+          <select id="mb-transport">
+            <option value="http">Streamable HTTP (Recommended)</option>
+            <option value="stdio">Local stdio (npx)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mb-preset">MCP Server Preset</label>
+          <select id="mb-preset">
+            <option value="agentdomains">AgentDomains (mcp.agentdomains.co)</option>
+            <option value="custom">Custom MCP Server</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mb-name">Server Name Key</label>
+          <input id="mb-name" type="text" value="agentdomains">
+        </div>
+        <div class="field">
+          <label for="mb-url">Streamable HTTP Endpoint URL</label>
+          <input id="mb-url" type="url" value="https://mcp.agentdomains.co">
+        </div>
+        <div class="field">
+          <label for="mb-token">Bearer Token / API Key (optional)</label>
+          <input id="mb-token" type="text" placeholder="adom_... (leave blank for anonymous test)">
+        </div>
+        <div class="field">
+          <label for="mb-pkg">stdio npx Package (if stdio)</label>
+          <input id="mb-pkg" type="text" value="agentdomains-mcp">
+        </div>
+        <div class="field">
+          <label for="mb-env">stdio Env Var Name</label>
+          <input id="mb-env" type="text" value="AGENTDOMAINS_API_KEY">
+        </div>
+      </div>
+
+      <div class="status-line status-dim" id="mb-path-hint"></div>
+      <div class="code-box">
+        <div class="code-head">
+          <span id="mb-out-label">Generated MCP Configuration</span>
+          <button type="button" class="copy-btn" data-target="mb-out">COPY CONFIG</button>
+        </div>
+        <pre id="mb-out"></pre>
+      </div>
+    </div>
+
+    <div class="widget" style="background:#fff">
+      <div class="widget-head">
+        <strong>2. Live Browser Streamable HTTP Handshake Tester</strong>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button type="button" class="btn sm" id="mb-test-init">Run initialize + tools/list →</button>
+        </div>
+      </div>
+      <p style="font-size:.92rem;color:var(--muted)">Sends real JSON-RPC 2.0 <code>initialize</code> and <code>tools/list</code> POST requests directly from your browser to the endpoint above (works with any CORS-enabled Streamable HTTP server including <code>https://mcp.agentdomains.co</code>).</p>
+      <div class="status-line status-dim" id="mb-test-status">Ready to test handshake.</div>
+      <div class="code-box" style="margin:.5rem 0 0">
+        <div class="code-head">
+          <span>Live JSON-RPC Handshake Output</span>
+          <button type="button" class="copy-btn" data-target="mb-test-out">COPY LOG</button>
+        </div>
+        <pre id="mb-test-out">// Click "Run initialize + tools/list" to test your MCP server live.</pre>
+      </div>
+    </div>
+
+    <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Does the live Streamable HTTP handshake tester send my API key anywhere else?</h3><p>No. The browser sends the JSON-RPC POST directly to the MCP URL you enter (default https://mcp.agentdomains.co). Nothing is logged or sent to any third-party backend.</p></div>
+    <div class="faq-item"><h3>Why does the handshake tester work without an API key on mcp.agentdomains.co?</h3><p>MCP initialize and tools/list are public protocol discovery calls on mcp.agentdomains.co (along with check_availability and signup), so you can verify connectivity and inspect all 20 tools before entering a key.</p></div>
+  </div>
+</section>
+  
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+<script src="/assets/tool-mcp-builder.js"></script>
+</body>
+</html>

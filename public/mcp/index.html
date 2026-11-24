@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDomains MCP Setup Guides: 25 AI Clients &amp; Frameworks</title>
+<meta name="description" content="Copy-paste MCP setup configs for Claude Code, Cursor, VS Code, Windsurf, OpenAI Agents SDK, LangChain, CrewAI, n8n, and 17 more AI clients.">
+<link rel="canonical" href="https://agentdomains.co/mcp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AgentDomains MCP Setup Guides: 25 AI Clients &amp; Frameworks">
+<meta property="og:description" content="Copy-paste MCP setup configs for Claude Code, Cursor, VS Code, Windsurf, OpenAI Agents SDK, LangChain, CrewAI, n8n, and 17 more AI clients.">
+<meta property="og:url" content="https://agentdomains.co/mcp">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AgentDomains MCP Setup Guides: 25 AI Clients &amp; Frameworks">
+<meta name="twitter:description" content="Copy-paste MCP setup configs for Claude Code, Cursor, VS Code, Windsurf, OpenAI Agents SDK, LangChain, CrewAI, n8n, and 17 more AI clients.">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/mcp#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MCP Setup Guides",
+          "item": "https://agentdomains.co/mcp"
+        }
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://agentdomains.co/mcp#page",
+      "url": "https://agentdomains.co/mcp",
+      "name": "AgentDomains MCP Setup Guides",
+      "isPartOf": {
+        "@id": "https://agentdomains.co/#website"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/mcp#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between hosted Streamable HTTP and local stdio MCP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hosted Streamable HTTP (https://mcp.agentdomains.co) requires zero Node.js install and works from cloud agents, editors, and serverless runtimes. Local stdio (npx -y agentdomains-mcp) runs on your machine and can automatically reuse ~/.agentdomains/config.json from the Go CLI."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can my AI agent connect before I have an API key?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Connect to https://mcp.agentdomains.co without an Authorization header, call the signup tool to receive an adom_ key immediately, and pass that key as api_key on subsequent calls."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many MCP tools does AgentDomains expose?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both transports expose the exact same 20 tools covering check_availability, signup, claim_domain, DNS records (A, AAAA, CNAME, TXT), add_acme_challenge, set_forward, set_proxy, delegate_nameservers, get_visits, and billing."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp" aria-current="page">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">MCP Setup Guides</span></nav>
+  
+    <span class="eyebrow">Cluster 01 · 25 MCP Client Integrations</span>
+    <h1>AgentDomains <span class="g">MCP Setup</span> Guides</h1>
+    <p class="lede">Connect any AI coding agent, IDE, or agent framework to our 20-tool Model Context Protocol server at <code>https://mcp.agentdomains.co</code> (Streamable HTTP) or <code>npx -y agentdomains-mcp</code> (stdio).</p>
+    <div class="meta-strip">
+      <span class="pill green">20 MCP tools</span>
+      <span class="pill">Stateless Streamable HTTP</span>
+      <span class="pill">Zero-card 30-day trial</span>
+      <span class="pill lime">Pro $10/yr · 100 names</span>
+    </div>
+    <div class="btn-row">
+      <a class="btn" href="/tools/mcp-config-builder">Open Universal MCP Config Builder →</a>
+      <a class="btn ghost" href="https://docs.agentdomains.co/mcp">Read Full MCP Tool Reference</a>
+    </div>
+    <div class="hub-search">
+      <input type="text" placeholder="Filter 25 MCP clients (e.g. cursor, claude, langchain, n8n)…" data-filter-input="mcp-grid" aria-label="Filter MCP clients">
+      <span class="pill" id="mcp-grid-count">25 shown</span>
+    </div>
+    <div class="grid" id="mcp-grid">
+      <a class="card" href="/mcp/claude-code" data-search="claude code claude-code cli coding agent streamable http &amp; stdio">
+        <span class="kicker">CLI Coding Agent</span>
+        <h3>Claude Code</h3>
+        <p>Connect Claude Code to AgentDomains via Streamable HTTP or npx stdio so Claude can claim hostnames, set DNS records, and wire HTTPS reverse proxies straight from your terminal.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/cursor" data-search="cursor cursor ai code editor streamable http &amp; stdio">
+        <span class="kicker">AI Code Editor</span>
+        <h3>Cursor</h3>
+        <p>Add AgentDomains to Cursor via one-click deeplink, Streamable HTTP, or npx stdio so Composer and Agent Mode can claim domains and configure edge HTTPS proxies.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/vscode" data-search="vs code (github copilot) vscode code editor streamable http &amp; stdio">
+        <span class="kicker">Code Editor</span>
+        <h3>VS Code (GitHub Copilot)</h3>
+        <p>Configure AgentDomains in VS Code Copilot Agent Mode using .vscode/mcp.json with secure promptString inputs and Streamable HTTP or stdio transport.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/windsurf" data-search="windsurf (cascade) windsurf ai code editor streamable http &amp; stdio">
+        <span class="kicker">AI Code Editor</span>
+        <h3>Windsurf (Cascade)</h3>
+        <p>Wire AgentDomains into Windsurf Cascade with serverUrl Streamable HTTP or npx stdio so Cascade can claim subdomains and publish live HTTPS previews.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/claude-desktop" data-search="claude desktop claude-desktop desktop ai app stdio &amp; remote connector">
+        <span class="kicker">Desktop AI App</span>
+        <h3>Claude Desktop</h3>
+        <p>Install AgentDomains in Claude Desktop via native stdio (npx agentdomains-mcp) or mcp-remote bridge to manage DNS records, redirects, and HTTPS proxies in chat.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">stdio &amp; Remote Connector</span>
+      </a>
+      <a class="card" href="/mcp/openai-agents-sdk" data-search="openai agents sdk openai-agents-sdk python / ts agent framework streamable http &amp; stdio">
+        <span class="kicker">Python / TS Agent Framework</span>
+        <h3>OpenAI Agents SDK</h3>
+        <p>Connect OpenAI Agents SDK to AgentDomains with MCPServerStreamableHttp or MCPServerStdio to let autonomous Python and TypeScript agents register domains and configure DNS.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/langchain" data-search="langchain langchain agent framework streamable http &amp; stdio">
+        <span class="kicker">Agent Framework</span>
+        <h3>LangChain</h3>
+        <p>Load AgentDomains MCP tools into LangChain and LangGraph using MultiServerMCPClient over stateless Streamable HTTP or local stdio.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/crewai" data-search="crewai crewai multi-agent framework streamable http &amp; stdio">
+        <span class="kicker">Multi-Agent Framework</span>
+        <h3>CrewAI</h3>
+        <p>Equip CrewAI multi-agent crews with AgentDomains DNS, HTTPS proxy, and ACME DNS-01 tools via MCPServerAdapter.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/cline" data-search="cline cline vs code autonomous agent streamable http &amp; stdio">
+        <span class="kicker">VS Code Autonomous Agent</span>
+        <h3>Cline</h3>
+        <p>Add AgentDomains to Cline in VS Code with granular autoApprove rules so Cline can claim hostnames and configure DNS safely.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/zed" data-search="zed editor zed native code editor stdio (native) &amp; http bridge">
+        <span class="kicker">Native Code Editor</span>
+        <h3>Zed Editor</h3>
+        <p>Register AgentDomains as a Zed context_server in settings.json so Zed’s Agent Panel can claim domains, set DNS records, and proxy backends.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">stdio (native) &amp; HTTP bridge</span>
+      </a>
+      <a class="card" href="/mcp/codex-cli" data-search="openai codex cli codex-cli cli coding agent streamable http &amp; stdio">
+        <span class="kicker">CLI Coding Agent</span>
+        <h3>OpenAI Codex CLI</h3>
+        <p>Configure AgentDomains in OpenAI Codex CLI via ~/.codex/config.toml with bearer_token_env_var or stdio npx agentdomains-mcp.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/goose" data-search="goose (block) goose open-source cli &amp; desktop agent streamable http &amp; stdio">
+        <span class="kicker">Open-Source CLI &amp; Desktop Agent</span>
+        <h3>Goose (Block)</h3>
+        <p>Add AgentDomains as a Goose extension using streamable_http or stdio so Goose recipes can claim hostnames and automate DNS.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/n8n" data-search="n8n n8n workflow automation streamable http (mcp client tool node)">
+        <span class="kicker">Workflow Automation</span>
+        <h3>n8n</h3>
+        <p>Connect n8n’s MCP Client Tool node to mcp.agentdomains.co over HTTP Streamable to provision domains and HTTPS proxies inside automated workflows.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP (MCP Client Tool Node)</span>
+      </a>
+      <a class="card" href="/mcp/dify" data-search="dify dify llm app &amp; workflow platform streamable http">
+        <span class="kicker">LLM App &amp; Workflow Platform</span>
+        <h3>Dify</h3>
+        <p>Register https://mcp.agentdomains.co inside Dify Studio to expose AgentDomains DNS and reverse-proxy tools to Dify Agent workflows.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP</span>
+      </a>
+      <a class="card" href="/mcp/autogen" data-search="microsoft autogen autogen multi-agent framework streamable http &amp; stdio">
+        <span class="kicker">Multi-Agent Framework</span>
+        <h3>Microsoft AutoGen</h3>
+        <p>Load AgentDomains into Microsoft AutoGen 0.4+ via autogen_ext.tools.mcp StreamableHttpServerParams or StdioServerParams.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/roo-code" data-search="roo code roo-code vs code coding agent streamable http &amp; stdio">
+        <span class="kicker">VS Code Coding Agent</span>
+        <h3>Roo Code</h3>
+        <p>Set up AgentDomains in Roo Code using streamable-http or stdio with per-tool alwaysAllow safety controls.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/continue" data-search="continue.dev continue open-source ide agent streamable http &amp; stdio">
+        <span class="kicker">Open-Source IDE Agent</span>
+        <h3>Continue.dev</h3>
+        <p>Add AgentDomains to Continue.dev in VS Code or JetBrains using a clean YAML MCP server block with Streamable HTTP or stdio.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/aider" data-search="aider aider terminal pair programmer cli + mcp bridge">
+        <span class="kicker">Terminal Pair Programmer</span>
+        <h3>Aider</h3>
+        <p>Pair Aider with AgentDomains using the JSON-native Go CLI via /run or an MCP orchestrator bridge to claim and proxy hostnames.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">CLI + MCP Bridge</span>
+      </a>
+      <a class="card" href="/mcp/opencode" data-search="opencode opencode open-source terminal agent streamable http &amp; stdio">
+        <span class="kicker">Open-Source Terminal Agent</span>
+        <h3>OpenCode</h3>
+        <p>Connect OpenCode to AgentDomains using opencode.json remote Streamable HTTP or local stdio configuration with env interpolation.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/mastra" data-search="mastra mastra typescript agent framework streamable http &amp; stdio">
+        <span class="kicker">TypeScript Agent Framework</span>
+        <h3>Mastra</h3>
+        <p>Integrate AgentDomains into Mastra TypeScript agents via @mastra/mcp over Streamable HTTP or local stdio.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/pydantic-ai" data-search="pydanticai pydantic-ai typed python agent framework streamable http &amp; stdio">
+        <span class="kicker">Typed Python Agent Framework</span>
+        <h3>PydanticAI</h3>
+        <p>Attach AgentDomains to PydanticAI via MCPServerStreamableHTTP so strongly typed Python agents can register and proxy subdomains.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/llamaindex" data-search="llamaindex llamaindex data &amp; rag agent framework streamable http &amp; stdio">
+        <span class="kicker">Data &amp; RAG Agent Framework</span>
+        <h3>LlamaIndex</h3>
+        <p>Expose AgentDomains tools inside LlamaIndex agents and workflows with BasicMCPClient and McpToolSpec.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/vercel-ai-sdk" data-search="vercel ai sdk vercel-ai-sdk typescript ai toolkit streamable http &amp; stdio">
+        <span class="kicker">TypeScript AI Toolkit</span>
+        <h3>Vercel AI SDK</h3>
+        <p>Use StreamableHTTPClientTransport with Vercel AI SDK to give Next.js and Node.js AI agents live domain claiming and DNS automation.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/haystack" data-search="haystack (deepset) haystack ai pipeline framework streamable http &amp; stdio">
+        <span class="kicker">AI Pipeline Framework</span>
+        <h3>Haystack (deepset)</h3>
+        <p>Attach AgentDomains to deepset Haystack pipelines via MCPToolset and StreamableHttpServerInfo.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+      <a class="card" href="/mcp/smolagents" data-search="hugging face smolagents smolagents lightweight python agent streamable http &amp; stdio">
+        <span class="kicker">Lightweight Python Agent</span>
+        <h3>Hugging Face smolagents</h3>
+        <p>Connect Hugging Face smolagents CodeAgent and ToolCallingAgent to AgentDomains over Streamable HTTP or stdio.</p>
+        <span class="pill" style="align-self:flex-start;margin-top:auto">Streamable HTTP &amp; stdio</span>
+      </a>
+    </div>
+    <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>What is the difference between hosted Streamable HTTP and local stdio MCP?</h3><p>Hosted Streamable HTTP (https://mcp.agentdomains.co) requires zero Node.js install and works from cloud agents, editors, and serverless runtimes. Local stdio (npx -y agentdomains-mcp) runs on your machine and can automatically reuse ~/.agentdomains/config.json from the Go CLI.</p></div>
+    <div class="faq-item"><h3>Can my AI agent connect before I have an API key?</h3><p>Yes. Connect to https://mcp.agentdomains.co without an Authorization header, call the signup tool to receive an adom_ key immediately, and pass that key as api_key on subsequent calls.</p></div>
+    <div class="faq-item"><h3>How many MCP tools does AgentDomains expose?</h3><p>Both transports expose the exact same 20 tools covering check_availability, signup, claim_domain, DNS records (A, AAAA, CNAME, TXT), add_acme_challenge, set_forward, set_proxy, delegate_nameservers, get_visits, and billing.</p></div>
+  </div>
+</section>
+  
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>

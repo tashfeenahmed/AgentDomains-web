@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDomains MCP Setup for Haystack (deepset) — Streamable HTTP &amp; stdio</title>
+<meta name="description" content="Connect Haystack (deepset) to AgentDomains MCP (Streamable HTTP &amp; stdio). Verified Python: haystack_integrations.tools.mcp (MCPToolset) snippet, first…">
+<link rel="canonical" href="https://agentdomains.co/mcp/haystack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AgentDomains MCP Setup for Haystack (deepset) — Streamable HTTP &amp; stdio">
+<meta property="og:description" content="Connect Haystack (deepset) to AgentDomains MCP (Streamable HTTP &amp; stdio). Verified Python: haystack_integrations.tools.mcp (MCPToolset) snippet, first…">
+<meta property="og:url" content="https://agentdomains.co/mcp/haystack">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AgentDomains MCP Setup for Haystack (deepset) — Streamable HTTP &amp; stdio">
+<meta name="twitter:description" content="Connect Haystack (deepset) to AgentDomains MCP (Streamable HTTP &amp; stdio). Verified Python: haystack_integrations.tools.mcp (MCPToolset) snippet, first…">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/mcp/haystack#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MCP Setup Guides",
+          "item": "https://agentdomains.co/mcp"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Haystack (deepset)",
+          "item": "https://agentdomains.co/mcp/haystack"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://agentdomains.co/mcp/haystack#app",
+      "name": "AgentDomains MCP for Haystack (deepset)",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS, Linux, Windows",
+      "url": "https://agentdomains.co/mcp/haystack",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://agentdomains.co/mcp/haystack#howto",
+      "name": "How to connect Haystack (deepset) to AgentDomains MCP",
+      "description": "Attach AgentDomains to deepset Haystack pipelines via MCPToolset and StreamableHttpServerInfo.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Add AgentDomains MCP configuration",
+          "text": "Add https://mcp.agentdomains.co or npx -y agentdomains-mcp in Python: haystack_integrations.tools.mcp (MCPToolset)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Authenticate with your API key",
+          "text": "Pass Authorization: Bearer adom_... or call the signup tool on your first turn."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Run your first domain prompt",
+          "text": "Publish a Haystack retrieval pipeline by claiming search-api.makes.fyi and proxying to our origin."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/mcp/haystack#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does Haystack (deepset) work with hosted https://mcp.agentdomains.co or stdio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Haystack (deepset) supports Streamable HTTP & stdio. We recommend hosted Streamable HTTP (https://mcp.agentdomains.co) whenever supported because it requires zero local Node.js runtime, or npx -y agentdomains-mcp for local stdio setups."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does Haystack (deepset) store its MCP configuration?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Python: haystack_integrations.tools.mcp (MCPToolset). Keep your adom_ API key in an environment variable or user-scoped config rather than committing it to Git."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does it cost to claim domains from Haystack (deepset)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every new account includes a 30-day free trial with up to 10 names (no credit card required). Pro is $10/year or $1/month for up to 100 names with visitor stats and priority support."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp" aria-current="page">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/mcp">MCP Setup Guides</a><span aria-hidden="true">/</span><span aria-current="page">Haystack (deepset)</span></nav>
+  
+      <span class="eyebrow">AI Pipeline Framework · MCP Setup Guide</span>
+      <h1>AgentDomains MCP for <span class="g">Haystack (deepset)</span></h1>
+      <p class="lede">Attach AgentDomains to deepset Haystack pipelines via MCPToolset and StreamableHttpServerInfo.</p>
+      <div class="meta-strip">
+        <span class="pill green">Transport: Streamable HTTP &amp; stdio</span>
+        <span class="pill">Endpoint: https://mcp.agentdomains.co</span>
+        <span class="pill lime">20 Tools · No Card Trial</span>
+      </div>
+
+      <div class="panel accent">
+        <strong>Verified config location:</strong> <code>Python: haystack_integrations.tools.mcp (MCPToolset)</code>
+        <div class="btn-row" style="margin:.85rem 0 0"><a class="btn" href="/tools/mcp-config-builder">Customize &amp; Test Live Handshake →</a></div>
+      </div>
+
+      <h2>1. Install &amp; <span class="g">Configure</span> Haystack (deepset)</h2>
+      
+      <div data-tabs>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab-btn active" data-tab="http">Hosted Streamable HTTP (Recommended)</button>
+          <button type="button" class="tab-btn" data-tab="stdio">Local stdio (npx agentdomains-mcp)</button>
+        </div>
+        <div class="tab-pane active" data-pane="http">
+          <div class="code-box">
+  <div class="code-head">
+    <span>Haystack (deepset) — Streamable HTTP config</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>from haystack_integrations.tools.mcp import MCPToolset, StreamableHttpServerInfo
+from haystack.utils import Secret
+
+server_info = StreamableHttpServerInfo(
+    url=&quot;https://mcp.agentdomains.co&quot;,
+    token=Secret.from_env_var(&quot;AGENTDOMAINS_API_KEY&quot;),
+)
+toolset = MCPToolset(server_info=server_info)</code></pre>
+</div>
+        </div>
+        <div class="tab-pane" data-pane="stdio">
+          <div class="code-box">
+  <div class="code-head">
+    <span>Haystack (deepset) — Local stdio config</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>from haystack_integrations.tools.mcp import MCPToolset, StdioServerInfo
+
+server_info = StdioServerInfo(
+    command=&quot;npx&quot;,
+    args=[&quot;-y&quot;, &quot;agentdomains-mcp&quot;],
+    env={&quot;AGENTDOMAINS_API_KEY&quot;: &quot;adom_YOUR_KEY&quot;},
+)
+toolset = MCPToolset(server_info=server_info)</code></pre>
+</div>
+        </div>
+      </div>
+
+      <h2>2. Tested <span class="g">First Prompt</span></h2>
+      <p>Once Haystack (deepset) reloads its MCP tools, run this prompt to verify end-to-end availability check, claiming, and routing:</p>
+      <div class="code-box">
+  <div class="code-head">
+    <span>First prompt for Haystack (deepset)</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>Publish a Haystack retrieval pipeline by claiming search-api.makes.fyi and proxying to our origin.</code></pre>
+</div>
+
+      <h2>3. Haystack (deepset)-Specific <span class="g">Gotchas</span></h2>
+      <div class="panel warn">
+        <ul>
+          <li>Install mcp-haystack (`pip install mcp-haystack`) for StreamableHttpServerInfo and MCPToolset.</li>
+          <li>Use Secret.from_env_var(&quot;AGENTDOMAINS_API_KEY&quot;) so Haystack serializes pipeline YAML safely without leaking tokens.</li>
+          <li>Pass tool_names=[&quot;check_availability&quot;,&quot;claim_domain&quot;,&quot;set_proxy&quot;] to MCPToolset when you only want a subset of tools.</li>
+        </ul>
+      </div>
+
+      <h2>4. Available <span class="g">MCP Tools</span> (20 total)</h2>
+      <p>Once connected, Haystack (deepset) can invoke <code>check_availability</code>, <code>signup</code>, <code>whoami</code>, <code>attach_email</code>, <code>claim_domain</code>, <code>list_domains</code>, <code>get_domain</code>, <code>get_visits</code>, <code>delete_domain</code>, <code>add_dns_record</code>, <code>delete_record</code>, <code>add_acme_challenge</code>, <code>set_forward</code>, <code>remove_forward</code>, <code>set_proxy</code>, <code>remove_proxy</code>, <code>delegate_nameservers</code>, <code>delete_account</code>, <code>upgrade_to_pro</code>, and <code>manage_billing</code>.</p>
+      <div class="btn-row">
+        <a class="btn" href="/tools/mcp-config-builder">Test Live MCP Handshake →</a>
+        <a class="btn ghost" href="/guides">Browse 45 Host Playbooks</a>
+      </div>
+
+      <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Does Haystack (deepset) work with hosted https://mcp.agentdomains.co or stdio?</h3><p>Haystack (deepset) supports Streamable HTTP &amp; stdio. We recommend hosted Streamable HTTP (https://mcp.agentdomains.co) whenever supported because it requires zero local Node.js runtime, or npx -y agentdomains-mcp for local stdio setups.</p></div>
+    <div class="faq-item"><h3>Where does Haystack (deepset) store its MCP configuration?</h3><p>Python: haystack_integrations.tools.mcp (MCPToolset). Keep your adom_ API key in an environment variable or user-scoped config rather than committing it to Git.</p></div>
+    <div class="faq-item"><h3>How much does it cost to claim domains from Haystack (deepset)?</h3><p>Every new account includes a 30-day free trial with up to 10 names (no credit card required). Pro is $10/year or $1/month for up to 100 names with visitor stats and priority support.</p></div>
+  </div>
+</section>
+
+      <h2>Related <span class="g">MCP Clients</span></h2>
+      <div class="grid">
+        <a class="card" href="/mcp/llamaindex">
+        <span class="kicker">Data &amp; RAG Agent Framework</span>
+        <h3>LlamaIndex MCP Setup</h3>
+        <p>Expose AgentDomains tools inside LlamaIndex agents and workflows with BasicMCPClient and McpToolSpec.</p>
+      </a>
+      <a class="card" href="/mcp/langchain">
+        <span class="kicker">Agent Framework</span>
+        <h3>LangChain MCP Setup</h3>
+        <p>Load AgentDomains MCP tools into LangChain and LangGraph using MultiServerMCPClient over stateless Streamable HTTP or local stdio.</p>
+      </a>
+      <a class="card" href="/mcp/pydantic-ai">
+        <span class="kicker">Typed Python Agent Framework</span>
+        <h3>PydanticAI MCP Setup</h3>
+        <p>Attach AgentDomains to PydanticAI via MCPServerStreamableHTTP so strongly typed Python agents can register and proxy subdomains.</p>
+      </a>
+      <a class="card" href="/mcp/smolagents">
+        <span class="kicker">Lightweight Python Agent</span>
+        <h3>Hugging Face smolagents MCP Setup</h3>
+        <p>Connect Hugging Face smolagents CodeAgent and ToolCallingAgent to AgentDomains over Streamable HTTP or stdio.</p>
+      </a>
+      </div>
+    
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>

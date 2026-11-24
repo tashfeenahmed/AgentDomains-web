@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer DNS, SSL &amp; Edge Proxy Reference — 40 AgentDomains Guides</title>
+<meta name="description" content="Engineering reference for ACME DNS-01, CNAME vs A records, NS delegation, TTL propagation, reverse proxies, and MCP JSON-RPC payloads.">
+<link rel="canonical" href="https://agentdomains.co/dns">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Developer DNS, SSL &amp; Edge Proxy Reference — 40 AgentDomains Guides">
+<meta property="og:description" content="Engineering reference for ACME DNS-01, CNAME vs A records, NS delegation, TTL propagation, reverse proxies, and MCP JSON-RPC payloads.">
+<meta property="og:url" content="https://agentdomains.co/dns">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Developer DNS, SSL &amp; Edge Proxy Reference — 40 AgentDomains Guides">
+<meta name="twitter:description" content="Engineering reference for ACME DNS-01, CNAME vs A records, NS delegation, TTL propagation, reverse proxies, and MCP JSON-RPC payloads.">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/dns#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "DNS, SSL & Edge Proxy Reference",
+          "item": "https://agentdomains.co/dns"
+        }
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://agentdomains.co/dns#page",
+      "url": "https://agentdomains.co/dns",
+      "name": "Developer DNS, SSL & Edge Proxy Reference",
+      "isPartOf": {
+        "@id": "https://agentdomains.co/#website"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/dns#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which DNS record types can I manage on AgentDomains?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AgentDomains supports A, AAAA, CNAME, and TXT records (including _acme-challenge and deeper sub-labels via --host), plus NS delegation for full zone control, edge HTTPS reverse proxying, and 301/302 URL forwarding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I debug live DNS propagation or ACME DNS-01 tokens?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use our free browser-based /tools/dns-ssl-checker which queries Cloudflare (1.1.1.1) and Google (8.8.8.8) DoH resolvers simultaneously for A, AAAA, CNAME, TXT, NS, and _acme-challenge records."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns" aria-current="page">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">DNS, SSL &amp; Edge Proxy Reference</span></nav>
+  
+    <span class="eyebrow">Cluster 05 · 40 Engineering Reference Guides</span>
+    <h1>Developer <span class="g">DNS, SSL &amp; Proxy</span> Reference</h1>
+    <p class="lede">Concise engineering explanations, interactive DNS syntax validation, and exact CLI, <code>curl</code>, and MCP JSON-RPC payloads for every record and TLS concept you hit when shipping AI agents.</p>
+    <div class="btn-row">
+      <a class="btn" href="/tools/dns-ssl-checker">Open Live DNS &amp; ACME DNS-01 Debugger →</a>
+      <a class="btn ghost" href="https://docs.agentdomains.co/records">API Record Reference</a>
+    </div>
+    <div class="hub-search">
+      <input type="text" placeholder="Filter 40 DNS &amp; SSL topics (e.g. acme, cname, txt, ttl, sni, cors)…" data-filter-input="dns-grid" aria-label="Filter DNS topics">
+      <span class="pill" id="dns-grid-count">40 shown</span>
+    </div>
+    <div class="grid" id="dns-grid">
+      <a class="card" href="/dns/acme-dns-01-challenge" data-search="acme dns-01 challenge acme-dns-01-challenge ssl / acme prove domain control to let’s encrypt by publishing a txt record at `_acme-challenge.&lt;hostname&gt;` — works behind nat, firewalled port 80, and for wildcard certificates.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>ACME DNS-01 Challenge</h3>
+        <p>Prove domain control to Let’s Encrypt by publishing a TXT record at `_acme-challenge.&lt;hostname&gt;` — works behind NAT, firewalled port 80, and for wildcard certificates.</p>
+      </a>
+      <a class="card" href="/dns/http-01-vs-dns-01-ssl" data-search="http-01 vs dns-01 ssl validation http-01-vs-dns-01-ssl ssl / acme when to use http-01 (open public port 80) versus dns-01 (`_acme-challenge` txt record) for let’s encrypt tls certificates — or skip both with agentdomains edge proxy.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>HTTP-01 vs DNS-01 SSL Validation</h3>
+        <p>When to use HTTP-01 (open public port 80) versus DNS-01 (`_acme-challenge` TXT record) for Let’s Encrypt TLS certificates — or skip both with AgentDomains edge proxy.</p>
+      </a>
+      <a class="card" href="/dns/cname-vs-a-record" data-search="cname vs a record cname-vs-a-record dns fundamentals choose an a record for static ipv4 servers (vps/droplets) and a cname record (or edge proxy) for cloud paas hostnames whose underlying ips rotate.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>CNAME vs A Record</h3>
+        <p>Choose an A record for static IPv4 servers (VPS/Droplets) and a CNAME record (or edge proxy) for cloud PaaS hostnames whose underlying IPs rotate.</p>
+      </a>
+      <a class="card" href="/dns/txt-record-domain-verification" data-search="txt record domain verification txt-record-domain-verification dns fundamentals publish arbitrary txt strings on your subdomain or sub-label to verify ownership with google search console, bluesky atproto handles, github, and saas apis.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>TXT Record Domain Verification</h3>
+        <p>Publish arbitrary TXT strings on your subdomain or sub-label to verify ownership with Google Search Console, Bluesky ATProto handles, GitHub, and SaaS APIs.</p>
+      </a>
+      <a class="card" href="/dns/ns-subdomain-delegation" data-search="ns subdomain delegation ns-subdomain-delegation advanced dns hand authoritative control of your entire subdomain tree (`*.myapp.makes.fyi`) to your own nameservers (cloudflare, route 53, desec, or bind) for mx, srv, and custom dnssec.">
+        <span class="kicker">Advanced DNS</span>
+        <h3>NS Subdomain Delegation</h3>
+        <p>Hand authoritative control of your entire subdomain tree (`*.myapp.makes.fyi`) to your own nameservers (Cloudflare, Route 53, deSEC, or BIND) for MX, SRV, and custom DNSSEC.</p>
+      </a>
+      <a class="card" href="/dns/reverse-proxy-vs-url-forwarding" data-search="reverse proxy vs url forwarding reverse-proxy-vs-url-forwarding edge routing reverse proxy (`set_proxy`) serves your origin directly under your domain with edge https; url forwarding (`set_forward`) issues an http 301/302 redirect to another url.">
+        <span class="kicker">Edge Routing</span>
+        <h3>Reverse Proxy vs URL Forwarding</h3>
+        <p>Reverse proxy (`set_proxy`) serves your origin directly under your domain with edge HTTPS; URL forwarding (`set_forward`) issues an HTTP 301/302 redirect to another URL.</p>
+      </a>
+      <a class="card" href="/dns/301-vs-302-redirects" data-search="301 vs 302 http redirects 301-vs-302-redirects edge routing 302 is temporary and safe to change anytime (agentdomains default); 301 is permanent and aggressively cached by browsers and search engines.">
+        <span class="kicker">Edge Routing</span>
+        <h3>301 vs 302 HTTP Redirects</h3>
+        <p>302 is temporary and safe to change anytime (AgentDomains default); 301 is permanent and aggressively cached by browsers and search engines.</p>
+      </a>
+      <a class="card" href="/dns/ttl-and-dns-propagation" data-search="ttl and dns propagation ttl-and-dns-propagation dns fundamentals why dns changes usually appear within seconds on cloudflare-backed zones, and how recursive resolver ttl caching causes stale answers.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>TTL and DNS Propagation</h3>
+        <p>Why DNS changes usually appear within seconds on Cloudflare-backed zones, and how recursive resolver TTL caching causes stale answers.</p>
+      </a>
+      <a class="card" href="/dns/wildcard-ssl-subdomains" data-search="wildcard ssl on subdomains wildcard-ssl-subdomains ssl / acme issue a single `*.myapp.makes.fyi` tls certificate covering unlimited deeper sub-labels (`a.myapp.makes.fyi`, `b.myapp.makes.fyi`) via acme dns-01.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>Wildcard SSL on Subdomains</h3>
+        <p>Issue a single `*.myapp.makes.fyi` TLS certificate covering unlimited deeper sub-labels (`a.myapp.makes.fyi`, `b.myapp.makes.fyi`) via ACME DNS-01.</p>
+      </a>
+      <a class="card" href="/dns/apex-vs-subdomain-dns" data-search="zone apex vs subdomain dns apex-vs-subdomain-dns dns fundamentals why a subdomain like `myapp.makes.fyi` can cleanly hold a standard cname record while root apex domains (`example.com`) require cname flattening or alias tricks.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>Zone Apex vs Subdomain DNS</h3>
+        <p>Why a subdomain like `myapp.makes.fyi` can cleanly hold a standard CNAME record while root apex domains (`example.com`) require CNAME flattening or ALIAS tricks.</p>
+      </a>
+      <a class="card" href="/dns/aaaa-ipv6-records" data-search="aaaa (ipv6) dns records aaaa-ipv6-records dns fundamentals point your subdomain at ipv6-only vps instances (like hetzner’s cheaper ipv6-only servers) or enable dual-stack routing alongside an a record.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>AAAA (IPv6) DNS Records</h3>
+        <p>Point your subdomain at IPv6-only VPS instances (like Hetzner’s cheaper IPv6-only servers) or enable dual-stack routing alongside an A record.</p>
+      </a>
+      <a class="card" href="/dns/dns-over-https" data-search="dns over https (doh) dns-over-https protocols &amp; tooling query live authoritative dns records straight from browsers, ci scripts, or locked-down sandboxes using cloudflare and google json doh apis.">
+        <span class="kicker">Protocols &amp; Tooling</span>
+        <h3>DNS over HTTPS (DoH)</h3>
+        <p>Query live authoritative DNS records straight from browsers, CI scripts, or locked-down sandboxes using Cloudflare and Google JSON DoH APIs.</p>
+      </a>
+      <a class="card" href="/dns/cloudflare-edge-tls" data-search="cloudflare edge tls termination cloudflare-edge-tls edge routing how agentdomains `set_proxy` terminates tls 1.3 at the edge globally and forwards requests cleanly to your upstream origin hostname.">
+        <span class="kicker">Edge Routing</span>
+        <h3>Cloudflare Edge TLS Termination</h3>
+        <p>How AgentDomains `set_proxy` terminates TLS 1.3 at the edge globally and forwards requests cleanly to your upstream origin hostname.</p>
+      </a>
+      <a class="card" href="/dns/lets-encrypt-rate-limits" data-search="let’s encrypt rate limits on subdomains lets-encrypt-rate-limits ssl / acme avoid hitting let’s encrypt’s 50-certs-per-week registered domain limit by testing against staging acme first or using agentdomains edge proxy.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>Let’s Encrypt Rate Limits on Subdomains</h3>
+        <p>Avoid hitting Let’s Encrypt’s 50-certs-per-week registered domain limit by testing against staging ACME first or using AgentDomains edge proxy.</p>
+      </a>
+      <a class="card" href="/dns/caddy-dns-01" data-search="caddy server with dns-01 &amp; subdomains caddy-dns-01 ssl / acme configure caddy’s automatic https on an agentdomains a record using http-01 (zero config) or dns-01 via `agentdomains txt` / delegated ns.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>Caddy Server with DNS-01 &amp; Subdomains</h3>
+        <p>Configure Caddy’s automatic HTTPS on an AgentDomains A record using HTTP-01 (zero config) or DNS-01 via `agentdomains txt` / delegated NS.</p>
+      </a>
+      <a class="card" href="/dns/certbot-dns-01" data-search="certbot manual &amp; hooked dns-01 certbot-dns-01 ssl / acme automate certbot `--manual-auth-hook` and `--manual-cleanup-hook` with `agentdomains txt` and `agentdomains unrecord` for unattended renewals.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>Certbot Manual &amp; Hooked DNS-01</h3>
+        <p>Automate Certbot `--manual-auth-hook` and `--manual-cleanup-hook` with `agentdomains txt` and `agentdomains unrecord` for unattended renewals.</p>
+      </a>
+      <a class="card" href="/dns/webhook-https-requirements" data-search="webhook https &amp; tls requirements webhook-https-requirements webhooks &amp; apis why stripe, github, slack, meta, and twilio reject raw ips, self-signed certs, and 302 redirects — and how edge proxying satisfies all of them.">
+        <span class="kicker">Webhooks &amp; APIs</span>
+        <h3>Webhook HTTPS &amp; TLS Requirements</h3>
+        <p>Why Stripe, GitHub, Slack, Meta, and Twilio reject raw IPs, self-signed certs, and 302 redirects — and how edge proxying satisfies all of them.</p>
+      </a>
+      <a class="card" href="/dns/cors-reverse-proxy" data-search="cors behind a reverse proxy cors-reverse-proxy edge routing configure `access-control-allow-origin` and `options` preflight handling cleanly when your api sits behind an edge reverse proxy.">
+        <span class="kicker">Edge Routing</span>
+        <h3>CORS Behind a Reverse Proxy</h3>
+        <p>Configure `Access-Control-Allow-Origin` and `OPTIONS` preflight handling cleanly when your API sits behind an edge reverse proxy.</p>
+      </a>
+      <a class="card" href="/dns/websockets-reverse-proxy" data-search="websockets &amp; sse through reverse proxies websockets-reverse-proxy edge routing keep long-lived `wss://` websocket connections and ai token server-sent events (sse) streaming cleanly over https.">
+        <span class="kicker">Edge Routing</span>
+        <h3>WebSockets &amp; SSE Through Reverse Proxies</h3>
+        <p>Keep long-lived `wss://` WebSocket connections and AI token Server-Sent Events (SSE) streaming cleanly over HTTPS.</p>
+      </a>
+      <a class="card" href="/dns/hsts-subdomains" data-search="hsts and subdomain security hsts-subdomains ssl / acme understand how `strict-transport-security` enforces https on your subdomain and why you should avoid `includesubdomains` until every sub-label has valid tls.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>HSTS and Subdomain Security</h3>
+        <p>Understand how `Strict-Transport-Security` enforces HTTPS on your subdomain and why you should avoid `includeSubDomains` until every sub-label has valid TLS.</p>
+      </a>
+      <a class="card" href="/dns/dns-caching-explained" data-search="how dns caching works across resolvers dns-caching-explained dns fundamentals trace the 4 caching layers (browser → os stub → router/isp → public recursive resolver) that explain why `dig` and chrome sometimes disagree.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>How DNS Caching Works Across Resolvers</h3>
+        <p>Trace the 4 caching layers (Browser → OS stub → Router/ISP → Public Recursive Resolver) that explain why `dig` and Chrome sometimes disagree.</p>
+      </a>
+      <a class="card" href="/dns/negative-dns-caching" data-search="negative dns caching (nxdomain) negative-dns-caching dns fundamentals why visiting a hostname before claiming it can make it look broken for a few minutes even after your record goes live.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>Negative DNS Caching (NXDOMAIN)</h3>
+        <p>Why visiting a hostname BEFORE claiming it can make it look broken for a few minutes even after your record goes live.</p>
+      </a>
+      <a class="card" href="/dns/caa-records" data-search="caa records and certificate issuance caa-records ssl / acme how caa records restrict which certificate authorities may issue tls certs for a domain — and how acme walks up parent zones.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>CAA Records and Certificate Issuance</h3>
+        <p>How CAA records restrict which Certificate Authorities may issue TLS certs for a domain — and how ACME walks up parent zones.</p>
+      </a>
+      <a class="card" href="/dns/spf-txt-limits" data-search="spf &amp; txt record 10-lookup limits spf-txt-limits dns fundamentals why non-email subdomains benefit from `v=spf1 -all` and how spf’s 10-dns-lookup cap works if you send mail via delegated ns.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>SPF &amp; TXT Record 10-Lookup Limits</h3>
+        <p>Why non-email subdomains benefit from `v=spf1 -all` and how SPF’s 10-DNS-lookup cap works if you send mail via delegated NS.</p>
+      </a>
+      <a class="card" href="/dns/dynamic-dns-vs-api-dns" data-search="dynamic dns (ddns) vs programmatic api dns dynamic-dns-vs-api-dns automation legacy ddns only updates a single home ip; modern api/mcp dns provisions new hostnames, records, acme challenges, and edge proxies programmatically.">
+        <span class="kicker">Automation</span>
+        <h3>Dynamic DNS (DDNS) vs Programmatic API DNS</h3>
+        <p>Legacy DDNS only updates a single home IP; modern API/MCP DNS provisions new hostnames, records, ACME challenges, and edge proxies programmatically.</p>
+      </a>
+      <a class="card" href="/dns/programmatic-dns-api" data-search="programmatic rest dns apis for agents programmatic-dns-api automation design patterns for idempotent agent dns automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.">
+        <span class="kicker">Automation</span>
+        <h3>Programmatic REST DNS APIs for Agents</h3>
+        <p>Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.</p>
+      </a>
+      <a class="card" href="/dns/cname-flattening" data-search="cname flattening explained cname-flattening advanced dns how authoritative dns resolvers dynamically resolve cname chains at the edge to return a/aaaa answers faster — and when plain cnames suffice.">
+        <span class="kicker">Advanced DNS</span>
+        <h3>CNAME Flattening Explained</h3>
+        <p>How authoritative DNS resolvers dynamically resolve CNAME chains at the edge to return A/AAAA answers faster — and when plain CNAMEs suffice.</p>
+      </a>
+      <a class="card" href="/dns/subdomain-takeover-prevention" data-search="preventing dangling subdomain takeovers subdomain-takeover-prevention security always remove dns records, proxies, or the subdomain itself *before* deleting your underlying fly.io, railway, heroku, or s3 origin.">
+        <span class="kicker">Security</span>
+        <h3>Preventing Dangling Subdomain Takeovers</h3>
+        <p>Always remove DNS records, proxies, or the subdomain itself *before* deleting your underlying Fly.io, Railway, Heroku, or S3 origin.</p>
+      </a>
+      <a class="card" href="/dns/tls-sni-explained" data-search="tls sni (server name indication) tls-sni-explained ssl / acme how tls sni lets a single ipv4 vps or cloudflare edge serve hundreds of https subdomains simultaneously with distinct certificates.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>TLS SNI (Server Name Indication)</h3>
+        <p>How TLS SNI lets a single IPv4 VPS or Cloudflare edge serve hundreds of HTTPS subdomains simultaneously with distinct certificates.</p>
+      </a>
+      <a class="card" href="/dns/x-forwarded-for-headers" data-search="x-forwarded-for &amp; proxy headers x-forwarded-for-headers edge routing configure express, fastapi, django, and rails to trust `x-forwarded-proto` and `x-forwarded-for` behind edge tls proxies.">
+        <span class="kicker">Edge Routing</span>
+        <h3>X-Forwarded-For &amp; Proxy Headers</h3>
+        <p>Configure Express, FastAPI, Django, and Rails to trust `X-Forwarded-Proto` and `X-Forwarded-For` behind edge TLS proxies.</p>
+      </a>
+      <a class="card" href="/dns/origin-ip-hiding" data-search="hiding your origin behind an edge proxy origin-ip-hiding security how `agentdomains proxy` terminates visitor traffic at the edge rather than exposing your backend’s raw address directly in public dns.">
+        <span class="kicker">Security</span>
+        <h3>Hiding Your Origin Behind an Edge Proxy</h3>
+        <p>How `agentdomains proxy` terminates visitor traffic at the edge rather than exposing your backend’s raw address directly in public DNS.</p>
+      </a>
+      <a class="card" href="/dns/custom-port-reverse-proxy" data-search="mapping port 443 to custom app ports custom-port-reverse-proxy edge routing turn `http://203.0.113.10:8080` or `:3000` into a clean `https://myapp.makes.fyi` url without ugly port numbers in links.">
+        <span class="kicker">Edge Routing</span>
+        <h3>Mapping Port 443 to Custom App Ports</h3>
+        <p>Turn `http://203.0.113.10:8080` or `:3000` into a clean `https://myapp.makes.fyi` URL without ugly port numbers in links.</p>
+      </a>
+      <a class="card" href="/dns/oauth-redirect-uri-https" data-search="oauth 2.0 redirect uri https rules oauth-redirect-uri-https webhooks &amp; apis why google, github, slack, and apple require exact https callback hostnames — and how a fixed `makes.fyi` proxy avoids redirect mismatch errors.">
+        <span class="kicker">Webhooks &amp; APIs</span>
+        <h3>OAuth 2.0 Redirect URI HTTPS Rules</h3>
+        <p>Why Google, GitHub, Slack, and Apple require exact HTTPS callback hostnames — and how a fixed `makes.fyi` proxy avoids redirect mismatch errors.</p>
+      </a>
+      <a class="card" href="/dns/mcp-streamable-http-tls" data-search="mcp streamable http &amp; tls requirements mcp-streamable-http-tls protocols &amp; tooling host your own remote model context protocol server over stateless streamable http with trusted https tls on port 443.">
+        <span class="kicker">Protocols &amp; Tooling</span>
+        <h3>MCP Streamable HTTP &amp; TLS Requirements</h3>
+        <p>Host your own remote Model Context Protocol server over stateless Streamable HTTP with trusted HTTPS TLS on port 443.</p>
+      </a>
+      <a class="card" href="/dns/dig-command-cheatsheet" data-search="dig command cheatsheet for developers dig-command-cheatsheet protocols &amp; tooling essential `dig` commands for debugging a, aaaa, cname, txt, `_acme-challenge`, ns delegation, and ttls in seconds.">
+        <span class="kicker">Protocols &amp; Tooling</span>
+        <h3>dig Command Cheatsheet for Developers</h3>
+        <p>Essential `dig` commands for debugging A, AAAA, CNAME, TXT, `_acme-challenge`, NS delegation, and TTLs in seconds.</p>
+      </a>
+      <a class="card" href="/dns/nslookup-vs-dig" data-search="nslookup vs dig vs doh nslookup-vs-dig protocols &amp; tooling why `dig` gives cleaner ttl/authority output than `nslookup`, and when browser doh tools beat both.">
+        <span class="kicker">Protocols &amp; Tooling</span>
+        <h3>nslookup vs dig vs DoH</h3>
+        <p>Why `dig` gives cleaner TTL/authority output than `nslookup`, and when browser DoH tools beat both.</p>
+      </a>
+      <a class="card" href="/dns/dns-propagation-delays" data-search="debugging dns propagation delays dns-propagation-delays dns fundamentals a practical 4-step checklist when your newly created subdomain works on mobile data but not on your laptop wi-fi.">
+        <span class="kicker">DNS Fundamentals</span>
+        <h3>Debugging DNS Propagation Delays</h3>
+        <p>A practical 4-step checklist when your newly created subdomain works on mobile data but not on your laptop Wi-Fi.</p>
+      </a>
+      <a class="card" href="/dns/acme-txt-cleanup" data-search="cleaning up spent acme txt records acme-txt-cleanup ssl / acme use `agentdomains unrecord &lt;label&gt; &lt;record-id&gt;` or `delete_record` to delete individual spent `_acme-challenge` txt tokens without touching your subdomain.">
+        <span class="kicker">SSL / ACME</span>
+        <h3>Cleaning Up Spent ACME TXT Records</h3>
+        <p>Use `agentdomains unrecord &lt;label&gt; &lt;record-id&gt;` or `delete_record` to delete individual spent `_acme-challenge` TXT tokens without touching your subdomain.</p>
+      </a>
+      <a class="card" href="/dns/edge-301-preservation" data-search="path &amp; query preservation on edge redirects edge-301-preservation edge routing control whether `myapp.makes.fyi/pricing?ref=gh` redirects to `https://target.com/pricing?ref=gh` or collapses to the target root.">
+        <span class="kicker">Edge Routing</span>
+        <h3>Path &amp; Query Preservation on Edge Redirects</h3>
+        <p>Control whether `myapp.makes.fyi/pricing?ref=gh` redirects to `https://target.com/pricing?ref=gh` or collapses to the target root.</p>
+      </a>
+      <a class="card" href="/dns/managed-subdomains-vs-tld" data-search="managed subdomains vs registering a tld managed-subdomains-vs-tld architecture an honest architectural guide to when a managed subdomain (`*.makes.fyi` / `*.agentdomains.co`) beats buying a `.com` — and when you must buy a tld.">
+        <span class="kicker">Architecture</span>
+        <h3>Managed Subdomains vs Registering a TLD</h3>
+        <p>An honest architectural guide to when a managed subdomain (`*.makes.fyi` / `*.agentdomains.co`) beats buying a `.com` — and when you must buy a TLD.</p>
+      </a>
+    </div>
+    <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Which DNS record types can I manage on AgentDomains?</h3><p>AgentDomains supports A, AAAA, CNAME, and TXT records (including _acme-challenge and deeper sub-labels via --host), plus NS delegation for full zone control, edge HTTPS reverse proxying, and 301/302 URL forwarding.</p></div>
+    <div class="faq-item"><h3>How do I debug live DNS propagation or ACME DNS-01 tokens?</h3><p>Use our free browser-based /tools/dns-ssl-checker which queries Cloudflare (1.1.1.1) and Google (8.8.8.8) DoH resolvers simultaneously for A, AAAA, CNAME, TXT, NS, and _acme-challenge records.</p></div>
+  </div>
+</section>
+  
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>

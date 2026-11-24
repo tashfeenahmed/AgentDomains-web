@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDomains vs Cloudflare Tunnel (cloudflare.com) — Honest Cost, DNS &amp; MCP Comparison</title>
+<meta name="description" content="Honest comparison of AgentDomains vs Cloudflare Tunnel: writable DNS, edge HTTPS proxy, ACME DNS-01, MCP server, and 1-year cost for 10 to 100 projects.">
+<link rel="canonical" href="https://agentdomains.co/compare/cloudflare-tunnel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AgentDomains vs Cloudflare Tunnel (cloudflare.com) — Honest Cost, DNS &amp; MCP Comparison">
+<meta property="og:description" content="Honest comparison of AgentDomains vs Cloudflare Tunnel: writable DNS, edge HTTPS proxy, ACME DNS-01, MCP server, and 1-year cost for 10 to 100 projects.">
+<meta property="og:url" content="https://agentdomains.co/compare/cloudflare-tunnel">
+<meta property="og:site_name" content="AgentDomains">
+<meta property="og:image" content="https://agentdomains.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AgentDomains vs Cloudflare Tunnel (cloudflare.com) — Honest Cost, DNS &amp; MCP Comparison">
+<meta name="twitter:description" content="Honest comparison of AgentDomains vs Cloudflare Tunnel: writable DNS, edge HTTPS proxy, ACME DNS-01, MCP server, and 1-year cost for 10 to 100 projects.">
+<meta name="twitter:image" content="https://agentdomains.co/og.png">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agentdomains.co/#organization",
+      "name": "AgentDomains",
+      "url": "https://agentdomains.co/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentdomains.co/logo.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentdomains.co/#website",
+      "url": "https://agentdomains.co/",
+      "name": "AgentDomains",
+      "publisher": {
+        "@id": "https://agentdomains.co/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://agentdomains.co/compare/cloudflare-tunnel#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://agentdomains.co/compare"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "vs Cloudflare Tunnel",
+          "item": "https://agentdomains.co/compare/cloudflare-tunnel"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://agentdomains.co/compare/cloudflare-tunnel#webpage",
+      "url": "https://agentdomains.co/compare/cloudflare-tunnel",
+      "name": "AgentDomains vs Cloudflare Tunnel",
+      "isPartOf": {
+        "@id": "https://agentdomains.co/#website"
+      },
+      "mainEntity": {
+        "@id": "https://agentdomains.co/compare/cloudflare-tunnel#items"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://agentdomains.co/compare/cloudflare-tunnel#items",
+      "name": "AgentDomains vs Cloudflare Tunnel comparison",
+      "numberOfItems": 2,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "AgentDomains",
+          "url": "https://agentdomains.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cloudflare Tunnel",
+          "url": "https://cloudflare.com/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentdomains.co/compare/cloudflare-tunnel#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does AgentDomains replace Cloudflare Tunnel for buying a .com domain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. AgentDomains provides managed subdomains under agentdomains.co and makes.fyi — not transferable ICANN second-level domains. If you must legally own and transfer a .com brand name, use a registrar like Cloudflare Registrar or Porkbun."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does pricing compare between AgentDomains and Cloudflare Tunnel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AgentDomains starts with a 30-day free trial (10 names, no card) and Pro is $10/yr ($1/mo) for up to 100 names with zero bandwidth bills. Cloudflare Tunnel: Tunnel software is free (Quick Tunnels give random *.trycloudflare.com; custom names require owning a domain ~$10+/yr)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI agent switch from Cloudflare Tunnel to AgentDomains via MCP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Connect your agent to https://mcp.agentdomains.co (or npx -y agentdomains-mcp) and use signup, claim_domain, and set_proxy or add_dns_record."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/seo.css">
+<script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+</head>
+<body>
+<div class="dot-grid"></div>
+<nav class="site-nav">
+  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+  <div class="nav-links">
+    <a href="/mcp">MCP</a>
+    <a href="/guides">Guides</a>
+    <a href="/compare" aria-current="page">Compare</a>
+    <a href="/use-cases">Use Cases</a>
+    <a href="/dns">DNS</a>
+    <a href="/names">Names</a>
+    <a href="/tools">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a class="nav-cta" href="https://docs.agentdomains.co" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/compare">Compare</a><span aria-hidden="true">/</span><span aria-current="page">vs Cloudflare Tunnel</span></nav>
+  
+      <span class="eyebrow">Cluster 03 · Honest Head-to-Head Comparison</span>
+      <h1>AgentDomains vs <span class="g">Cloudflare Tunnel</span></h1>
+      <p class="lede">An honest, citation-backed breakdown of AgentDomains vs Cloudflare Tunnel (<code>cloudflare.com</code>) for AI agent deployments, DNS automation, edge HTTPS proxying, and 1-year total cost.</p>
+      <div class="meta-strip">
+        <span class="pill green">Category: Zero-Trust Origin Tunnel</span>
+        <span class="pill">AgentDomains: Managed Subdomains</span>
+        <span class="pill lime">Free 30-Day Trial · Pro $10/yr</span>
+      </div>
+
+      <div class="panel warn">
+        <strong>Up-front caveat:</strong> AgentDomains issues <strong>managed subdomains</strong> (<code>*.makes.fyi</code> and <code>*.agentdomains.co</code>), <em>not</em> transferable second-level <code>.com</code> registrations and not application hosting. Read the trade-offs below before choosing.
+      </div>
+
+      <h2>1. Side-by-Side <span class="g">Feature &amp; Cost Table</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>AgentDomains</th>
+              <th>Cloudflare Tunnel (cloudflare.com)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pricing Model</strong></td>
+              <td>30-day free trial (10 names, no card); Pro <strong>$10/yr</strong> or $1/mo (100 names)</td>
+              <td>Tunnel software is free (Quick Tunnels give random *.trycloudflare.com; custom names require owning a domain ~$10+/yr)</td>
+            </tr>
+            <tr>
+              <td><strong>Writable DNS Records</strong></td>
+              <td class="yes">Yes — A, AAAA, CNAME, TXT (+ NS delegation)</td>
+              <td>Only if you bring your own domain on Cloudflare DNS</td>
+            </tr>
+            <tr>
+              <td><strong>Edge HTTPS Reverse Proxy</strong></td>
+              <td class="yes">Yes — built-in TLS termination &amp; URL forwarding</td>
+              <td>Yes — outbound cloudflared daemon terminates TLS at Cloudflare edge</td>
+            </tr>
+            <tr>
+              <td><strong>ACME DNS-01 Support</strong></td>
+              <td class="yes">Yes — dedicated <code>agentdomains txt</code> &amp; <code>add_acme_challenge</code></td>
+              <td>Only on your own Cloudflare zone</td>
+            </tr>
+            <tr>
+              <td><strong>Hosted MCP Server</strong></td>
+              <td class="yes">Yes — 20 tools at <code>mcp.agentdomains.co</code> &amp; stdio</td>
+              <td>Cloudflare has general API MCP servers, not card-free instant subdomains</td>
+            </tr>
+            <tr>
+              <td><strong>Card-Free Trial / Onboarding</strong></td>
+              <td class="yes">Yes — anonymous <code>signup</code>, email confirm only on first claim</td>
+              <td>Quick Tunnels need no account (ephemeral URL); named tunnels require Cloudflare account + own domain</td>
+            </tr>
+            <tr>
+              <td><strong>1-Year Cost (10 Names)</strong></td>
+              <td><strong>$10/yr</strong> Pro (or $0 for 30-day trial)</td>
+              <td>Free tunnel + ~$10/yr for 1 root domain (subdomains free on your zone)</td>
+            </tr>
+            <tr>
+              <td><strong>1-Year Cost (100 Names)</strong></td>
+              <td><strong>$10/yr</strong> Pro (all 100 included)</td>
+              <td>Free tunnel + ~$10/yr for 1 root domain</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.88rem;color:var(--muted)"><em>Source note: Based on Cloudflare Zero Trust docs: cloudflared is free; persistent hostnames require an active domain zone on Cloudflare.</em></p>
+
+      <h2>2. Interactive <span class="g">Project-Count Cost Diff</span></h2>
+      <div class="widget" data-cost-slider data-rival-name="Cloudflare Tunnel" data-rival-model="per-domain" data-rival-unit="10.44" data-rival-flat="0">
+        <div class="widget-head">
+          <strong>Slide to estimate 1-year cost across projects</strong>
+          <span class="pill lime" data-count-out>10 projects</span>
+        </div>
+        <div class="field" style="margin-bottom:1rem">
+          <label for="tco-range">Number of agent projects / hostnames (1 – 100)</label>
+          <input id="tco-range" type="range" min="1" max="100" value="10">
+        </div>
+        <div class="grid two" style="margin:.6rem 0">
+          <div class="panel" style="margin:0">
+            <div class="kicker">AgentDomains</div>
+            <div style="font-family:'Space Mono',monospace;font-weight:700" data-ad-cost></div>
+          </div>
+          <div class="panel" style="margin:0">
+            <div class="kicker">Cloudflare Tunnel (Est.)</div>
+            <div style="font-family:'Space Mono',monospace;font-weight:700" data-rival-cost></div>
+          </div>
+        </div>
+        <div class="status-line" data-diff-out></div>
+        <div style="margin-top:.75rem">
+          <a class="btn sm ghost" href="/tools/domain-cost-calculator">Open Full Multi-Provider TCO Calculator →</a>
+        </div>
+      </div>
+
+      <h2>3. Honest Verdict: <span class="g">Which Should You Choose?</span></h2>
+      <div class="grid two">
+        <div class="panel">
+          <h3>Choose Cloudflare Tunnel if…</h3>
+          <ul>
+            <li>You already own a custom domain on Cloudflare and want outbound-only zero-trust tunnels into a private home server or VPC.</li>
+            <li>You need Cloudflare Access SSO or private CIDR routing in front of internal services.</li>
+          </ul>
+        </div>
+        <div class="panel mint">
+          <h3>Choose AgentDomains if…</h3>
+          <ul>
+            <li>You do not want to buy a domain, verify a card, or run a cloudflared daemon just to give an agent build a stable HTTPS URL.</li>
+            <li>You want an agent to call a single MCP tool (set_proxy or add_dns_record) and get a memorable name in seconds.</li>
+            <li>Bonus: you can even pair a Quick Tunnel or private tunnel hostname behind an AgentDomains proxy for testing.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>4. Quick <span class="g">Migration CLI Commands</span></h2>
+      <p>Try AgentDomains side-by-side with Cloudflare Tunnel in 30 seconds — no card required:</p>
+      <div class="code-box">
+  <div class="code-head">
+    <span>Switch a project from Cloudflare Tunnel to AgentDomains</span>
+    <button type="button" class="copy-btn">COPY</button>
+  </div>
+  <pre><code>agentdomains signup
+agentdomains claim api-edge --email you@example.com
+agentdomains proxy api-edge your-origin.example.net</code></pre>
+</div>
+
+      <div class="btn-row">
+        <a class="btn" href="/compare">Full 11-Provider Matrix →</a>
+        <a class="btn ghost" href="/compare/paid-rivals">vs Paid Agent Registrars</a>
+        <a class="btn ghost" href="/mcp">Connect MCP Client</a>
+      </div>
+
+      <section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item"><h3>Does AgentDomains replace Cloudflare Tunnel for buying a .com domain?</h3><p>No. AgentDomains provides managed subdomains under agentdomains.co and makes.fyi — not transferable ICANN second-level domains. If you must legally own and transfer a .com brand name, use a registrar like Cloudflare Registrar or Porkbun.</p></div>
+    <div class="faq-item"><h3>How does pricing compare between AgentDomains and Cloudflare Tunnel?</h3><p>AgentDomains starts with a 30-day free trial (10 names, no card) and Pro is $10/yr ($1/mo) for up to 100 names with zero bandwidth bills. Cloudflare Tunnel: Tunnel software is free (Quick Tunnels give random *.trycloudflare.com; custom names require owning a domain ~$10+/yr).</p></div>
+    <div class="faq-item"><h3>Can an AI agent switch from Cloudflare Tunnel to AgentDomains via MCP?</h3><p>Yes. Connect your agent to https://mcp.agentdomains.co (or npx -y agentdomains-mcp) and use signup, claim_domain, and set_proxy or add_dns_record.</p></div>
+  </div>
+</section>
+
+      <h2>More <span class="g">Comparisons</span></h2>
+      <div class="grid">
+        <a class="card" href="/compare/vercel-app">
+          <span class="kicker">PaaS Hosting Subdomain</span>
+          <h3>AgentDomains vs Vercel (*.vercel.app)</h3>
+          <p>Hobby free (non-commercial, *.vercel.app); Pro $20/user/mo ($240/yr)</p>
+        </a>
+        <a class="card" href="/compare/netlify-app">
+          <span class="kicker">PaaS Hosting Subdomain</span>
+          <h3>AgentDomains vs Netlify (*.netlify.app)</h3>
+          <p>Free Starter tier; Pro $19/member/mo ($228/yr)</p>
+        </a>
+        <a class="card" href="/compare/nip-io">
+          <span class="kicker">Wildcard IP DNS Trick</span>
+          <h3>AgentDomains vs nip.io</h3>
+          <p>Free public wildcard resolver (no accounts, no ownership)</p>
+        </a>
+        <a class="card" href="/compare/sslip-io">
+          <span class="kicker">Wildcard IP DNS Trick</span>
+          <h3>AgentDomains vs sslip.io</h3>
+          <p>Free public wildcard DNS service (IP-encoded hostnames)</p>
+        </a>
+      </div>
+    
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
+      <p class="foot-mono">© 2026 AGENTDOMAINS.CO // MAKES.FYI · FSL-1.1<br>Free 30-day trial (10 names, no card) · Pro $10/yr or $1/mo</p>
+    </div>
+    <div class="foot-col">
+      <h4>Hubs</h4>
+      <ul>
+        <li><a href="/mcp">MCP Setup Guides</a></li>
+        <li><a href="/guides">Host Playbooks</a></li>
+        <li><a href="/compare">Compare Alternatives</a></li>
+        <li><a href="/use-cases">Agent Workflows</a></li>
+        <li><a href="/dns">DNS &amp; SSL Reference</a></li>
+        <li><a href="/names">Live Subdomain Ideas</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Free Tools</h4>
+      <ul>
+        <li><a href="/tools">All Free Tools</a></li>
+        <li><a href="/tools/mcp-config-builder">Universal MCP Config Builder</a></li>
+        <li><a href="/tools/dns-ssl-checker">DNS &amp; ACME DNS-01 Checker</a></li>
+        <li><a href="/tools/domain-cost-calculator">Domain TCO Calculator</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/manage">Manage Names</a></li>
+        <li><a href="https://docs.agentdomains.co">Documentation</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains">GitHub CLI</a></li>
+        <li><a href="https://github.com/tashfeenahmed/AgentDomains-mcp">GitHub MCP</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/seo.js"></script>
+
+</body>
+</html>
