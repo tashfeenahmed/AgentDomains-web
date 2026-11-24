@@ -182,7 +182,7 @@ export function buildToolPages() {
         <strong>1. Configure Client &amp; Server</strong>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap" id="mcp-deeplinks"></div>
       </div>
-      <div class="widget-grid">
+      <div class="widget-grid mb-row-4">
         <div class="field">
           <label for="mb-client">Target MCP Client</label>
           <select id="mb-client">
@@ -218,6 +218,8 @@ export function buildToolPages() {
           <label for="mb-name">Server Name Key</label>
           <input id="mb-name" type="text" value="agentdomains">
         </div>
+      </div>
+      <div class="widget-grid mb-row-2">
         <div class="field">
           <label for="mb-url">Streamable HTTP Endpoint URL</label>
           <input id="mb-url" type="url" value="https://mcp.agentdomains.co">
@@ -226,6 +228,8 @@ export function buildToolPages() {
           <label for="mb-token">Bearer Token / API Key (optional)</label>
           <input id="mb-token" type="text" placeholder="adom_... (leave blank for anonymous test)">
         </div>
+      </div>
+      <div class="widget-grid mb-row-2">
         <div class="field">
           <label for="mb-pkg">stdio npx Package (if stdio)</label>
           <input id="mb-pkg" type="text" value="agentdomains-mcp">

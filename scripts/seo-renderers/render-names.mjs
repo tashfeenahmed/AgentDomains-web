@@ -6,7 +6,7 @@ import {
   faqSchema,
   renderFaqs,
 } from '../seo-lib/layout.mjs';
-import { renderSpecStrip, renderFilterPills, trunc } from '../seo-lib/visuals.mjs';
+import { renderSpecStrip, renderFilterPills } from '../seo-lib/visuals.mjs';
 import { NAME_CATEGORIES } from '../seo-data/names-categories.mjs';
 
 function inferBucket(cat) {
@@ -17,7 +17,7 @@ function inferBucket(cat) {
 }
 
 function renderClaimFlowSvg(sampleLabel, titleText) {
-  const lbl = trunc(sampleLabel, 14);
+  const lbl = String(sampleLabel ?? '');
   return `<div class="diagram-box">
   <svg viewBox="0 0 880 156" width="880" height="156" role="img" aria-label="3-step live subdomain claim flow for ${esc(titleText)}">
     <defs>
@@ -241,7 +241,7 @@ export function buildNamesPages() {
       ${renderFaqs(faqs)}
 
       <h2>Explore More <span class="g">Subdomain Categories</span></h2>
-      <div class="grid">
+      <div class="grid four">
         ${related
           .map(
             (r) => `<a class="card" href="/names/${esc(r.slug)}">

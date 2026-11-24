@@ -18,7 +18,7 @@
   if (!clientSel) return;
 
   const PATHS = {
-    'claude-code': 'Config path: ~/.claude.json or project .mcp.json (or use `claude mcp add`)',
+    'claude-code': 'Config path: ~/.claude.json or project .mcp.json (or use claude mcp add)',
     'cursor': 'Config path: ~/.cursor/mcp.json (global) or .cursor/mcp.json (workspace)',
     'vscode': 'Config path: .vscode/mcp.json (note top-level "servers" key)',
     'windsurf': 'Config path: ~/.codeium/windsurf/mcp_config.json (uses "serverUrl")',

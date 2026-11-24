@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -366,11 +368,11 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/vibe-coding-demos">
           <span class="kicker">Vibe Coding</span>
           <h3>Vibe-Coding Live Demos</h3>
-          <p>Turn any Cursor, Windsurf, or Bolt.new build into a short `*.makes.fyi` URL in 15 seconds.</p>
+          <p>Turn any Cursor, Windsurf, or Bolt.new build into a short <code>*.makes.fyi</code> URL in 15 seconds.</p>
         </a>
         <a class="card" href="/use-cases/stripe-webhook-testing">
           <span class="kicker">Webhooks</span>
@@ -380,12 +382,12 @@ jobs:
         <a class="card" href="/use-cases/oauth-callback-urls">
           <span class="kicker">Auth &amp; Identity</span>
           <h3>OAuth 2.0 Callback URLs</h3>
-          <p>Register stable HTTPS redirect URIs (`https://oauth-stage.agentdomains.co/auth/callback`) for Google, GitHub, Discord, and Slack OAuth apps.</p>
+          <p>Register stable HTTPS redirect URIs (<code>https://oauth-stage.agentdomains.co/auth/callback</code>) for Google, GitHub, Discord, and Slack OAuth apps.</p>
         </a>
         <a class="card" href="/use-cases/ephemeral-pr-previews">
           <span class="kicker">CI / CD</span>
           <h3>Ephemeral Pull-Request Previews</h3>
-          <p>Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge.</p>
+          <p>Spin up <code>pr-142-web.makes.fyi</code> automatically when a GitHub PR opens and delete it cleanly on merge.</p>
         </a>
       </div>
     

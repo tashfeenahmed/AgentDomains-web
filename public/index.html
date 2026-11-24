@@ -216,23 +216,23 @@
   .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
   .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
 
-  .hero{padding:1.5rem 2rem 2.5rem;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2rem}
+  .hero{padding:1.5rem 2rem 2.5rem;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:2rem}
   .hero-title{font-size:clamp(2.1rem,6vw,4.4rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem}
   .hero-title .g{color:var(--energy)}
-  .hero-subtitle{font-size:1.35rem;max-width:520px;padding:.9rem 1.2rem;border:3px solid var(--ink);
+  .hero-subtitle{font-size:1.35rem;max-width:540px;padding:.9rem 1.2rem;border:3px solid var(--ink);
     border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block;transform:rotate(-1.5deg)}
   .hero-subtitle b{color:var(--energy-d)}
 
   .domain-search{margin-top:1.8rem}
   .metadata{font-family:'Space Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;opacity:.6}
   .input-wrapper{display:flex;align-items:center;background:#fff;border:4px solid var(--ink);padding:.6rem .8rem;
-    border-radius:12px;box-shadow:8px 8px 0 var(--energy);max-width:640px;transition:transform .15s}
-  .input-wrapper input{border:none;outline:none;font-family:'Space Mono',monospace;font-size:clamp(1.2rem,3.6vw,1.9rem);width:100%;color:var(--ink);background:transparent}
-  .suffix{font-family:'Space Mono',monospace;font-size:clamp(1rem,2.6vw,1.4rem);background:var(--ink);color:#fff;
-    padding:.4rem .75rem;border-radius:6px;margin-left:.7rem;white-space:nowrap;border:2px solid var(--ink)}
+    border-radius:12px;box-shadow:8px 8px 0 var(--energy);max-width:680px;transition:transform .15s}
+  .input-wrapper input{border:none;outline:none;font-family:'Space Mono',monospace;font-size:clamp(1rem,2.2vw,1.45rem);width:100%;min-width:0;flex:1;color:var(--ink);background:transparent}
+  .suffix{font-family:'Space Mono',monospace;font-size:clamp(.85rem,1.7vw,1.1rem);background:var(--ink);color:#fff;
+    padding:.38rem .65rem;border-radius:6px;margin-left:.65rem;white-space:nowrap;flex-shrink:0;border:2px solid var(--ink)}
   .suffix:hover{background:var(--energy);color:var(--ink)}
   .search-note{font-size:1.02rem;margin-top:.6rem;opacity:.75}
-  .check{margin-top:.8rem;font-size:1.2rem;min-height:1.6rem;max-width:640px}
+  .check{margin-top:.8rem;font-size:1.2rem;min-height:1.6rem;max-width:680px}
   .check .ok{color:var(--energy-d);font-weight:700}
   .check .no{color:#c0392b;font-weight:700}
   .check .dim{opacity:.55}
@@ -243,7 +243,7 @@
   /* claim-in-the-browser: the same ink border + hard shadow as the search box,
      a size down, so it reads as the next step of the checker, not a new widget */
   .claim-form{margin-top:.9rem;padding:.8rem .9rem;background:var(--mint);border:3px solid var(--ink);border-radius:12px;
-    box-shadow:5px 5px 0 var(--ink);max-width:640px}
+    box-shadow:5px 5px 0 var(--ink);max-width:680px}
   .claim-form .metadata{margin-bottom:.4rem;opacity:.75}
   .claim-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:stretch}
   .claim-row input{flex:1 1 220px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
@@ -437,9 +437,22 @@
   .doodle-ctl button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 
   @media(max-width:1024px){.hero{grid-template-columns:1fr}.examples{order:2;min-height:260px}}
-  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}
+  @media(max-width:700px){
     .pick{display:grid;grid-template-columns:repeat(3,1fr)}
     .pick label{font-size:.72rem;padding:.45rem .3rem;text-align:center}}
+  @media(max-width:640px){
+    nav{padding:.6rem 1rem;flex-wrap:nowrap;gap:.5rem;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+    .logo{font-size:1.25rem;white-space:nowrap}
+    .nav-links{width:auto;flex-wrap:nowrap;gap:.65rem;justify-content:flex-end;font-size:1rem}
+    .nav-links .nav-secondary{display:none}
+    .nav-cta{padding:.28rem .72rem;font-size:.92rem;white-space:nowrap}
+    .hero{padding:1.1rem 1rem 2rem}
+    .term,.mcp{margin-left:1rem;margin-right:1rem}
+    .section-head,.features,.gallery,.records,.usecases,.faq,.limits{padding-left:1rem;padding-right:1rem}
+    footer{padding:2.2rem 1rem}
+  }
+  .feature-card p,.record-card p,.usecase-card p,.faq-item p,.limit-card p,.mcp p,.section-head .lede{line-height:1.55}
+  .feature-card code,.record-card code,.usecase-card code,.faq-item code,.limit-card code,.section-head code,.mcp .inline{padding:1px 5px;overflow-wrap:break-word;word-break:normal}
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
 </head>
@@ -450,10 +463,10 @@
 <nav>
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
+    <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
     <a href="/tools">Tools</a>
-    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
-    <a href="/manage">Manage</a>
+    <a class="nav-secondary" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a class="nav-secondary" href="/manage">Manage</a>
     <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>
@@ -768,17 +781,17 @@
     <div class="limits-grid">
       <div class="limit-card">
         <div class="metadata">HUBS / PLAYBOOKS</div>
-        <h3><a href="/mcp" style="text-decoration:none">25 MCP Client Setups →</a></h3>
+        <h3><a href="/mcp" style="text-decoration:none">25 MCP Client Setups&nbsp;→</a></h3>
         <p>Verified Streamable HTTP &amp; stdio configs for Claude Code, Cursor, VS Code, Windsurf, OpenAI Agents SDK, LangChain, CrewAI &amp; more. Also see <a href="/guides">45 Host Playbooks</a> and <a href="/use-cases">30 Agent Workflows</a>.</p>
       </div>
       <div class="limit-card">
         <div class="metadata">REFERENCE / NAMES</div>
-        <h3><a href="/dns" style="text-decoration:none">DNS, SSL &amp; Live Names →</a></h3>
+        <h3><a href="/dns" style="text-decoration:none">DNS, SSL &amp; Live Names&nbsp;→</a></h3>
         <p>Explore <a href="/dns">40 DNS &amp; ACME DNS-01 references</a>, browse <a href="/names">45 live subdomain idea hubs</a>, or read <a href="/compare">honest competitor comparisons</a>.</p>
       </div>
       <div class="limit-card">
         <div class="metadata">FREE BROWSER TOOLS</div>
-        <h3><a href="/tools" style="text-decoration:none">3 Free Interactive Tools →</a></h3>
+        <h3><a href="/tools" style="text-decoration:none">3 Free Tools&nbsp;→</a></h3>
         <p><a href="/tools/mcp-config-builder">Universal MCP Config Builder &amp; Handshake Tester</a> · <a href="/tools/dns-ssl-checker">Live DNS &amp; ACME DNS-01 Checker</a> · <a href="/tools/domain-cost-calculator">Domain TCO Calculator</a>.</p>
       </div>
     </div>

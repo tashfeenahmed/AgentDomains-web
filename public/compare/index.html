@@ -138,7 +138,7 @@
   table{border-collapse:collapse;width:100%;min-width:1040px;font-size:1rem;line-height:1.5;
     font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif}
   th,td{text-align:left;padding:14px 16px;border-bottom:1px solid rgba(10,10,10,.22);
-    border-right:1px solid rgba(10,10,10,.22);vertical-align:top;line-height:1.5}
+    border-right:1px solid rgba(10,10,10,.22);vertical-align:top;line-height:1.75}
   tr:last-child td{border-bottom:0}
   th:last-child,td:last-child{border-right:0}
   thead th{background:var(--ink);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
@@ -154,8 +154,8 @@
   .who b{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.05rem;display:block;letter-spacing:-.02em}
   .who .host{font-family:'Space Mono',monospace;font-size:.85rem;opacity:.75;display:block;margin-top:3px;word-break:break-all}
 
-  code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);
-    border-radius:5px;padding:0 4px;word-break:break-word}
+  code{font-family:'Space Mono',monospace;font-size:.84rem;background:var(--mint);border:1.5px solid var(--ink);
+    border-radius:5px;padding:1px 5px;line-height:1.35;overflow-wrap:break-word;word-break:normal}
   .price{font-family:'Space Mono',monospace;font-weight:700;font-size:1rem}
   .yes{color:var(--energy-d);font-weight:700}
   .no{color:#c0392b;font-weight:700}
@@ -200,10 +200,16 @@
 
   @media(max-width:700px){
     main{padding:1rem 1rem 0}
-    nav{padding:1rem}
     th.who,td.who{min-width:150px}
+    footer{padding:2.2rem 1rem}
   }
-  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
+  @media(max-width:640px){
+    nav{padding:.6rem 1rem;flex-wrap:nowrap;gap:.5rem;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+    .logo{font-size:1.25rem;white-space:nowrap}
+    .nav-links{width:auto;flex-wrap:nowrap;gap:.65rem;justify-content:flex-end;font-size:1rem}
+    .nav-links .nav-secondary{display:none}
+    .nav-cta{padding:.28rem .72rem;font-size:.92rem;white-space:nowrap}
+  }
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
 </head>
@@ -214,10 +220,10 @@
 <nav>
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
+    <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
     <a href="/tools">Tools</a>
-    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
-    <a href="/manage">Manage</a>
+    <a class="nav-secondary" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a class="nav-secondary" href="/manage">Manage</a>
     <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>

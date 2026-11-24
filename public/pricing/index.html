@@ -211,7 +211,7 @@
   li{margin:.3rem 0}
 
   code{font-family:'Space Mono',monospace;font-size:.82rem;background:var(--mint);border:1.5px solid var(--ink);
-    border-radius:5px;padding:0 5px;word-break:break-word}
+    border-radius:5px;padding:1px 5px;overflow-wrap:break-word;word-break:normal}
   .term{margin:1.5rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
     box-shadow:10px 10px 0 var(--energy);padding:1.2rem 1.4rem;font-family:'Space Mono',monospace;
     font-size:.95rem;overflow-x:auto;line-height:1.9;max-width:900px}
@@ -258,7 +258,16 @@
   .up-err{color:#c0392b;font-weight:700;margin-top:.5rem}
   .up-err:empty{display:none}
   .up-fine{font-size:1rem;opacity:.75;margin:.55rem 0 0}
-  @media(max-width:700px){.nav-links{width:100%;justify-content:flex-start}}
+  p,li{line-height:1.55}
+  @media(max-width:640px){
+    nav{padding:.6rem 1rem;flex-wrap:nowrap;gap:.5rem;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+    .logo{font-size:1.25rem;white-space:nowrap}
+    .nav-links{width:auto;flex-wrap:nowrap;gap:.65rem;justify-content:flex-end;font-size:1rem}
+    .nav-links .nav-secondary{display:none}
+    .nav-cta{padding:.28rem .72rem;font-size:.92rem;white-space:nowrap}
+    main{padding:1rem 1rem 0}
+    footer{padding:2.2rem 1rem}
+  }
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
 </head>
@@ -269,10 +278,10 @@
 <nav>
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
+    <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
     <a href="/tools">Tools</a>
-    <a href="/pricing" aria-current="page" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
-    <a href="/manage">Manage</a>
+    <a class="nav-secondary" href="/pricing" aria-current="page" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a class="nav-secondary" href="/manage">Manage</a>
     <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
   </div>
 </nav>

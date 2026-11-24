@@ -11,8 +11,16 @@ export function esc(str) {
     .replace(/'/g, '&#39;');
 }
 
+export function escInline(str) {
+  return esc(str).replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+export function stripTicks(str) {
+  return String(str ?? '').replace(/`([^`]+)`/g, '$1');
+}
+
 export function clampDesc(str, max = 158) {
-  const clean = String(str).replace(/\s+/g, ' ').trim();
+  const clean = stripTicks(str).replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   return clean.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
 }
@@ -36,10 +44,10 @@ export function faqSchema(faqs, pageUrl) {
     '@id': `${pageUrl}#faq`,
     mainEntity: faqs.map((f) => ({
       '@type': 'Question',
-      name: f.q,
+      name: stripTicks(f.q),
       acceptedAnswer: {
         '@type': 'Answer',
-        text: f.a,
+        text: stripTicks(f.a),
       },
     })),
   };
@@ -60,7 +68,7 @@ export function renderFaqs(faqs) {
   return `<section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    ${faqs.map((f) => `<div class="faq-item"><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></div>`).join('\n    ')}
+    ${faqs.map((f) => `<div class="faq-item"><h3>${escInline(f.q)}</h3><p>${escInline(f.a)}</p></div>`).join('\n    ')}
   </div>
 </section>`;
 }
@@ -103,10 +111,10 @@ export function renderPage({
   const jsonLdStr = JSON.stringify(fullGraph, null, 2).replace(/<\/script/gi, '<\\/script');
 
   const navItems = [
-    { href: 'https://docs.agentdomains.co', label: 'Docs', key: 'docs' },
-    { href: '/tools', label: 'Tools', key: 'tools' },
-    { href: '/pricing', label: 'Pricing', key: 'pricing' },
-    { href: '/manage', label: 'Manage', key: 'manage' },
+    { href: 'https://docs.agentdomains.co', label: 'Docs', key: 'docs', secondary: true },
+    { href: '/tools', label: 'Tools', key: 'tools', secondary: false },
+    { href: '/pricing', label: 'Pricing', key: 'pricing', secondary: true },
+    { href: '/manage', label: 'Manage', key: 'manage', secondary: true },
   ];
 
   const bcHtml = breadcrumbs.length
@@ -155,15 +163,17 @@ ${jsonLdStr}
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    ${navItems
-      .map(
-        (n) =>
-          `<a href="${n.href}"${activeNav === n.key ? ' aria-current="page"' : ''}>${n.label}</a>`
-      )
-      .join('\n    ')}
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      ${navItems
+        .map(
+          (n) =>
+            `<a${n.secondary ? ' class="nav-secondary"' : ''} href="${n.href}"${activeNav === n.key ? ' aria-current="page"' : ''}>${n.label}</a>`
+        )
+        .join('\n      ')}
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>

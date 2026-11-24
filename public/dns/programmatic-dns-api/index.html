@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Programmatic REST DNS APIs for Agents: Developer DNS &amp; SSL Reference — AgentDomains</title>
-<meta name="description" content="Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown. Includes DNS anatomy diagram,…">
+<meta name="description" content="Design patterns for idempotent agent DNS automation: atomic claim+record, 409 owned:true handling, and clean teardown. Includes DNS anatomy diagram, syntax…">
 <link rel="canonical" href="https://agentdomains.co/dns/programmatic-dns-api">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Programmatic REST DNS APIs for Agents: Developer DNS &amp; SSL Reference — AgentDomains">
-<meta property="og:description" content="Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown. Includes DNS anatomy diagram,…">
+<meta property="og:description" content="Design patterns for idempotent agent DNS automation: atomic claim+record, 409 owned:true handling, and clean teardown. Includes DNS anatomy diagram, syntax…">
 <meta property="og:url" content="https://agentdomains.co/dns/programmatic-dns-api">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Programmatic REST DNS APIs for Agents: Developer DNS &amp; SSL Reference — AgentDomains">
-<meta name="twitter:description" content="Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown. Includes DNS anatomy diagram,…">
+<meta name="twitter:description" content="Design patterns for idempotent agent DNS automation: atomic claim+record, 409 owned:true handling, and clean teardown. Includes DNS anatomy diagram, syntax…">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -71,7 +71,7 @@
       "@type": "TechArticle",
       "@id": "https://agentdomains.co/dns/programmatic-dns-api#article",
       "headline": "Programmatic REST DNS APIs for Agents Explained",
-      "description": "Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.",
+      "description": "Design patterns for idempotent agent DNS automation: atomic claim+record, 409 owned:true handling, and clean teardown.",
       "url": "https://agentdomains.co/dns/programmatic-dns-api",
       "author": {
         "@id": "https://agentdomains.co/#organization"
@@ -84,7 +84,7 @@
       "@type": "DefinedTerm",
       "@id": "https://agentdomains.co/dns/programmatic-dns-api#term",
       "name": "Programmatic DNS API",
-      "description": "Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.",
+      "description": "Design patterns for idempotent agent DNS automation: atomic claim+record, 409 owned:true handling, and clean teardown.",
       "inDefinedTermSet": "https://agentdomains.co/dns"
     },
     {
@@ -96,7 +96,7 @@
           "name": "What is Programmatic DNS API?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown."
+            "text": "Design patterns for idempotent agent DNS automation: atomic claim+record, 409 owned:true handling, and clean teardown."
           }
         },
         {
@@ -123,13 +123,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -137,7 +139,7 @@
   
       <span class="eyebrow">Automation · DNS &amp; TLS Reference</span>
       <h1>Programmatic REST DNS APIs for Agents <span class="g">Explained</span></h1>
-      <p class="lede">Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.</p>
+      <p class="lede">Design patterns for idempotent agent DNS automation: atomic claim+record, 409 <code>owned:true</code> handling, and clean teardown.</p>
       <div class="spec-strip" role="region" aria-label="Key specifications">
   <div class="spec-tile green">
     <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29a1 1 0 0 0 1.42 0l8.58-8.58a1 1 0 0 0 0-1.42L12 2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg></div>
@@ -171,38 +173,38 @@
 
       <div class="diagram-box">
   <svg viewBox="0 0 880 198" width="880" height="198" role="img" aria-label="DNS record anatomy diagram for Programmatic REST DNS APIs for Agents: HOST myapp.makes.fyi, TYPE A, TTL 300s, TARGET 203.0.113.10">
-    <text x="16" y="28" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">DNS Record Anatomy — Programmatic REST DNS APIs for Agents</text>
+    <text x="16" y="28" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="14.5" fill="#0A0A0A">DNS Record Anatomy — Programmatic REST DNS APIs for Agents</text>
 
     <!-- Field 1: HOST -->
-    <rect x="18" y="48" width="246" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="14" y="44" width="246" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="18" y="48" width="274" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="14" y="44" width="274" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="26" y="54" width="60" height="20" rx="5" fill="#0A0A0A"/>
     <text x="56" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">HOST</text>
     <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">myapp.makes.fyi</text>
     <text x="26" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Sub-label: @</text>
 
     <!-- Field 2: TYPE -->
-    <rect x="278" y="48" width="122" height="82" rx="12" fill="#00CC74"/>
-    <rect x="274" y="44" width="122" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="286" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
-    <text x="315" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
-    <text x="335" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">A</text>
+    <rect x="304" y="48" width="112" height="82" rx="12" fill="#00CC74"/>
+    <rect x="300" y="44" width="112" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="312" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="341" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
+    <text x="356" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">A</text>
 
     <!-- Field 3: TTL -->
-    <rect x="414" y="48" width="114" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="410" y="44" width="114" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="422" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
-    <text x="446" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
-    <text x="467" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
-    <text x="467" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
+    <rect x="430" y="48" width="106" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="426" y="44" width="106" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="438" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="462" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
+    <text x="479" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
+    <text x="479" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
 
     <!-- Field 4: TARGET / CONTENT -->
-    <rect x="542" y="48" width="326" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="538" y="44" width="326" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="550" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
-    <text x="588" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
-    <text x="550" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">203.0.113.10</text>
-    <text x="550" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
+    <rect x="550" y="48" width="318" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="546" y="44" width="318" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="558" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="596" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
+    <text x="558" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">203.0.113.10</text>
+    <text x="558" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
 
     <!-- Callout Footer Bar -->
     <rect x="14" y="146" width="850" height="36" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
@@ -213,12 +215,12 @@
 
       <h2>1. Engineering <span class="g">Breakdown</span></h2>
       <div class="panel accent">
-        <p style="margin:0">Good DNS APIs avoid half-broken state. `POST /v1/subdomains` is atomic: bad DNS input never claims the label. Re-claiming your own label returns `409 {&quot;owned&quot;:true}` so retries stay safe.</p>
+        <p style="margin:0">Good DNS APIs avoid half-broken state. <code>POST /v1/subdomains</code> is atomic: bad DNS input never claims the label. Re-claiming your own label returns <code>409 {&quot;owned&quot;:true}</code> so retries stay safe.</p>
       </div>
       <div class="panel warn">
         <h3>Common Pitfalls</h3>
         <ul>
-          <li>Always handle HTTP 409 `{&quot;owned&quot;:true}` as a success/continue signal in idempotent deployment scripts.</li>
+          <li>Always handle HTTP 409 <code>{&quot;owned&quot;:true}</code> as a success/continue signal in idempotent deployment scripts.</li>
         </ul>
       </div>
 
@@ -259,11 +261,11 @@
       <p>Pick your preferred interface below and copy the working payload.</p>
       <div data-tabs>
         <div class="tabs" role="tablist">
-          <button type="button" class="tab-btn active" data-tab="cli">AgentDomains CLI</button>
-          <button type="button" class="tab-btn" data-tab="curl">REST API (curl)</button>
-          <button type="button" class="tab-btn" data-tab="mcp">MCP JSON-RPC</button>
+          <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="cli">AgentDomains CLI</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="curl">REST API (curl)</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="mcp">MCP JSON-RPC</button>
         </div>
-        <div class="tab-pane active" data-pane="cli">
+        <div class="tab-pane active" role="tabpanel" data-pane="cli">
           <div class="code-box">
   <div class="code-head">
     <span>CLI command</span>
@@ -272,7 +274,7 @@
   <pre><code>agentdomains claim api-bot --email you@example.com --type A --content 203.0.113.10 --json</code></pre>
 </div>
         </div>
-        <div class="tab-pane" data-pane="curl">
+        <div class="tab-pane" role="tabpanel" data-pane="curl">
           <div class="code-box">
   <div class="code-head">
     <span>REST API via curl</span>
@@ -284,7 +286,7 @@
   -d &#39;{&quot;label&quot;:&quot;api-bot&quot;,&quot;email&quot;:&quot;you@example.com&quot;,&quot;type&quot;:&quot;A&quot;,&quot;content&quot;:&quot;203.0.113.10&quot;}&#39;</code></pre>
 </div>
         </div>
-        <div class="tab-pane" data-pane="mcp">
+        <div class="tab-pane" role="tabpanel" data-pane="mcp">
           <div class="code-box">
   <div class="code-head">
     <span>POST https://mcp.agentdomains.co (claim_domain)</span>
@@ -311,13 +313,13 @@
       <section aria-labelledby="faq-heading">
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
-    <div class="faq-item"><h3>What is Programmatic DNS API?</h3><p>Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.</p></div>
+    <div class="faq-item"><h3>What is Programmatic DNS API?</h3><p>Design patterns for idempotent agent DNS automation: atomic claim+record, 409 <code>owned:true</code> handling, and clean teardown.</p></div>
     <div class="faq-item"><h3>How do I automate Programmatic REST DNS APIs for Agents with AgentDomains?</h3><p>Use the Go CLI snippet above, send a REST curl call, or invoke claim_domain on https://mcp.agentdomains.co.</p></div>
   </div>
 </section>
 
       <h2>Related <span class="g">DNS &amp; SSL Guides</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/dns/dynamic-dns-vs-api-dns">
           <span class="kicker">Automation</span>
           <h3>Dynamic DNS (DDNS) vs Programmatic API DNS</h3>

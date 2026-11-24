@@ -1,11 +1,13 @@
 import {
   SITE,
   esc,
+  escInline,
+  stripTicks,
   renderPage,
   breadcrumbSchema,
   codeBox,
 } from '../seo-lib/layout.mjs';
-import { renderSpecStrip, renderFilterPills, trunc } from '../seo-lib/visuals.mjs';
+import { renderSpecStrip, renderFilterPills } from '../seo-lib/visuals.mjs';
 import { USE_CASES } from '../seo-data/use-cases.mjs';
 
 function renderSequenceSvg(u) {
@@ -16,7 +18,9 @@ function renderSequenceSvg(u) {
       : u.mode === 'acme'
         ? '3. add_acme_challenge (TXT)'
         : '3. set_proxy (HTTPS Edge)';
-  const originTxt = trunc(u.mode === 'record' || u.mode === 'acme' ? `IP ${u.origin}` : u.origin, 22);
+  const originTxt = u.mode === 'record' || u.mode === 'acme' ? `IP ${u.origin}` : u.origin;
+  const fqdnSize = fqdn.length > 26 ? 9 : 10;
+  const origSize = originTxt.length > 24 ? 8.8 : originTxt.length > 20 ? 9.5 : 10;
 
   return `<div class="diagram-box">
   <svg viewBox="0 0 880 285" width="880" height="285" role="img" aria-label="3-stage MCP sequence diagram for ${esc(u.name)}: AI Agent to AgentDomains to ${esc(u.origin)}">
@@ -41,13 +45,13 @@ function renderSequenceSvg(u) {
     <rect x="330" y="16" width="228" height="58" rx="12" fill="#00CC74"/>
     <rect x="326" y="12" width="228" height="58" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
     <text x="440" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">2. AgentDomains Edge</text>
-    <text x="440" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">${esc(trunc(fqdn, 28))}</text>
+    <text x="440" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="${fqdnSize}" fill="#0A0A0A">${esc(fqdn)}</text>
 
     <!-- Actor 3 -->
     <rect x="640" y="16" width="208" height="58" rx="12" fill="#0A0A0A"/>
     <rect x="636" y="12" width="208" height="58" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
     <text x="740" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">3. Your Origin</text>
-    <text x="740" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#00A85E">${esc(originTxt)}</text>
+    <text x="740" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="${origSize}" fill="#00A85E">${esc(originTxt)}</text>
 
     <!-- Step 1 -->
     <line x1="146" y1="108" x2="430" y2="108" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
@@ -106,13 +110,13 @@ export function buildUseCasePages() {
     ${renderFilterPills('usecases-grid', USE_CASES.map((u) => u.badge))}
     <div class="grid" id="usecases-grid">
       ${USE_CASES.map(
-        (u, i) => `<a class="card" href="/use-cases/${esc(u.slug)}" data-cat="${esc(u.badge.toLowerCase())}" data-search="${esc((u.name + ' ' + u.slug + ' ' + u.badge + ' ' + u.summary).toLowerCase())}">
+        (u, i) => `<a class="card" href="/use-cases/${esc(u.slug)}" data-cat="${esc(u.badge.toLowerCase())}" data-search="${esc(stripTicks(u.name + ' ' + u.slug + ' ' + u.badge + ' ' + u.summary).toLowerCase())}">
         <div class="card-top">
           <span class="kicker">${esc(u.badge)}</span>
           <span class="card-icon">${String(i + 1).padStart(2, '0')}</span>
         </div>
         <h3>${esc(u.name)}</h3>
-        <p>${esc(u.summary)}</p>
+        <p>${escInline(u.summary)}</p>
         <span class="pill green" style="align-self:flex-start;margin-top:auto">${esc(u.label)}.${esc(u.domain)}</span>
       </a>`
       ).join('\n      ')}
@@ -201,16 +205,16 @@ jobs:
     const bodyHtml = `
       <span class="eyebrow">${esc(u.badge)} · Workflow Blueprint</span>
       <h1>${esc(u.name)} with <span class="g">AgentDomains</span></h1>
-      <p class="lede">${esc(u.summary)}</p>
+      <p class="lede">${escInline(u.summary)}</p>
       ${renderSpecStrip([
-        { icon: 'globe', label: 'Example Host', value: trunc(fqdn, 22), tone: 'green' },
+        { icon: 'globe', label: 'Example Host', value: fqdn, tone: 'green' },
         { icon: 'plug', label: 'MCP Flow', value: '4 Tool Steps' },
         { icon: 'lock', label: 'HTTPS Mode', value: u.mode === 'record' ? 'A Record + TLS' : u.mode === 'acme' ? 'ACME DNS-01' : 'Edge Proxy', tone: 'lime' },
         { icon: 'terminal', label: 'Teardown', value: 'GitHub Action' },
       ])}
 
       <div class="panel accent">
-        <p style="margin:0">${esc(u.whyMatters)}</p>
+        <p style="margin:0">${escInline(u.whyMatters)}</p>
       </div>
 
       <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
@@ -254,7 +258,7 @@ jobs:
       </div>
 
       <h2>3. Clean <span class="g">Teardown (GitHub Action &amp; CLI)</span></h2>
-      <p>${esc(u.teardownNote)} Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
+      <p>${escInline(u.teardownNote)} Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
       ${codeBox('.github/workflows/teardown-domain.yml', teardownGha)}
 
       <div class="btn-row">
@@ -263,13 +267,13 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         ${related
           .map(
             (r) => `<a class="card" href="/use-cases/${esc(r.slug)}">
           <span class="kicker">${esc(r.badge)}</span>
           <h3>${esc(r.name)}</h3>
-          <p>${esc(r.summary)}</p>
+          <p>${escInline(r.summary)}</p>
         </a>`
           )
           .join('\n        ')}
@@ -291,7 +295,7 @@ jobs:
             '@type': 'TechArticle',
             '@id': `${pageUrl}#article`,
             headline: `${u.name} with AgentDomains`,
-            description: u.summary,
+            description: stripTicks(u.summary),
             url: pageUrl,
             author: { '@id': `${SITE}/#organization` },
             publisher: { '@id': `${SITE}/#organization` },

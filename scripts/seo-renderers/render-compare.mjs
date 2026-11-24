@@ -1,25 +1,75 @@
 import {
   SITE,
   esc,
+  escInline,
   renderPage,
   breadcrumbSchema,
   faqSchema,
   codeBox,
   renderFaqs,
 } from '../seo-lib/layout.mjs';
-import { renderSpecStrip, trunc } from '../seo-lib/visuals.mjs';
+import { renderSpecStrip } from '../seo-lib/visuals.mjs';
 import { COMPARE_RIVALS } from '../seo-data/compare.mjs';
+
+const SHORT_COST10 = {
+  duckdns: 'Max 5 names/acct',
+  ngrok: '$96–$240+/yr',
+  'cloudflare-tunnel': 'Free + ~$10/yr TLD',
+  'vercel-app': '$0 Hobby / $240 Pro',
+  'netlify-app': '$0 Free / $228 Pro',
+  'nip-io': '$0 (IP-only)',
+  'sslip-io': '$0 (IP-only)',
+  'tailscale-funnel': '$0 Personal',
+  'porkbun-mcp': '~$110.80/yr',
+  'namecheap-mcp': '~$158.80/yr',
+  'instant-domain-search-mcp': '~$120+/yr',
+  'agentdomain-app': '~$309+/yr',
+  mcpdomain: '~$140+/yr',
+  'github-pages': '$0 (static only)',
+  dyndns: '~$55/yr',
+  'no-ip': '~$29.95/yr',
+  freedns: '$60/yr (5 free)',
+  localtunnel: '$0 (shared relay)',
+  pinggy: '$100+/yr',
+  serveo: '$0 (best-effort)',
+  bore: '$0 (TCP only)',
+  'cloudflare-registrar': '~$104.40/yr',
+  'name-com': '~$159.90/yr',
+  spaceship: '~$99.80/yr',
+  godaddy: '~$219.90/yr',
+};
+
+const SHORT_CATEGORY = {
+  'x402 Crypto Agent Registrar': 'Crypto Registrar',
+  'Enterprise / Retail Registrar': 'Retail Registrar',
+  'At-Cost ICANN Registrar': 'ICANN Registrar',
+  'Zero-Trust Origin Tunnel': 'Origin Tunnel',
+  'Open-Source Local Tunnel': 'Local Tunnel',
+  'PaaS Hosting Subdomain': 'PaaS Subdomain',
+  'Wildcard IP DNS Trick': 'Wildcard IP DNS',
+  'Mesh VPN Public Ingress': 'Mesh VPN Ingress',
+  'ICANN Domain Registrar': 'ICANN Registrar',
+  'Budget ICANN Registrar': 'ICANN Registrar',
+};
+
+function shortCost10(r) {
+  return SHORT_COST10[r.slug] || r.cost10;
+}
+
+function shortCategory(cat) {
+  return SHORT_CATEGORY[cat] || cat;
+}
 
 function capBadge(val) {
   const s = String(val ?? '').trim();
   const low = s.toLowerCase();
   if (low.startsWith('no') || low.startsWith('none') || low.startsWith('blocked') || low.startsWith('not ')) {
-    return `<div class="cap-cell"><span class="cap-badge cap-no" aria-hidden="true">✕</span><span>${esc(s)}</span></div>`;
+    return `<div class="cap-cell"><span class="cap-badge cap-no" aria-hidden="true">✕</span><span>${escInline(s)}</span></div>`;
   }
   if (low.startsWith('yes')) {
-    return `<div class="cap-cell"><span class="cap-badge cap-yes" aria-hidden="true">✓</span><span>${esc(s)}</span></div>`;
+    return `<div class="cap-cell"><span class="cap-badge cap-yes" aria-hidden="true">✓</span><span>${escInline(s)}</span></div>`;
   }
-  return `<div class="cap-cell"><span class="cap-badge cap-mid" aria-hidden="true">~</span><span>${esc(s)}</span></div>`;
+  return `<div class="cap-cell"><span class="cap-badge cap-mid" aria-hidden="true">~</span><span>${escInline(s)}</span></div>`;
 }
 
 function renderCostBarSvg(r) {
@@ -28,7 +78,7 @@ function renderCostBarSvg(r) {
   let rivalLabel = '$0/yr (free tier — see caps)';
   if (r.rivalModel === 'free') {
     rival10 = 0;
-    rivalLabel = trunc(r.cost10, 34);
+    rivalLabel = r.cost10;
   } else {
     rival10 = Math.round((Number(r.rivalFlat || 0) + Number(r.rivalUnit || 0) * 10) * 100) / 100;
     rivalLabel = `$${rival10.toFixed(0)}/yr est. (10 names)`;
@@ -40,6 +90,9 @@ function renderCostBarSvg(r) {
   const rivW = rival10 === 0 ? 18 : Math.max(24, Math.round((rival10 / maxVal) * maxBarW));
   const rivFill = rival10 === 0 ? '#E5E7EB' : '#FEE2E2';
   const rivStroke = rival10 === 0 ? '#0A0A0A' : '#991B1B';
+  const nameSize = r.name.length > 22 ? 11.5 : r.name.length > 17 ? 13 : 15;
+  const domSize = r.domain.length > 20 ? 9 : 10;
+  const lblSize = rivalLabel.length > 46 ? 10.5 : 12;
 
   return `<div class="diagram-box">
   <svg viewBox="0 0 880 185" width="880" height="185" role="img" aria-label="1-year cost bar chart for 10 hostnames: AgentDomains $10/yr versus ${esc(r.name)}">
@@ -55,11 +108,11 @@ function renderCostBarSvg(r) {
     <text x="${214 + adW}" y="82" font-family="Space Mono,monospace" font-weight="700" font-size="13" fill="#0A0A0A">$10/yr (10 or 100 names)</text>
 
     <!-- Row 2: Rival -->
-    <text x="20" y="142" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">${esc(trunc(r.name, 19))}</text>
-    <text x="20" y="159" font-family="Space Mono,monospace" font-size="10" fill="#525252">${esc(trunc(r.domain, 22))}</text>
+    <text x="20" y="142" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="${nameSize}" fill="#0A0A0A">${esc(r.name)}</text>
+    <text x="20" y="159" font-family="Space Mono,monospace" font-size="${domSize}" fill="#525252">${esc(r.domain)}</text>
     <rect x="204" y="124" width="${rivW}" height="34" rx="8" fill="#0A0A0A"/>
     <rect x="200" y="120" width="${rivW}" height="34" rx="8" fill="${rivFill}" stroke="${rivStroke}" stroke-width="2.5"/>
-    <text x="${214 + rivW}" y="142" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">${esc(rivalLabel)}</text>
+    <text x="${214 + rivW}" y="142" font-family="Space Mono,monospace" font-weight="700" font-size="${lblSize}" fill="#0A0A0A">${esc(rivalLabel)}</text>
   </svg>
   <p class="diagram-caption">Estimated 1-year fee for 10 hostnames. AgentDomains Pro includes up to 100 managed subdomains for $10/yr total.</p>
 </div>`;
@@ -103,8 +156,8 @@ export function buildComparePages() {
       <p class="lede">Compare AgentDomains and ${esc(r.name)} (<code>${esc(r.domain)}</code>) on DNS control, HTTPS proxy, MCP tools, and 1-year cost.</p>
       ${renderSpecStrip([
         { icon: 'tag', label: 'AgentDomains Pro', value: '$10/yr (100 names)', tone: 'green' },
-        { icon: 'globe', label: r.name + ' (10)', value: trunc(r.cost10, 20) },
-        { icon: 'plug', label: 'Category', value: trunc(r.category, 20), tone: 'lime' },
+        { icon: 'globe', label: r.name + ' (10)', value: shortCost10(r) },
+        { icon: 'plug', label: 'Category', value: shortCategory(r.category), tone: 'lime' },
         { icon: 'card', label: 'Trial Card', value: 'None Needed' },
       ])}
 
@@ -205,7 +258,7 @@ export function buildComparePages() {
             <span class="badge checking">ALTERNATIVE</span>
           </div>
           <ul>
-            ${r.chooseRival.map((item) => `<li>${esc(item)}</li>`).join('\n            ')}
+            ${r.chooseRival.map((item) => `<li>${escInline(item)}</li>`).join('\n            ')}
           </ul>
         </div>
         <div class="decision-card recommended">
@@ -214,7 +267,7 @@ export function buildComparePages() {
             <span class="badge free">AGENT-FIRST</span>
           </div>
           <ul>
-            ${r.chooseUs.map((item) => `<li>${esc(item)}</li>`).join('\n            ')}
+            ${r.chooseUs.map((item) => `<li>${escInline(item)}</li>`).join('\n            ')}
           </ul>
         </div>
       </div>
@@ -232,13 +285,13 @@ export function buildComparePages() {
       ${renderFaqs(faqs)}
 
       <h2>More <span class="g">Comparisons</span></h2>
-      <div class="grid">
+      <div class="grid four">
         ${related
           .map(
             (x) => `<a class="card" href="/compare/${esc(x.slug)}">
           <span class="kicker">${esc(x.category)}</span>
           <h3>AgentDomains vs ${esc(x.name)}</h3>
-          <p>${esc(x.pricingSummary)}</p>
+          <p>${escInline(x.pricingSummary)}</p>
         </a>`
           )
           .join('\n        ')}

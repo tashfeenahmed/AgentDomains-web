@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -366,11 +368,11 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/a2a-agent-endpoints">
           <span class="kicker">Multi-Agent</span>
           <h3>Agent-to-Agent (A2A) Protocol Endpoints</h3>
-          <p>Publish `/.well-known/agent.json` Agent Cards and A2A task endpoints over HTTPS on `*.agentdomains.co`.</p>
+          <p>Publish <code>/.well-known/agent.json</code> Agent Cards and A2A task endpoints over HTTPS on <code>*.agentdomains.co</code>.</p>
         </a>
         <a class="card" href="/use-cases/openapi-plugin-hosts">
           <span class="kicker">AI Tools</span>

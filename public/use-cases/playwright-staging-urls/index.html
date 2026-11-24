@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -168,7 +170,7 @@
 </div>
 
       <div class="panel accent">
-        <p style="margin:0">Service workers, clipboard APIs, WebCrypto, and Secure cookies only behave realistically on HTTPS origins — not plain `http://localhost`.</p>
+        <p style="margin:0">Service workers, clipboard APIs, WebCrypto, and Secure cookies only behave realistically on HTTPS origins — not plain <code>http://localhost</code>.</p>
       </div>
 
       <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
@@ -334,7 +336,7 @@
       </div>
 
       <h2>3. Clean <span class="g">Teardown (GitHub Action &amp; CLI)</span></h2>
-      <p>Always invoke `agentdomains delete` in a CI `if: always()` cleanup step. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
+      <p>Always invoke <code>agentdomains delete</code> in a CI <code>if: always()</code> cleanup step. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
       <div class="code-box">
   <div class="code-head">
     <span>.github/workflows/teardown-domain.yml</span>
@@ -366,7 +368,7 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/ai-agent-deployments">
           <span class="kicker">Agent Infra</span>
           <h3>Autonomous AI Agent Deployments</h3>
@@ -375,7 +377,7 @@ jobs:
         <a class="card" href="/use-cases/vibe-coding-demos">
           <span class="kicker">Vibe Coding</span>
           <h3>Vibe-Coding Live Demos</h3>
-          <p>Turn any Cursor, Windsurf, or Bolt.new build into a short `*.makes.fyi` URL in 15 seconds.</p>
+          <p>Turn any Cursor, Windsurf, or Bolt.new build into a short <code>*.makes.fyi</code> URL in 15 seconds.</p>
         </a>
         <a class="card" href="/use-cases/stripe-webhook-testing">
           <span class="kicker">Webhooks</span>
@@ -385,7 +387,7 @@ jobs:
         <a class="card" href="/use-cases/oauth-callback-urls">
           <span class="kicker">Auth &amp; Identity</span>
           <h3>OAuth 2.0 Callback URLs</h3>
-          <p>Register stable HTTPS redirect URIs (`https://oauth-stage.agentdomains.co/auth/callback`) for Google, GitHub, Discord, and Slack OAuth apps.</p>
+          <p>Register stable HTTPS redirect URIs (<code>https://oauth-stage.agentdomains.co/auth/callback</code>) for Google, GitHub, Discord, and Slack OAuth apps.</p>
         </a>
       </div>
     

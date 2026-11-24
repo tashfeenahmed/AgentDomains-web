@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ephemeral Pull-Request Previews — AgentDomains MCP Workflow Blueprint</title>
-<meta name="description" content="Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge. Includes a 4-step MCP transcript, sequence diagram, and…">
+<meta name="description" content="Spin up pr-142-web.makes.fyi automatically when a GitHub PR opens and delete it cleanly on merge. Includes a 4-step MCP transcript, sequence diagram, and CI…">
 <link rel="canonical" href="https://agentdomains.co/use-cases/ephemeral-pr-previews">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ephemeral Pull-Request Previews — AgentDomains MCP Workflow Blueprint">
-<meta property="og:description" content="Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge. Includes a 4-step MCP transcript, sequence diagram, and…">
+<meta property="og:description" content="Spin up pr-142-web.makes.fyi automatically when a GitHub PR opens and delete it cleanly on merge. Includes a 4-step MCP transcript, sequence diagram, and CI…">
 <meta property="og:url" content="https://agentdomains.co/use-cases/ephemeral-pr-previews">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
@@ -17,7 +17,7 @@
 <meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ephemeral Pull-Request Previews — AgentDomains MCP Workflow Blueprint">
-<meta name="twitter:description" content="Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge. Includes a 4-step MCP transcript, sequence diagram, and…">
+<meta name="twitter:description" content="Spin up pr-142-web.makes.fyi automatically when a GitHub PR opens and delete it cleanly on merge. Includes a 4-step MCP transcript, sequence diagram, and CI…">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
 <script type="application/ld+json">
@@ -71,7 +71,7 @@
       "@type": "TechArticle",
       "@id": "https://agentdomains.co/use-cases/ephemeral-pr-previews#article",
       "headline": "Ephemeral Pull-Request Previews with AgentDomains",
-      "description": "Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge.",
+      "description": "Spin up pr-142-web.makes.fyi automatically when a GitHub PR opens and delete it cleanly on merge.",
       "url": "https://agentdomains.co/use-cases/ephemeral-pr-previews",
       "author": {
         "@id": "https://agentdomains.co/#organization"
@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -135,7 +137,7 @@
   
       <span class="eyebrow">CI / CD · Workflow Blueprint</span>
       <h1>Ephemeral Pull-Request Previews with <span class="g">AgentDomains</span></h1>
-      <p class="lede">Spin up `pr-142-web.makes.fyi` automatically when a GitHub PR opens and delete it cleanly on merge.</p>
+      <p class="lede">Spin up <code>pr-142-web.makes.fyi</code> automatically when a GitHub PR opens and delete it cleanly on merge.</p>
       <div class="spec-strip" role="region" aria-label="Key specifications">
   <div class="spec-tile green">
     <div class="spec-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
@@ -334,7 +336,7 @@
       </div>
 
       <h2>3. Clean <span class="g">Teardown (GitHub Action &amp; CLI)</span></h2>
-      <p>Trigger `agentdomains delete pr-$PR_NUMBER-web` automatically on `pull_request: [closed]`. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
+      <p>Trigger <code>agentdomains delete pr-$PR_NUMBER-web</code> automatically on <code>pull_request: [closed]</code>. Delete the DNS mapping before you destroy your cloud server to block dangling takeovers.</p>
       <div class="code-box">
   <div class="code-head">
     <span>.github/workflows/teardown-domain.yml</span>
@@ -366,11 +368,11 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/mcp-server-hosting">
           <span class="kicker">MCP Ecosystem</span>
           <h3>Remote MCP Server Hosting</h3>
-          <p>Publish your own Streamable HTTP MCP server over trusted HTTPS (`https://my-mcp-srv.agentdomains.co`) so Claude, Cursor, and ChatGPT can connect.</p>
+          <p>Publish your own Streamable HTTP MCP server over trusted HTTPS (<code>https://my-mcp-srv.agentdomains.co</code>) so Claude, Cursor, and ChatGPT can connect.</p>
         </a>
         <a class="card" href="/use-cases/hackathon-projects">
           <span class="kicker">Rapid Shipping</span>
@@ -385,7 +387,7 @@ jobs:
         <a class="card" href="/use-cases/acme-dns01-wildcards">
           <span class="kicker">SSL / TLS</span>
           <h3>ACME DNS-01 &amp; Private TLS Certs</h3>
-          <p>Publish `_acme-challenge` TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
+          <p>Publish <code>_acme-challenge</code> TXT records via MCP or CLI. Get Let’s Encrypt certs behind NAT or closed port 80.</p>
         </a>
       </div>
     

@@ -1,13 +1,15 @@
 import {
   SITE,
   esc,
+  escInline,
+  stripTicks,
   renderPage,
   breadcrumbSchema,
   faqSchema,
   codeBox,
   renderFaqs,
 } from '../seo-lib/layout.mjs';
-import { renderSpecStrip, renderFilterPills, trunc } from '../seo-lib/visuals.mjs';
+import { renderSpecStrip, renderFilterPills } from '../seo-lib/visuals.mjs';
 import { HOST_GUIDES } from '../seo-data/guides.mjs';
 
 function renderRoutingSvg(g) {
@@ -25,6 +27,9 @@ function renderRoutingSvg(g) {
         ? 'Path Preserved · Auto TLS'
         : 'Automatic Cloudflare Edge TLS';
   const rightTag = g.mode === 'record' ? 'ORIGIN IP' : 'ORIGIN HOST';
+  const nameSize = g.name.length > 30 ? 11 : g.name.length > 24 ? 12.5 : g.name.length > 18 ? 14 : 16;
+  const origSize = g.defaultOrigin.length > 34 ? 8.5 : g.defaultOrigin.length > 26 ? 9.5 : 11;
+  const fqdnSize = fqdn.length > 26 ? 10 : 11;
 
   return `<div class="diagram-box">
   <svg viewBox="0 0 880 195" width="880" height="195" role="img" aria-label="Origin-to-edge HTTPS routing diagram for ${esc(g.name)}">
@@ -34,41 +39,41 @@ function renderRoutingSvg(g) {
       </marker>
     </defs>
     <!-- Node 1: Origin -->
-    <rect x="16" y="34" width="222" height="122" rx="14" fill="#0A0A0A"/>
-    <rect x="10" y="28" width="222" height="122" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="16" y="34" width="244" height="122" rx="14" fill="#0A0A0A"/>
+    <rect x="10" y="28" width="244" height="122" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
     <rect x="24" y="42" width="96" height="22" rx="6" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
     <text x="72" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${rightTag}</text>
-    <text x="121" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(trunc(g.name, 22))}</text>
-    <text x="121" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">${esc(trunc(g.defaultOrigin, 26))}</text>
-    <text x="121" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Your server or PaaS</text>
+    <text x="132" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="${nameSize}" fill="#0A0A0A">${esc(g.name)}</text>
+    <text x="132" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="${origSize}" fill="#00A85E">${esc(g.defaultOrigin)}</text>
+    <text x="132" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Your server or PaaS</text>
 
     <!-- Arrow 1 -->
-    <line x1="236" y1="89" x2="314" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
-    <rect x="242" y="58" width="66" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
-    <text x="275" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${g.mode === 'record' ? 'DNS A' : g.mode === 'forward' ? '302/301' : 'PROXY'}</text>
+    <line x1="258" y1="89" x2="322" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
+    <rect x="260" y="58" width="60" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="290" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${g.mode === 'record' ? 'DNS A' : g.mode === 'forward' ? '302/301' : 'PROXY'}</text>
 
     <!-- Node 2: AgentDomains Edge -->
-    <rect x="328" y="24" width="250" height="136" rx="14" fill="#00CC74"/>
-    <rect x="322" y="18" width="250" height="136" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
-    <rect x="338" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
-    <text x="395" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
-    <text x="447" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(midTitle)}</text>
-    <text x="447" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">${esc(trunc(fqdn, 28))}</text>
-    <text x="447" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">${esc(midSub)}</text>
+    <rect x="336" y="24" width="242" height="136" rx="14" fill="#00CC74"/>
+    <rect x="330" y="18" width="242" height="136" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="346" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
+    <text x="403" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
+    <text x="451" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(midTitle)}</text>
+    <text x="451" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="${fqdnSize}" fill="#0A0A0A">${esc(fqdn)}</text>
+    <text x="451" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">${esc(midSub)}</text>
 
     <!-- Arrow 2 -->
-    <line x1="576" y1="89" x2="650" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
-    <rect x="580" y="58" width="66" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
-    <text x="613" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TLS 1.3</text>
+    <line x1="576" y1="89" x2="646" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
+    <rect x="578" y="58" width="66" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
+    <text x="611" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TLS 1.3</text>
 
     <!-- Node 3: Visitors / Webhooks -->
-    <rect x="664" y="34" width="206" height="122" rx="14" fill="#0A0A0A"/>
-    <rect x="658" y="28" width="206" height="122" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
-    <rect x="672" y="42" width="96" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
-    <text x="720" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">AUTO HTTPS</text>
-    <text x="761" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Users &amp; Agents</text>
-    <text x="761" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Port 443 · Valid Cert</text>
-    <text x="761" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Zero bandwidth caps</text>
+    <rect x="660" y="34" width="210" height="122" rx="14" fill="#0A0A0A"/>
+    <rect x="654" y="28" width="210" height="122" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="668" y="42" width="96" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
+    <text x="716" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">AUTO HTTPS</text>
+    <text x="759" y="92" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Users &amp; Agents</text>
+    <text x="759" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Port 443 · Valid Cert</text>
+    <text x="759" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Zero bandwidth caps</text>
   </svg>
   <p class="diagram-caption">Origin-to-edge flow for ${esc(g.name)}: connect ${esc(g.defaultOrigin)} to ${esc(fqdn)} with automatic HTTPS.</p>
 </div>`;
@@ -146,7 +151,7 @@ export function buildGuidePages() {
           <span class="badge ${g.mode === 'proxy' ? 'free' : 'checking'}">${g.mode === 'record' ? 'A + TLS' : g.mode === 'forward' ? '302 FWD' : 'PROXY'}</span>
         </div>
         <h3>${esc(g.name)}</h3>
-        <p>${esc(g.recommendation)}</p>
+        <p>${escInline(g.recommendation)}</p>
       </a>`
       ).join('\n      ')}
     </div>
@@ -232,7 +237,7 @@ export function buildGuidePages() {
     const bodyHtml = `
       <span class="eyebrow">${esc(g.group)} · Integration Playbook</span>
       <h1>Custom HTTPS Domain for <span class="g">${esc(g.name)}</span></h1>
-      <p class="lede">${esc(g.recommendation)}</p>
+      <p class="lede">${escInline(g.recommendation)}</p>
       ${renderSpecStrip([
         { icon: 'bolt', label: 'Best Mode', value: modeLabel, tone: 'green' },
         { icon: 'terminal', label: 'Setup', value: '3 Commands' },
@@ -247,7 +252,7 @@ export function buildGuidePages() {
         <div class="decision-card${isProxyMode ? ' recommended' : ''}">
           <div class="decision-card-head">
             <h3>${g.mode === 'forward' ? 'Edge HTTPS Forward / Proxy' : 'Edge HTTPS Reverse Proxy'}</h3>
-            <span class="badge ${isProxyMode ? 'free' : 'checking'}">${isProxyMode ? 'PICK FOR ' + esc(g.name.toUpperCase()).slice(0, 14) : 'FOR PAAS HOSTS'}</span>
+            <span class="badge ${isProxyMode ? 'free' : 'checking'}">${isProxyMode ? 'RECOMMENDED' : 'FOR PAAS HOSTS'}</span>
           </div>
           <ul>
             <li>Point at any public hostname without <code>https://</code>.</li>
@@ -258,7 +263,7 @@ export function buildGuidePages() {
         <div class="decision-card${g.mode === 'record' ? ' recommended' : ''}">
           <div class="decision-card-head">
             <h3>A Record + ACME DNS-01</h3>
-            <span class="badge ${g.mode === 'record' ? 'free' : 'checking'}">${g.mode === 'record' ? 'PICK FOR ' + esc(g.name.toUpperCase()).slice(0, 14) : 'FOR BARE VPS'}</span>
+            <span class="badge ${g.mode === 'record' ? 'free' : 'checking'}">${g.mode === 'record' ? 'RECOMMENDED' : 'FOR BARE VPS'}</span>
           </div>
           <ul>
             <li>Point directly at your server IPv4 or IPv6 address.</li>
@@ -314,7 +319,7 @@ export function buildGuidePages() {
       <div class="panel warn">
         <h3>Operational Checklist</h3>
         <ul>
-          ${g.notes.map((n) => `<li>${esc(n)}</li>`).join('\n          ')}
+          ${g.notes.map((n) => `<li>${escInline(n)}</li>`).join('\n          ')}
         </ul>
       </div>
 
@@ -326,13 +331,13 @@ export function buildGuidePages() {
       ${renderFaqs(faqs)}
 
       <h2>Related <span class="g">Host Playbooks</span></h2>
-      <div class="grid">
+      <div class="grid four">
         ${related
           .map(
             (r) => `<a class="card" href="/guides/${esc(r.slug)}">
           <span class="kicker">${esc(r.group)}</span>
           <h3>${esc(r.name)}</h3>
-          <p>${esc(r.recommendation)}</p>
+          <p>${escInline(r.recommendation)}</p>
         </a>`
           )
           .join('\n        ')}
@@ -354,7 +359,7 @@ export function buildGuidePages() {
             '@type': 'TechArticle',
             '@id': `${pageUrl}#article`,
             headline: `Custom HTTPS Domain for ${g.name}`,
-            description: g.recommendation,
+            description: stripTicks(g.recommendation),
             url: pageUrl,
             author: { '@id': `${SITE}/#organization` },
             publisher: { '@id': `${SITE}/#organization` },

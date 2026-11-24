@@ -106,13 +106,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -156,35 +158,35 @@
     <text x="16" y="28" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">DNS Record Anatomy — ACME DNS-01 &amp; Writable Records</text>
 
     <!-- Field 1: HOST -->
-    <rect x="18" y="48" width="246" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="14" y="44" width="246" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="18" y="48" width="274" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="14" y="44" width="274" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="26" y="54" width="60" height="20" rx="5" fill="#0A0A0A"/>
     <text x="56" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">HOST</text>
-    <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">_acme-challenge.myapp.makes…</text>
+    <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">_acme-challenge.myapp.makes.fyi</text>
     <text x="26" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Sub-label: _acme-challenge</text>
 
     <!-- Field 2: TYPE -->
-    <rect x="278" y="48" width="122" height="82" rx="12" fill="#00CC74"/>
-    <rect x="274" y="44" width="122" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="286" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
-    <text x="315" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
-    <text x="335" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">TXT</text>
+    <rect x="304" y="48" width="112" height="82" rx="12" fill="#00CC74"/>
+    <rect x="300" y="44" width="112" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="312" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="341" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
+    <text x="356" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">TXT</text>
 
     <!-- Field 3: TTL -->
-    <rect x="414" y="48" width="114" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="410" y="44" width="114" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="422" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
-    <text x="446" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
-    <text x="467" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
-    <text x="467" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
+    <rect x="430" y="48" width="106" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="426" y="44" width="106" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="438" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="462" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
+    <text x="479" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
+    <text x="479" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
 
     <!-- Field 4: TARGET / CONTENT -->
-    <rect x="542" y="48" width="326" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="538" y="44" width="326" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="550" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
-    <text x="588" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
-    <text x="550" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">gfj9Xq...acme_token_9zK2</text>
-    <text x="550" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
+    <rect x="550" y="48" width="318" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="546" y="44" width="318" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="558" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="596" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
+    <text x="558" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">gfj9Xq...acme_token_9zK2</text>
+    <text x="558" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
 
     <!-- Callout Footer Bar -->
     <rect x="14" y="146" width="850" height="36" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
@@ -213,21 +215,21 @@
   <button type="button" class="filter-pill" data-cat="architecture">Architecture</button>
 </div>
     <div class="grid" id="dns-grid">
-      <a class="card" href="/dns/acme-dns-01-challenge" data-cat="ssl / acme" data-search="acme dns-01 challenge acme-dns-01-challenge ssl / acme prove domain control to let’s encrypt with a txt record at `_acme-challenge.&lt;hostname&gt;`. works behind nat and for wildcards.">
+      <a class="card" href="/dns/acme-dns-01-challenge" data-cat="ssl / acme" data-search="acme dns-01 challenge acme-dns-01-challenge ssl / acme prove domain control to let’s encrypt with a txt record at _acme-challenge.&lt;hostname&gt;. works behind nat and for wildcards.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>ACME DNS-01 Challenge</h3>
-        <p>Prove domain control to Let’s Encrypt with a TXT record at `_acme-challenge.&lt;hostname&gt;`. Works behind NAT and for wildcards.</p>
+        <p>Prove domain control to Let’s Encrypt with a TXT record at <code>_acme-challenge.&lt;hostname&gt;</code>. Works behind NAT and for wildcards.</p>
       </a>
-      <a class="card" href="/dns/http-01-vs-dns-01-ssl" data-cat="ssl / acme" data-search="http-01 vs dns-01 ssl validation http-01-vs-dns-01-ssl ssl / acme compare http-01 (port 80) and dns-01 (`_acme-challenge` txt) for let’s encrypt tls. or skip both with edge proxy.">
+      <a class="card" href="/dns/http-01-vs-dns-01-ssl" data-cat="ssl / acme" data-search="http-01 vs dns-01 ssl validation http-01-vs-dns-01-ssl ssl / acme compare http-01 (port 80) and dns-01 (_acme-challenge txt) for let’s encrypt tls. or skip both with edge proxy.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>HTTP-01 vs DNS-01 SSL Validation</h3>
-        <p>Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.</p>
+        <p>Compare HTTP-01 (port 80) and DNS-01 (<code>_acme-challenge</code> TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.</p>
       </a>
       <a class="card" href="/dns/cname-vs-a-record" data-cat="dns fundamentals" data-search="cname vs a record cname-vs-a-record dns fundamentals use an a record for static ipv4 servers. use a cname or edge proxy for rotating paas hostnames.">
         <div class="card-top">
@@ -245,21 +247,21 @@
         <h3>TXT Record Domain Verification</h3>
         <p>Publish TXT records on your subdomain to verify ownership with Google, Bluesky, GitHub, and SaaS tools.</p>
       </a>
-      <a class="card" href="/dns/ns-subdomain-delegation" data-cat="advanced dns" data-search="ns subdomain delegation ns-subdomain-delegation advanced dns delegate your subdomain tree (`*.myapp.makes.fyi`) to your own nameservers. run custom mx, srv, and dnssec records.">
+      <a class="card" href="/dns/ns-subdomain-delegation" data-cat="advanced dns" data-search="ns subdomain delegation ns-subdomain-delegation advanced dns delegate your subdomain tree (*.myapp.makes.fyi) to your own nameservers. run custom mx, srv, and dnssec records.">
         <div class="card-top">
           <span class="kicker">Advanced DNS</span>
           <span class="badge free">NS</span>
         </div>
         <h3>NS Subdomain Delegation</h3>
-        <p>Delegate your subdomain tree (`*.myapp.makes.fyi`) to your own nameservers. Run custom MX, SRV, and DNSSEC records.</p>
+        <p>Delegate your subdomain tree (<code>*.myapp.makes.fyi</code>) to your own nameservers. Run custom MX, SRV, and DNSSEC records.</p>
       </a>
-      <a class="card" href="/dns/reverse-proxy-vs-url-forwarding" data-cat="edge routing" data-search="reverse proxy vs url forwarding reverse-proxy-vs-url-forwarding edge routing reverse proxy (`set_proxy`) serves your origin under your domain with https. url forwarding (`set_forward`) sends a 301 or 302 redirect.">
+      <a class="card" href="/dns/reverse-proxy-vs-url-forwarding" data-cat="edge routing" data-search="reverse proxy vs url forwarding reverse-proxy-vs-url-forwarding edge routing reverse proxy (set_proxy) serves your origin under your domain with https. url forwarding (set_forward) sends a 301 or 302 redirect.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>Reverse Proxy vs URL Forwarding</h3>
-        <p>Reverse proxy (`set_proxy`) serves your origin under your domain with HTTPS. URL forwarding (`set_forward`) sends a 301 or 302 redirect.</p>
+        <p>Reverse proxy (<code>set_proxy</code>) serves your origin under your domain with HTTPS. URL forwarding (<code>set_forward</code>) sends a 301 or 302 redirect.</p>
       </a>
       <a class="card" href="/dns/301-vs-302-redirects" data-cat="edge routing" data-search="301 vs 302 http redirects 301-vs-302-redirects edge routing 302 is temporary and easy to change (our default). 301 is permanent and browsers cache it hard.">
         <div class="card-top">
@@ -277,21 +279,21 @@
         <h3>TTL and DNS Propagation</h3>
         <p>Learn why new DNS records go live in seconds and how resolver TTL caches cause stale answers.</p>
       </a>
-      <a class="card" href="/dns/wildcard-ssl-subdomains" data-cat="ssl / acme" data-search="wildcard ssl on subdomains wildcard-ssl-subdomains ssl / acme issue a single `*.myapp.makes.fyi` tls certificate covering unlimited deeper sub-labels (`a.myapp.makes.fyi`, `b.myapp.makes.fyi`) via acme dns-01.">
+      <a class="card" href="/dns/wildcard-ssl-subdomains" data-cat="ssl / acme" data-search="wildcard ssl on subdomains wildcard-ssl-subdomains ssl / acme issue a single *.myapp.makes.fyi tls certificate covering unlimited deeper sub-labels (a.myapp.makes.fyi, b.myapp.makes.fyi) via acme dns-01.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>Wildcard SSL on Subdomains</h3>
-        <p>Issue a single `*.myapp.makes.fyi` TLS certificate covering unlimited deeper sub-labels (`a.myapp.makes.fyi`, `b.myapp.makes.fyi`) via ACME DNS-01.</p>
+        <p>Issue a single <code>*.myapp.makes.fyi</code> TLS certificate covering unlimited deeper sub-labels (<code>a.myapp.makes.fyi</code>, <code>b.myapp.makes.fyi</code>) via ACME DNS-01.</p>
       </a>
-      <a class="card" href="/dns/apex-vs-subdomain-dns" data-cat="dns fundamentals" data-search="zone apex vs subdomain dns apex-vs-subdomain-dns dns fundamentals see why `myapp.makes.fyi` accepts standard cname records while root domains need cname flattening.">
+      <a class="card" href="/dns/apex-vs-subdomain-dns" data-cat="dns fundamentals" data-search="zone apex vs subdomain dns apex-vs-subdomain-dns dns fundamentals see why myapp.makes.fyi accepts standard cname records while root domains need cname flattening.">
         <div class="card-top">
           <span class="kicker">DNS Fundamentals</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>Zone Apex vs Subdomain DNS</h3>
-        <p>See why `myapp.makes.fyi` accepts standard CNAME records while root domains need CNAME flattening.</p>
+        <p>See why <code>myapp.makes.fyi</code> accepts standard CNAME records while root domains need CNAME flattening.</p>
       </a>
       <a class="card" href="/dns/aaaa-ipv6-records" data-cat="dns fundamentals" data-search="aaaa (ipv6) dns records aaaa-ipv6-records dns fundamentals point your subdomain at ipv6-only vps servers or run dual-stack routing next to an a record.">
         <div class="card-top">
@@ -309,13 +311,13 @@
         <h3>DNS over HTTPS (DoH)</h3>
         <p>Query live DNS records from browsers, CI jobs, or sandboxes using Cloudflare and Google JSON DoH APIs.</p>
       </a>
-      <a class="card" href="/dns/cloudflare-edge-tls" data-cat="edge routing" data-search="cloudflare edge tls &amp; https cloudflare-edge-tls edge routing see how `set_proxy` handles tls 1.3 at the edge and forwards traffic to your origin hostname.">
+      <a class="card" href="/dns/cloudflare-edge-tls" data-cat="edge routing" data-search="cloudflare edge tls &amp; https cloudflare-edge-tls edge routing see how set_proxy handles tls 1.3 at the edge and forwards traffic to your origin hostname.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>Cloudflare Edge TLS &amp; HTTPS</h3>
-        <p>See how `set_proxy` handles TLS 1.3 at the edge and forwards traffic to your origin hostname.</p>
+        <p>See how <code>set_proxy</code> handles TLS 1.3 at the edge and forwards traffic to your origin hostname.</p>
       </a>
       <a class="card" href="/dns/lets-encrypt-rate-limits" data-cat="ssl / acme" data-search="let’s encrypt rate limits on subdomains lets-encrypt-rate-limits ssl / acme avoid let’s encrypt weekly rate limits. test with staging acme first, or use agentdomains edge proxy.">
         <div class="card-top">
@@ -325,21 +327,21 @@
         <h3>Let’s Encrypt Rate Limits on Subdomains</h3>
         <p>Avoid Let’s Encrypt weekly rate limits. Test with staging ACME first, or use AgentDomains edge proxy.</p>
       </a>
-      <a class="card" href="/dns/caddy-dns-01" data-cat="ssl / acme" data-search="caddy server with dns-01 &amp; subdomains caddy-dns-01 ssl / acme run caddy automatic https on an agentdomains a record with http-01 or dns-01 via `agentdomains txt`.">
+      <a class="card" href="/dns/caddy-dns-01" data-cat="ssl / acme" data-search="caddy server with dns-01 &amp; subdomains caddy-dns-01 ssl / acme run caddy automatic https on an agentdomains a record with http-01 or dns-01 via agentdomains txt.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">A</span>
         </div>
         <h3>Caddy Server with DNS-01 &amp; Subdomains</h3>
-        <p>Run Caddy automatic HTTPS on an AgentDomains A record with HTTP-01 or DNS-01 via `agentdomains txt`.</p>
+        <p>Run Caddy automatic HTTPS on an AgentDomains A record with HTTP-01 or DNS-01 via <code>agentdomains txt</code>.</p>
       </a>
-      <a class="card" href="/dns/certbot-dns-01" data-cat="ssl / acme" data-search="certbot manual &amp; hooked dns-01 certbot-dns-01 ssl / acme automate certbot `--manual-auth-hook` and `--manual-cleanup-hook` with `agentdomains txt` and `agentdomains unrecord` for unattended renewals.">
+      <a class="card" href="/dns/certbot-dns-01" data-cat="ssl / acme" data-search="certbot manual &amp; hooked dns-01 certbot-dns-01 ssl / acme automate certbot --manual-auth-hook and --manual-cleanup-hook with agentdomains txt and agentdomains unrecord for unattended renewals.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>Certbot Manual &amp; Hooked DNS-01</h3>
-        <p>Automate Certbot `--manual-auth-hook` and `--manual-cleanup-hook` with `agentdomains txt` and `agentdomains unrecord` for unattended renewals.</p>
+        <p>Automate Certbot <code>--manual-auth-hook</code> and <code>--manual-cleanup-hook</code> with <code>agentdomains txt</code> and <code>agentdomains unrecord</code> for unattended renewals.</p>
       </a>
       <a class="card" href="/dns/webhook-https-requirements" data-cat="webhooks &amp; apis" data-search="webhook https &amp; tls requirements webhook-https-requirements webhooks &amp; apis see why stripe, github, and slack reject raw ips and 302 redirects, and how edge proxy fixes it.">
         <div class="card-top">
@@ -349,37 +351,37 @@
         <h3>Webhook HTTPS &amp; TLS Requirements</h3>
         <p>See why Stripe, GitHub, and Slack reject raw IPs and 302 redirects, and how edge proxy fixes it.</p>
       </a>
-      <a class="card" href="/dns/cors-reverse-proxy" data-cat="edge routing" data-search="cors behind a reverse proxy cors-reverse-proxy edge routing configure `access-control-allow-origin` and `options` preflight handling cleanly when your api sits behind an edge reverse proxy.">
+      <a class="card" href="/dns/cors-reverse-proxy" data-cat="edge routing" data-search="cors behind a reverse proxy cors-reverse-proxy edge routing configure access-control-allow-origin and options preflight handling cleanly when your api sits behind an edge reverse proxy.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>CORS Behind a Reverse Proxy</h3>
-        <p>Configure `Access-Control-Allow-Origin` and `OPTIONS` preflight handling cleanly when your API sits behind an edge reverse proxy.</p>
+        <p>Configure <code>Access-Control-Allow-Origin</code> and <code>OPTIONS</code> preflight handling cleanly when your API sits behind an edge reverse proxy.</p>
       </a>
-      <a class="card" href="/dns/websockets-reverse-proxy" data-cat="edge routing" data-search="websockets &amp; sse through reverse proxies websockets-reverse-proxy edge routing keep long-lived `wss://` websocket connections and ai token server-sent events (sse) streaming cleanly over https.">
+      <a class="card" href="/dns/websockets-reverse-proxy" data-cat="edge routing" data-search="websockets &amp; sse through reverse proxies websockets-reverse-proxy edge routing keep long-lived wss:// websocket connections and ai token server-sent events (sse) streaming cleanly over https.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">A</span>
         </div>
         <h3>WebSockets &amp; SSE Through Reverse Proxies</h3>
-        <p>Keep long-lived `wss://` WebSocket connections and AI token Server-Sent Events (SSE) streaming cleanly over HTTPS.</p>
+        <p>Keep long-lived <code>wss://</code> WebSocket connections and AI token Server-Sent Events (SSE) streaming cleanly over HTTPS.</p>
       </a>
-      <a class="card" href="/dns/hsts-subdomains" data-cat="ssl / acme" data-search="hsts and subdomain security hsts-subdomains ssl / acme learn how hsts enforces https and why you should skip `includesubdomains` until every sub-label has tls.">
+      <a class="card" href="/dns/hsts-subdomains" data-cat="ssl / acme" data-search="hsts and subdomain security hsts-subdomains ssl / acme learn how hsts enforces https and why you should skip includesubdomains until every sub-label has tls.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">A</span>
         </div>
         <h3>HSTS and Subdomain Security</h3>
-        <p>Learn how HSTS enforces HTTPS and why you should skip `includeSubDomains` until every sub-label has TLS.</p>
+        <p>Learn how HSTS enforces HTTPS and why you should skip <code>includeSubDomains</code> until every sub-label has TLS.</p>
       </a>
-      <a class="card" href="/dns/dns-caching-explained" data-cat="dns fundamentals" data-search="how dns caching works across resolvers dns-caching-explained dns fundamentals trace the 4 dns cache layers to see why `dig` and chrome sometimes show different answers.">
+      <a class="card" href="/dns/dns-caching-explained" data-cat="dns fundamentals" data-search="how dns caching works across resolvers dns-caching-explained dns fundamentals trace the 4 dns cache layers to see why dig and chrome sometimes show different answers.">
         <div class="card-top">
           <span class="kicker">DNS Fundamentals</span>
           <span class="badge free">A</span>
         </div>
         <h3>How DNS Caching Works Across Resolvers</h3>
-        <p>Trace the 4 DNS cache layers to see why `dig` and Chrome sometimes show different answers.</p>
+        <p>Trace the 4 DNS cache layers to see why <code>dig</code> and Chrome sometimes show different answers.</p>
       </a>
       <a class="card" href="/dns/negative-dns-caching" data-cat="dns fundamentals" data-search="negative dns caching (nxdomain) negative-dns-caching dns fundamentals opening a hostname before claiming it caches nxdomain. that can hide your new record for minutes.">
         <div class="card-top">
@@ -397,13 +399,13 @@
         <h3>CAA Records and Certificate Issuance</h3>
         <p>Learn how CAA records control which CAs can issue TLS certs and how ACME checks parent zones.</p>
       </a>
-      <a class="card" href="/dns/spf-txt-limits" data-cat="dns fundamentals" data-search="spf &amp; txt record 10-lookup limits spf-txt-limits dns fundamentals add `v=spf1 -all` to block spoofing on non-mail subdomains, and stay under the 10-lookup spf cap.">
+      <a class="card" href="/dns/spf-txt-limits" data-cat="dns fundamentals" data-search="spf &amp; txt record 10-lookup limits spf-txt-limits dns fundamentals add v=spf1 -all to block spoofing on non-mail subdomains, and stay under the 10-lookup spf cap.">
         <div class="card-top">
           <span class="kicker">DNS Fundamentals</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>SPF &amp; TXT Record 10-Lookup Limits</h3>
-        <p>Add `v=spf1 -all` to block spoofing on non-mail subdomains, and stay under the 10-lookup SPF cap.</p>
+        <p>Add <code>v=spf1 -all</code> to block spoofing on non-mail subdomains, and stay under the 10-lookup SPF cap.</p>
       </a>
       <a class="card" href="/dns/dynamic-dns-vs-api-dns" data-cat="automation" data-search="dynamic dns (ddns) vs programmatic api dns dynamic-dns-vs-api-dns automation legacy ddns only updates one ip. api and mcp dns creates hostnames, records, acme tokens, and proxies.">
         <div class="card-top">
@@ -413,13 +415,13 @@
         <h3>Dynamic DNS (DDNS) vs Programmatic API DNS</h3>
         <p>Legacy DDNS only updates one IP. API and MCP DNS creates hostnames, records, ACME tokens, and proxies.</p>
       </a>
-      <a class="card" href="/dns/programmatic-dns-api" data-cat="automation" data-search="programmatic rest dns apis for agents programmatic-dns-api automation design patterns for idempotent agent dns automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.">
+      <a class="card" href="/dns/programmatic-dns-api" data-cat="automation" data-search="programmatic rest dns apis for agents programmatic-dns-api automation design patterns for idempotent agent dns automation: atomic claim+record, 409 owned:true handling, and clean teardown.">
         <div class="card-top">
           <span class="kicker">Automation</span>
           <span class="badge free">A</span>
         </div>
         <h3>Programmatic REST DNS APIs for Agents</h3>
-        <p>Design patterns for idempotent agent DNS automation: atomic claim+record, 409 `owned:true` handling, and clean teardown.</p>
+        <p>Design patterns for idempotent agent DNS automation: atomic claim+record, 409 <code>owned:true</code> handling, and clean teardown.</p>
       </a>
       <a class="card" href="/dns/cname-flattening" data-cat="advanced dns" data-search="cname flattening explained cname-flattening advanced dns see how edge resolvers flatten cname chains into a/aaaa answers and when plain cnames work fine.">
         <div class="card-top">
@@ -445,37 +447,37 @@
         <h3>TLS SNI (Server Name Indication)</h3>
         <p>Learn how TLS SNI lets one IPv4 server or edge node serve hundreds of HTTPS domains.</p>
       </a>
-      <a class="card" href="/dns/x-forwarded-for-headers" data-cat="edge routing" data-search="x-forwarded-for &amp; proxy headers x-forwarded-for-headers edge routing configure express, fastapi, django, and rails to trust `x-forwarded-proto` and `x-forwarded-for` behind edge tls proxies.">
+      <a class="card" href="/dns/x-forwarded-for-headers" data-cat="edge routing" data-search="x-forwarded-for &amp; proxy headers x-forwarded-for-headers edge routing configure express, fastapi, django, and rails to trust x-forwarded-proto and x-forwarded-for behind edge tls proxies.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>X-Forwarded-For &amp; Proxy Headers</h3>
-        <p>Configure Express, FastAPI, Django, and Rails to trust `X-Forwarded-Proto` and `X-Forwarded-For` behind edge TLS proxies.</p>
+        <p>Configure Express, FastAPI, Django, and Rails to trust <code>X-Forwarded-Proto</code> and <code>X-Forwarded-For</code> behind edge TLS proxies.</p>
       </a>
-      <a class="card" href="/dns/origin-ip-hiding" data-cat="security" data-search="hiding your origin behind an edge proxy origin-ip-hiding security see how `agentdomains proxy` handles visitor traffic at the edge and keeps your backend address private.">
+      <a class="card" href="/dns/origin-ip-hiding" data-cat="security" data-search="hiding your origin behind an edge proxy origin-ip-hiding security see how agentdomains proxy handles visitor traffic at the edge and keeps your backend address private.">
         <div class="card-top">
           <span class="kicker">Security</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>Hiding Your Origin Behind an Edge Proxy</h3>
-        <p>See how `agentdomains proxy` handles visitor traffic at the edge and keeps your backend address private.</p>
+        <p>See how <code>agentdomains proxy</code> handles visitor traffic at the edge and keeps your backend address private.</p>
       </a>
-      <a class="card" href="/dns/custom-port-reverse-proxy" data-cat="edge routing" data-search="mapping port 443 to custom app ports custom-port-reverse-proxy edge routing turn `http://203.0.113.10:8080` or `:3000` into a clean `https://myapp.makes.fyi` url without ugly port numbers in links.">
+      <a class="card" href="/dns/custom-port-reverse-proxy" data-cat="edge routing" data-search="mapping port 443 to custom app ports custom-port-reverse-proxy edge routing turn http://203.0.113.10:8080 or :3000 into a clean https://myapp.makes.fyi url without ugly port numbers in links.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">A</span>
         </div>
         <h3>Mapping Port 443 to Custom App Ports</h3>
-        <p>Turn `http://203.0.113.10:8080` or `:3000` into a clean `https://myapp.makes.fyi` URL without ugly port numbers in links.</p>
+        <p>Turn <code>http://203.0.113.10:8080</code> or <code>:3000</code> into a clean <code>https://myapp.makes.fyi</code> URL without ugly port numbers in links.</p>
       </a>
-      <a class="card" href="/dns/oauth-redirect-uri-https" data-cat="webhooks &amp; apis" data-search="oauth 2.0 redirect uri https rules oauth-redirect-uri-https webhooks &amp; apis see why oauth providers require exact https callback urls and how a fixed `makes.fyi` host prevents errors.">
+      <a class="card" href="/dns/oauth-redirect-uri-https" data-cat="webhooks &amp; apis" data-search="oauth 2.0 redirect uri https rules oauth-redirect-uri-https webhooks &amp; apis see why oauth providers require exact https callback urls and how a fixed makes.fyi host prevents errors.">
         <div class="card-top">
           <span class="kicker">Webhooks &amp; APIs</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>OAuth 2.0 Redirect URI HTTPS Rules</h3>
-        <p>See why OAuth providers require exact HTTPS callback URLs and how a fixed `makes.fyi` host prevents errors.</p>
+        <p>See why OAuth providers require exact HTTPS callback URLs and how a fixed <code>makes.fyi</code> host prevents errors.</p>
       </a>
       <a class="card" href="/dns/mcp-streamable-http-tls" data-cat="protocols &amp; tooling" data-search="mcp streamable http &amp; tls requirements mcp-streamable-http-tls protocols &amp; tooling host your remote mcp server over stateless streamable http with valid port 443 https.">
         <div class="card-top">
@@ -485,21 +487,21 @@
         <h3>MCP Streamable HTTP &amp; TLS Requirements</h3>
         <p>Host your remote MCP server over stateless Streamable HTTP with valid port 443 HTTPS.</p>
       </a>
-      <a class="card" href="/dns/dig-command-cheatsheet" data-cat="protocols &amp; tooling" data-search="dig command cheatsheet for developers dig-command-cheatsheet protocols &amp; tooling essential `dig` commands for debugging a, aaaa, cname, txt, `_acme-challenge`, ns delegation, and ttls in seconds.">
+      <a class="card" href="/dns/dig-command-cheatsheet" data-cat="protocols &amp; tooling" data-search="dig command cheatsheet for developers dig-command-cheatsheet protocols &amp; tooling essential dig commands for debugging a, aaaa, cname, txt, _acme-challenge, ns delegation, and ttls in seconds.">
         <div class="card-top">
           <span class="kicker">Protocols &amp; Tooling</span>
           <span class="badge free">A</span>
         </div>
         <h3>dig Command Cheatsheet for Developers</h3>
-        <p>Essential `dig` commands for debugging A, AAAA, CNAME, TXT, `_acme-challenge`, NS delegation, and TTLs in seconds.</p>
+        <p>Essential <code>dig</code> commands for debugging A, AAAA, CNAME, TXT, <code>_acme-challenge</code>, NS delegation, and TTLs in seconds.</p>
       </a>
-      <a class="card" href="/dns/nslookup-vs-dig" data-cat="protocols &amp; tooling" data-search="nslookup vs dig vs doh nslookup-vs-dig protocols &amp; tooling why `dig` gives cleaner ttl/authority output than `nslookup`, and when browser doh tools beat both.">
+      <a class="card" href="/dns/nslookup-vs-dig" data-cat="protocols &amp; tooling" data-search="nslookup vs dig vs doh nslookup-vs-dig protocols &amp; tooling why dig gives cleaner ttl/authority output than nslookup, and when browser doh tools beat both.">
         <div class="card-top">
           <span class="kicker">Protocols &amp; Tooling</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>nslookup vs dig vs DoH</h3>
-        <p>Why `dig` gives cleaner TTL/authority output than `nslookup`, and when browser DoH tools beat both.</p>
+        <p>Why <code>dig</code> gives cleaner TTL/authority output than <code>nslookup</code>, and when browser DoH tools beat both.</p>
       </a>
       <a class="card" href="/dns/dns-propagation-delays" data-cat="dns fundamentals" data-search="debugging dns propagation delays dns-propagation-delays dns fundamentals follow this 4-step checklist when a new subdomain works on mobile but fails on laptop wi-fi.">
         <div class="card-top">
@@ -509,29 +511,29 @@
         <h3>Debugging DNS Propagation Delays</h3>
         <p>Follow this 4-step checklist when a new subdomain works on mobile but fails on laptop Wi-Fi.</p>
       </a>
-      <a class="card" href="/dns/acme-txt-cleanup" data-cat="ssl / acme" data-search="cleaning up spent acme txt records acme-txt-cleanup ssl / acme use `agentdomains unrecord &lt;label&gt; &lt;record-id&gt;` or `delete_record` to delete individual spent `_acme-challenge` txt tokens without touching your subdomain.">
+      <a class="card" href="/dns/acme-txt-cleanup" data-cat="ssl / acme" data-search="cleaning up spent acme txt records acme-txt-cleanup ssl / acme use agentdomains unrecord &lt;label&gt; &lt;record-id&gt; or delete_record to delete individual spent _acme-challenge txt tokens without touching your subdomain.">
         <div class="card-top">
           <span class="kicker">SSL / ACME</span>
           <span class="badge free">TXT</span>
         </div>
         <h3>Cleaning Up Spent ACME TXT Records</h3>
-        <p>Use `agentdomains unrecord &lt;label&gt; &lt;record-id&gt;` or `delete_record` to delete individual spent `_acme-challenge` TXT tokens without touching your subdomain.</p>
+        <p>Use <code>agentdomains unrecord &lt;label&gt; &lt;record-id&gt;</code> or <code>delete_record</code> to delete individual spent <code>_acme-challenge</code> TXT tokens without touching your subdomain.</p>
       </a>
-      <a class="card" href="/dns/edge-301-preservation" data-cat="edge routing" data-search="path &amp; query preservation on edge redirects edge-301-preservation edge routing control whether `myapp.makes.fyi/pricing?ref=gh` redirects to `https://target.com/pricing?ref=gh` or collapses to the target root.">
+      <a class="card" href="/dns/edge-301-preservation" data-cat="edge routing" data-search="path &amp; query preservation on edge redirects edge-301-preservation edge routing control whether myapp.makes.fyi/pricing?ref=gh redirects to https://target.com/pricing?ref=gh or collapses to the target root.">
         <div class="card-top">
           <span class="kicker">Edge Routing</span>
           <span class="badge free">CNAME</span>
         </div>
         <h3>Path &amp; Query Preservation on Edge Redirects</h3>
-        <p>Control whether `myapp.makes.fyi/pricing?ref=gh` redirects to `https://target.com/pricing?ref=gh` or collapses to the target root.</p>
+        <p>Control whether <code>myapp.makes.fyi/pricing?ref=gh</code> redirects to <code>https://target.com/pricing?ref=gh</code> or collapses to the target root.</p>
       </a>
-      <a class="card" href="/dns/managed-subdomains-vs-tld" data-cat="architecture" data-search="managed subdomains vs registering a tld managed-subdomains-vs-tld architecture learn when a managed subdomain beats buying a `.com`, and when you should buy a real tld.">
+      <a class="card" href="/dns/managed-subdomains-vs-tld" data-cat="architecture" data-search="managed subdomains vs registering a tld managed-subdomains-vs-tld architecture learn when a managed subdomain beats buying a .com, and when you should buy a real tld.">
         <div class="card-top">
           <span class="kicker">Architecture</span>
           <span class="badge free">A</span>
         </div>
         <h3>Managed Subdomains vs Registering a TLD</h3>
-        <p>Learn when a managed subdomain beats buying a `.com`, and when you should buy a real TLD.</p>
+        <p>Learn when a managed subdomain beats buying a <code>.com</code>, and when you should buy a real TLD.</p>
       </a>
     </div>
     <section aria-labelledby="faq-heading">

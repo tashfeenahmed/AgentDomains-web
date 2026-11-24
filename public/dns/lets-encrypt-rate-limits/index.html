@@ -123,13 +123,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -171,38 +173,38 @@
 
       <div class="diagram-box">
   <svg viewBox="0 0 880 198" width="880" height="198" role="img" aria-label="DNS record anatomy diagram for Let’s Encrypt Rate Limits on Subdomains: HOST _acme-challenge.myapp.makes.fyi, TYPE TXT, TTL 300s, TARGET staging-acme-test-token">
-    <text x="16" y="28" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">DNS Record Anatomy — Let’s Encrypt Rate Limits on Subdomains</text>
+    <text x="16" y="28" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="14.5" fill="#0A0A0A">DNS Record Anatomy — Let’s Encrypt Rate Limits on Subdomains</text>
 
     <!-- Field 1: HOST -->
-    <rect x="18" y="48" width="246" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="14" y="44" width="246" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="18" y="48" width="274" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="14" y="44" width="274" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="26" y="54" width="60" height="20" rx="5" fill="#0A0A0A"/>
     <text x="56" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">HOST</text>
-    <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">_acme-challenge.myapp.makes…</text>
+    <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">_acme-challenge.myapp.makes.fyi</text>
     <text x="26" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Sub-label: _acme-challenge</text>
 
     <!-- Field 2: TYPE -->
-    <rect x="278" y="48" width="122" height="82" rx="12" fill="#00CC74"/>
-    <rect x="274" y="44" width="122" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="286" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
-    <text x="315" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
-    <text x="335" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">TXT</text>
+    <rect x="304" y="48" width="112" height="82" rx="12" fill="#00CC74"/>
+    <rect x="300" y="44" width="112" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="312" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
+    <text x="341" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
+    <text x="356" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">TXT</text>
 
     <!-- Field 3: TTL -->
-    <rect x="414" y="48" width="114" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="410" y="44" width="114" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="422" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
-    <text x="446" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
-    <text x="467" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
-    <text x="467" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
+    <rect x="430" y="48" width="106" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="426" y="44" width="106" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="438" y="54" width="48" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="462" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TTL</text>
+    <text x="479" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="20" fill="#00A85E">300s</text>
+    <text x="479" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="9.5" fill="#525252">Auto cache</text>
 
     <!-- Field 4: TARGET / CONTENT -->
-    <rect x="542" y="48" width="326" height="82" rx="12" fill="#0A0A0A"/>
-    <rect x="538" y="44" width="326" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="550" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
-    <text x="588" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
-    <text x="550" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">staging-acme-test-token</text>
-    <text x="550" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
+    <rect x="550" y="48" width="318" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="546" y="44" width="318" height="82" rx="12" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="558" y="54" width="76" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.5"/>
+    <text x="596" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">TARGET</text>
+    <text x="558" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#0A0A0A">staging-acme-test-token</text>
+    <text x="558" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Returned by 1.1.1.1 &amp; 8.8.8.8</text>
 
     <!-- Callout Footer Bar -->
     <rect x="14" y="146" width="850" height="36" rx="8" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2"/>
@@ -213,12 +215,12 @@
 
       <h2>1. Engineering <span class="g">Breakdown</span></h2>
       <div class="panel accent">
-        <p style="margin:0">Let’s Encrypt caps cert issuance per registered domain and allows 5 duplicate certs per week. `agentdomains proxy` uses our wildcard edge cert with zero ACME calls on your server. On an A record, test with Let’s Encrypt Staging first and persist your cert volume.</p>
+        <p style="margin:0">Let’s Encrypt caps cert issuance per registered domain and allows 5 duplicate certs per week. <code>agentdomains proxy</code> uses our wildcard edge cert with zero ACME calls on your server. On an A record, test with Let’s Encrypt Staging first and persist your cert volume.</p>
       </div>
       <div class="panel warn">
         <h3>Common Pitfalls</h3>
         <ul>
-          <li>Destroying Docker volumes containing `/data/caddy` or `/etc/letsencrypt` on every deploy rapidly exhausts duplicate-certificate quotas.</li>
+          <li>Destroying Docker volumes containing <code>/data/caddy</code> or <code>/etc/letsencrypt</code> on every deploy rapidly exhausts duplicate-certificate quotas.</li>
         </ul>
       </div>
 
@@ -259,11 +261,11 @@
       <p>Pick your preferred interface below and copy the working payload.</p>
       <div data-tabs>
         <div class="tabs" role="tablist">
-          <button type="button" class="tab-btn active" data-tab="cli">AgentDomains CLI</button>
-          <button type="button" class="tab-btn" data-tab="curl">REST API (curl)</button>
-          <button type="button" class="tab-btn" data-tab="mcp">MCP JSON-RPC</button>
+          <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="cli">AgentDomains CLI</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="curl">REST API (curl)</button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="mcp">MCP JSON-RPC</button>
         </div>
-        <div class="tab-pane active" data-pane="cli">
+        <div class="tab-pane active" role="tabpanel" data-pane="cli">
           <div class="code-box">
   <div class="code-head">
     <span>CLI command</span>
@@ -272,7 +274,7 @@
   <pre><code>agentdomains proxy myapp myapp.fly.dev</code></pre>
 </div>
         </div>
-        <div class="tab-pane" data-pane="curl">
+        <div class="tab-pane" role="tabpanel" data-pane="curl">
           <div class="code-box">
   <div class="code-head">
     <span>REST API via curl</span>
@@ -284,7 +286,7 @@
   -d &#39;{&quot;origin&quot;:&quot;myapp.fly.dev&quot;}&#39;</code></pre>
 </div>
         </div>
-        <div class="tab-pane" data-pane="mcp">
+        <div class="tab-pane" role="tabpanel" data-pane="mcp">
           <div class="code-box">
   <div class="code-head">
     <span>POST https://mcp.agentdomains.co (set_proxy)</span>
@@ -315,26 +317,26 @@
 </section>
 
       <h2>Related <span class="g">DNS &amp; SSL Guides</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/dns/acme-dns-01-challenge">
           <span class="kicker">SSL / ACME</span>
           <h3>ACME DNS-01 Challenge</h3>
-          <p>Prove domain control to Let’s Encrypt with a TXT record at `_acme-challenge.&lt;hostname&gt;`. Works behind NAT and for wildcards.</p>
+          <p>Prove domain control to Let’s Encrypt with a TXT record at <code>_acme-challenge.&lt;hostname&gt;</code>. Works behind NAT and for wildcards.</p>
         </a>
         <a class="card" href="/dns/http-01-vs-dns-01-ssl">
           <span class="kicker">SSL / ACME</span>
           <h3>HTTP-01 vs DNS-01 SSL Validation</h3>
-          <p>Compare HTTP-01 (port 80) and DNS-01 (`_acme-challenge` TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.</p>
+          <p>Compare HTTP-01 (port 80) and DNS-01 (<code>_acme-challenge</code> TXT) for Let’s Encrypt TLS. Or skip both with edge proxy.</p>
         </a>
         <a class="card" href="/dns/wildcard-ssl-subdomains">
           <span class="kicker">SSL / ACME</span>
           <h3>Wildcard SSL on Subdomains</h3>
-          <p>Issue a single `*.myapp.makes.fyi` TLS certificate covering unlimited deeper sub-labels (`a.myapp.makes.fyi`, `b.myapp.makes.fyi`) via ACME DNS-01.</p>
+          <p>Issue a single <code>*.myapp.makes.fyi</code> TLS certificate covering unlimited deeper sub-labels (<code>a.myapp.makes.fyi</code>, <code>b.myapp.makes.fyi</code>) via ACME DNS-01.</p>
         </a>
         <a class="card" href="/dns/caddy-dns-01">
           <span class="kicker">SSL / ACME</span>
           <h3>Caddy Server with DNS-01 &amp; Subdomains</h3>
-          <p>Run Caddy automatic HTTPS on an AgentDomains A record with HTTP-01 or DNS-01 via `agentdomains txt`.</p>
+          <p>Run Caddy automatic HTTPS on an AgentDomains A record with HTTP-01 or DNS-01 via <code>agentdomains txt</code>.</p>
         </a>
       </div>
     

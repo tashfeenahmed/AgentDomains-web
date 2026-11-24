@@ -121,13 +121,15 @@
 <body>
 <div class="dot-grid"></div>
 <nav class="site-nav">
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a href="/tools">Tools</a>
+      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+    </div>
   </div>
 </nav>
 <main>
@@ -168,7 +170,7 @@
 </div>
 
       <div class="panel accent">
-        <p style="margin:0">Shopify enforces strict HTTPS redirect lists. A fixed `shopify-dev.makes.fyi` URL saves hours during testing.</p>
+        <p style="margin:0">Shopify enforces strict HTTPS redirect lists. A fixed <code>shopify-dev.makes.fyi</code> URL saves hours during testing.</p>
       </div>
 
       <h2>1. 3-Stage <span class="g">Sequence Diagram</span></h2>
@@ -366,7 +368,7 @@ jobs:
       </div>
 
       <h2>More <span class="g">Workflow Blueprints</span></h2>
-      <div class="grid">
+      <div class="grid four">
         <a class="card" href="/use-cases/github-app-webhooks">
           <span class="kicker">DevTools</span>
           <h3>GitHub App Webhook &amp; Setup URLs</h3>
@@ -380,7 +382,7 @@ jobs:
         <a class="card" href="/use-cases/supabase-auth-redirects">
           <span class="kicker">Auth &amp; Identity</span>
           <h3>Supabase Auth Magic-Link &amp; OAuth Redirects</h3>
-          <p>Add `https://supa-auth.makes.fyi/**` to Supabase Redirect URLs for live magic links and PKCE OAuth tests.</p>
+          <p>Add <code>https://supa-auth.makes.fyi/**</code> to Supabase Redirect URLs for live magic links and PKCE OAuth tests.</p>
         </a>
         <a class="card" href="/use-cases/clerk-dev-callbacks">
           <span class="kicker">Auth &amp; Identity</span>

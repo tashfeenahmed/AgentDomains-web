@@ -49,7 +49,11 @@
     btns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.tab;
-        btns.forEach((b) => b.classList.toggle('active', b === btn));
+        btns.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
         panes.forEach((p) => p.classList.toggle('active', p.dataset.pane === id));
       });
     });
