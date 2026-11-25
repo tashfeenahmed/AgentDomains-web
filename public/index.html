@@ -455,6 +455,7 @@
   .feature-card code,.record-card code,.usecase-card code,.faq-item code,.limit-card code,.section-head code,.mcp .inline{padding:1px 5px;overflow-wrap:break-word;word-break:normal}
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+<script defer src="/monitoring.js"></script>
 </head>
 <body>
 
@@ -857,6 +858,7 @@
         </ul>
       </div>
     </div>
+    <p>Our self-hosted analytics count page categories and actions, and record technical errors. Claimed names, DNS records and account details are excluded. These reports honor Do Not Track and Global Privacy Control.</p>
   </footer>
 </main>
 
@@ -923,7 +925,7 @@
   // goes nowhere except api.agentdomains.co.
   const claimedEl = document.getElementById('claimed');
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  const track = (ev, data) => { try { if (window.umami && typeof umami.track === 'function') umami.track(ev, data); } catch (e) {} };
+  const track = (ev, data) => { window.dispatchEvent(new CustomEvent("monitoring:action", { detail: ev })); try { if (window.umami && typeof umami.track === 'function') umami.track(ev, data); } catch (e) {} };
   let pendingKey = null; // a provisional key from a signup whose claim failed: reuse it on retry instead of signing up again
 
   async function api(method, path, key, body){

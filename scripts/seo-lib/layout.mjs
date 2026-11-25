@@ -159,6 +159,7 @@ ${jsonLdStr}
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/seo.css">
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
+<script defer src="/monitoring.js"></script>
 </head>
 <body>
 <div class="dot-grid"></div>
