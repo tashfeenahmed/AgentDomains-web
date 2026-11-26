@@ -1004,9 +1004,17 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
 /* Search filter input on hub pages */
 .hub-search{
   display:flex;
+  align-items:center;
   gap:.65rem;
   flex-wrap:wrap;
   margin:1rem 0 1.4rem;
+}
+.hub-search .pill{
+  white-space:nowrap;
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  padding:.42rem .8rem;
 }
 .hub-search input{
   flex:1;
