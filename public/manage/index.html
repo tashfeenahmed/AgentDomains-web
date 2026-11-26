@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
 <meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build.">
 <meta name="referrer" content="no-referrer">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%2300CC74'/></svg>">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,6 @@
 <style>
   :root{
     --energy:#00CC74;
-    --lime:#C6F24E;
     --ink:#0A0A0A;
     --canvas:#FFFFFF;
     --mint:#EFFCF5;
@@ -130,7 +129,7 @@
   /* one card per name */
   .names{display:grid;gap:1.3rem;margin-top:1rem;max-width:900px}
   .name{border:3px solid var(--ink);border-radius:14px;padding:1rem 1.2rem;background:#fff}
-  .name.idle{border-left:10px solid var(--lime)}
+  .name.idle{border-left:10px solid var(--energy)}
   .name.live{border-left:10px solid var(--energy)}
   .name-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;flex-wrap:wrap}
   .name h3{font-size:1.3rem;font-weight:800;line-height:1.05;overflow-wrap:anywhere;min-width:0}
@@ -138,7 +137,7 @@
   .badge{font-family:'Space Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;font-weight:700;
     border:2px solid var(--ink);border-radius:20px;padding:.15rem .6rem;white-space:nowrap}
   .badge.live{background:var(--energy)}
-  .badge.idle{background:var(--lime)}
+  .badge.idle{background:var(--energy)}
   .visits{margin-top:.6rem}
   .bars{display:flex;align-items:flex-end;gap:2px;height:30px;margin-top:.3rem}
   .bars span{flex:1;max-width:10px;background:var(--energy);border-radius:2px 2px 0 0}

@@ -50,17 +50,17 @@ function renderRoutingSvg(g) {
 
     <!-- Arrow 1 -->
     <line x1="258" y1="89" x2="322" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
-    <rect x="260" y="58" width="60" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <rect x="260" y="58" width="60" height="20" rx="5" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="1.8"/>
     <text x="290" y="72" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${g.mode === 'record' ? 'DNS A' : g.mode === 'forward' ? '302/301' : 'PROXY'}</text>
 
     <!-- Node 2: AgentDomains Edge -->
-    <rect x="336" y="24" width="242" height="136" rx="14" fill="#00CC74"/>
-    <rect x="330" y="18" width="242" height="136" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="336" y="24" width="242" height="136" rx="14" fill="#0A0A0A"/>
+    <rect x="330" y="18" width="242" height="136" rx="14" fill="#00CC74" stroke="#0A0A0A" stroke-width="3"/>
     <rect x="346" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
-    <text x="403" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
+    <text x="403" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#00CC74">AGENTDOMAINS</text>
     <text x="451" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(midTitle)}</text>
     <text x="451" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="${fqdnSize}" fill="#0A0A0A">${esc(fqdn)}</text>
-    <text x="451" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">${esc(midSub)}</text>
+    <text x="451" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">${esc(midSub)}</text>
 
     <!-- Arrow 2 -->
     <line x1="576" y1="89" x2="646" y2="89" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-guide)"/>
@@ -93,7 +93,7 @@ function renderHubRoutingSvg() {
 
     <rect x="464" y="24" width="406" height="136" rx="14" fill="#0A0A0A"/>
     <rect x="458" y="18" width="406" height="136" rx="14" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
-    <rect x="474" y="32" width="146" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2"/>
+    <rect x="474" y="32" width="146" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
     <text x="547" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">PATH B · BARE VPS</text>
     <text x="474" y="84" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="18" fill="#0A0A0A">A Record + ACME DNS-01</text>
     <text x="474" y="108" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Hetzner · DigitalOcean · EC2 · Raspberry Pi</text>

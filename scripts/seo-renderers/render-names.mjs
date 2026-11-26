@@ -30,7 +30,7 @@ function renderClaimFlowSvg(sampleLabel, titleText) {
     <!-- Step 1 -->
     <rect x="16" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
     <rect x="10" y="18" width="246" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="24" y="30" width="64" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <rect x="24" y="30" width="64" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
     <text x="56" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">STEP 01</text>
     <text x="24" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Check Live API</text>
     <text x="24" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">GET /v1/available?label=${esc(lbl)}</text>
@@ -38,10 +38,10 @@ function renderClaimFlowSvg(sampleLabel, titleText) {
     <line x1="260" y1="71" x2="312" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-nm)"/>
 
     <!-- Step 2 -->
-    <rect x="322" y="24" width="246" height="106" rx="14" fill="#00CC74"/>
-    <rect x="316" y="18" width="246" height="106" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="322" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="316" y="18" width="246" height="106" rx="14" fill="#00CC74" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="330" y="30" width="64" height="20" rx="5" fill="#0A0A0A"/>
-    <text x="362" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">STEP 02</text>
+    <text x="362" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#00CC74">STEP 02</text>
     <text x="330" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Claim in 1 Command</text>
     <text x="330" y="100" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">agentdomains claim ${esc(lbl)}</text>
 

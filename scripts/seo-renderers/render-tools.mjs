@@ -19,17 +19,17 @@ function renderToolFlowSvg(title, leftBox, midBox, rightBox, caption) {
 
     <rect x="16" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
     <rect x="10" y="18" width="246" height="106" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
-    <rect x="24" y="30" width="74" height="20" rx="5" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <rect x="24" y="30" width="74" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
     <text x="61" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">${esc(leftBox.tag)}</text>
     <text x="24" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(leftBox.title)}</text>
     <text x="24" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">${esc(leftBox.sub)}</text>
 
     <line x1="260" y1="71" x2="312" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-tl)"/>
 
-    <rect x="322" y="24" width="246" height="106" rx="14" fill="#00CC74"/>
-    <rect x="316" y="18" width="246" height="106" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="322" y="24" width="246" height="106" rx="14" fill="#0A0A0A"/>
+    <rect x="316" y="18" width="246" height="106" rx="14" fill="#00CC74" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="330" y="30" width="84" height="20" rx="5" fill="#0A0A0A"/>
-    <text x="372" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">${esc(midBox.tag)}</text>
+    <text x="372" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#00CC74">${esc(midBox.tag)}</text>
     <text x="330" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">${esc(midBox.title)}</text>
     <text x="330" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#0A0A0A">${esc(midBox.sub)}</text>
 

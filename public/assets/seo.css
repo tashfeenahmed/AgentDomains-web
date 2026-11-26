@@ -1,10 +1,9 @@
 /* AgentDomains Programmatic SEO & Tools Design System
    Matches agentdomains.co visual identity: neo-brutalist borders, dot-grid,
-   vivid energy green (#00CC74), neon lime (#C6F24E), ink (#0A0A0A), mint (#EFFCF5). */
+   vivid brand green (#00CC74), ink (#0A0A0A), mint (#EFFCF5). */
 :root{
   --energy:#00CC74;
   --energy-d:#00A85E;
-  --lime:#C6F24E;
   --ink:#0A0A0A;
   --canvas:#FFFFFF;
   --mint:#EFFCF5;
@@ -194,7 +193,7 @@ main{
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.06em;
-  background:var(--lime);
+  background:var(--energy);
   border:2px solid var(--ink);
   border-radius:6px;
   padding:.18rem .55rem;
@@ -258,7 +257,7 @@ code{
   box-shadow:2px 2px 0 var(--ink);
 }
 .pill.green{background:var(--mint)}
-.pill.lime{background:var(--lime)}
+.pill.lime{background:var(--energy)}
 
 /* Buttons */
 .btn-row{
@@ -303,7 +302,7 @@ code{
 }
 .panel.mint{background:var(--mint);box-shadow:6px 6px 0 var(--energy)}
 .panel.accent{border-left:10px solid var(--energy)}
-.panel.warn{border-left:10px solid var(--lime);background:#FFFEF5}
+.panel.warn{border-left:10px solid var(--energy);background:var(--mint)}
 
 /* Code blocks with copy */
 .code-box{
@@ -349,14 +348,14 @@ code{
   font-family:'Space Mono',monospace;
   font-size:.74rem;
   font-weight:700;
-  background:var(--lime);
+  background:var(--energy);
   color:var(--ink);
   border:2px solid var(--ink);
   border-radius:6px;
   padding:.22rem .62rem;
   cursor:pointer;
 }
-.copy-btn:hover{background:var(--energy)}
+.copy-btn:hover{background:#09dc80}
 
 /* Tabs */
 .tabs{
@@ -613,7 +612,7 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
   font-size:.72rem;
   white-space:nowrap;
 }
-.badge.free{background:var(--lime);color:var(--ink)}
+.badge.free{background:var(--energy);color:var(--ink)}
 .badge.taken{background:#FEE2E2;color:#991B1B}
 .badge.checking{background:#F3F4F6;color:#4B5563}
 .name-card.is-free{border-color:var(--ink);border-left:8px solid var(--energy);background:#FAFFFC}
@@ -637,7 +636,7 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
   gap:.75rem;
 }
 .spec-tile.green{background:var(--mint);box-shadow:4px 4px 0 var(--energy)}
-.spec-tile.lime{background:var(--lime);box-shadow:4px 4px 0 var(--ink)}
+.spec-tile.lime{background:var(--energy);box-shadow:4px 4px 0 var(--ink)}
 .spec-icon{
   width:38px;
   height:38px;
@@ -650,7 +649,8 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
   justify-content:center;
 }
 .spec-tile.green .spec-icon{background:var(--energy);color:var(--ink)}
-.spec-tile.lime .spec-icon{background:var(--ink);color:var(--lime)}
+.spec-tile.lime .spec-icon{background:var(--ink);color:var(--energy)}
+.spec-tile.lime .spec-label{color:var(--ink);opacity:.8}
 .spec-body{display:flex;flex-direction:column;gap:.12rem;min-width:0}
 .spec-label{
   font-family:'Space Mono',monospace;
@@ -695,7 +695,7 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
   font-family:'Space Mono',monospace;
   font-size:.78rem;
   font-weight:700;
-  background:var(--lime);
+  background:var(--energy);
   color:var(--ink);
   border:2px solid var(--ink);
   border-radius:7px;
@@ -825,7 +825,7 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
 }
 .cap-yes{background:var(--energy);color:var(--ink)}
 .cap-no{background:#FEE2E2;color:#991B1B;border-color:#991B1B}
-.cap-mid{background:var(--lime);color:var(--ink)}
+.cap-mid{background:var(--mint);color:var(--ink)}
 .cap-cell{display:flex;align-items:flex-start;gap:.45rem}
 
 /* Request / Response Pills in Use-Case Transcripts */
@@ -847,7 +847,7 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
   padding:.14rem .5rem;
   font-weight:700;
 }
-.io-pill.req{background:var(--lime);color:var(--ink)}
+.io-pill.req{background:var(--energy);color:var(--ink)}
 .io-pill.res{background:var(--mint);color:var(--energy-d)}
 
 /* Live Names Summary Strip */

@@ -39,7 +39,7 @@ function renderMcpFlowSvg(clientName, transport) {
     <!-- Shadow + Node 1: Client -->
     <rect x="16" y="42" width="218" height="114" rx="14" fill="#0A0A0A"/>
     <rect x="10" y="36" width="218" height="114" rx="14" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="3"/>
-    <rect x="24" y="50" width="76" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2"/>
+    <rect x="24" y="50" width="76" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="2"/>
     <text x="62" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="11" fill="#0A0A0A">CLIENT</text>
     <text x="119" y="100" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="${nameSize}" fill="#0A0A0A">${esc(clientName)}</text>
     <text x="119" y="126" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">${esc(tr)}</text>
@@ -50,14 +50,14 @@ function renderMcpFlowSvg(clientName, transport) {
     <text x="274" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">JSON-RPC</text>
 
     <!-- Shadow + Node 2: MCP Server -->
-    <rect x="330" y="28" width="242" height="142" rx="14" fill="#00CC74"/>
-    <rect x="324" y="22" width="242" height="142" rx="14" fill="#C6F24E" stroke="#0A0A0A" stroke-width="3"/>
+    <rect x="330" y="28" width="242" height="142" rx="14" fill="#0A0A0A"/>
+    <rect x="324" y="22" width="242" height="142" rx="14" fill="#00CC74" stroke="#0A0A0A" stroke-width="3"/>
     <rect x="340" y="36" width="96" height="22" rx="6" fill="#0A0A0A"/>
-    <text x="388" y="51" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">20 MCP TOOLS</text>
+    <text x="388" y="51" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#00CC74">20 MCP TOOLS</text>
     <text x="445" y="86" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="17" fill="#0A0A0A">mcp.agentdomains.co</text>
     <text x="445" y="110" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">Streamable HTTP or stdio</text>
     <text x="445" y="132" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">signup · claim · DNS · proxy</text>
-    <text x="445" y="152" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#007A43">Bearer adom_... auth</text>
+    <text x="445" y="152" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">Bearer adom_... auth</text>
 
     <!-- Arrow 2 -->
     <line x1="570" y1="84" x2="648" y2="84" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-g)"/>
