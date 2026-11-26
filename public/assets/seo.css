@@ -91,18 +91,22 @@ h1,h2,h3,h4{
 .nav-links a[aria-current="page"]{
   border-bottom-color:var(--energy);
 }
-.nav-cta{
+.nav-links a.nav-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   background:var(--ink);
   color:#fff;
-  padding:.42rem .95rem;
+  padding:.48rem .95rem;
   border-radius:7px;
   border:2px solid var(--ink);
   font-weight:700;
+  line-height:1;
 }
-.nav-cta:hover{
+.nav-links a.nav-cta:hover{
   background:var(--energy);
   color:var(--ink);
-  border-bottom-color:var(--ink)!important;
+  border-color:var(--ink);
 }
 .nav-more{display:none;position:relative}
 .nav-more summary{
@@ -1018,14 +1022,14 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
 
 /* Fat Footer */
 .site-footer{
+  width:100%;
   margin-top:3.5rem;
   padding:3rem 2rem 2.75rem;
   border-top:4px solid var(--ink);
   background:#fff;
 }
 .footer-inner{
-  max-width:1180px;
-  margin:0 auto;
+  width:100%;
   display:grid;
   grid-template-columns:1.35fr repeat(4,minmax(145px,1fr));
   gap:2rem 1.6rem;
@@ -1099,8 +1103,8 @@ tbody tr:nth-child(even) td{background:#FAFAFA}
   .nav-links .nav-secondary{display:none}
   .nav-more{display:inline-block}
   .nav-more summary{padding:.26rem .48rem;font-size:.74rem}
-  .nav-cta{
-    padding:.28rem .58rem;
+  .nav-links a.nav-cta{
+    padding:.36rem .64rem;
     font-size:.78rem;
     border-radius:6px;
   }
