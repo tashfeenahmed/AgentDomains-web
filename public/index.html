@@ -201,8 +201,9 @@
     position:fixed;inset:0;z-index:-1;pointer-events:none;
   }
 
-  nav{display:flex;justify-content:space-between;padding:1rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem;
-    position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+  nav{padding:0 2rem;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+  .nav-inner{max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;padding:1rem 0;align-items:center;flex-wrap:wrap;gap:1rem}
+  main{max-width:1180px;margin:0 auto;padding:0 2rem}
   .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
   .logo .dot{color:var(--energy)}
   .nav-links{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;align-items:center;justify-content:flex-end;font-size:.92rem;font-weight:600}
@@ -218,7 +219,7 @@
     box-shadow:5px 5px 0 var(--ink);padding:.5rem .75rem;display:flex;flex-direction:column;gap:.4rem;min-width:170px;z-index:60}
   .nav-more-panel a{padding:.25rem .2rem;font-size:.9rem;font-weight:600}
 
-  .hero{width:100%;padding:2rem 2rem 2.5rem;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:center;gap:2.5rem}
+  .hero{width:100%;padding:2rem 0 2.4rem;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:center;gap:2.2rem}
   .hero-title{font-size:clamp(2.3rem,5.2vw,4.3rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem}
   .hero-title .g{color:var(--energy)}
   .hero-subtitle{font-size:1.05rem;line-height:1.6;max-width:660px;padding:.9rem 1.15rem;border:3px solid var(--ink);
@@ -288,9 +289,10 @@
   .claimed .ok{color:var(--energy-d);font-weight:700}
   .warnbox code{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:5px;padding:0 5px;overflow-wrap:anywhere}
   .claimed a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;padding:.82rem 1.65rem;background:var(--energy);color:var(--ink);text-decoration:none;
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.48rem;padding:.82rem 1.55rem;background:var(--energy);color:var(--ink);text-decoration:none;
     font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;line-height:1.1;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
     border-radius:8px;transition:.12s;margin-top:1.25rem}
+  .btn svg{flex-shrink:0}
   .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
   .btn.ghost{background:#fff}
   .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
@@ -304,7 +306,7 @@
   .demo-tab.active{background:var(--ink);color:#fff}
   .demo-badge{font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;background:var(--lime);border:2px solid var(--ink);border-radius:999px;padding:.18rem .58rem}
   .demo-body{padding:1rem}
-  .demo-code{background:var(--ink);color:#ECECEC;border:2.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.76rem;line-height:1.62;white-space:pre-wrap;overflow-wrap:break-word;margin:0}
+  .demo-code{background:var(--ink);color:#ECECEC;border:2.5px solid var(--ink);border-radius:10px;padding:.85rem .95rem;font-family:'Space Mono',monospace;font-size:.72rem;line-height:1.62;white-space:pre-wrap;overflow-wrap:break-word;margin:0}
   .demo-code .p{color:var(--energy);font-weight:700}
   .demo-code .c{color:#9CA3AF}
   .demo-code .k{color:var(--lime)}
@@ -316,14 +318,14 @@
   .demo-copy:hover{background:var(--energy)}
 
   /* terminal band */
-  .term{margin:.5rem 2rem 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
-    box-shadow:10px 10px 0 var(--energy);padding:1.3rem 1.5rem;font-family:'Space Mono',monospace;font-size:1rem;overflow-x:auto;line-height:1.9}
+  .term{margin:.85rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
+    box-shadow:7px 7px 0 var(--energy);padding:1rem 1.25rem;font-family:'Space Mono',monospace;font-size:.84rem;overflow-x:auto;line-height:1.68}
   .term .c{color:#8a8a8a}.term .g{color:var(--energy)}.term .p{color:var(--energy)}
 
   /* MCP block — same ink-border-and-hard-shadow language as the terminal band,
      lime shadow instead of green so it reads as a second beat, not a repeat. */
-  .mcp{margin:2.6rem 2rem 0;background:#fff;border:3px solid var(--ink);border-radius:14px;
-    box-shadow:10px 10px 0 var(--lime);padding:1.4rem 1.6rem}
+  .mcp{margin:2.4rem 0 0;background:#fff;border:3px solid var(--ink);border-radius:14px;
+    box-shadow:8px 8px 0 var(--lime);padding:1.35rem 1.5rem}
   .mcp h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
     font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
   .mcp h2 .g{color:var(--energy)}
@@ -344,17 +346,19 @@
 
   /* shared section-head language: same uppercase Bricolage beat as .mcp h2, so
      the new headings read as part of the page, not as bolted-on SEO furniture. */
-  .section-head{padding:2.6rem 2rem 0;scroll-margin-top:1rem}
+  .section-head{padding:2.5rem 0 0;scroll-margin-top:1rem}
   .section-head h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
     font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
   .section-head h2 .g{color:var(--energy)}
   .section-head .lede{max-width:860px;margin:.5rem 0 0}
-  .quickstart .term{margin:.8rem 0 0}
+  .quickstart .term{margin:.85rem 0 0}
 
-  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:1.4rem 2rem 2rem}
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;padding:1.3rem 0 1.4rem}
   /* homepage image gallery — hand-drawn SVG illustrations in the same
      ink-border + hard-shadow language as the cards. */
-  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;padding:1.5rem 2rem 1rem}
+  .gallery-wrap{padding:2.2rem 0 0}
+  .gallery-wrap h2{font-size:clamp(1.4rem,3.4vw,2rem);text-transform:uppercase;margin:.2rem 0 .6rem}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;padding:1.1rem 0 .8rem}
   .shot{margin:0;border:3px solid var(--ink);background:#fff;padding:1rem;transition:.25s}
   .shot:nth-child(1){border-radius:40px 14px 30px 18px;transform:rotate(-.7deg)}
   .shot:nth-child(2){border-radius:14px 44px 18px 34px;transform:rotate(.6deg);background:var(--mint)}
@@ -386,7 +390,7 @@
     border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .usecase-card:nth-child(2) code{background:#fff}
 
-  .faq{padding:0 2rem 1rem}
+  .faq{padding:0 0 1rem}
   .faq-list{margin-top:1.1rem;display:grid;gap:.75rem}
   .faq-item{border:3px solid var(--ink);border-radius:12px;background:#fff;padding:.95rem 1.25rem}
   .faq-item summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;
@@ -408,7 +412,7 @@
 
   /* limits band — same card language as .features, but one beat of its own so
      the quota/expiry answers are on the homepage, not only in the README. */
-  .limits{padding:1.5rem 2rem 1rem;scroll-margin-top:1rem}
+  .limits{padding:2.2rem 0 .8rem;scroll-margin-top:1rem}
   .limits h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;text-transform:uppercase;
     font-size:clamp(1.4rem,3.4vw,2rem);margin:.2rem 0 .6rem}
   .limits h2 .g{color:var(--energy)}
@@ -459,18 +463,18 @@
     .pick{display:grid;grid-template-columns:repeat(3,1fr)}
     .pick label{font-size:.72rem;padding:.45rem .3rem;text-align:center}}
   @media(max-width:640px){
-    nav{padding:.55rem .75rem;flex-wrap:nowrap;gap:.35rem}
+    nav{padding:0 .75rem}
+    .nav-inner{padding:.55rem 0;flex-wrap:nowrap;gap:.35rem}
+    main{padding:0 1rem}
     .logo{font-size:1.08rem;white-space:nowrap}
     .nav-links{width:auto;flex-wrap:nowrap;gap:.4rem;justify-content:flex-end;font-size:.82rem}
     .nav-links .nav-secondary{display:none}
     .nav-more{display:inline-block}
     .nav-more summary{padding:.26rem .48rem;font-size:.74rem}
     .nav-links a.nav-cta{padding:.36rem .64rem;font-size:.78rem;white-space:nowrap}
-    .hero{padding:1.1rem 1rem 2rem}
+    .hero{padding:1.1rem 0 1.8rem}
     .input-wrapper{padding:.4rem .45rem .4rem .65rem}
     .check-go{padding:.38rem .58rem;font-size:.82rem}
-    .term,.mcp{margin-left:1rem;margin-right:1rem}
-    .section-head,.features,.gallery,.records,.usecases,.faq,.limits{padding-left:1rem;padding-right:1rem}
     footer{padding:2.2rem 1rem 1.8rem}
   }
   .feature-card p,.record-card p,.usecase-card p,.faq-item p,.limit-card p,.mcp p,.section-head .lede{line-height:1.55}
@@ -484,24 +488,26 @@
 <div class="dot-grid"></div>
 
 <nav>
-  <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
-  <div class="nav-links">
-    <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
-    <a class="nav-secondary" href="/tools">Tools</a>
-    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
-    <a class="nav-secondary" href="/manage">Manage</a>
-    <details class="nav-more">
-      <summary aria-label="More navigation">Menu</summary>
-      <div class="nav-more-panel">
-        <a href="https://docs.agentdomains.co">Docs</a>
-        <a href="/tools">Free Tools</a>
-        <a href="/mcp">MCP Guides</a>
-        <a href="/guides">Host Playbooks</a>
-        <a href="/compare">Compare</a>
-        <a href="/manage">Manage Names</a>
-      </div>
-    </details>
-    <a class="nav-cta" href="#domain-input" data-umami-event="signup_click" data-umami-event-location="nav">Claim free</a>
+  <div class="nav-inner">
+    <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
+    <div class="nav-links">
+      <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
+      <a class="nav-secondary" href="/tools">Tools</a>
+      <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+      <a class="nav-secondary" href="/manage">Manage</a>
+      <details class="nav-more">
+        <summary aria-label="More navigation">Menu</summary>
+        <div class="nav-more-panel">
+          <a href="https://docs.agentdomains.co">Docs</a>
+          <a href="/tools">Free Tools</a>
+          <a href="/mcp">MCP Guides</a>
+          <a href="/guides">Host Playbooks</a>
+          <a href="/compare">Compare</a>
+          <a href="/manage">Manage Names</a>
+        </div>
+      </details>
+      <a class="nav-cta" href="#domain-input" data-umami-event="signup_click" data-umami-event-location="nav">Claim free</a>
+    </div>
   </div>
 </nav>
 
@@ -524,7 +530,7 @@
         <div class="btn-row">
           <a href="#quickstart" class="btn" data-umami-event="signup_click" data-umami-event-location="hero">CLI &amp; MCP SETUP →</a>
           <a href="/pricing" class="btn ghost" data-umami-event="pricing_cta" data-umami-event-location="hero">PRICING ($10/YR)</a>
-          <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost">★ GITHUB</a>
+          <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>GITHUB</a>
         </div>
       </div>
     </div>
@@ -627,8 +633,8 @@
   </section>
 
   <section class="gallery-wrap" aria-labelledby="gallery-title">
-    <div class="metadata" style="padding:2rem 2rem 0">// how it works</div>
-    <h2 id="gallery-title" style="font-size:clamp(1.4rem,3.4vw,2rem);text-transform:uppercase;padding:0 2rem">From localhost to live in <span style="color:var(--energy)">three steps</span></h2>
+    <div class="metadata">// how it works</div>
+    <h2 id="gallery-title">From localhost to live in <span style="color:var(--energy)">three steps</span></h2>
     <div class="gallery">
       <figure class="shot">
         <img src="/img/how-it-works.svg" width="1080" height="675" loading="lazy" decoding="async"
