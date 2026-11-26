@@ -10,13 +10,13 @@
 
   <g transform="rotate(-0.7 540 350)">
     <!-- hard shadow -->
-    <rect x="92" y="112" width="880" height="440" rx="22" fill="#C6F24E"/>
+    <rect x="92" y="112" width="880" height="440" rx="22" fill="#00CC74"/>
     <!-- panel -->
     <rect x="80" y="100" width="880" height="440" rx="22" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="6"/>
     <!-- title bar -->
     <path d="M 80 122 a 22 22 0 0 1 22 -22 h 836 a 22 22 0 0 1 22 22 v 44 h -880 z" fill="#0A0A0A"/>
     <circle cx="118" cy="133" r="10" fill="#00CC74"/>
-    <circle cx="152" cy="133" r="10" fill="#C6F24E"/>
+    <circle cx="152" cy="133" r="10" fill="#EFFCF5"/>
     <circle cx="186" cy="133" r="10" fill="#5a5a5a"/>
     <text x="232" y="142" font-size="21" fill="#ECECEC">myshop.makes.fyi — records</text>
 
@@ -56,5 +56,5 @@
 
   <!-- caption -->
   <text x="540" y="618" text-anchor="middle" font-size="27" fill="#0A0A0A" font-family="'Bricolage Grotesque',system-ui,sans-serif" font-weight="800" letter-spacing="-0.5">EVERY RECORD YOUR AGENT NEEDS, OVER API OR MCP</text>
-  <path d="M 240 636 q 300 24 600 0" fill="none" stroke="#C6F24E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 240 636 q 300 24 600 0" fill="none" stroke="#00CC74" stroke-width="6" stroke-linecap="round"/>
 </svg>

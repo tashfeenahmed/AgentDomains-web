@@ -43,8 +43,8 @@ function renderSequenceSvg(u) {
     <text x="140" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#00A85E">MCP Client or CLI</text>
 
     <!-- Actor 2 -->
-    <rect x="330" y="16" width="228" height="58" rx="12" fill="#00CC74"/>
-    <rect x="326" y="12" width="228" height="58" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="330" y="16" width="228" height="58" rx="12" fill="#0A0A0A"/>
+    <rect x="326" y="12" width="228" height="58" rx="12" fill="#00CC74" stroke="#0A0A0A" stroke-width="2.5"/>
     <text x="440" y="38" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="#0A0A0A">2. AgentDomains Edge</text>
     <text x="440" y="57" text-anchor="middle" font-family="Space Mono,monospace" font-size="${fqdnSize}" fill="#0A0A0A">${esc(fqdn)}</text>
 
@@ -66,7 +66,7 @@ function renderSequenceSvg(u) {
 
     <!-- Step 3 -->
     <line x1="146" y1="200" x2="430" y2="200" stroke="#0A0A0A" stroke-width="2.5" marker-end="url(#seq-arr)"/>
-    <rect x="174" y="180" width="232" height="22" rx="6" fill="#C6F24E" stroke="#0A0A0A" stroke-width="1.8"/>
+    <rect x="174" y="180" width="232" height="22" rx="6" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
     <text x="290" y="195" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10.5" fill="#0A0A0A">${esc(step3Name)}</text>
 
     <!-- Step 4: Live Traffic -->

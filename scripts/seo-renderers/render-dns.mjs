@@ -26,13 +26,13 @@ function renderDnsAnatomySvg(host, type, value, topicName) {
     <rect x="18" y="48" width="274" height="82" rx="12" fill="#0A0A0A"/>
     <rect x="14" y="44" width="274" height="82" rx="12" fill="#EFFCF5" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="26" y="54" width="60" height="20" rx="5" fill="#0A0A0A"/>
-    <text x="56" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">HOST</text>
+    <text x="56" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#00CC74">HOST</text>
     <text x="26" y="96" font-family="Space Mono,monospace" font-weight="700" font-size="${hostSize}" fill="#0A0A0A">${esc(fullHost)}</text>
     <text x="26" y="114" font-family="Space Mono,monospace" font-size="10" fill="#525252">Sub-label: ${esc(host)}</text>
 
     <!-- Field 2: TYPE -->
-    <rect x="304" y="48" width="112" height="82" rx="12" fill="#00CC74"/>
-    <rect x="300" y="44" width="112" height="82" rx="12" fill="#C6F24E" stroke="#0A0A0A" stroke-width="2.5"/>
+    <rect x="304" y="48" width="112" height="82" rx="12" fill="#0A0A0A"/>
+    <rect x="300" y="44" width="112" height="82" rx="12" fill="#00CC74" stroke="#0A0A0A" stroke-width="2.5"/>
     <rect x="312" y="54" width="58" height="20" rx="5" fill="#0A0A0A"/>
     <text x="341" y="68" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#FFFFFF">TYPE</text>
     <text x="356" y="102" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="24" fill="#0A0A0A">${esc(type)}</text>
