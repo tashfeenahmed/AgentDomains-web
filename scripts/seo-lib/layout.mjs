@@ -1,6 +1,6 @@
 // Shared HTML layout, meta tags, JSON-LD, navigation, and escaping helpers
 export const SITE = 'https://agentdomains.co';
-export const LASTMOD = '2026-11-24';
+export const LASTMOD = '2026-11-26';
 
 export function esc(str) {
   return String(str ?? '')
@@ -23,6 +23,14 @@ export function clampDesc(str, max = 158) {
   const clean = stripTicks(str).replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   return clean.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
+}
+
+export function fitTitle(preferred, shorter, max = 60) {
+  const p = stripTicks(preferred).replace(/\s+/g, ' ').trim();
+  if (p.length <= max) return p;
+  const s = stripTicks(shorter).replace(/\s+/g, ' ').trim();
+  if (s.length <= max) return s;
+  return s.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
 }
 
 export function breadcrumbSchema(items, pageUrl) {
@@ -83,6 +91,7 @@ export function renderPage({
   bodyHtml = '',
   extraScripts = [],
   ogType = 'article',
+  ctaPrefill = '',
 }) {
   const canonical = path === '/' ? `${SITE}/` : `${SITE}${path}`;
   const desc = clampDesc(description, 158);
@@ -112,10 +121,14 @@ export function renderPage({
 
   const navItems = [
     { href: 'https://docs.agentdomains.co', label: 'Docs', key: 'docs', secondary: true },
-    { href: '/tools', label: 'Tools', key: 'tools', secondary: false },
-    { href: '/pricing', label: 'Pricing', key: 'pricing', secondary: true },
+    { href: '/tools', label: 'Tools', key: 'tools', secondary: true },
+    { href: '/pricing', label: 'Pricing', key: 'pricing', secondary: false },
     { href: '/manage', label: 'Manage', key: 'manage', secondary: true },
   ];
+
+  const ctaHref = ctaPrefill
+    ? `/?q=${encodeURIComponent(ctaPrefill)}&domain=agentdomains.co#domain-input`
+    : '/#domain-input';
 
   const bcHtml = breadcrumbs.length
     ? `<nav class="breadcrumbs" aria-label="Breadcrumb">${breadcrumbs
@@ -143,17 +156,17 @@ export function renderPage({
 <meta property="og:image" content="${SITE}/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 <meta name="twitter:image" content="${SITE}/og.png">
-<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month.">
 <script type="application/ld+json">
 ${jsonLdStr}
 </script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -169,16 +182,38 @@ ${jsonLdStr}
       ${navItems
         .map(
           (n) =>
-            `<a${n.secondary ? ' class="nav-secondary"' : ''} href="${n.href}"${activeNav === n.key ? ' aria-current="page"' : ''}>${n.label}</a>`
+            `<a${n.secondary ? ' class="nav-secondary"' : ''} href="${n.href}"${activeNav === n.key ? ' aria-current="page"' : ''}${n.key === 'pricing' ? ' data-umami-event="pricing_cta" data-umami-event-location="seo-nav"' : ''}>${n.label}</a>`
         )
         .join('\n      ')}
-      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+      <details class="nav-more">
+        <summary aria-label="More navigation">Menu</summary>
+        <div class="nav-more-panel">
+          <a href="https://docs.agentdomains.co">Docs</a>
+          <a href="/tools">Free Tools</a>
+          <a href="/mcp">MCP Guides</a>
+          <a href="/guides">Host Playbooks</a>
+          <a href="/compare">Compare</a>
+          <a href="/manage">Manage Names</a>
+        </div>
+      </details>
+      <a class="nav-cta" href="${ctaHref}" data-umami-event="signup_click" data-umami-event-location="seo-nav">Claim free</a>
     </div>
   </div>
 </nav>
 <main>
   ${bcHtml}
   ${bodyHtml}
+  <section class="cta-band" aria-label="Claim an agent domain">
+    <div class="cta-band-copy">
+      <span class="eyebrow">30 Days Free · No Card Required</span>
+      <h2>Claim your <span class="g">agent domain</span> now</h2>
+      <p>Start with 10 free HTTPS domains under <code>agentdomains.co</code> or <code>makes.fyi</code> for 30 days. Upgrade to Pro for $10/year to keep up to 100 names with visitor stats.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a class="btn" href="${ctaHref}" data-umami-event="seo_cta_claim" data-umami-event-location="${esc(path)}">Claim in Browser →</a>
+      <a class="btn ghost" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="${esc(path)}">See Pricing ($10/yr)</a>
+    </div>
+  </section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">

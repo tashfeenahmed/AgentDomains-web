@@ -125,7 +125,11 @@
     }
   }
 
-  form.addEventListener('submit', (e) => { e.preventDefault(); runCheck(); });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('tool_dns_check'); } catch (ex) {}
+    runCheck();
+  });
   document.querySelectorAll('[data-dc-sample]').forEach((btn) => {
     btn.addEventListener('click', () => {
       hostIn.value = btn.dataset.dcSample;

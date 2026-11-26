@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Bot Webhook HTTPS — AgentDomains MCP Workflow Blueprint</title>
+<title>Telegram Bot Webhook HTTPS Blueprint — AgentDomains</title>
 <meta name="description" content="Call Telegram’s setWebhook API with https://tg-helper.makes.fyi/bot backed by trusted Cloudflare edge TLS on port 443. Includes a 4-step MCP transcript,…">
 <link rel="canonical" href="https://agentdomains.co/use-cases/telegram-bot-https">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Telegram Bot Webhook HTTPS — AgentDomains MCP Workflow Blueprint">
+<meta property="og:title" content="Telegram Bot Webhook HTTPS Blueprint — AgentDomains">
 <meta property="og:description" content="Call Telegram’s setWebhook API with https://tg-helper.makes.fyi/bot backed by trusted Cloudflare edge TLS on port 443. Includes a 4-step MCP transcript,…">
 <meta property="og:url" content="https://agentdomains.co/use-cases/telegram-bot-https">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Telegram Bot Webhook HTTPS — AgentDomains MCP Workflow Blueprint">
+<meta name="twitter:title" content="Telegram Bot Webhook HTTPS Blueprint — AgentDomains">
 <meta name="twitter:description" content="Call Telegram’s setWebhook API with https://tg-helper.makes.fyi/bot backed by trusted Cloudflare edge TLS on port 443. Includes a 4-step MCP transcript,…">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
-<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -111,7 +111,7 @@
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -125,10 +125,21 @@
     <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
     <div class="nav-links">
       <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
-      <a href="/tools">Tools</a>
-      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/tools">Tools</a>
+      <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="seo-nav">Pricing</a>
       <a class="nav-secondary" href="/manage">Manage</a>
-      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+      <details class="nav-more">
+        <summary aria-label="More navigation">Menu</summary>
+        <div class="nav-more-panel">
+          <a href="https://docs.agentdomains.co">Docs</a>
+          <a href="/tools">Free Tools</a>
+          <a href="/mcp">MCP Guides</a>
+          <a href="/guides">Host Playbooks</a>
+          <a href="/compare">Compare</a>
+          <a href="/manage">Manage Names</a>
+        </div>
+      </details>
+      <a class="nav-cta" href="/?q=tg-helper&domain=agentdomains.co#domain-input" data-umami-event="signup_click" data-umami-event-location="seo-nav">Claim free</a>
     </div>
   </div>
 </nav>
@@ -391,6 +402,17 @@ jobs:
         </a>
       </div>
     
+  <section class="cta-band" aria-label="Claim an agent domain">
+    <div class="cta-band-copy">
+      <span class="eyebrow">30 Days Free · No Card Required</span>
+      <h2>Claim your <span class="g">agent domain</span> now</h2>
+      <p>Start with 10 free HTTPS domains under <code>agentdomains.co</code> or <code>makes.fyi</code> for 30 days. Upgrade to Pro for $10/year to keep up to 100 names with visitor stats.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a class="btn" href="/?q=tg-helper&domain=agentdomains.co#domain-input" data-umami-event="seo_cta_claim" data-umami-event-location="/use-cases/telegram-bot-https">Claim in Browser →</a>
+      <a class="btn ghost" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="/use-cases/telegram-bot-https">See Pricing ($10/yr)</a>
+    </div>
+  </section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">

@@ -14,12 +14,12 @@
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains: real domains for the sites your agents build. A terminal showing: agentdomains claim yourname, then yourname.makes.fyi.">
+<meta property="og:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month. Claim yourname.agentdomains.co in one command.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AgentDomains: yourname.agentdomains.co">
 <meta name="twitter:description" content="Real domains for the websites and APIs your AI agents build, in one command. Free for 30 days, then $1/month.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
-<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites your agents build. A terminal showing: agentdomains claim yourname, then yourname.makes.fyi.">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month. Claim yourname.agentdomains.co in one command.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -172,10 +172,10 @@
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Gaegu:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --energy:#00CC74;   /* myenergi-style vivid green */
@@ -189,17 +189,11 @@
   html{scroll-behavior:smooth}
   body{
     margin:0;background:var(--canvas);color:var(--ink);
-    font-family:'Gaegu',cursive;font-size:1.2rem;line-height:1.25;overflow-x:hidden;
-    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="%2300CC74" stroke-width="2.5"/></svg>') 11 11, crosshair;
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden;
   }
   a{color:inherit}
-  h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:.92;letter-spacing:-1px}
+  h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:1.02;letter-spacing:-.025em}
   input{cursor:text}
-
-  /* doodle layer lives INSIDE the domains zone, so scribbles scroll with the
-     page instead of floating over everything. pointer-events:none keeps the UI
-     clickable; explicit width/height keep the backing-store mapping 1:1. */
-  #doodle{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 
   .dot-grid{
     background-image:radial-gradient(rgba(10,10,10,.13) 1.6px, transparent 1.6px);
@@ -207,32 +201,43 @@
     position:fixed;inset:0;z-index:-1;pointer-events:none;
   }
 
-  nav{display:flex;justify-content:space-between;padding:1.3rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem}
-  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+  nav{display:flex;justify-content:space-between;padding:1rem 2rem;align-items:center;flex-wrap:wrap;gap:1rem;
+    position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
+  .logo{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
   .logo .dot{color:var(--energy)}
-  .nav-links{display:flex;flex-wrap:wrap;gap:.9rem 1.5rem;align-items:center;justify-content:flex-end}
-  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
-  .nav-links a:hover{border-bottom:2px solid var(--energy);transform:rotate(-2deg)}
-  .nav-cta{background:var(--ink);color:#fff;padding:.4rem 1rem;border-radius:6px;border:2px solid var(--ink)}
+  .nav-links{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;align-items:center;justify-content:flex-end;font-size:.92rem;font-weight:600}
+  .nav-links a{text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:.15s;white-space:nowrap}
+  .nav-links a:hover{border-bottom:2px solid var(--energy)}
+  .nav-cta{background:var(--ink);color:#fff;padding:.42rem .95rem;border-radius:7px;border:2px solid var(--ink);font-weight:700}
   .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+  .nav-more{display:none;position:relative}
+  .nav-more summary{list-style:none;cursor:pointer;font-family:'Space Mono',monospace;font-size:.8rem;font-weight:700;
+    padding:.32rem .6rem;border:2px solid var(--ink);border-radius:6px;background:#fff;white-space:nowrap}
+  .nav-more summary::-webkit-details-marker{display:none}
+  .nav-more-panel{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border:3px solid var(--ink);border-radius:10px;
+    box-shadow:5px 5px 0 var(--ink);padding:.5rem .75rem;display:flex;flex-direction:column;gap:.4rem;min-width:170px;z-index:60}
+  .nav-more-panel a{padding:.25rem .2rem;font-size:.9rem;font-weight:600}
 
-  .hero{padding:1.5rem 2rem 2.5rem;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:2rem}
-  .hero-title{font-size:clamp(2.1rem,6vw,4.4rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem}
+  .hero{padding:1.8rem 2rem 2.5rem;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:2rem;max-width:1260px;margin:0 auto}
+  .hero-title{font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem}
   .hero-title .g{color:var(--energy)}
-  .hero-subtitle{font-size:1.35rem;max-width:540px;padding:.9rem 1.2rem;border:3px solid var(--ink);
-    border-radius:40% 10% 40% 10% / 10% 40% 10% 40%;background:var(--mint);display:inline-block;transform:rotate(-1.5deg)}
+  .hero-subtitle{font-size:1.08rem;line-height:1.65;max-width:560px;padding:.95rem 1.2rem;border:3px solid var(--ink);
+    border-radius:12px;box-shadow:5px 5px 0 var(--ink);background:var(--mint);display:inline-block;margin:0}
   .hero-subtitle b{color:var(--energy-d)}
 
-  .domain-search{margin-top:1.8rem}
-  .metadata{font-family:'Space Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;opacity:.6}
-  .input-wrapper{display:flex;align-items:center;background:#fff;border:4px solid var(--ink);padding:.6rem .8rem;
-    border-radius:12px;box-shadow:8px 8px 0 var(--energy);max-width:680px;transition:transform .15s}
-  .input-wrapper input{border:none;outline:none;font-family:'Space Mono',monospace;font-size:clamp(1rem,2.2vw,1.45rem);width:100%;min-width:0;flex:1;color:var(--ink);background:transparent}
-  .suffix{font-family:'Space Mono',monospace;font-size:clamp(.85rem,1.7vw,1.1rem);background:var(--ink);color:#fff;
-    padding:.38rem .65rem;border-radius:6px;margin-left:.65rem;white-space:nowrap;flex-shrink:0;border:2px solid var(--ink)}
+  .domain-search{margin-top:1.6rem}
+  .metadata{font-family:'Space Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;color:#525252}
+  .input-wrapper{display:flex;align-items:center;gap:.45rem;background:#fff;border:3px solid var(--ink);padding:.5rem .6rem .5rem .85rem;
+    border-radius:12px;box-shadow:7px 7px 0 var(--energy);max-width:680px;transition:transform .15s}
+  .input-wrapper input{border:none;outline:none;font-family:'Space Mono',monospace;font-size:clamp(.95rem,1.9vw,1.25rem);width:100%;min-width:0;flex:1;color:var(--ink);background:transparent}
+  .suffix{font-family:'Space Mono',monospace;font-size:clamp(.78rem,1.4vw,.95rem);background:var(--ink);color:#fff;cursor:pointer;
+    padding:.42rem .65rem;border-radius:6px;white-space:nowrap;flex-shrink:0;border:2px solid var(--ink)}
   .suffix:hover{background:var(--energy);color:var(--ink)}
-  .search-note{font-size:1.02rem;margin-top:.6rem;opacity:.75}
-  .check{margin-top:.8rem;font-size:1.2rem;min-height:1.6rem;max-width:680px}
+  .check-go{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.9rem;background:var(--energy);color:var(--ink);
+    border:2px solid var(--ink);border-radius:6px;padding:.44rem .8rem;cursor:pointer;white-space:nowrap;flex-shrink:0}
+  .check-go:hover{background:#09dc80}
+  .search-note{font-size:.94rem;margin-top:.55rem;color:#525252}
+  .check{margin-top:.8rem;font-size:1rem;min-height:1.6rem;max-width:680px}
   .check .ok{color:var(--energy-d);font-weight:700}
   .check .no{color:#c0392b;font-weight:700}
   .check .dim{opacity:.55}
@@ -290,16 +295,25 @@
   .btn.ghost{background:#fff}
   .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
 
-  /* right-side scribbled example domains — also the draw zone (white pencil cursor) */
-  .examples{position:relative;align-self:stretch;min-height:48vh;display:flex;flex-direction:column;justify-content:center;gap:1.8rem;padding:1rem;user-select:none;-webkit-user-select:none;
-    cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M21 3 l6 6 -14 14 -6 0 0 -6 z" fill="white" stroke="%230A0A0A" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 17 l6 6 -6 0 z" fill="%230A0A0A"/><path d="M18 6 l6 6" stroke="%230A0A0A" stroke-width="1.6"/></svg>') 7 23, crosshair}
-  .tag{font-family:'Gaegu',cursive;font-weight:700;font-size:clamp(1.4rem,3.2vw,2.2rem);color:var(--ink);
-    display:inline-flex;align-items:baseline;width:fit-content;transition:transform .2s}
-  .tag .dom{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--energy);text-underline-offset:5px}
-  .tag-1{transform:rotate(-3deg);margin-left:1rem}
-  .tag-2{transform:rotate(2deg);align-self:flex-end;margin-right:1rem}
-  .tag-3{transform:rotate(-1.5deg);margin-left:2.5rem}
-  .tag:hover{transform:rotate(0) scale(1.05)}
+  /* Hero live CLI / MCP preview card */
+  .hero-demo{background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:9px 9px 0 var(--energy);overflow:hidden}
+  .demo-head{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.75rem 1rem;background:var(--mint);border-bottom:3px solid var(--ink);flex-wrap:wrap}
+  .demo-tabs{display:inline-flex;border:2px solid var(--ink);border-radius:8px;overflow:hidden;background:#fff}
+  .demo-tab{font-family:'Space Mono',monospace;font-size:.76rem;font-weight:700;padding:.34rem .72rem;border:0;background:transparent;cursor:pointer;color:var(--ink)}
+  .demo-tab + .demo-tab{border-left:2px solid var(--ink)}
+  .demo-tab.active{background:var(--ink);color:#fff}
+  .demo-badge{font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;background:var(--lime);border:2px solid var(--ink);border-radius:999px;padding:.18rem .58rem}
+  .demo-body{padding:1rem}
+  .demo-code{background:var(--ink);color:#ECECEC;border:2.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.76rem;line-height:1.62;white-space:pre-wrap;overflow-wrap:break-word;margin:0}
+  .demo-code .p{color:var(--energy);font-weight:700}
+  .demo-code .c{color:#9CA3AF}
+  .demo-code .k{color:var(--lime)}
+  .demo-result{margin-top:.85rem;padding:.72rem .9rem;background:var(--mint);border:2.5px solid var(--ink);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap}
+  .demo-url{font-family:'Space Mono',monospace;font-size:.82rem;font-weight:700;color:var(--ink);word-break:break-all}
+  .demo-status{font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;background:var(--energy);color:var(--ink);border:2px solid var(--ink);border-radius:6px;padding:.16rem .5rem;white-space:nowrap}
+  .demo-foot{margin-top:.75rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;font-size:.84rem;color:#374151}
+  .demo-copy{font-family:'Space Mono',monospace;font-size:.74rem;font-weight:700;background:var(--lime);color:var(--ink);border:2px solid var(--ink);border-radius:6px;padding:.24rem .62rem;cursor:pointer}
+  .demo-copy:hover{background:var(--energy)}
 
   /* terminal band */
   .term{margin:.5rem 2rem 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:14px;
@@ -428,25 +442,21 @@
   @media(max-width:980px){.footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-brand-col{grid-column:1 / -1}}
   @media(max-width:520px){.footer-inner{grid-template-columns:1fr}}
 
-  /* clear control — drops in from the top-center once something is drawn */
-  .doodle-ctl{position:fixed;top:0;left:50%;z-index:70;transform:translate(-50%,-130%);
-    transition:transform .38s cubic-bezier(.18,.89,.32,1.28)}
-  .doodle-ctl.show{transform:translate(-50%,14px)}
-  .doodle-ctl button{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--energy);border:2px solid var(--ink);
-    border-radius:20px;padding:.3rem .9rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
-  .doodle-ctl button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-
-  @media(max-width:1024px){.hero{grid-template-columns:1fr}.examples{order:2;min-height:260px}}
+  @media(max-width:1024px){.hero{grid-template-columns:1fr}.hero-demo{order:2}}
   @media(max-width:700px){
     .pick{display:grid;grid-template-columns:repeat(3,1fr)}
     .pick label{font-size:.72rem;padding:.45rem .3rem;text-align:center}}
   @media(max-width:640px){
-    nav{padding:.6rem 1rem;flex-wrap:nowrap;gap:.5rem;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:2px solid rgba(10,10,10,.08)}
-    .logo{font-size:1.25rem;white-space:nowrap}
-    .nav-links{width:auto;flex-wrap:nowrap;gap:.65rem;justify-content:flex-end;font-size:1rem}
+    nav{padding:.55rem .75rem;flex-wrap:nowrap;gap:.35rem}
+    .logo{font-size:1.08rem;white-space:nowrap}
+    .nav-links{width:auto;flex-wrap:nowrap;gap:.4rem;justify-content:flex-end;font-size:.82rem}
     .nav-links .nav-secondary{display:none}
-    .nav-cta{padding:.28rem .72rem;font-size:.92rem;white-space:nowrap}
+    .nav-more{display:inline-block}
+    .nav-more summary{padding:.26rem .48rem;font-size:.74rem}
+    .nav-cta{padding:.28rem .58rem;font-size:.78rem;white-space:nowrap}
     .hero{padding:1.1rem 1rem 2rem}
+    .input-wrapper{padding:.4rem .45rem .4rem .65rem}
+    .check-go{padding:.38rem .58rem;font-size:.82rem}
     .term,.mcp{margin-left:1rem;margin-right:1rem}
     .section-head,.features,.gallery,.records,.usecases,.faq,.limits{padding-left:1rem;padding-right:1rem}
     footer{padding:2.2rem 1rem}
@@ -464,10 +474,21 @@
   <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
   <div class="nav-links">
     <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
-    <a href="/tools">Tools</a>
-    <a class="nav-secondary" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
+    <a class="nav-secondary" href="/tools">Tools</a>
+    <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="nav">Pricing</a>
     <a class="nav-secondary" href="/manage">Manage</a>
-    <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="nav">Get started</a>
+    <details class="nav-more">
+      <summary aria-label="More navigation">Menu</summary>
+      <div class="nav-more-panel">
+        <a href="https://docs.agentdomains.co">Docs</a>
+        <a href="/tools">Free Tools</a>
+        <a href="/mcp">MCP Guides</a>
+        <a href="/guides">Host Playbooks</a>
+        <a href="/compare">Compare</a>
+        <a href="/manage">Manage Names</a>
+      </div>
+    </details>
+    <a class="nav-cta" href="#domain-input" data-umami-event="signup_click" data-umami-event-location="nav">Claim free</a>
   </div>
 </nav>
 
@@ -475,29 +496,45 @@
   <section class="hero">
     <div class="hero-text">
       <h1 class="hero-title">Real domains<br><span class="g">for agents.</span></h1>
-      <p class="hero-subtitle">Your AI agent just built a site. Give it a real domain in one command.
-      <b>Free for 30 days</b>, then $1/month. A real hostname under <b>agentdomains.co</b> or <b>makes.fyi</b>, today.</p>
+      <p class="hero-subtitle">Your AI agent built a site or API. Give it a real HTTPS domain in one command.
+      <b>Free for 30 days</b> (10 names, no card), then <b>$10/year</b> or <b>$1/month</b> for 100 names under <b>agentdomains.co</b> or <b>makes.fyi</b>.</p>
 
       <div class="domain-search">
-        <div class="metadata">// type a name to check it</div>
+        <div class="metadata">// check and claim a domain right here (click suffix to switch)</div>
         <div class="input-wrapper">
           <input type="text" placeholder="my-agent" id="domain-input" aria-label="your domain name">
-          <span class="suffix" id="suffix" title="click to switch domain">.agentdomains.co</span>
+          <button type="button" class="suffix" id="suffix" title="Click to switch between .agentdomains.co and .makes.fyi">.agentdomains.co ▾</button>
+          <button type="button" class="check-go" id="check-go">CHECK</button>
         </div>
         <div class="check" id="check" aria-live="polite"></div>
         <div id="claimed" aria-live="polite"></div>
         <div class="btn-row">
-          <a href="https://docs.agentdomains.co" class="btn" data-umami-event="signup_click" data-umami-event-location="hero">GET STARTED →</a>
+          <a href="#quickstart" class="btn" data-umami-event="signup_click" data-umami-event-location="hero">CLI &amp; MCP SETUP →</a>
+          <a href="/pricing" class="btn ghost" data-umami-event="pricing_cta" data-umami-event-location="hero">PRICING ($10/YR)</a>
           <a href="https://github.com/tashfeenahmed/AgentDomains" class="btn ghost">★ GITHUB</a>
         </div>
       </div>
     </div>
 
-    <div class="examples" id="examples" aria-label="example domains, draw here">
-      <div class="tag tag-1"><span class="dom">siteforhuman.agentdomains.co</span></div>
-      <div class="tag tag-2"><span class="dom">samtheagent.agentdomains.co</span></div>
-      <div class="tag tag-3"><span class="dom">myshop.makes.fyi</span></div>
-      <canvas id="doodle"></canvas>
+    <div class="hero-demo" aria-label="Live CLI and MCP preview">
+      <div class="demo-head">
+        <div class="demo-tabs" role="tablist" aria-label="Choose CLI or MCP preview">
+          <button type="button" class="demo-tab active" role="tab" aria-selected="true" data-demo-tab="cli">CLI (1 command)</button>
+          <button type="button" class="demo-tab" role="tab" aria-selected="false" data-demo-tab="mcp">MCP (AI Agent)</button>
+        </div>
+        <span class="demo-badge">LIVE EDGE HTTPS</span>
+      </div>
+      <div class="demo-body">
+        <pre class="demo-code" id="hero-demo-code"></pre>
+        <div class="demo-result">
+          <span class="demo-url" id="hero-demo-url">https://my-agent.agentdomains.co</span>
+          <span class="demo-status">200 OK · TLS 1.3</span>
+        </div>
+        <div class="demo-foot">
+          <span>Type a label on the left to update this preview.</span>
+          <button type="button" class="demo-copy" id="hero-demo-copy">COPY</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -796,8 +833,9 @@
       </div>
     </div>
   </section>
+</main>
 
-  <footer>
+<footer>
     <div class="footer-inner">
       <div class="foot-brand-col">
         <p class="foot-brand">Real domains<br>for the sites<br><span class="g">agents build.</span></p>
@@ -858,32 +896,24 @@
       </div>
     </div>
   </footer>
-</main>
-
-<div class="doodle-ctl" id="doodle-ctl">
-  <button id="clear-doodle" type="button">🧹 clear</button>
-</div>
 
 <script src="/js/point.js"></script>
 <script>
-  // playful wobble on the search box as you type
   const input = document.getElementById('domain-input');
-  const wrap = input.parentElement;
-  input.addEventListener('input', e => {
-    const n = e.target.value.length;
-    wrap.style.transform = n ? `rotate(${Math.sin(n) * 1.6}deg)` : 'rotate(0deg)';
-  });
-
-  // click the suffix to toggle between the two domains
   const suffix = document.getElementById('suffix');
-  const domains = ['.agentdomains.co', '.makes.fyi']; // agentdomains.co first: it is what most people pick
+  const checkGo = document.getElementById('check-go');
+  const domains = ['agentdomains.co', 'makes.fyi']; // agentdomains.co first: canonical brand domain
   let di = 0;
-  suffix.addEventListener('click', () => { di = (di + 1) % domains.length; suffix.textContent = domains[di]; runCheck(); });
+  function setSuffix(idx){
+    di = idx % domains.length;
+    suffix.textContent = '.' + domains[di] + ' ▾';
+  }
+  suffix.addEventListener('click', () => { setSuffix(di + 1); runCheck(); });
 
   // live availability check against the public API
   const API = 'https://api.agentdomains.co';
   const checkEl = document.getElementById('check');
-  const curDomain = () => suffix.textContent.replace(/^\./, '');
+  const curDomain = () => domains[di];
   let checkTimer;
   function runCheck(){
     const label = input.value.trim().toLowerCase();
@@ -896,7 +926,7 @@
         if (input.value.trim().toLowerCase() !== label || curDomain() !== domain) return; // stale
         if (d.reason === 'available') {
           const cmd = 'agentdomains claim ' + label + ' --email you@example.com' + (domain === 'makes.fyi' ? '' : ' --domain ' + domain);
-          checkEl.innerHTML = `<span class="ok">🎉 ${d.fqdn} is free!</span> Now go bug your AI agent to grab it 🤖<br><code class="cmd" title="click to copy" data-umami-event="signup_click" data-umami-event-location="name-check-copy">${cmd}</code>`;
+          checkEl.innerHTML = `<span class="ok">✓ ${d.fqdn} is available.</span> Claim it below or copy the CLI command:<br><code class="cmd" title="Click to copy" data-umami-event="signup_click" data-umami-event-location="name-check-copy">${cmd}</code>`;
           const c = checkEl.querySelector('.cmd');
           c.addEventListener('click', () => {
             (navigator.clipboard ? navigator.clipboard.writeText(cmd) : Promise.resolve()).finally(() => {
@@ -905,14 +935,31 @@
           });
           if (!claimedEl.innerHTML) renderClaimForm(label, domain);
         } else if (d.reason === 'taken') {
-          checkEl.innerHTML = `<span class="no">😅 ${d.fqdn} is already taken</span>. Try another.`;
+          checkEl.innerHTML = `<span class="no">${d.fqdn} is already taken.</span> Try another label.`;
         } else {
-          checkEl.innerHTML = `<span class="no">✍️ ${d.detail || "that name won't work"}</span>`;
+          checkEl.innerHTML = `<span class="no">${d.detail || "That name is not valid."}</span>`;
         }
       })
-      .catch(() => { checkEl.innerHTML = '<span class="dim">couldn\'t reach the registry, try again</span>'; });
+      .catch(() => { checkEl.innerHTML = '<span class="dim">Could not reach the registry. Try again.</span>'; });
   }
   input.addEventListener('input', () => { clearTimeout(checkTimer); checkTimer = setTimeout(runCheck, 350); });
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); clearTimeout(checkTimer); runCheck(); } });
+  if (checkGo) checkGo.addEventListener('click', () => { clearTimeout(checkTimer); if (!input.value.trim()) input.focus(); else runCheck(); });
+
+  // Support SearchAction (?q=...) and deep-links from SEO pages (?q=label&domain=agentdomains.co)
+  (function initFromQuery(){
+    const params = new URLSearchParams(window.location.search);
+    const q = (params.get('q') || params.get('label') || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+    const dom = (params.get('domain') || '').trim().toLowerCase();
+    if (dom === 'makes.fyi') setSuffix(1);
+    else if (dom === 'agentdomains.co') setSuffix(0);
+    if (q) {
+      input.value = q;
+      setTimeout(() => {
+        runCheck();
+      }, 60);
+    }
+  })();
 
   // claim it right here: signup -> claim (with the email) -> show the key once.
   //
@@ -1057,55 +1104,57 @@ agentdomains proxy ${esc(label)} myapp.fly.dev${esc(dflag)}</pre>
     claimedEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  // draw-anywhere doodle layer. Canvas is pointer-events:none, so the UI stays
-  // clickable; we listen on window and draw while the mouse button is held.
-  const cv = document.getElementById('doodle');
-  const ctx = cv.getContext('2d');
-  function sizeCanvas(){
-    const r = window.devicePixelRatio || 1;
-    cv.width = Math.max(1, Math.floor(cv.clientWidth * r)); cv.height = Math.max(1, Math.floor(cv.clientHeight * r));
-    ctx.setTransform(r, 0, 0, r, 0, 0);
-    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 4;
-    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--energy').trim() || '#00CC74';
-  }
-  sizeCanvas();
-  let resizeTimer; addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(sizeCanvas, 150); });
+  // Live hero CLI / MCP preview synced with #domain-input and suffix
+  (function initHeroDemo(){
+    const codeEl = document.getElementById('hero-demo-code');
+    const urlEl = document.getElementById('hero-demo-url');
+    const copyBtn = document.getElementById('hero-demo-copy');
+    const tabs = Array.from(document.querySelectorAll('[data-demo-tab]'));
+    if (!codeEl || !urlEl) return;
+    let mode = 'cli';
+    let plainSnippet = '';
 
-  // coordinates relative to the (in-flow) canvas, so they map correctly at any
-  // scroll position; drawing is confined to the canvas (= the domains zone).
-  const ctl = document.getElementById('doodle-ctl');
-  let hasDrawn = false;
-  function markDrawn(){ if (!hasDrawn){ hasDrawn = true; ctl.classList.add('show'); } }
-  const rel = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height }; };
-  const inside = p => p.x >= 0 && p.y >= 0 && p.x <= p.w && p.y <= p.h;
+    function renderDemo(){
+      const raw = (input.value || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '') || 'my-agent';
+      const dom = curDomain();
+      const dflag = dom === 'makes.fyi' ? '' : ' --domain ' + dom;
+      urlEl.textContent = 'https://' + raw + '.' + dom;
+      if (mode === 'cli') {
+        plainSnippet = `agentdomains signup\nagentdomains claim ${raw} --email you@example.com${dflag}\nagentdomains proxy ${raw} ${raw}.fly.dev${dflag}`;
+        const dline = dflag ? ` \\\n  ${esc(dflag.trim())}` : '';
+        codeEl.innerHTML = `<span class="c"># 1. Get an instant API key (no card)</span>\n<span class="p">$</span> agentdomains signup\n\n<span class="c"># 2. Claim ${esc(raw)}.${esc(dom)}</span>\n<span class="p">$</span> agentdomains claim ${esc(raw)} --email you@example.com${dline}\n\n<span class="c"># 3. Serve your app with automatic HTTPS</span>\n<span class="p">$</span> agentdomains proxy ${esc(raw)} ${esc(raw)}.fly.dev${dline}`;
+      } else {
+        plainSnippet = JSON.stringify({
+          endpoint: 'https://mcp.agentdomains.co',
+          tool: 'claim_domain',
+          arguments: { label: raw, domain: dom, email: 'you@example.com' }
+        }, null, 2);
+        codeEl.innerHTML = `<span class="c">// POST https://mcp.agentdomains.co (20 MCP tools)</span>\n{\n  <span class="k">"tool"</span>: "claim_domain",\n  <span class="k">"arguments"</span>: {\n    "label": "${esc(raw)}",\n    "domain": "${esc(dom)}",\n    "email": "you@example.com"\n  }\n}\n<span class="c">// Next: call set_proxy -> live HTTPS in seconds</span>`;
+      }
+    }
 
-  let drawing = false, lx = null, ly = null;
-  function down(e){
-    if (e.pointerType === 'touch') return;                 // keep mobile scrolling clean
-    const p = rel(e); if (!inside(p)) return;              // draw only inside the domains zone
-    drawing = true; lx = p.x; ly = p.y;
-    ctx.beginPath(); ctx.arc(lx, ly, ctx.lineWidth / 2, 0, Math.PI * 2);
-    ctx.fillStyle = ctx.strokeStyle; ctx.fill();           // dot, so a tap leaves a mark
-    markDrawn();
-  }
-  function move(e){
-    if (!drawing) return;
-    const p = rel(e);
-    if (!inside(p)) { lx = null; return; }                 // pen lifts when you leave the zone
-    if (lx === null) { lx = p.x; ly = p.y; return; }       // re-entered: no jump line
-    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(p.x, p.y); ctx.stroke();
-    lx = p.x; ly = p.y; markDrawn();
-  }
-  function up(){ drawing = false; lx = ly = null; }
-  window.addEventListener('pointerdown', down);
-  window.addEventListener('pointermove', move);
-  window.addEventListener('pointerup', up);
-  window.addEventListener('pointercancel', up);
-  window.addEventListener('blur', up);
-  document.getElementById('clear-doodle').addEventListener('click', () => {
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    hasDrawn = false; ctl.classList.remove('show');
-  });
+    tabs.forEach(btn => btn.addEventListener('click', () => {
+      mode = btn.dataset.demoTab;
+      tabs.forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      renderDemo();
+    }));
+
+    input.addEventListener('input', renderDemo);
+    suffix.addEventListener('click', renderDemo);
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const done = () => { copyBtn.textContent = 'COPIED ✓'; setTimeout(() => { copyBtn.textContent = 'COPY'; }, 1400); };
+        if (navigator.clipboard) navigator.clipboard.writeText(plainSnippet).then(done, done);
+        else done();
+        track('hero_demo_copy', { mode });
+      });
+    }
+    renderDemo();
+  })();
 </script>
 </body>
 </html>

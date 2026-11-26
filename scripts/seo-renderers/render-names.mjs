@@ -1,6 +1,7 @@
 import {
   SITE,
   esc,
+  fitTitle,
   renderPage,
   breadcrumbSchema,
   faqSchema,
@@ -42,7 +43,7 @@ function renderClaimFlowSvg(sampleLabel, titleText) {
     <rect x="330" y="30" width="64" height="20" rx="5" fill="#0A0A0A"/>
     <text x="362" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">STEP 02</text>
     <text x="330" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Claim in 1 Command</text>
-    <text x="330" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#0A0A0A">agentdomains claim ${esc(lbl)}</text>
+    <text x="330" y="100" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">agentdomains claim ${esc(lbl)}</text>
 
     <line x1="566" y1="71" x2="618" y2="71" stroke="#0A0A0A" stroke-width="3" marker-end="url(#arr-nm)"/>
 
@@ -52,10 +53,85 @@ function renderClaimFlowSvg(sampleLabel, titleText) {
     <rect x="636" y="30" width="64" height="20" rx="5" fill="#00CC74" stroke="#0A0A0A" stroke-width="1.8"/>
     <text x="668" y="44" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#0A0A0A">STEP 03</text>
     <text x="636" y="76" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Live Edge HTTPS</text>
-    <text x="636" y="100" font-family="Space Mono,monospace" font-size="10.5" fill="#00A85E">https://${esc(lbl)}.makes.fyi</text>
+    <text x="636" y="100" font-family="Space Mono,monospace" font-size="9.5" fill="#00A85E">https://${esc(lbl)}.agentdomains.co</text>
   </svg>
-  <p class="diagram-caption">Click any card below to query api.agentdomains.co live and copy the exact claim command.</p>
+  <p class="diagram-caption">Click any card below to check live availability and claim it in your browser or CLI.</p>
 </div>`;
+}
+
+function renderNicheRoutingGuide(cat) {
+  const bucket = inferBucket(cat);
+  const [l0, l1, l2] = cat.labels;
+  const bucketConfig =
+    bucket === 'AI & Agents'
+      ? {
+          originA: `${l0}.fly.dev`,
+          guideHref: '/guides/fly-io',
+          guideLabel: 'Fly.io HTTPS Proxy Playbook',
+          useCaseHref: '/use-cases/ai-agent-deployments',
+          useCaseLabel: 'Autonomous AI Agent Blueprint',
+          rule1: `Keep ${cat.name} hostnames short and clear so MCP clients, webhook senders, and humans read them fast.`,
+          rule2: `Use \`agentdomains proxy\` for PaaS origins like \`${l0}.fly.dev\`. Edge TLS terminates on port 443 with no certificate setup.`,
+          rule3: `Pair \`${l1}.agentdomains.co\` for production traffic with \`${l2}.agentdomains.co\` for isolated prompt or tool tests.`,
+        }
+      : bucket === 'Dev & Infra'
+        ? {
+            originA: '203.0.113.10',
+            guideHref: '/guides/hetzner-vps',
+            guideLabel: 'Hetzner VPS + ACME DNS-01 Playbook',
+            useCaseHref: '/use-cases/stripe-webhook-testing',
+            useCaseLabel: 'Webhook & API Routing Blueprint',
+            rule1: `Use predictable ${cat.name} names like \`${l0}.agentdomains.co\` in CI pipelines, webhook dashboards, and OAuth allowlists.`,
+            rule2: `Point an \`A\` record at a bare VPS IPv4 address, or use \`agentdomains proxy\` when your service runs on Railway, Render, or Fly.io.`,
+            rule3: `Publish \`_acme-challenge\` TXT tokens with \`agentdomains txt\` when your firewall blocks port 80.`,
+          }
+        : {
+            originA: `${l0}.up.railway.app`,
+            guideHref: '/guides/railway',
+            guideLabel: 'Railway Edge Proxy Playbook',
+            useCaseHref: '/use-cases/vibe-coding-demos',
+            useCaseLabel: 'Live Demo Shipping Blueprint',
+            rule1: `Pick a short ${cat.name} label like \`${l0}.agentdomains.co\` so visitors can type it from slides, chat links, or QR codes.`,
+            rule2: `Start with \`agentdomains forward\` while your preview URL moves between hosts. Switch to \`agentdomains proxy\` to keep your hostname in the address bar.`,
+            rule3: `Claim up to 10 ${cat.name} names free for 30 days with no card. Move active builds to Pro ($10/year for 100 names).`,
+          };
+
+  const cmdSample =
+    bucket === 'Dev & Infra'
+      ? `agentdomains claim ${l0} --email you@example.com --domain agentdomains.co --type A --content ${bucketConfig.originA}`
+      : `agentdomains claim ${l0} --email you@example.com --domain agentdomains.co && agentdomains proxy ${l0} ${bucketConfig.originA} --domain agentdomains.co`;
+
+  return `<section aria-labelledby="routing-guide-heading">
+  <h2 id="routing-guide-heading">How to name &amp; route <span class="g">${esc(cat.name)}</span></h2>
+  <div class="decision-grid">
+    <div class="decision-card recommended">
+      <div class="decision-card-head">
+        <h3>Recommended Pattern</h3>
+        <span class="badge free">${esc(bucket.toUpperCase())}</span>
+      </div>
+      <ul>
+        <li>${bucketConfig.rule1.replace(/`([^`]+)`/g, '<code>$1</code>')}</li>
+        <li>${bucketConfig.rule2.replace(/`([^`]+)`/g, '<code>$1</code>')}</li>
+        <li>${bucketConfig.rule3.replace(/`([^`]+)`/g, '<code>$1</code>')}</li>
+      </ul>
+    </div>
+    <div class="decision-card">
+      <div class="decision-card-head">
+        <h3>Quick Launch Command</h3>
+        <span class="badge checking">CLI / MCP</span>
+      </div>
+      <p style="font-size:.9rem;margin:0 0 .65rem">Claim <code>${esc(l0)}.agentdomains.co</code> and attach your origin in one line:</p>
+      <div class="code-box" style="margin:0 0 .75rem">
+        <div class="code-head">
+          <span>${esc(cat.name)} launch</span>
+          <button type="button" class="copy-btn">COPY</button>
+        </div>
+        <pre><code>${esc(cmdSample)}</code></pre>
+      </div>
+      <p style="font-size:.86rem;margin:0">Next steps: <a href="${bucketConfig.guideHref}">${esc(bucketConfig.guideLabel)}</a> · <a href="${bucketConfig.useCaseHref}">${esc(bucketConfig.useCaseLabel)}</a></p>
+    </div>
+  </div>
+</section>`;
 }
 
 export function buildNamesPages() {
@@ -86,9 +162,9 @@ export function buildNamesPages() {
   const totalLabels = NAME_CATEGORIES.reduce((sum, c) => sum + c.labels.length, 0);
 
   const hubHtml = `
-    <span class="eyebrow">Cluster 06 · 45 Live Subdomain Availability Hubs</span>
+    <span class="eyebrow">45 Live Subdomain Availability Hubs</span>
     <h1>Live <span class="g">Subdomain Ideas</span> &amp; Availability</h1>
-    <p class="lede">Browse ${totalLabels}+ short labels across 45 categories. Check live status on <code>makes.fyi</code> and <code>agentdomains.co</code> and copy the claim command.</p>
+    <p class="lede">Browse ${totalLabels}+ short labels across 45 categories. Check live status on <code>agentdomains.co</code> and <code>makes.fyi</code> and claim in your browser or CLI.</p>
     ${renderSpecStrip([
       { icon: 'globe', label: 'Curated Labels', value: `${totalLabels}+ Names`, tone: 'green' },
       { icon: 'layers', label: 'Categories', value: `${NAME_CATEGORIES.length} Hubs` },
@@ -122,8 +198,8 @@ export function buildNamesPages() {
     priority: '0.9',
     html: renderPage({
       path: hubPath,
-      title: 'Live Subdomain Ideas & Availability Checker — makes.fyi & agentdomains.co',
-      description: 'Browse 45 developer and AI subdomain categories with live api.agentdomains.co availability checks and 1-click claim commands.',
+      title: 'Live Subdomain Ideas & Checker — AgentDomains',
+      description: 'Browse 45 developer and AI subdomain categories with live availability checks and 1-click browser or CLI claiming.',
       activeNav: 'names',
       breadcrumbs: hubBreadcrumbs,
       ogType: 'website',
@@ -155,7 +231,7 @@ export function buildNamesPages() {
     const faqs = [
       {
         q: `How do I claim one of these ${cat.name} subdomains?`,
-        a: 'Click COPY CLAIM on any free card and run it in your terminal. Or ask your MCP agent to call claim_domain.',
+        a: 'Click CLAIM on any available card to register it in your browser, or click COPY to run the CLI command. Your MCP agent can also call claim_domain.',
       },
       {
         q: `Can I point a ${cat.name} subdomain at my VPS, Fly.io, or Railway app?`,
@@ -179,7 +255,7 @@ export function buildNamesPages() {
       ${renderSpecStrip([
         { icon: 'globe', label: 'Curated Ideas', value: `${cat.labels.length} Labels`, tone: 'green' },
         { icon: 'bolt', label: 'Live API', value: 'Real-Time Check' },
-        { icon: 'tag', label: 'Namespaces', value: '.makes.fyi / .co', tone: 'lime' },
+        { icon: 'tag', label: 'Namespaces', value: '.agentdomains.co / .fyi', tone: 'lime' },
         { icon: 'card', label: 'Trial Cost', value: '$0 / 30 Days' },
       ])}
 
@@ -195,15 +271,15 @@ export function buildNamesPages() {
           <div class="live-stat avail"><span class="lbl">Available</span><span class="val" data-stat-avail>0</span></div>
           <div class="live-stat taken"><span class="lbl">Taken</span><span class="val" data-stat-taken>0</span></div>
           <div class="live-stat"><span class="lbl">Unchecked</span><span class="val" data-stat-pending>${cat.labels.length}</span></div>
-          <div class="live-stat"><span class="lbl">Active Suffix</span><span class="val" data-stat-suffix>.makes.fyi</span></div>
+          <div class="live-stat"><span class="lbl">Active Suffix</span><span class="val" data-stat-suffix>.agentdomains.co</span></div>
         </div>
 
         <div class="widget-grid">
           <div class="field">
             <label for="names-domain">Domain Namespace</label>
             <select id="names-domain" data-names-domain>
-              <option value="makes.fyi">.makes.fyi (default)</option>
-              <option value="agentdomains.co">.agentdomains.co</option>
+              <option value="agentdomains.co">.agentdomains.co (default)</option>
+              <option value="makes.fyi">.makes.fyi</option>
             </select>
           </div>
           <div class="field">
@@ -220,12 +296,13 @@ export function buildNamesPages() {
           ${cat.labels
             .map(
               (lbl) => `<div class="name-card" data-label="${esc(lbl)}">
-            <div class="name-fqdn">${esc(lbl)}.makes.fyi</div>
+            <div class="name-fqdn">${esc(lbl)}.agentdomains.co</div>
             <div class="name-meta">
-              <span class="badge checking">click check</span>
-              <div style="display:flex;gap:.35rem">
+              <span class="badge checking">unchecked</span>
+              <div class="name-actions">
                 <button type="button" class="copy-btn" style="background:#fff" data-check-one>CHECK</button>
-                <button type="button" class="copy-btn" data-copy="agentdomains claim ${esc(lbl)} --email you@example.com">COPY CLAIM</button>
+                <button type="button" class="copy-btn" data-copy="agentdomains claim ${esc(lbl)} --email you@example.com --domain agentdomains.co">COPY</button>
+                <a class="claim-link" data-claim-link href="/?q=${encodeURIComponent(lbl)}&amp;domain=agentdomains.co#domain-input" data-umami-event="claim_from_seo" data-umami-event-location="${esc(pagePath)}">CLAIM →</a>
               </div>
             </div>
           </div>`
@@ -235,8 +312,10 @@ export function buildNamesPages() {
       </div>
 
       <div class="panel accent">
-        <strong>Claim right in your browser:</strong> Visit the <a href="/">homepage checker</a> or connect your editor with our <a href="/mcp">MCP setup guides</a>.
+        <strong>Claim right in your browser:</strong> Click <strong>CLAIM →</strong> on any card above, or connect your editor with our <a href="/mcp">MCP setup guides</a>.
       </div>
+
+      ${renderNicheRoutingGuide(cat)}
 
       ${renderFaqs(faqs)}
 
@@ -259,9 +338,10 @@ export function buildNamesPages() {
       priority: '0.7',
       html: renderPage({
         path: pagePath,
-        title: `${cat.name} Subdomain Ideas & Live Availability — makes.fyi & agentdomains.co`,
-        description: `Check live availability for ${cat.labels.length}+ short ${cat.name} subdomains on makes.fyi and agentdomains.co. Copy claim commands fast.`,
+        title: fitTitle(`${cat.name} Subdomain Ideas — AgentDomains`, `${cat.name} Subdomains | AgentDomains`),
+        description: `Check live availability for ${cat.labels.length}+ short ${cat.name} subdomains on agentdomains.co and makes.fyi. Claim in browser or CLI.`,
         activeNav: 'names',
+        ctaPrefill: cat.labels[0],
         breadcrumbs,
         jsonLdGraph: [
           breadcrumbSchema(breadcrumbs, pageUrl),

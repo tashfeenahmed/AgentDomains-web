@@ -3,6 +3,7 @@ import {
   esc,
   escInline,
   stripTicks,
+  fitTitle,
   renderPage,
   breadcrumbSchema,
   faqSchema,
@@ -13,7 +14,7 @@ import { renderSpecStrip, renderFilterPills } from '../seo-lib/visuals.mjs';
 import { HOST_GUIDES } from '../seo-data/guides.mjs';
 
 function renderRoutingSvg(g) {
-  const fqdn = `${g.defaultLabel}.makes.fyi`;
+  const fqdn = `${g.defaultLabel}.agentdomains.co`;
   const midTitle =
     g.mode === 'record'
       ? 'Authoritative A Record'
@@ -128,7 +129,7 @@ export function buildGuidePages() {
   ];
 
   const hubHtml = `
-    <span class="eyebrow">Cluster 02 · 45 Origin &amp; Host Playbooks</span>
+    <span class="eyebrow">45 Origin &amp; Host Playbooks</span>
     <h1>Host &amp; Origin <span class="g">Integration Playbooks</span></h1>
     <p class="lede">Give any VPS, PaaS container, web framework, local LLM, or webhook app a real HTTPS domain in three commands.</p>
     ${renderSpecStrip([
@@ -163,8 +164,8 @@ export function buildGuidePages() {
     priority: '0.9',
     html: renderPage({
       path: hubPath,
-      title: 'AgentDomains Integration Playbooks: 45 VPS, PaaS, Framework & Webhook Guides',
-      description: 'Point makes.fyi and agentdomains.co hostnames at Hetzner, Fly.io, Railway, Render, FastAPI, Next.js, Ollama, Caddy, Stripe webhooks, and 36 more hosts.',
+      title: 'Host & Origin Playbooks (45 Platforms) — AgentDomains',
+      description: 'Point agentdomains.co and makes.fyi hostnames at Hetzner, Fly.io, Railway, Render, FastAPI, Next.js, Ollama, Caddy, Stripe webhooks, and 36 more hosts.',
       activeNav: 'guides',
       breadcrumbs: hubBreadcrumbs,
       ogType: 'website',
@@ -201,14 +202,14 @@ export function buildGuidePages() {
 
     const step3 =
       g.mode === 'record'
-        ? `agentdomains record ${g.defaultLabel} --type A --content ${g.defaultOrigin}`
+        ? `agentdomains record ${g.defaultLabel} --domain agentdomains.co --type A --content ${g.defaultOrigin}`
         : g.mode === 'forward'
-          ? `agentdomains forward ${g.defaultLabel} https://${g.defaultOrigin}`
-          : `agentdomains proxy ${g.defaultLabel} ${g.defaultOrigin}`;
+          ? `agentdomains forward ${g.defaultLabel} https://${g.defaultOrigin} --domain agentdomains.co`
+          : `agentdomains proxy ${g.defaultLabel} ${g.defaultOrigin} --domain agentdomains.co`;
 
     const cli3 = [
       'agentdomains signup',
-      `agentdomains claim ${g.defaultLabel} --email you@example.com`,
+      `agentdomains claim ${g.defaultLabel} --email you@example.com --domain agentdomains.co`,
       step3,
     ].join('\n');
 
@@ -224,7 +225,7 @@ export function buildGuidePages() {
       },
       {
         q: `How do I check DNS propagation for ${g.name}?`,
-        a: `Open /tools/dns-ssl-checker or run dig @1.1.1.1 ${g.defaultLabel}.makes.fyi. Confirm both Cloudflare and Google return your record.`,
+        a: `Open /tools/dns-ssl-checker or run dig @1.1.1.1 ${g.defaultLabel}.agentdomains.co. Confirm both Cloudflare and Google return your record.`,
       },
       {
         q: `Can an AI agent configure ${g.name} routing via MCP?`,
@@ -290,8 +291,8 @@ export function buildGuidePages() {
           <div class="field">
             <label for="gen-domain">Domain Suffix</label>
             <select id="gen-domain" data-field="domain">
-              <option value="makes.fyi">.makes.fyi (default)</option>
-              <option value="agentdomains.co">.agentdomains.co</option>
+              <option value="agentdomains.co">.agentdomains.co (default)</option>
+              <option value="makes.fyi">.makes.fyi</option>
             </select>
           </div>
           <div class="field">
@@ -349,9 +350,10 @@ export function buildGuidePages() {
       priority: '0.8',
       html: renderPage({
         path: pagePath,
-        title: `Custom HTTPS Domain for ${g.name} — AgentDomains Playbook`,
-        description: `Give ${g.name} a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes ${modeLabel} config and live check.`,
+        title: fitTitle(`HTTPS Domain for ${g.name} — AgentDomains`, `${g.name} Domain Guide | AgentDomains`),
+        description: `Give ${g.name} a live agentdomains.co or makes.fyi HTTPS domain in 3 CLI commands. Includes ${modeLabel} config and live check.`,
         activeNav: 'guides',
+        ctaPrefill: g.defaultLabel,
         breadcrumbs,
         jsonLdGraph: [
           breadcrumbSchema(breadcrumbs, pageUrl),
@@ -370,7 +372,7 @@ export function buildGuidePages() {
             name: `Point an AgentDomains hostname at ${g.name}`,
             step: [
               { '@type': 'HowToStep', name: 'Create account', text: 'Run agentdomains signup to get a free API key.' },
-              { '@type': 'HowToStep', name: 'Claim subdomain', text: `Run agentdomains claim ${g.defaultLabel} --email you@example.com.` },
+              { '@type': 'HowToStep', name: 'Claim subdomain', text: `Run agentdomains claim ${g.defaultLabel} --email you@example.com --domain agentdomains.co.` },
               { '@type': 'HowToStep', name: `Connect ${g.name}`, text: `Run ${step3}.` },
             ],
           },

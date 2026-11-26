@@ -3,6 +3,7 @@ import {
   esc,
   escInline,
   stripTicks,
+  fitTitle,
   renderPage,
   breadcrumbSchema,
   faqSchema,
@@ -13,7 +14,7 @@ import { renderSpecStrip, renderFilterPills } from '../seo-lib/visuals.mjs';
 import { DNS_TOPICS } from '../seo-data/dns-topics.mjs';
 
 function renderDnsAnatomySvg(host, type, value, topicName) {
-  const fullHost = host === '@' ? 'myapp.makes.fyi' : `${host}.myapp.makes.fyi`;
+  const fullHost = host === '@' ? 'myapp.agentdomains.co' : `${host}.myapp.agentdomains.co`;
   const titleSize = topicName.length > 36 ? 14.5 : 16;
   const hostSize = fullHost.length > 26 ? 10 : 12;
   const valSize = value.length > 28 ? 10.5 : 12;
@@ -82,7 +83,7 @@ export function buildDnsPages() {
   ];
 
   const hubHtml = `
-    <span class="eyebrow">Cluster 05 · 40 Engineering Reference Guides</span>
+    <span class="eyebrow">40 DNS &amp; SSL Engineering Guides</span>
     <h1>Developer <span class="g">DNS, SSL &amp; Proxy</span> Reference</h1>
     <p class="lede">Short engineering guides, a live DNS syntax checker, and exact CLI, <code>curl</code>, and MCP payloads for shipping AI agents.</p>
     ${renderSpecStrip([
@@ -121,7 +122,7 @@ export function buildDnsPages() {
     priority: '0.9',
     html: renderPage({
       path: hubPath,
-      title: 'Developer DNS, SSL & Edge Proxy Reference — 40 AgentDomains Guides',
+      title: 'DNS, SSL & Edge Proxy Reference — AgentDomains',
       description: 'Engineering reference for ACME DNS-01, CNAME vs A records, NS delegation, TTL, reverse proxies, and MCP JSON-RPC payloads.',
       activeNav: 'dns',
       breadcrumbs: hubBreadcrumbs,
@@ -280,7 +281,7 @@ export function buildDnsPages() {
       priority: '0.7',
       html: renderPage({
         path: pagePath,
-        title: `${d.name}: Developer DNS & SSL Reference — AgentDomains`,
+        title: fitTitle(`${d.name} Guide — AgentDomains`, `${d.name} | AgentDomains`),
         description: `${d.summary} Includes DNS anatomy diagram, syntax validator, and CLI, curl, and MCP payloads.`,
         activeNav: 'dns',
         breadcrumbs,
