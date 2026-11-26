@@ -116,22 +116,22 @@
         {
           "@type": "Question",
           "name": "Is AgentDomains free, or is there a catch?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Free for 30 days, then $1 a month. Every new account gets a 30-day free trial with up to 10 names under agentdomains.co or makes.fyi, every feature (DNS records, forwarding, reverse proxy with HTTPS) and no card. On day 25 we email a reminder with the end date. On day 30, names on accounts that have not upgraded are released for anyone to claim. The account stays, and upgrading lets you claim again. Pro is $10 a year or $1 a month: names kept as long as you pay, 100 names, visitor stats, and priority support. The other catch is on the compare page: you get a subdomain we operate, not a domain you own and can transfer." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Every new account gets a 30-day free trial with 10 names and all features, with no card. We email you on day 25; upgrade to Pro ($10/year or $1/month) to keep your names after day 30." }
         },
         {
           "@type": "Question",
           "name": "Do I own the domain I claim?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. A name here is a subdomain of agentdomains.co or makes.fyi, which we operate. There is no auth code, no transfer out, and no registration record. The name exists as long as we keep running. If the name has to carry a brand or survive for years, buy a real second-level domain from a registrar instead." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. You claim a subdomain under agentdomains.co or makes.fyi, which we operate. There is no transfer out or registrar record; use a real registrar for long-term brand domains." }
         },
         {
           "@type": "Question",
-          "name": "Can an AI agent run the whole thing without a human?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Almost: signup is an unauthenticated POST that returns an API key immediately, the CLI prints JSON with --json, and an MCP server (hosted at mcp.agentdomains.co, or npx agentdomains-mcp over stdio) exposes 20 tools for claims, records, forwards, and proxies. A human is needed exactly twice: clicking the email confirmation link on the account's first name, and paying for Pro to keep names after the 30-day trial." }
+          "name": "Can an AI agent run everything without a human?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Almost. Signup, claims, DNS records, forwards, and proxies run via CLI, HTTP API, or MCP. A human is only needed to confirm the first email link and to pay for Pro." }
         },
         {
           "@type": "Question",
           "name": "Are there request quotas or bandwidth bills?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No request quota, no rate card, no overage on either plan. Signup and availability checks are rate-limited per IP to keep the pool from being farmed, and that is the extent of it." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Neither plan has request quotas, bandwidth bills, or overage fees. Only signup and availability checks are rate-limited per IP." }
         }
       ]
     },
@@ -208,8 +208,8 @@
   .nav-links{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;align-items:center;justify-content:flex-end;font-size:.92rem;font-weight:600}
   .nav-links a{text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:.15s;white-space:nowrap}
   .nav-links a:hover{border-bottom:2px solid var(--energy)}
-  .nav-cta{background:var(--ink);color:#fff;padding:.42rem .95rem;border-radius:7px;border:2px solid var(--ink);font-weight:700}
-  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+  .nav-links a.nav-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;padding:.48rem .95rem;border-radius:7px;border:2px solid var(--ink);font-weight:700;line-height:1}
+  .nav-links a.nav-cta:hover{background:var(--energy);color:var(--ink);border-color:var(--ink)}
   .nav-more{display:none;position:relative}
   .nav-more summary{list-style:none;cursor:pointer;font-family:'Space Mono',monospace;font-size:.8rem;font-weight:700;
     padding:.32rem .6rem;border:2px solid var(--ink);border-radius:6px;background:#fff;white-space:nowrap}
@@ -218,26 +218,26 @@
     box-shadow:5px 5px 0 var(--ink);padding:.5rem .75rem;display:flex;flex-direction:column;gap:.4rem;min-width:170px;z-index:60}
   .nav-more-panel a{padding:.25rem .2rem;font-size:.9rem;font-weight:600}
 
-  .hero{padding:1.8rem 2rem 2.5rem;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:2rem;max-width:1260px;margin:0 auto}
-  .hero-title{font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem}
+  .hero{width:100%;padding:2rem 2rem 2.5rem;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:center;gap:2.5rem}
+  .hero-title{font-size:clamp(2.3rem,5.2vw,4.3rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem}
   .hero-title .g{color:var(--energy)}
-  .hero-subtitle{font-size:1.08rem;line-height:1.65;max-width:560px;padding:.95rem 1.2rem;border:3px solid var(--ink);
+  .hero-subtitle{font-size:1.05rem;line-height:1.6;max-width:660px;padding:.9rem 1.15rem;border:3px solid var(--ink);
     border-radius:12px;box-shadow:5px 5px 0 var(--ink);background:var(--mint);display:inline-block;margin:0}
   .hero-subtitle b{color:var(--energy-d)}
 
-  .domain-search{margin-top:1.6rem}
+  .domain-search{margin-top:1.5rem}
   .metadata{font-family:'Space Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;color:#525252}
   .input-wrapper{display:flex;align-items:center;gap:.45rem;background:#fff;border:3px solid var(--ink);padding:.5rem .6rem .5rem .85rem;
-    border-radius:12px;box-shadow:7px 7px 0 var(--energy);max-width:680px;transition:transform .15s}
+    border-radius:12px;box-shadow:7px 7px 0 var(--energy);max-width:740px;transition:transform .15s}
   .input-wrapper input{border:none;outline:none;font-family:'Space Mono',monospace;font-size:clamp(.95rem,1.9vw,1.25rem);width:100%;min-width:0;flex:1;color:var(--ink);background:transparent}
-  .suffix{font-family:'Space Mono',monospace;font-size:clamp(.78rem,1.4vw,.95rem);background:var(--ink);color:#fff;cursor:pointer;
-    padding:.42rem .65rem;border-radius:6px;white-space:nowrap;flex-shrink:0;border:2px solid var(--ink)}
+  .suffix{display:inline-flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:clamp(.78rem,1.4vw,.95rem);background:var(--ink);color:#fff;cursor:pointer;
+    padding:.44rem .68rem;border-radius:6px;white-space:nowrap;flex-shrink:0;border:2px solid var(--ink);line-height:1.1}
   .suffix:hover{background:var(--energy);color:var(--ink)}
-  .check-go{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.9rem;background:var(--energy);color:var(--ink);
-    border:2px solid var(--ink);border-radius:6px;padding:.44rem .8rem;cursor:pointer;white-space:nowrap;flex-shrink:0}
+  .check-go{display:inline-flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.9rem;background:var(--energy);color:var(--ink);
+    border:2px solid var(--ink);border-radius:6px;padding:.46rem .85rem;cursor:pointer;white-space:nowrap;flex-shrink:0;line-height:1.1}
   .check-go:hover{background:#09dc80}
   .search-note{font-size:.94rem;margin-top:.55rem;color:#525252}
-  .check{margin-top:.8rem;font-size:1rem;min-height:1.6rem;max-width:680px}
+  .check{margin-top:.8rem;font-size:1rem;min-height:1.6rem;max-width:740px}
   .check .ok{color:var(--energy-d);font-weight:700}
   .check .no{color:#c0392b;font-weight:700}
   .check .dim{opacity:.55}
@@ -254,7 +254,7 @@
   .claim-row input{flex:1 1 220px;min-width:0;font-family:'Space Mono',monospace;font-size:1rem;padding:.55rem .7rem;
     border:3px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink);outline:none}
   .claim-row input:focus{box-shadow:3px 3px 0 var(--energy)}
-  .mini-btn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.95rem;padding:.55rem 1.1rem;cursor:pointer;
+  .mini-btn{display:inline-flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.95rem;padding:.55rem 1.1rem;cursor:pointer;line-height:1.1;
     background:var(--energy);color:var(--ink);border:3px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--ink);transition:.12s;white-space:nowrap}
   .mini-btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
   .mini-btn:disabled{opacity:.6;cursor:wait}
@@ -288,9 +288,9 @@
   .claimed .ok{color:var(--energy-d);font-weight:700}
   .warnbox code{font-family:'Space Mono',monospace;font-size:.8rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:5px;padding:0 5px;overflow-wrap:anywhere}
   .claimed a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
-  .btn{display:inline-block;padding:.85rem 1.7rem;background:var(--energy);color:var(--ink);text-decoration:none;
-    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
-    border-radius:8px;transition:.12s;margin-top:1.3rem}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:.82rem 1.65rem;background:var(--energy);color:var(--ink);text-decoration:none;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1rem;line-height:1.1;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    border-radius:8px;transition:.12s;margin-top:1.25rem}
   .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
   .btn.ghost{background:#fff}
   .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
@@ -334,10 +334,11 @@
   .mcp .inline{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
     border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .mcp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:1.1rem;margin-top:1rem}
+  .mcp-grid > div{display:flex;flex-direction:column}
   /* pre-wrap, not overflow-x: at this column width the hosted `claude mcp add`
      line is wider than the box, and a command you have to scroll to finish
      reading is a command nobody copies correctly. Indentation survives. */
-  .mcp pre{margin:.3rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:10px;
+  .mcp pre{flex:1;margin:.3rem 0 0;background:var(--ink);color:#ECECEC;border:3px solid var(--ink);border-radius:10px;
     padding:.85rem 1rem;font-family:'Space Mono',monospace;font-size:.78rem;line-height:1.65;
     white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto}
 
@@ -386,14 +387,24 @@
   .usecase-card:nth-child(2) code{background:#fff}
 
   .faq{padding:0 2rem 1rem}
-  .faq-list{max-width:900px;margin-top:1.2rem}
-  .faq-item{border:3px solid var(--ink);border-radius:14px;background:#fff;padding:1.1rem 1.4rem;margin-top:1.1rem}
-  .faq-item h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.15rem;
-    text-transform:none;letter-spacing:-.5px;margin-bottom:.4rem}
-  .faq-item p{margin:.3rem 0;font-size:1.08rem}
-  .faq-item code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);
+  .faq-list{margin-top:1.1rem;display:grid;gap:.75rem}
+  .faq-item{border:3px solid var(--ink);border-radius:12px;background:#fff;padding:.95rem 1.25rem}
+  .faq-item summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+';font-family:'Space Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--energy-d);flex-shrink:0}
+  .faq-item[open] summary::after{content:'−'}
+  .faq-item p{margin:.65rem 0 0;font-size:.98rem;color:#262626}
+  .faq-item code{font-family:'Space Mono',monospace;font-size:.82rem;background:var(--mint);
     border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
   .faq-item a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
+
+  .feature-link{display:inline-block;margin-top:.55rem;font-family:'Space Mono',monospace;font-size:.78rem;font-weight:700;
+    text-decoration:none;border-bottom:2px solid var(--energy);padding-bottom:1px}
+  .feature-card:nth-child(2) .feature-link{color:var(--lime);border-bottom-color:var(--lime)}
+  .mcp-links{display:flex;flex-wrap:wrap;gap:.55rem 1.25rem;margin-top:1rem;font-size:.94rem;font-weight:600}
+  .limits-links{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin-top:1.15rem;font-size:.95rem;font-weight:600}
+  .limits-links a{text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px}
 
   /* limits band — same card language as .features, but one beat of its own so
      the quota/expiry answers are on the homepage, not only in the README. */
@@ -429,8 +440,8 @@
   .record-card p{margin:.4rem 0;font-size:1.08rem}
   .record-card code{font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px}
 
-  footer{padding:3rem 2rem 2.75rem;border-top:4px solid var(--ink);margin-top:2.5rem;background:#fff}
-  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.35fr repeat(4,minmax(145px,1fr));gap:2rem 1.6rem;align-items:start}
+  footer{width:100%;padding:3rem 2rem 2.25rem;border-top:4px solid var(--ink);margin-top:2.5rem;background:#fff}
+  .footer-inner{width:100%;display:grid;grid-template-columns:1.35fr repeat(4,minmax(145px,1fr));gap:2rem 1.6rem;align-items:start}
   footer .foot-brand{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0 0 .75rem;line-height:.95;letter-spacing:-1px;max-width:none;font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:800;text-transform:uppercase}
   footer .foot-brand .g{color:var(--energy)}
   .foot-mono{font-family:"Space Mono",monospace;margin:0;font-size:.76rem;line-height:1.55;color:#525252}
@@ -439,6 +450,7 @@
   .foot-col li{margin:.34rem 0}
   .foot-col a{font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:.9rem;font-weight:600;text-decoration:none;border-bottom:2px solid transparent}
   .foot-col a:hover{border-bottom-color:var(--energy)}
+  .foot-analytics{margin:2rem 0 0;padding-top:1.15rem;border-top:1px solid rgba(10,10,10,.08);font-size:.75rem;line-height:1.55;color:#8a8a8a;max-width:none}
   @media(max-width:980px){.footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-brand-col{grid-column:1 / -1}}
   @media(max-width:520px){.footer-inner{grid-template-columns:1fr}}
 
@@ -453,13 +465,13 @@
     .nav-links .nav-secondary{display:none}
     .nav-more{display:inline-block}
     .nav-more summary{padding:.26rem .48rem;font-size:.74rem}
-    .nav-cta{padding:.28rem .58rem;font-size:.78rem;white-space:nowrap}
+    .nav-links a.nav-cta{padding:.36rem .64rem;font-size:.78rem;white-space:nowrap}
     .hero{padding:1.1rem 1rem 2rem}
     .input-wrapper{padding:.4rem .45rem .4rem .65rem}
     .check-go{padding:.38rem .58rem;font-size:.82rem}
     .term,.mcp{margin-left:1rem;margin-right:1rem}
     .section-head,.features,.gallery,.records,.usecases,.faq,.limits{padding-left:1rem;padding-right:1rem}
-    footer{padding:2.2rem 1rem}
+    footer{padding:2.2rem 1rem 1.8rem}
   }
   .feature-card p,.record-card p,.usecase-card p,.faq-item p,.limit-card p,.mcp p,.section-head .lede{line-height:1.55}
   .feature-card code,.record-card code,.usecase-card code,.faq-item code,.limit-card code,.section-head code,.mcp .inline{padding:1px 5px;overflow-wrap:break-word;word-break:normal}
@@ -497,8 +509,8 @@
   <section class="hero">
     <div class="hero-text">
       <h1 class="hero-title">Real domains<br><span class="g">for agents.</span></h1>
-      <p class="hero-subtitle">Your AI agent built a site or API. Give it a real HTTPS domain in one command.
-      <b>Free for 30 days</b> (10 names, no card), then <b>$10/year</b> or <b>$1/month</b> for 100 names under <b>agentdomains.co</b> or <b>makes.fyi</b>.</p>
+      <p class="hero-subtitle">Give the sites and APIs your AI agent builds a real HTTPS domain in one command.
+      <b>Free for 30 days</b> (10 names, no card), then <b>$10/year</b> or <b>$1/month</b>.</p>
 
       <div class="domain-search">
         <div class="metadata">// check and claim a domain right here (click suffix to switch)</div>
@@ -543,14 +555,12 @@
     <div class="section-head">
       <div class="metadata">// quickstart</div>
       <h2>Two commands to a <span class="g">live domain</span></h2>
-      <p class="lede">Install the CLI once, then your agent claims names whenever it ships something.
-      The claim writes the record and the hostname resolves on the public internet in seconds — no
-      registrar, no dashboard, no waiting on a human.</p>
+      <p class="lede">Install the CLI once. Your agent claims a domain and publishes DNS in seconds—no registrar or dashboard.</p>
     </div>
     <div class="term">
       <span class="c"># install the CLI</span><br>
       <span class="p">$</span> go install github.com/tashfeenahmed/AgentDomains/cmd/agentdomains@latest<br><br>
-      <span class="c"># point a domain at the site your agent just built</span><br>
+      <span class="c"># claim a domain and point it at your server</span><br>
       <span class="p">$</span> agentdomains claim myapp --email you@example.com --domain agentdomains.co --type A --content 203.0.113.10<br>
       <span class="g">✓ myapp.agentdomains.co is live on the public internet</span>
     </div>
@@ -559,198 +569,66 @@
   <section class="mcp" id="mcp">
     <div class="metadata">// MCP</div>
     <h2>Works over <span class="g">MCP</span></h2>
-    <p>Hosted Streamable HTTP endpoint at <span class="endpoint">https://mcp.agentdomains.co</span>,
-    or the same server locally over stdio. Nothing to install for the hosted one.</p>
-    <p><b>20 tools</b>: check availability, claim, list, records, forwards, proxies — same API key as the CLI.</p>
-    <p>No key yet? Connect with no key, call <span class="inline">signup</span>, then pass the key it returns as <span class="inline">api_key</span> on each call.</p>
+    <p>Connect your agent to <span class="endpoint">https://mcp.agentdomains.co</span> or run it locally over stdio. <b>20 tools</b> cover signup, claims, DNS records, forwards, and HTTPS proxies.</p>
 
     <div class="mcp-grid">
       <div>
-        <div class="metadata">Hosted / one line</div>
+        <div class="metadata">Hosted / Streamable HTTP</div>
         <pre>claude mcp add --transport http agentdomains https://mcp.agentdomains.co \
   --header "Authorization: Bearer adom_…"</pre>
-        <div class="metadata" style="margin-top:.9rem">Hosted / config file</div>
-        <pre>{
-  "mcpServers": {
-    "agentdomains": {
-      "type": "http",
-      "url": "https://mcp.agentdomains.co",
-      "headers": { "Authorization": "Bearer adom_…" }
-    }
-  }
-}</pre>
       </div>
       <div>
         <div class="metadata">Local / stdio</div>
         <pre>AGENTDOMAINS_API_KEY=adom_… npx -y agentdomains-mcp</pre>
-        <div class="metadata" style="margin-top:.9rem">Local / config file</div>
-        <pre>{
-  "mcpServers": {
-    "agentdomains": {
-      "command": "npx",
-      "args": ["-y", "agentdomains-mcp"],
-      "env": { "AGENTDOMAINS_API_KEY": "adom_…" }
-    }
-  }
-}</pre>
       </div>
     </div>
 
-    <p>Every tool, every client, and the full argument reference:
-    <a href="https://docs.agentdomains.co/mcp">docs.agentdomains.co/mcp</a>.</p>
+    <div class="mcp-links">
+      <a href="/mcp">25 client configs (Cursor, Claude, VS Code) →</a>
+      <a href="/tools/mcp-config-builder">MCP Config Builder →</a>
+      <a href="https://docs.agentdomains.co/mcp">Full MCP reference →</a>
+    </div>
   </section>
 
   <section class="section-head" id="features">
-    <div class="metadata">// why agentdomains</div>
-    <h2>Built for agents,<br>not <span class="g">dashboards</span></h2>
-    <p class="lede">Every part of this is an API call or a CLI flag: the signup, the claim, the
-    records, the certificates. A human could drive it from the docs, but it was written for
-    something that reads JSON.</p>
+    <div class="metadata">// what you get</div>
+    <h2>Built for agents, <span class="g">not dashboards</span></h2>
+    <p class="lede">One CLI, HTTP API, and MCP server for real DNS zones, HTTPS proxies, and forwarding under <code>agentdomains.co</code> or <code>makes.fyi</code>.</p>
   </section>
 
   <section class="features">
     <div class="feature-card">
-      <div class="metadata">01 / CLI</div>
-      <h3>One command</h3>
-      <p><code>agentdomains claim myapp --email you@example.com --domain agentdomains.co</code> and your domain resolves on the public internet in seconds. Add <code>--json</code> for clean machine output.</p>
+      <div class="metadata">01 / DNS RECORDS</div>
+      <h3>Real DNS zones</h3>
+      <p>Set <code>A</code>, <code>AAAA</code>, <code>CNAME</code>, and <code>TXT</code> records, or delegate <code>NS</code> to your own nameservers.</p>
+      <a class="feature-link" href="/dns">DNS &amp; SSL reference →</a>
     </div>
 
     <div class="feature-card">
-      <div class="metadata" style="color:var(--energy)">02 / SIGNUP</div>
-      <h3>Signup needs nothing</h3>
-      <p><code>signup</code> hands your agent an API key with no email and no form. Registering the first name takes <code>--email</code>, used only for the confirmation link, the trial reminder, and notices about your names.</p>
+      <div class="metadata" style="color:var(--energy)">02 / EDGE HTTPS</div>
+      <h3>Proxy &amp; forward</h3>
+      <p>Reverse-proxy Fly, Railway, or VPS apps over automatic HTTPS, or forward to any preview URL.</p>
+      <a class="feature-link" href="/guides">45 host playbooks →</a>
     </div>
 
     <div class="feature-card">
-      <div class="metadata">03 / HTTPS</div>
-      <h3>Bring your own SSL</h3>
-      <p>Point a domain at your server and Let's Encrypt HTTP-01 just works, or drop the ACME token in a TXT record for DNS-01.</p>
+      <div class="metadata">03 / AGENT-NATIVE</div>
+      <h3>Zero-friction signup</h3>
+      <p>Call <code>signup</code> for an instant API key with no card and clean <code>--json</code> output for autonomous workflows.</p>
+      <a class="feature-link" href="/use-cases">30 agent workflows →</a>
     </div>
 
     <div class="feature-card">
-      <div class="metadata">04 / CHOICE</div>
-      <h3>Two domains</h3>
-      <p>Claim under <code>agentdomains.co</code> or <code>makes.fyi</code> with <code>--domain</code>. The same name can live under each.</p>
-    </div>
-  </section>
-
-  <section class="records" id="records">
-    <div class="section-head" style="padding-left:0;padding-right:0">
-      <div class="metadata">// dns</div>
-      <h2>A real zone, <span class="g">not a redirect</span></h2>
-      <p class="lede">Each claimed name is a live DNS record you control — the same primitives a
-      zone file gives you, minus the registrar. Update records with <code style="font-family:'Space Mono',monospace;font-size:.85rem;background:var(--mint);border:1.5px solid var(--ink);border-radius:6px;padding:1px 6px">agentdomains record</code>
-      or the <a href="/#mcp" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">MCP tools</a>.</p>
-    </div>
-
-    <div class="records-grid">
-      <div class="record-card">
-        <div class="metadata">01 / RECORDS</div>
-        <h3>Four record types</h3>
-        <p>Point a name at a server with <code>A</code> or <code>AAAA</code>, at another host with
-        <code>CNAME</code>, and prove ownership or publish config with <code>TXT</code> — including
-        ACME tokens for DNS-01 certificates. When you outgrow it, delegate the name to your own
-        nameservers.</p>
-      </div>
-
-      <div class="record-card">
-        <div class="metadata">02 / FORWARD</div>
-        <h3>URL forwarding</h3>
-        <p>No server yet? Forward the name to any URL and the edge follows your agent's deploys —
-        handy while output lives on a preview host. One API call to set, one to change, and the
-        edge follows the new target within a minute.</p>
-      </div>
-
-      <div class="record-card">
-        <div class="metadata">03 / PROXY</div>
-        <h3>Reverse proxy with HTTPS</h3>
-        <p>App already running on a host like <code>myapp.fly.dev</code>? The edge reverse-proxies
-        the name to it over HTTPS on our certificate, so visitors see your hostname in the address
-        bar, never the origin's.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-head" id="use-cases">
-    <div class="metadata">// use cases</div>
-    <h2>What agents <span class="g">actually point these at</span></h2>
-    <p class="lede">Four patterns cover most claims — the same CLI, the same
-    <a href="/#mcp">20 MCP tools</a>, the same <a href="https://docs.agentdomains.co/api">HTTP API</a>.</p>
-  </section>
-  <section class="usecases">
-    <div class="usecases-grid">
-      <div class="usecase-card">
-        <div class="metadata">01 / DEMOS</div>
-        <h3>Ship a demo with a real URL</h3>
-        <p>Your agent deploys a prototype to a server and hands it over as a bare IP.
-        <code>agentdomains claim demo --domain agentdomains.co --type A --content 203.0.113.10</code> turns it into a link
-        you can share, live on the public internet in seconds.</p>
-      </div>
-      <div class="usecase-card">
-        <div class="metadata">02 / APIs</div>
-        <h3>Give an API a front door</h3>
-        <p>Agent-built APIs need real hostnames for webhooks, CORS origins, and OAuth callbacks.
-        Reverse-proxy the name at your backend and TLS terminates on our certificate:
-        <code>https://api-widget.agentdomains.co</code>, nothing to install or renew.</p>
-      </div>
-      <div class="usecase-card">
-        <div class="metadata">03 / PREVIEW HOSTS</div>
-        <h3>Forward while it moves</h3>
-        <p>Output lives on a preview host today and a VPS tomorrow. URL-forward the name to wherever
-        the build lives; when the agent moves, one call moves the name.</p>
-      </div>
-      <div class="usecase-card">
-        <div class="metadata">04 / PROVING GROUNDS</div>
-        <h3>Certificates and ownership</h3>
-        <p>Point a name at your own server and Let's Encrypt HTTP-01 just works, or publish the ACME
-        token as a TXT record for DNS-01. The same TXT primitive answers domain-verification
-        challenges.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-head" id="faq">
-    <div class="metadata">// FAQ</div>
-    <h2>Questions, answered <span class="g">straight</span></h2>
-    <p class="lede">Straight answers, no asterisks. Full policy: <a href="/pricing">pricing</a> and the
-    <a href="https://docs.agentdomains.co">docs</a>.</p>
-  </section>
-  <section class="faq">
-    <div class="faq-list">
-      <div class="faq-item">
-        <h3>Is it free, or is there a catch?</h3>
-        <p>Free for 30 days, then $1/month. Every new account gets a 30-day free trial: up to 10
-        names under <code>agentdomains.co</code> or <code>makes.fyi</code>, every feature, no card.
-        On day 25 we email a reminder. On day 30, names on accounts that have not upgraded are
-        released for anyone to claim. The account stays, and upgrading lets you claim again.
-        Pro ($10/year or $1/month) keeps your names as long as you pay, raises the cap to 100,
-        and adds visitor stats. The other catch is the next question, on the
-        <a href="/compare">compare page</a> in full. More on <a href="/pricing">pricing</a>.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do I own the domain I claim?</h3>
-        <p>No. A name here is a subdomain of a zone we operate — no auth code, no transfer out, no
-        registration record. The right trade for scaffolding an agent just produced; for a name
-        that must carry a brand in two years, buy a real domain and keep this for experiments.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Can an agent run the whole thing without a human?</h3>
-        <p>Almost, deliberately: <code>signup</code> is an unauthenticated API call that returns a
-        key instantly, the CLI prints JSON with <code>--json</code>, and the MCP server exposes 20
-        tools. A human shows up twice: clicking the email confirmation link on the first name,
-        and paying for Pro to keep names after the trial. Agents can't accidentally charge you.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Any request quotas or bandwidth bills?</h3>
-        <p>None on either plan: no request quota, no rate card, no overage. Signup and availability
-        checks are rate-limited per IP to keep the pool from being farmed.</p>
-      </div>
+      <div class="metadata">04 / OWN YOUR SSL</div>
+      <h3>ACME &amp; verification</h3>
+      <p>Use Let's Encrypt HTTP-01 directly on your server or drop <code>TXT</code> tokens for DNS-01 and domain checks.</p>
+      <a class="feature-link" href="/tools/dns-ssl-checker">Free DNS &amp; SSL checker →</a>
     </div>
   </section>
 
   <section class="gallery-wrap" aria-labelledby="gallery-title">
-    <div class="metadata" style="padding:2.5rem 2rem 0">// what it looks like</div>
-    <h2 id="gallery-title" style="font-size:clamp(1.4rem,3.4vw,2rem);text-transform:uppercase;padding:0 2rem">From localhost to live, in <span style="color:var(--energy)">three steps</span></h2>
+    <div class="metadata" style="padding:2rem 2rem 0">// how it works</div>
+    <h2 id="gallery-title" style="font-size:clamp(1.4rem,3.4vw,2rem);text-transform:uppercase;padding:0 2rem">From localhost to live in <span style="color:var(--energy)">three steps</span></h2>
     <div class="gallery">
       <figure class="shot">
         <img src="/img/how-it-works.svg" width="1080" height="675" loading="lazy" decoding="async"
@@ -771,67 +649,60 @@
   </section>
 
   <section class="limits" id="limits">
-    <div class="metadata">// the fine print, up front</div>
-    <h2>Quotas and <span class="g">expiry</span>: the whole policy</h2>
-    <p class="lede">Every subdomain service has limits; most hide theirs. Here is the entire
-    quota and expiry policy of AgentDomains, on the page you are already reading.</p>
+    <div class="metadata">// clear pricing &amp; limits</div>
+    <h2>30 days free, then <span class="g">$10/year</span></h2>
+    <p class="lede">Start with no card. Keep your names with simple flat pricing and zero hidden fees.</p>
 
     <div class="limits-grid">
       <div class="limit-card">
-        <div class="metadata">01 / NAMES</div>
-        <h3>10 names per account</h3>
-        <p>An account holds up to <b>10 names</b> under <code>agentdomains.co</code> and
-        <code>makes.fyi</code> combined, with every feature on each one, trial included.
-        <b>Pro</b> ($10/year or $1/month) raises the ceiling to <b>100</b>. <code>agentdomains whoami</code> shows your usage against the cap.</p>
+        <div class="metadata">01 / FREE TRIAL</div>
+        <h3>30 days, 10 names</h3>
+        <p>Every feature included, no card needed. We email a reminder on day 25 before unclaimed names release on day 30.</p>
       </div>
 
       <div class="limit-card">
-        <div class="metadata">02 / TRIAL</div>
-        <h3>30 days free</h3>
-        <p><code>signup</code> is instant and anonymous, with no card, and starts a <b>30-day
-        free trial</b>. Your first <code>claim</code> takes <code>--email</code> and we send a
-        confirmation link. On <b>day 25</b> we email a reminder with the end date. On
-        <b>day 30</b>, names on accounts that have not upgraded are released for anyone to claim.
-        The account and key stay, and upgrading lets you claim again.</p>
+        <div class="metadata">02 / PRO PLAN</div>
+        <h3>$10/year or $1/month</h3>
+        <p>Keep up to <b>100 names</b> as long as you pay, with daily visitor stats and priority support.</p>
       </div>
 
       <div class="limit-card">
-        <div class="metadata">03 / KEEPING IT</div>
-        <h3>Pro keeps them</h3>
-        <p><b>Pro</b> is <b>$10/year</b> or <b>$1/month</b>. Your names are kept as long as you
-        pay, and never removed for being unused, even when the server behind them goes quiet.
-        You also get 100 names, visitor stats and priority support. There is no request quota
-        and no bandwidth bill on either plan.</p>
+        <div class="metadata">03 / NO METERING</div>
+        <h3>Zero bandwidth bills</h3>
+        <p>No request quotas and no overage charges on either plan. Cancel anytime in one click.</p>
       </div>
     </div>
 
-    <p style="max-width:860px;margin-top:1.2rem">That is all of it. Signup and availability
-    checks are rate-limited per IP to keep the pool from being farmed, and the cap counts
-    confirmed mailboxes, not throwaway accounts. Full text:
-    <a href="/pricing" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">/pricing</a>
-    and <a href="https://docs.agentdomains.co/accounts" style="text-decoration:underline;text-decoration-color:var(--energy);text-underline-offset:4px">docs · Accounts &amp; trial</a>.</p>
+    <div class="limits-links">
+      <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="home-limits">Full pricing &amp; policy →</a>
+      <a href="/compare">Compare alternatives →</a>
+      <a href="/names">45 live subdomain idea hubs →</a>
+      <a href="/tools">3 free browser tools →</a>
+    </div>
   </section>
 
-  <section class="limits" id="explore" aria-labelledby="explore-title">
-    <div class="metadata">// playbooks, references &amp; free browser utilities</div>
-    <h2 id="explore-title">Explore <span class="g">Guides &amp; Free Tools</span></h2>
-    <p class="lede">Copy-paste MCP setups, host playbooks, live subdomain ideas, and zero-login browser tools built for AI agents.</p>
-    <div class="limits-grid">
-      <div class="limit-card">
-        <div class="metadata">HUBS / PLAYBOOKS</div>
-        <h3><a href="/mcp" style="text-decoration:none">25 MCP Client Setups&nbsp;→</a></h3>
-        <p>Verified Streamable HTTP &amp; stdio configs for Claude Code, Cursor, VS Code, Windsurf, OpenAI Agents SDK, LangChain, CrewAI &amp; more. Also see <a href="/guides">45 Host Playbooks</a> and <a href="/use-cases">30 Agent Workflows</a>.</p>
-      </div>
-      <div class="limit-card">
-        <div class="metadata">REFERENCE / NAMES</div>
-        <h3><a href="/dns" style="text-decoration:none">DNS, SSL &amp; Live Names&nbsp;→</a></h3>
-        <p>Explore <a href="/dns">40 DNS &amp; ACME DNS-01 references</a>, browse <a href="/names">45 live subdomain idea hubs</a>, or read <a href="/compare">honest competitor comparisons</a>.</p>
-      </div>
-      <div class="limit-card">
-        <div class="metadata">FREE BROWSER TOOLS</div>
-        <h3><a href="/tools" style="text-decoration:none">3 Free Tools&nbsp;→</a></h3>
-        <p><a href="/tools/mcp-config-builder">Universal MCP Config Builder &amp; Handshake Tester</a> · <a href="/tools/dns-ssl-checker">Live DNS &amp; ACME DNS-01 Checker</a> · <a href="/tools/domain-cost-calculator">Domain TCO Calculator</a>.</p>
-      </div>
+  <section class="section-head" id="faq">
+    <div class="metadata">// FAQ</div>
+    <h2>Common <span class="g">questions</span></h2>
+  </section>
+  <section class="faq">
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Is AgentDomains free, or is there a catch?</summary>
+        <p>Every new account gets a 30-day free trial with 10 names and all features, with no card. We email you on day 25; upgrade to Pro ($10/year or $1/month) to keep your names after day 30. <a href="/pricing">See full pricing</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do I own the domain I claim?</summary>
+        <p>No. You claim a subdomain under <code>agentdomains.co</code> or <code>makes.fyi</code>, which we operate. There is no transfer out or registrar record; use a real registrar for long-term brand domains. <a href="/compare">Compare registrars</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can an AI agent run everything without a human?</summary>
+        <p>Almost. Signup, claims, DNS records, forwards, and proxies run via CLI, HTTP API, or MCP. A human is only needed to confirm the first email link and to pay for Pro. <a href="/pricing#questions">Read more</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are there request quotas or bandwidth bills?</summary>
+        <p>No. Neither plan has request quotas, bandwidth bills, or overage fees. Only signup and availability checks are rate-limited per IP.</p>
+      </details>
     </div>
   </section>
 </main>
@@ -896,7 +767,7 @@
         </ul>
       </div>
     </div>
-    <p>Our self-hosted analytics count page categories and actions, and record technical errors. Claimed names, DNS records and account details are excluded. These reports honor Do Not Track and Global Privacy Control.</p>
+    <p class="foot-analytics">Our self-hosted analytics count page categories and actions, and record technical errors. Claimed names, DNS records and account details are excluded. These reports honor Do Not Track and Global Privacy Control.</p>
   </footer>
 
 <script src="/js/point.js"></script>

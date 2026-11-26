@@ -125,8 +125,8 @@
   .nav-links{display:flex;flex-wrap:wrap;gap:.75rem 1.25rem;align-items:center;justify-content:flex-end;font-size:.92rem;font-weight:600}
   .nav-links a{text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:.15s;white-space:nowrap}
   .nav-links a:hover,.nav-links a[aria-current]{border-bottom:2px solid var(--energy)}
-  .nav-cta{background:var(--ink);color:#fff;padding:.42rem .95rem;border-radius:7px;border:2px solid var(--ink);font-weight:700}
-  .nav-cta:hover{background:var(--energy);color:var(--ink);border-bottom:2px solid var(--ink)!important}
+  .nav-links a.nav-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;padding:.48rem .95rem;border-radius:7px;border:2px solid var(--ink);font-weight:700;line-height:1}
+  .nav-links a.nav-cta:hover{background:var(--energy);color:var(--ink);border-color:var(--ink)}
   .nav-more{display:none;position:relative}
   .nav-more summary{list-style:none;cursor:pointer;font-family:'Space Mono',monospace;font-size:.8rem;font-weight:700;
     padding:.32rem .6rem;border:2px solid var(--ink);border-radius:6px;background:#fff;white-space:nowrap}
@@ -206,8 +206,8 @@
   .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
   .btn.ghost{background:#fff}
 
-  footer{padding:3rem 2rem 2.75rem;border-top:4px solid var(--ink);margin-top:2.5rem;background:#fff}
-  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.35fr repeat(4,minmax(145px,1fr));gap:2rem 1.6rem;align-items:start}
+  footer{width:100%;padding:3rem 2rem 2.75rem;border-top:4px solid var(--ink);margin-top:2.5rem;background:#fff}
+  .footer-inner{width:100%;display:grid;grid-template-columns:1.35fr repeat(4,minmax(145px,1fr));gap:2rem 1.6rem;align-items:start}
   footer .foot-brand{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0 0 .75rem;line-height:.95;letter-spacing:-1px;max-width:none;font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:800;text-transform:uppercase}
   footer .foot-brand .g{color:var(--energy)}
   .foot-mono{font-family:"Space Mono",monospace;margin:0;font-size:.76rem;line-height:1.55;color:#525252}
@@ -231,7 +231,7 @@
     .nav-links .nav-secondary{display:none}
     .nav-more{display:inline-block}
     .nav-more summary{padding:.26rem .48rem;font-size:.74rem}
-    .nav-cta{padding:.28rem .58rem;font-size:.78rem;white-space:nowrap}
+    .nav-links a.nav-cta{padding:.36rem .64rem;font-size:.78rem;white-space:nowrap}
   }
 </style>
 <script defer src="https://analytics.planintel.ie/script.js" data-website-id="102f4202-1f39-4df0-809e-f5509df99085" data-domains="agentdomains.co,www.agentdomains.co,makes.fyi,www.makes.fyi"></script>
