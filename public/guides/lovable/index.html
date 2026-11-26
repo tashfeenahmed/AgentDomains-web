@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Custom HTTPS Domain for Lovable — AgentDomains Playbook</title>
-<meta name="description" content="Give Lovable a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes Edge HTTPS Forward config and live check.">
+<title>HTTPS Domain for Lovable — AgentDomains</title>
+<meta name="description" content="Give Lovable a live agentdomains.co or makes.fyi HTTPS domain in 3 CLI commands. Includes Edge HTTPS Forward config and live check.">
 <link rel="canonical" href="https://agentdomains.co/guides/lovable">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Custom HTTPS Domain for Lovable — AgentDomains Playbook">
-<meta property="og:description" content="Give Lovable a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes Edge HTTPS Forward config and live check.">
+<meta property="og:title" content="HTTPS Domain for Lovable — AgentDomains">
+<meta property="og:description" content="Give Lovable a live agentdomains.co or makes.fyi HTTPS domain in 3 CLI commands. Includes Edge HTTPS Forward config and live check.">
 <meta property="og:url" content="https://agentdomains.co/guides/lovable">
 <meta property="og:site_name" content="AgentDomains">
 <meta property="og:image" content="https://agentdomains.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta property="og:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Custom HTTPS Domain for Lovable — AgentDomains Playbook">
-<meta name="twitter:description" content="Give Lovable a live makes.fyi or agentdomains.co HTTPS domain in 3 CLI commands. Includes Edge HTTPS Forward config and live check.">
+<meta name="twitter:title" content="HTTPS Domain for Lovable — AgentDomains">
+<meta name="twitter:description" content="Give Lovable a live agentdomains.co or makes.fyi HTTPS domain in 3 CLI commands. Includes Edge HTTPS Forward config and live check.">
 <meta name="twitter:image" content="https://agentdomains.co/og.png">
-<meta name="twitter:image:alt" content="AgentDomains: real domains for the sites and APIs AI agents build.">
+<meta name="twitter:image:alt" content="AgentDomains: real domains for AI agents. Free for 30 days, then $1/month.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -93,12 +93,12 @@
         {
           "@type": "HowToStep",
           "name": "Claim subdomain",
-          "text": "Run agentdomains claim lovable-mvp --email you@example.com."
+          "text": "Run agentdomains claim lovable-mvp --email you@example.com --domain agentdomains.co."
         },
         {
           "@type": "HowToStep",
           "name": "Connect Lovable",
-          "text": "Run agentdomains forward lovable-mvp https://my-mvp.lovable.app."
+          "text": "Run agentdomains forward lovable-mvp https://my-mvp.lovable.app --domain agentdomains.co."
         }
       ]
     },
@@ -119,7 +119,7 @@
           "name": "How do I check DNS propagation for Lovable?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Open /tools/dns-ssl-checker or run dig @1.1.1.1 lovable-mvp.makes.fyi. Confirm both Cloudflare and Google return your record."
+            "text": "Open /tools/dns-ssl-checker or run dig @1.1.1.1 lovable-mvp.agentdomains.co. Confirm both Cloudflare and Google return your record."
           }
         },
         {
@@ -136,7 +136,7 @@
 }
 </script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1' y='1' width='30' height='30' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A0A0A'/><path d='M9 10 L16 16 L9 22' fill='none' stroke='%2300CC74' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/><rect x='17.5' y='19.8' width='7.6' height='3.2' rx='1.6' fill='%23C6F24E'/></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -151,10 +151,21 @@
     <a class="logo" href="/">agent<span class="dot">·</span>domains</a>
     <div class="nav-links">
       <a class="nav-secondary" href="https://docs.agentdomains.co">Docs</a>
-      <a href="/tools">Tools</a>
-      <a class="nav-secondary" href="/pricing">Pricing</a>
+      <a class="nav-secondary" href="/tools">Tools</a>
+      <a href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="seo-nav">Pricing</a>
       <a class="nav-secondary" href="/manage">Manage</a>
-      <a class="nav-cta" href="https://docs.agentdomains.co/quickstart" data-umami-event="signup_click" data-umami-event-location="seo-nav">Get started</a>
+      <details class="nav-more">
+        <summary aria-label="More navigation">Menu</summary>
+        <div class="nav-more-panel">
+          <a href="https://docs.agentdomains.co">Docs</a>
+          <a href="/tools">Free Tools</a>
+          <a href="/mcp">MCP Guides</a>
+          <a href="/guides">Host Playbooks</a>
+          <a href="/compare">Compare</a>
+          <a href="/manage">Manage Names</a>
+        </div>
+      </details>
+      <a class="nav-cta" href="/?q=lovable-mvp&domain=agentdomains.co#domain-input" data-umami-event="signup_click" data-umami-event-location="seo-nav">Claim free</a>
     </div>
   </div>
 </nav>
@@ -222,7 +233,7 @@
     <rect x="346" y="32" width="114" height="22" rx="6" fill="#0A0A0A"/>
     <text x="403" y="47" text-anchor="middle" font-family="Space Mono,monospace" font-weight="700" font-size="10" fill="#C6F24E">AGENTDOMAINS</text>
     <text x="451" y="82" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="16" fill="#0A0A0A">Edge 302 / 301 Forward</text>
-    <text x="451" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#0A0A0A">lovable-mvp.makes.fyi</text>
+    <text x="451" y="106" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#0A0A0A">lovable-mvp.agentdomains.co</text>
     <text x="451" y="130" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#007A43">Path Preserved · Auto TLS</text>
 
     <!-- Arrow 2 -->
@@ -239,7 +250,7 @@
     <text x="759" y="116" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#00A85E">Port 443 · Valid Cert</text>
     <text x="759" y="136" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#525252">Zero bandwidth caps</text>
   </svg>
-  <p class="diagram-caption">Origin-to-edge flow for Lovable: connect my-mvp.lovable.app to lovable-mvp.makes.fyi with automatic HTTPS.</p>
+  <p class="diagram-caption">Origin-to-edge flow for Lovable: connect my-mvp.lovable.app to lovable-mvp.agentdomains.co with automatic HTTPS.</p>
 </div>
 
       <h2>1. Choose Mode: <span class="g">Edge Proxy vs DNS-01</span></h2>
@@ -274,8 +285,8 @@
     <button type="button" class="copy-btn">COPY</button>
   </div>
   <pre><code>agentdomains signup
-agentdomains claim lovable-mvp --email you@example.com
-agentdomains forward lovable-mvp https://my-mvp.lovable.app</code></pre>
+agentdomains claim lovable-mvp --email you@example.com --domain agentdomains.co
+agentdomains forward lovable-mvp https://my-mvp.lovable.app --domain agentdomains.co</code></pre>
 </div>
 
       <h2>2. Interactive: <span class="g">Generate My CLI Command</span></h2>
@@ -293,8 +304,8 @@ agentdomains forward lovable-mvp https://my-mvp.lovable.app</code></pre>
           <div class="field">
             <label for="gen-domain">Domain Suffix</label>
             <select id="gen-domain" data-field="domain">
-              <option value="makes.fyi">.makes.fyi (default)</option>
-              <option value="agentdomains.co">.agentdomains.co</option>
+              <option value="agentdomains.co">.agentdomains.co (default)</option>
+              <option value="makes.fyi">.makes.fyi</option>
             </select>
           </div>
           <div class="field">
@@ -343,7 +354,7 @@ agentdomains forward lovable-mvp https://my-mvp.lovable.app</code></pre>
   <h2 id="faq-heading">Frequently asked <span class="g">questions</span></h2>
   <div class="faq-list">
     <div class="faq-item"><h3>Should I use edge proxy or an A record for Lovable?</h3><p>Use <code>agentdomains forward</code> for quick links to <code>*.lovable.app</code>. Export to Railway or Fly.io to use <code>agentdomains proxy</code>.</p></div>
-    <div class="faq-item"><h3>How do I check DNS propagation for Lovable?</h3><p>Open /tools/dns-ssl-checker or run dig @1.1.1.1 lovable-mvp.makes.fyi. Confirm both Cloudflare and Google return your record.</p></div>
+    <div class="faq-item"><h3>How do I check DNS propagation for Lovable?</h3><p>Open /tools/dns-ssl-checker or run dig @1.1.1.1 lovable-mvp.agentdomains.co. Confirm both Cloudflare and Google return your record.</p></div>
     <div class="faq-item"><h3>Can an AI agent configure Lovable routing via MCP?</h3><p>Yes. Connect your client to https://mcp.agentdomains.co. Ask it to call claim_domain and set_forward.</p></div>
   </div>
 </section>
@@ -372,6 +383,17 @@ agentdomains forward lovable-mvp https://my-mvp.lovable.app</code></pre>
         </a>
       </div>
     
+  <section class="cta-band" aria-label="Claim an agent domain">
+    <div class="cta-band-copy">
+      <span class="eyebrow">30 Days Free · No Card Required</span>
+      <h2>Claim your <span class="g">agent domain</span> now</h2>
+      <p>Start with 10 free HTTPS domains under <code>agentdomains.co</code> or <code>makes.fyi</code> for 30 days. Upgrade to Pro for $10/year to keep up to 100 names with visitor stats.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a class="btn" href="/?q=lovable-mvp&domain=agentdomains.co#domain-input" data-umami-event="seo_cta_claim" data-umami-event-location="/guides/lovable">Claim in Browser →</a>
+      <a class="btn ghost" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="/guides/lovable">See Pricing ($10/yr)</a>
+    </div>
+  </section>
 </main>
 <footer class="site-footer">
   <div class="footer-inner">

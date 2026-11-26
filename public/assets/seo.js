@@ -1,6 +1,9 @@
 /* AgentDomains shared interactive helpers for Programmatic SEO pages */
 (function(){
   const API = 'https://api.agentdomains.co';
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const track = (ev, data) => { try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(ev, data); } catch (e) {} };
+  const pagePath = window.location.pathname || '/';
 
   function copyText(text, btn){
     const done = () => {
@@ -39,7 +42,10 @@
       const pre = box && box.querySelector('pre');
       if (pre) text = pre.textContent;
     }
-    if (text) copyText(text.trim(), btn);
+    if (text) {
+      copyText(text.trim(), btn);
+      track('seo_copy', { path: pagePath });
+    }
   });
 
   // Tab switchers
@@ -147,7 +153,8 @@
         const d = await r.json();
         if (d.reason === 'available') {
           statusEl.className = 'status-line status-ok';
-          statusEl.textContent = `AVAILABLE: ${d.fqdn} is free right now.`;
+          const claimUrl = `/?q=${encodeURIComponent(label)}&domain=${encodeURIComponent(domain)}#domain-input`;
+          statusEl.innerHTML = `AVAILABLE: ${esc(d.fqdn)} is free now. <a href="${claimUrl}" style="text-decoration:underline;font-weight:700" data-umami-event="claim_from_seo" data-umami-event-location="${esc(pagePath)}">Claim in browser →</a>`;
         } else if (d.reason === 'taken') {
           statusEl.className = 'status-line status-err';
           statusEl.textContent = `TAKEN: ${d.fqdn} is already claimed — try another label.`;
@@ -155,6 +162,7 @@
           statusEl.className = 'status-line status-err';
           statusEl.textContent = d.detail || 'Invalid label — use lowercase letters, digits, and hyphens.';
         }
+        track('seo_avail_check', { path: pagePath, domain, result: d.reason || 'other' });
       } catch (e) {
         statusEl.className = 'status-line status-dim';
         statusEl.textContent = 'Could not reach api.agentdomains.co from this browser.';
@@ -210,7 +218,14 @@
         diffOut.className = 'status-line status-dim';
       }
     }
-    slider.addEventListener('input', update);
+    let sliderTracked = false;
+    slider.addEventListener('input', () => {
+      update();
+      if (!sliderTracked) {
+        sliderTracked = true;
+        track('seo_cost_slider', { path: pagePath, rival: rivalName });
+      }
+    });
     update();
   });
 
@@ -262,11 +277,11 @@
       if (cliEl) {
         const hostFlag = h && h !== '@' ? ` --host ${h}` : '';
         if (t === 'NS') {
-          cliEl.textContent = `agentdomains ns myapp ${v} ns2.example.net`;
+          cliEl.textContent = `agentdomains ns myapp ${v} ns2.example.net --domain agentdomains.co`;
         } else if (t === 'TXT' && h === '_acme-challenge') {
-          cliEl.textContent = `agentdomains txt myapp "${v}"`;
+          cliEl.textContent = `agentdomains txt myapp "${v}" --domain agentdomains.co`;
         } else {
-          cliEl.textContent = `agentdomains record myapp --type ${t} --content "${v}"${hostFlag}`;
+          cliEl.textContent = `agentdomains record myapp --domain agentdomains.co --type ${t} --content "${v}"${hostFlag}`;
         }
       }
     }
@@ -291,7 +306,7 @@
     const statSuffix = hub.querySelector('[data-stat-suffix]');
     const cards = Array.from(hub.querySelectorAll('.name-card'));
 
-    function currentDomain(){ return domainSel ? domainSel.value : 'makes.fyi'; }
+    function currentDomain(){ return domainSel ? domainSel.value : 'agentdomains.co'; }
 
     function refreshStats(){
       let avail = 0, taken = 0, pending = 0;
@@ -315,10 +330,12 @@
         card.querySelector('.name-fqdn').textContent = `${lbl}.${dom}`;
         const cbtn = card.querySelector('.copy-btn[data-copy]');
         if (cbtn) cbtn.dataset.copy = `agentdomains claim ${lbl} --email you@example.com${dflag}`;
+        const clink = card.querySelector('[data-claim-link]');
+        if (clink) clink.href = `/?q=${encodeURIComponent(lbl)}&domain=${encodeURIComponent(dom)}#domain-input`;
         const badge = card.querySelector('.badge');
         if (badge) {
           badge.className = 'badge checking';
-          badge.textContent = 'click check';
+          badge.textContent = 'unchecked';
         }
       });
       refreshStats();
@@ -385,7 +402,8 @@
         const d = await r.json();
         if (d.reason === 'available') {
           customOut.className = 'status-line status-ok';
-          customOut.innerHTML = `AVAILABLE: <b>${d.fqdn}</b> — run <code>agentdomains claim ${raw} --email you@example.com${dflag}</code>`;
+          const claimUrl = `/?q=${encodeURIComponent(raw)}&domain=${encodeURIComponent(dom)}#domain-input`;
+          customOut.innerHTML = `AVAILABLE: <b>${esc(d.fqdn)}</b> — <a href="${claimUrl}" style="text-decoration:underline;font-weight:700" data-umami-event="claim_from_seo" data-umami-event-location="${esc(pagePath)}">Claim in browser →</a> or run <code>agentdomains claim ${esc(raw)} --email you@example.com${esc(dflag)}</code>`;
         } else if (d.reason === 'taken') {
           customOut.className = 'status-line status-err';
           customOut.textContent = `TAKEN: ${d.fqdn} is already claimed.`;
@@ -393,6 +411,7 @@
           customOut.className = 'status-line status-err';
           customOut.textContent = d.detail || 'Invalid label format.';
         }
+        track('seo_avail_check', { path: pagePath, domain: dom, result: d.reason || 'other' });
       } catch (e) {
         customOut.className = 'status-line status-dim';
         customOut.textContent = 'Could not reach api.agentdomains.co.';

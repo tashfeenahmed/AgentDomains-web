@@ -3,6 +3,7 @@ import {
   esc,
   escInline,
   stripTicks,
+  fitTitle,
   renderPage,
   breadcrumbSchema,
   codeBox,
@@ -93,7 +94,7 @@ export function buildUseCasePages() {
   ];
 
   const hubHtml = `
-    <span class="eyebrow">Cluster 04 · 30 Agent &amp; Vibe-Coding Blueprints</span>
+    <span class="eyebrow">30 Agent &amp; Vibe-Coding Blueprints</span>
     <h1>Agent Workflow <span class="g">Blueprints</span></h1>
     <p class="lede">Copy-paste MCP tool transcripts, sequence diagrams, and CI teardown scripts for webhooks, OAuth, PR previews, bots, and A2A agents.</p>
     ${renderSpecStrip([
@@ -128,7 +129,7 @@ export function buildUseCasePages() {
     priority: '0.9',
     html: renderPage({
       path: hubPath,
-      title: 'AgentDomains Workflow Blueprints: 30 AI Agent, Webhook & Vibe-Coding Flows',
+      title: 'Agent Workflow Blueprints (30 Flows) — AgentDomains',
       description: 'Copy-paste MCP tool transcripts, sequence diagrams, and CI teardown jobs for PR previews, Stripe webhooks, OAuth, bots, and remote MCP.',
       activeNav: 'use-cases',
       breadcrumbs: hubBreadcrumbs,
@@ -285,9 +286,10 @@ jobs:
       priority: '0.8',
       html: renderPage({
         path: pagePath,
-        title: `${u.name} — AgentDomains MCP Workflow Blueprint`,
+        title: fitTitle(`${u.name} Blueprint — AgentDomains`, `${u.name} | AgentDomains`),
         description: `${u.summary} Includes a 4-step MCP transcript, sequence diagram, and CI teardown job.`,
         activeNav: 'use-cases',
+        ctaPrefill: u.label,
         breadcrumbs,
         jsonLdGraph: [
           breadcrumbSchema(breadcrumbs, pageUrl),

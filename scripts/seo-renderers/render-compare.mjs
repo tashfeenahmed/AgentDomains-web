@@ -2,6 +2,7 @@ import {
   SITE,
   esc,
   escInline,
+  fitTitle,
   renderPage,
   breadcrumbSchema,
   faqSchema,
@@ -151,12 +152,12 @@ export function buildComparePages() {
       .slice(0, 4);
 
     const bodyHtml = `
-      <span class="eyebrow">Cluster 03 · Honest Head-to-Head Comparison</span>
+      <span class="eyebrow">Head-to-Head Comparison</span>
       <h1>AgentDomains vs <span class="g">${esc(r.name)}</span></h1>
       <p class="lede">Compare AgentDomains and ${esc(r.name)} (<code>${esc(r.domain)}</code>) on DNS control, HTTPS proxy, MCP tools, and 1-year cost.</p>
       ${renderSpecStrip([
         { icon: 'tag', label: 'AgentDomains Pro', value: '$10/yr (100 names)', tone: 'green' },
-        { icon: 'globe', label: r.name + ' (10)', value: shortCost10(r) },
+        { icon: 'globe', label: 'Rival (10 Names)', value: shortCost10(r) },
         { icon: 'plug', label: 'Category', value: shortCategory(r.category), tone: 'lime' },
         { icon: 'card', label: 'Trial Card', value: 'None Needed' },
       ])}
@@ -164,7 +165,7 @@ export function buildComparePages() {
       ${renderCostBarSvg(r)}
 
       <div class="panel warn">
-        <strong>Clear scope note:</strong> AgentDomains gives <strong>managed subdomains</strong> (<code>*.makes.fyi</code> and <code>*.agentdomains.co</code>). It does not sell transferable <code>.com</code> domains or app hosting.
+        <strong>Clear scope note:</strong> AgentDomains gives <strong>managed subdomains</strong> (<code>*.agentdomains.co</code> and <code>*.makes.fyi</code>). It does not sell transferable <code>.com</code> domains or app hosting.
       </div>
 
       <h2>1. Side-by-Side <span class="g">Capability Matrix</span></h2>
@@ -245,8 +246,10 @@ export function buildComparePages() {
           </div>
         </div>
         <div class="status-line" data-diff-out></div>
-        <div style="margin-top:.75rem">
-          <a class="btn sm ghost" href="/tools/domain-cost-calculator">Open Full Multi-Provider TCO Calculator →</a>
+        <div class="btn-row" style="margin:.75rem 0 0">
+          <a class="btn sm" href="/#domain-input" data-umami-event="claim_from_seo" data-umami-event-location="${esc(pagePath)}">Start 30-Day Free Trial →</a>
+          <a class="btn sm ghost" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="${esc(pagePath)}">See Pricing ($10/yr)</a>
+          <a class="btn sm ghost" href="/tools/domain-cost-calculator">Multi-Provider Calculator</a>
         </div>
       </div>
 
@@ -303,7 +306,7 @@ export function buildComparePages() {
       priority: '0.8',
       html: renderPage({
         path: pagePath,
-        title: `AgentDomains vs ${r.name} (${r.domain}) — Honest Cost, DNS & MCP Comparison`,
+        title: fitTitle(`AgentDomains vs ${r.name}: Cost, DNS & MCP`, `AgentDomains vs ${r.name}`),
         description: `Honest comparison of AgentDomains vs ${r.name}: writable DNS, edge HTTPS proxy, ACME DNS-01, MCP server, and 1-year cost.`,
         activeNav: 'compare',
         breadcrumbs,

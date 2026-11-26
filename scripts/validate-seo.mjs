@@ -76,6 +76,8 @@ for (const file of htmlFiles) {
     if (!tMatch) errors.push(`${rel}: Missing <title>`);
     else {
       const t = tMatch[1].trim();
+      const decodedTitle = t.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      if (decodedTitle.length > 60) errors.push(`${rel}: <title> > 60 chars (${decodedTitle.length}): "${decodedTitle}"`);
       if (titles.has(t)) errors.push(`${rel}: Duplicate <title> with ${titles.get(t)}: "${t}"`);
       else titles.set(t, rel);
     }
@@ -160,7 +162,7 @@ for (const sm of childSitemaps) {
   const locs = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
   const lastmods = [...xml.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map((m) => m[1]);
   if (locs.length === 0) errors.push(`${sm}: Contains 0 URLs`);
-  if (lastmods.some((d) => d !== '2026-11-24')) errors.push(`${sm}: Found lastmod != 2026-11-24`);
+  if (lastmods.some((d) => d !== '2026-11-26')) errors.push(`${sm}: Found lastmod != 2026-11-26`);
   for (const loc of locs) {
     if (!loc.startsWith('https://agentdomains.co/')) errors.push(`${sm}: Invalid host in ${loc}`);
     if (sitemapUrls.has(loc)) errors.push(`${sm}: Duplicate sitemap URL ${loc}`);

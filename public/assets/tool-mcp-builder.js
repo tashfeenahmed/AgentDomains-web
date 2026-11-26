@@ -181,6 +181,7 @@
 
       testStatus.className = 'status-line status-ok';
       testStatus.textContent = `HANDSHAKE OK (${r1.status}) — ${srv} responded in ${ms1}ms and advertised ${tools.length} tools (${ms2}ms).`;
+      try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('tool_mcp_handshake', { ok: true, tools: tools.length }); } catch (e) {}
 
       testOut.textContent = JSON.stringify({
         endpoint: url,

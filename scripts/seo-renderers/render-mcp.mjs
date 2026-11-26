@@ -3,6 +3,7 @@ import {
   esc,
   escInline,
   stripTicks,
+  fitTitle,
   renderPage,
   breadcrumbSchema,
   faqSchema,
@@ -145,7 +146,7 @@ export function buildMcpPages() {
   ];
 
   const hubHtml = `
-    <span class="eyebrow">Cluster 01 · 25 MCP Client Integrations</span>
+    <span class="eyebrow">25 MCP Client Integrations</span>
     <h1>AgentDomains <span class="g">MCP Setup</span> Guides</h1>
     <p class="lede">Connect any AI editor, CLI agent, or framework to our 20-tool MCP server. Use hosted Streamable HTTP or local <code>npx</code> stdio.</p>
     ${renderSpecStrip([
@@ -185,7 +186,7 @@ export function buildMcpPages() {
     priority: '0.9',
     html: renderPage({
       path: hubPath,
-      title: 'AgentDomains MCP Setup Guides: 25 AI Clients & Frameworks',
+      title: 'AgentDomains MCP Setup Guides (25 AI Clients)',
       description: 'Copy-paste MCP setup configs for Claude Code, Cursor, VS Code, Windsurf, OpenAI Agents SDK, LangChain, CrewAI, n8n, and 17 more AI clients.',
       activeNav: 'mcp',
       breadcrumbs: hubBreadcrumbs,
@@ -326,7 +327,7 @@ export function buildMcpPages() {
       priority: '0.8',
       html: renderPage({
         path: pagePath,
-        title: `AgentDomains MCP Setup for ${c.name} — Streamable HTTP & stdio`,
+        title: fitTitle(`${c.name} MCP Setup — AgentDomains`, `${c.name} MCP | AgentDomains`),
         description: `Connect ${c.name} to AgentDomains MCP (${c.transport}). Copy-paste config, first prompt, and troubleshooting notes.`,
         activeNav: 'mcp',
         breadcrumbs,
@@ -339,7 +340,11 @@ export function buildMcpPages() {
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'macOS, Linux, Windows',
             url: pageUrl,
-            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            offers: [
+              { '@type': 'Offer', name: 'Free trial (30 days)', price: '0', priceCurrency: 'USD', url: `${SITE}/pricing` },
+              { '@type': 'Offer', name: 'Pro (Monthly)', price: '1', priceCurrency: 'USD', url: `${SITE}/pricing` },
+              { '@type': 'Offer', name: 'Pro (Yearly)', price: '10', priceCurrency: 'USD', url: `${SITE}/pricing` },
+            ],
           },
           {
             '@type': 'HowTo',

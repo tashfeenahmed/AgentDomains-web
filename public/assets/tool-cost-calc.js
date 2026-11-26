@@ -91,8 +91,12 @@
       if (wantProxy) extras.push('built-in edge HTTPS proxy');
       if (wantMcp) extras.push('hosted 20-tool MCP server');
       if (wantAcme) extras.push('ACME DNS-01 automation');
-      verdictEl.innerHTML = `<strong>Best Fit: AgentDomains ($${adCost.toFixed(2)} total) — saves ~$${saveVsCf.toFixed(2)} vs buying ${n} .com domains.</strong><br>
-        For ${n} ${isTrial ? '30-day sprint' : years + '-year'} agent hostnames${extras.length ? ' with ' + extras.join(', ') : ''}, managed subdomains eliminate per-domain registrar fees while keeping full DNS control.`;
+      verdictEl.innerHTML = `<strong>Best Fit: AgentDomains ($${adCost.toFixed(2)} total) — save ~$${saveVsCf.toFixed(2)} vs buying ${n} .com domains.</strong><br>
+        For ${n} ${isTrial ? '30-day sprint' : years + '-year'} agent hostnames${extras.length ? ' with ' + extras.join(', ') : ''}, managed subdomains remove per-domain registrar fees while keeping full DNS control.
+        <div class="btn-row" style="margin:.85rem 0 0">
+          <a class="btn sm" href="/#domain-input" data-umami-event="claim_from_seo" data-umami-event-location="tool-tco-verdict">Claim 10 names free (30 days) →</a>
+          <a class="btn sm ghost" href="/pricing" data-umami-event="pricing_cta" data-umami-event-location="tool-tco-verdict">Go Pro ($10/yr)</a>
+        </div>`;
     }
 
     // Live SVG Horizontal Bar Chart
@@ -129,9 +133,17 @@
       .join('');
   }
 
+  let tracked = false;
   [projIn, lifeSel, needTld, needProxy, needMcp, needAcme].forEach((el) => {
-    el.addEventListener('input', render);
-    el.addEventListener('change', render);
+    const onChange = () => {
+      render();
+      if (!tracked) {
+        tracked = true;
+        try { if (window.umami && typeof window.umami.track === 'function') window.umami.track('tool_cost_calc_used', { projects: Number(projIn.value) }); } catch (e) {}
+      }
+    };
+    el.addEventListener('input', onChange);
+    el.addEventListener('change', onChange);
   });
   render();
 })();

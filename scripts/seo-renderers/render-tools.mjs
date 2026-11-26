@@ -121,7 +121,7 @@ export function buildToolPages() {
     priority: '0.9',
     html: renderPage({
       path: hubPath,
-      title: 'Free MCP, DNS & Domain Cost Tools for AI Agents — AgentDomains',
+      title: 'Free MCP, DNS & Domain Tools — AgentDomains',
       description: 'Three free browser tools: Universal MCP Config Builder with live handshake tester, DNS & ACME DNS-01 Debugger, and Domain TCO Calculator.',
       activeNav: 'tools',
       breadcrumbs: hubBreadcrumbs,
@@ -276,7 +276,7 @@ export function buildToolPages() {
     priority: '0.9',
     html: renderPage({
       path: t1Path,
-      title: 'Universal MCP Config Builder & Live Streamable HTTP Tester — AgentDomains',
+      title: 'Universal MCP Config Builder & Tester — AgentDomains',
       description: 'Build verified MCP configs for Claude Code, Cursor, VS Code, Windsurf, Codex, Zed, and SDKs. Test live Streamable HTTP handshakes.',
       activeNav: 'tools',
       breadcrumbs: t1Bc,
@@ -329,7 +329,7 @@ export function buildToolPages() {
     ${renderStepPills(['Enter hostname', 'Optional ACME token', 'Compare 1.1.1.1 vs 8.8.8.8'])}
     ${renderToolFlowSvg(
       'Dual-resolver DNS over HTTPS lookup flow',
-      { tag: 'INPUT', title: 'Hostname + Token', sub: 'myapp.makes.fyi' },
+      { tag: 'INPUT', title: 'Hostname + Token', sub: 'myapp.agentdomains.co' },
       { tag: 'DOH API', title: 'Dual Query', sub: 'Cloudflare + Google' },
       { tag: 'SYNC', title: 'Diff & ACME Pass', sub: 'TTL + token verification' },
       'Queries run in parallel directly from your browser over HTTPS with zero server proxy.'
@@ -339,7 +339,7 @@ export function buildToolPages() {
       <form id="dc-form" class="widget-grid" style="align-items:end">
         <div class="field" style="grid-column:span 2">
           <label for="dc-host">Hostname or Subdomain</label>
-          <input id="dc-host" type="text" value="agentdomains.co" placeholder="myapp.makes.fyi">
+          <input id="dc-host" type="text" value="agentdomains.co" placeholder="myapp.agentdomains.co">
         </div>
         <div class="field">
           <label for="dc-expected">Optional Expected ACME TXT Token</label>
@@ -361,7 +361,7 @@ export function buildToolPages() {
     <div id="dc-results" class="grid"></div>
 
     <div class="panel accent" style="margin-top:1.5rem">
-      <strong>Publish an ACME token fast:</strong> Run <code>agentdomains txt &lt;label&gt; &lt;token&gt;</code> or call <code>add_acme_challenge</code>. Wait 5 seconds and re-run this check.
+      <strong>Publish an ACME token fast:</strong> Run <code>agentdomains txt &lt;label&gt; &lt;token&gt; --domain agentdomains.co</code> or call <code>add_acme_challenge</code>. Wait 5 seconds and re-run this check.
     </div>
 
     ${renderFaqs(t2Faqs)}
@@ -372,7 +372,7 @@ export function buildToolPages() {
     priority: '0.9',
     html: renderPage({
       path: t2Path,
-      title: 'Live DNS Propagation & ACME DNS-01 Checker (1.1.1.1 + 8.8.8.8 DoH) — AgentDomains',
+      title: 'Live DNS & ACME DNS-01 Checker — AgentDomains',
       description: 'Free browser DNS and ACME DNS-01 debugger querying Cloudflare 1.1.1.1 and Google 8.8.8.8 DoH for A, AAAA, CNAME, TXT, NS, and ACME records.',
       activeNav: 'tools',
       breadcrumbs: t2Bc,
@@ -494,7 +494,7 @@ export function buildToolPages() {
     priority: '0.9',
     html: renderPage({
       path: t3Path,
-      title: 'Agent Hostname & Domain TCO Calculator (1–100 Projects) — AgentDomains',
+      title: 'Agent Domain Cost (TCO) Calculator — AgentDomains',
       description: 'Compare 30-day, 1-year, and 3-year costs across AgentDomains, Cloudflare, Porkbun, Namecheap, ngrok, and x402 with a live SVG chart.',
       activeNav: 'tools',
       breadcrumbs: t3Bc,
